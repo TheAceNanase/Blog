@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>分布式进程 - ❤Nanase</title><meta name="Description" content="分布式进程就是多台机器创建进程联合执行任务。"><meta property="og:title" content="分布式进程" />
+<meta property="og:description" content="分布式进程就是多台机器创建进程联合执行任务。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/" />
+<meta property="og:image" content="/logo.png"/>
+<meta property="article:published_time" content="2016-04-30T15:46:34+08:00" />
+<meta property="article:modified_time" content="2016-04-30T15:46:34+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/logo.png"/>
+
+<meta name="twitter:title" content="分布式进程"/>
+<meta name="twitter:description" content="分布式进程就是多台机器创建进程联合执行任务。"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/" /><link rel="prev" href="/threadlocal/" /><link rel="next" href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "分布式进程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "\/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B\/"
+        },"genre": "posts","keywords": "Python","wordcount":  2089 ,
+        "url": "\/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B\/","datePublished": "2016-04-30T15:46:34+08:00","dateModified": "2016-04-30T15:46:34+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": "分布式进程就是多台机器创建进程联合执行任务。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">分布式进程</h1><h2 class="single-subtitle">分布式进程 </h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-04-30">2016-04-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2089 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/" class="leancloud_visitors" data-flag-title="分布式进程">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#小结">小结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>在Thread和Process中，应当优选Process，因为Process更稳定，而且，Process可以分布到多台机器上，而Thread最多只能分布到同一台机器的多个CPU上。</p>
+<p>Python的<code>multiprocessing</code>模块不但支持多进程，其中<code>managers</code>子模块还支持把多进程分布到多台机器上。一个服务进程可以作为调度者，将任务分布到其他多个进程中，依靠网络通信。由于<code>managers</code>模块封装很好，不必了解网络通信的细节，就可以很容易地编写分布式多进程程序。</p>
+<p>举个例子：如果我们已经有一个通过<code>Queue</code>通信的多进程程序在同一台机器上运行，现在，由于处理任务的进程任务繁重，希望把发送任务的进程和处理任务的进程分布到两台机器上。怎么用分布式进程实现？</p>
+<p>原有的<code>Queue</code>可以继续使用，但是，通过<code>managers</code>模块把<code>Queue</code>通过网络暴露出去，就可以让其他机器的进程访问<code>Queue</code>了。</p>
+<p>我们先看服务进程，服务进程负责启动<code>Queue</code>，把<code>Queue</code>注册到网络上，然后往<code>Queue</code>里面写入任务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># task_master.py
+
+import random, time, queue
+from multiprocessing.managers import BaseManager
+
+# 发送任务的队列:
+task_queue = queue.Queue()
+# 接收结果的队列:
+result_queue = queue.Queue()
+
+# 从BaseManager继承的QueueManager:
+class QueueManager(BaseManager):
+    pass
+
+# 把两个Queue都注册到网络上, callable参数关联了Queue对象:
+QueueManager.register(&#39;get_task_queue&#39;, callable=lambda: task_queue)
+QueueManager.register(&#39;get_result_queue&#39;, callable=lambda: result_queue)
+# 绑定端口5000, 设置验证码&#39;abc&#39;:
+manager = QueueManager(address=(&#39;&#39;, 5000), authkey=b&#39;abc&#39;)
+# 启动Queue:
+manager.start()
+# 获得通过网络访问的Queue对象:
+task = manager.get_task_queue()
+result = manager.get_result_queue()
+# 放几个任务进去:
+for i in range(10):
+    n = random.randint(0, 10000)
+    print(&#39;Put task %d...&#39; % n)
+    task.put(n)
+# 从result队列读取结果:
+print(&#39;Try get results...&#39;)
+for i in range(10):
+    r = result.get(timeout=10)
+    print(&#39;Result: %s&#39; % r)
+# 关闭:
+manager.shutdown()
+print(&#39;master exit.&#39;)
+</code></pre></td></tr></table>
+</div>
+</div><p>请注意，当我们在一台机器上写多进程程序时，创建的<code>Queue</code>可以直接拿来用，但是，在分布式多进程环境下，添加任务到<code>Queue</code>不可以直接对原始的<code>task_queue</code>进行操作，那样就绕过了<code>QueueManager</code>的封装，必须通过<code>manager.get_task_queue()</code>获得的<code>Queue</code>接口添加。</p>
+<p>然后，在另一台机器上启动任务进程（本机上启动也可以）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># task_worker.py
+
+import time, sys, queue
+from multiprocessing.managers import BaseManager
+
+# 创建类似的QueueManager:
+class QueueManager(BaseManager):
+    pass
+
+# 由于这个QueueManager只从网络上获取Queue，所以注册时只提供名字:
+QueueManager.register(&#39;get_task_queue&#39;)
+QueueManager.register(&#39;get_result_queue&#39;)
+
+# 连接到服务器，也就是运行task_master.py的机器:
+server_addr = &#39;127.0.0.1&#39;
+print(&#39;Connect to server %s...&#39; % server_addr)
+# 端口和验证码注意保持与task_master.py设置的完全一致:
+m = QueueManager(address=(server_addr, 5000), authkey=b&#39;abc&#39;)
+# 从网络连接:
+m.connect()
+# 获取Queue的对象:
+task = m.get_task_queue()
+result = m.get_result_queue()
+# 从task队列取任务,并把结果写入result队列:
+for i in range(10):
+    try:
+        n = task.get(timeout=1)
+        print(&#39;run task %d * %d...&#39; % (n, n))
+        r = &#39;%d * %d = %d&#39; % (n, n, n*n)
+        time.sleep(1)
+        result.put(r)
+    except Queue.Empty:
+        print(&#39;task queue is empty.&#39;)
+# 处理结束:
+print(&#39;worker exit.&#39;)
+</code></pre></td></tr></table>
+</div>
+</div><p>任务进程要通过网络连接到服务进程，所以要指定服务进程的IP。</p>
+<p>现在，可以试试分布式进程的工作效果了。先启动<code>task_master.py</code>服务进程：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python3 task_master.py 
+Put task 3411...
+Put task 1605...
+Put task 1398...
+Put task 4729...
+Put task 5300...
+Put task 7471...
+Put task 68...
+Put task 4219...
+Put task 339...
+Put task 7866...
+Try get results...
+</code></pre></td></tr></table>
+</div>
+</div><p><code>task_master.py</code>进程发送完任务后，开始等待<code>result</code>队列的结果。现在启动<code>task_worker.py</code>进程：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python3 task_worker.py
+Connect to server 127.0.0.1...
+run task 3411 * 3411...
+run task 1605 * 1605...
+run task 1398 * 1398...
+run task 4729 * 4729...
+run task 5300 * 5300...
+run task 7471 * 7471...
+run task 68 * 68...
+run task 4219 * 4219...
+run task 339 * 339...
+run task 7866 * 7866...
+worker exit.
+</code></pre></td></tr></table>
+</div>
+</div><p><code>task_worker.py</code>进程结束，在<code>task_master.py</code>进程中会继续打印出结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Result: 3411 * 3411 = 11634921
+Result: 1605 * 1605 = 2576025
+Result: 1398 * 1398 = 1954404
+Result: 4729 * 4729 = 22363441
+Result: 5300 * 5300 = 28090000
+Result: 7471 * 7471 = 55815841
+Result: 68 * 68 = 4624
+Result: 4219 * 4219 = 17799961
+Result: 339 * 339 = 114921
+Result: 7866 * 7866 = 61873956
+</code></pre></td></tr></table>
+</div>
+</div><p>这个简单的Master/Worker模型有什么用？其实这就是一个简单但真正的分布式计算，把代码稍加改造，启动多个worker，就可以把任务分布到几台甚至几十台机器上，比如把计算<code>n*n</code>的代码换成发送邮件，就实现了邮件队列的异步发送。</p>
+<p>Queue对象存储在哪？注意到<code>task_worker.py</code>中根本没有创建Queue的代码，所以，Queue对象存储在<code>task_master.py</code>进程中：</p>
+<p>而<code>Queue</code>之所以能通过网络访问，就是通过<code>QueueManager</code>实现的。由于<code>QueueManager</code>管理的不止一个<code>Queue</code>，所以，要给每个<code>Queue</code>的网络调用接口起个名字，比如<code>get_task_queue</code>。</p>
+<p><code>authkey</code>有什么用？这是为了保证两台机器正常通信，不被其他机器恶意干扰。如果<code>task_worker.py</code>的<code>authkey</code>和<code>task_master.py</code>的<code>authkey</code>不一致，肯定连接不上。</p>
+<h3 id="小结">小结</h3>
+<p>Python的分布式进程接口简单，封装良好，适合需要把繁重任务分布到多台机器的环境下。</p>
+<p>注意Queue的作用是用来传递任务和接收结果，每个任务的描述数据量要尽量小。比如发送一个处理日志文件的任务，就不要发送几百兆的日志文件本身，而是发送日志文件存放的完整路径，由Worker进程再去共享的磁盘上读取文件。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-04-30</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/" data-title="分布式进程" data-hashtags="Python"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/" data-title="分布式进程"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/" data-title="分布式进程"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/" data-title="分布式进程"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">Python</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/threadlocal/" class="prev" rel="prev" title="ThreadLocal"><i class="fas fa-angle-left fa-fw"></i>ThreadLocal</a>
+            <a href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="next" rel="next" title="正则表达式">正则表达式<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"Bu42IhLNJc94WvCDKSsRwTqa-gzGzoHsz","appKey":"bKSP5XiBoIHs8PyXC4uhGhqQ","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

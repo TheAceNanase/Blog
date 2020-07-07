@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>常用第三方模块--psutil - ❤Nanase</title><meta name="Description" content="psutil是一个开源切跨平台的库，其提供了便利的函数用来获取才做系统的信息，比如CPU，内存，磁盘，网络等。此外，psutil还可以用来进行进程管理，包括判断进程是否存在、获取进程列表、获取进程详细信息等。而且psutil还提供了许多命令行工具提供的功能。"><meta property="og:title" content="常用第三方模块--psutil" />
+<meta property="og:description" content="psutil是一个开源切跨平台的库，其提供了便利的函数用来获取才做系统的信息，比如CPU，内存，磁盘，网络等。此外，psutil还可以用来进行进程管理，包括判断进程是否存在、获取进程列表、获取进程详细信息等。而且psutil还提供了许多命令行工具提供的功能。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-psutil/" />
+<meta property="og:image" content="/logo.png"/>
+<meta property="article:published_time" content="2015-12-02T18:01:34+08:00" />
+<meta property="article:modified_time" content="2015-12-02T18:01:34+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/logo.png"/>
+
+<meta name="twitter:title" content="常用第三方模块--psutil"/>
+<meta name="twitter:description" content="psutil是一个开源切跨平台的库，其提供了便利的函数用来获取才做系统的信息，比如CPU，内存，磁盘，网络等。此外，psutil还可以用来进行进程管理，包括判断进程是否存在、获取进程列表、获取进程详细信息等。而且psutil还提供了许多命令行工具提供的功能。"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-psutil/" /><link rel="prev" href="/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-requests/" /><link rel="next" href="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "常用第三方模块--psutil",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "\/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-psutil\/"
+        },"genre": "posts","keywords": "Python","wordcount":  1949 ,
+        "url": "\/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-psutil\/","datePublished": "2015-12-02T18:01:34+08:00","dateModified": "2015-12-02T18:01:34+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": "psutil是一个开源切跨平台的库，其提供了便利的函数用来获取才做系统的信息，比如CPU，内存，磁盘，网络等。此外，psutil还可以用来进行进程管理，包括判断进程是否存在、获取进程列表、获取进程详细信息等。而且psutil还提供了许多命令行工具提供的功能。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">常用第三方模块--psutil</h1><h2 class="single-subtitle">常用第三方模块--psutil</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2015-12-02">2015-12-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1949 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-psutil/" class="leancloud_visitors" data-flag-title="常用第三方模块--psutil">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#安装psutil">安装psutil</a></li>
+            <li><a href="#获取cpu信息">获取CPU信息</a></li>
+            <li><a href="#获取内存信息">获取内存信息</a></li>
+            <li><a href="#获取磁盘信息">获取磁盘信息</a></li>
+            <li><a href="#获取网络信息">获取网络信息</a></li>
+            <li><a href="#获取进程信息">获取进程信息</a></li>
+            <li><a href="#小结">小结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>用Python来编写脚本简化日常的运维工作是Python的一个重要用途。在Linux下，有许多系统命令可以让我们时刻监控系统运行的状态，如<code>ps</code>，<code>top</code>，<code>free</code>等等。要获取这些系统信息，Python可以通过<code>subprocess</code>模块调用并获取结果。但这样做显得很麻烦，尤其是要写很多解析代码。</p>
+<p>在Python中获取系统信息的另一个好办法是使用<code>psutil</code>这个第三方模块。顾名思义，psutil = process and system utilities，它不仅可以通过一两行代码实现系统监控，还可以跨平台使用，支持Linux／UNIX／OSX／Windows等，是系统管理员和运维小伙伴不可或缺的必备模块。</p>
+<h3 id="安装psutil">安装psutil</h3>
+<p>如果安装了Anaconda，psutil就已经可用了。否则，需要在命令行下通过pip安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ pip install psutil
+</code></pre></td></tr></table>
+</div>
+</div><p>如果遇到Permission denied安装失败，请加上sudo重试。</p>
+<h3 id="获取cpu信息">获取CPU信息</h3>
+<p>我们先来获取CPU的信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; import psutil
+&gt; psutil.cpu_count() # CPU逻辑数量
+4
+&gt; psutil.cpu_count(logical=False) # CPU物理核心
+2
+# 2说明是双核超线程, 4则是4核非超线程
+</code></pre></td></tr></table>
+</div>
+</div><p>统计CPU的用户／系统／空闲时间：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; psutil.cpu_times()
+scputimes(user=10963.31, nice=0.0, system=5138.67, idle=356102.45)
+</code></pre></td></tr></table>
+</div>
+</div><p>再实现类似<code>top</code>命令的CPU使用率，每秒刷新一次，累计10次：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; for x in range(10):
+...     print(psutil.cpu_percent(interval=1, percpu=True))
+... 
+[14.0, 4.0, 4.0, 4.0]
+[12.0, 3.0, 4.0, 3.0]
+[8.0, 4.0, 3.0, 4.0]
+[12.0, 3.0, 3.0, 3.0]
+[18.8, 5.1, 5.9, 5.0]
+[10.9, 5.0, 4.0, 3.0]
+[12.0, 5.0, 4.0, 5.0]
+[15.0, 5.0, 4.0, 4.0]
+[19.0, 5.0, 5.0, 4.0]
+[9.0, 3.0, 2.0, 3.0]
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="获取内存信息">获取内存信息</h3>
+<p>使用psutil获取物理内存和交换内存信息，分别使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; psutil.virtual_memory()
+svmem(total=8589934592, available=2866520064, percent=66.6, used=7201386496, free=216178688, active=3342192640, inactive=2650341376, wired=1208852480)
+&gt; psutil.swap_memory()
+sswap(total=1073741824, used=150732800, free=923009024, percent=14.0, sin=10705981440, sout=40353792)
+</code></pre></td></tr></table>
+</div>
+</div><p>返回的是字节为单位的整数，可以看到，总内存大小是8589934592 = 8 GB，已用7201386496 = 6.7 GB，使用了66.6%。</p>
+<p>而交换区大小是1073741824 = 1 GB。</p>
+<h3 id="获取磁盘信息">获取磁盘信息</h3>
+<p>可以通过psutil获取磁盘分区、磁盘使用率和磁盘IO信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; psutil.disk_partitions() # 磁盘分区信息
+[sdiskpart(device=&#39;/dev/disk1&#39;, mountpoint=&#39;/&#39;, fstype=&#39;hfs&#39;, opts=&#39;rw,local,rootfs,dovolfs,journaled,multilabel&#39;)]
+&gt; psutil.disk_usage(&#39;/&#39;) # 磁盘使用情况
+sdiskusage(total=998982549504, used=390880133120, free=607840272384, percent=39.1)
+&gt; psutil.disk_io_counters() # 磁盘IO
+sdiskio(read_count=988513, write_count=274457, read_bytes=14856830464, write_bytes=17509420032, read_time=2228966, write_time=1618405)
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到，磁盘<code>'/'</code>的总容量是998982549504 = 930 GB，使用了39.1%。文件格式是HFS，<code>opts</code>中包含<code>rw</code>表示可读写，<code>journaled</code>表示支持日志。</p>
+<h3 id="获取网络信息">获取网络信息</h3>
+<p>psutil可以获取网络接口和网络连接信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; psutil.net_io_counters() # 获取网络读写字节／包的个数
+snetio(bytes_sent=3885744870, bytes_recv=10357676702, packets_sent=10613069, packets_recv=10423357, errin=0, errout=0, dropin=0, dropout=0)
+&gt; psutil.net_if_addrs() # 获取网络接口信息
+{
+  &#39;lo0&#39;: [snic(family=&lt;AddressFamily.AF_INET: 2&gt;, address=&#39;127.0.0.1&#39;, netmask=&#39;255.0.0.0&#39;), ...],
+  &#39;en1&#39;: [snic(family=&lt;AddressFamily.AF_INET: 2&gt;, address=&#39;10.0.1.80&#39;, netmask=&#39;255.255.255.0&#39;), ...],
+  &#39;en0&#39;: [...],
+  &#39;en2&#39;: [...],
+  &#39;bridge0&#39;: [...]
+}
+&gt; psutil.net_if_stats() # 获取网络接口状态
+{
+  &#39;lo0&#39;: snicstats(isup=True, duplex=&lt;NicDuplex.NIC_DUPLEX_UNKNOWN: 0&gt;, speed=0, mtu=16384),
+  &#39;en0&#39;: snicstats(isup=True, duplex=&lt;NicDuplex.NIC_DUPLEX_UNKNOWN: 0&gt;, speed=0, mtu=1500),
+  &#39;en1&#39;: snicstats(...),
+  &#39;en2&#39;: snicstats(...),
+  &#39;bridge0&#39;: snicstats(...)
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>要获取当前网络连接信息，使用<code>net_connections()</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; psutil.net_connections()
+Traceback (most recent call last):
+  ...
+PermissionError: [Errno 1] Operation not permitted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  ...
+psutil.AccessDenied: psutil.AccessDenied (pid=3847)
+</code></pre></td></tr></table>
+</div>
+</div><p>你可能会得到一个<code>AccessDenied</code>错误，原因是psutil获取信息也是要走系统接口，而获取网络连接信息需要root权限，这种情况下，可以退出Python交互环境，用<code>sudo</code>重新启动：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo python3
+Password: ******
+Python 3.8 ... on darwin
+Type &#34;help&#34;, ... for more information.
+&gt; import psutil
+&gt; psutil.net_connections()
+[
+    sconn(fd=83, family=&lt;AddressFamily.AF_INET6: 30&gt;, type=1, laddr=addr(ip=&#39;::127.0.0.1&#39;, port=62911), raddr=addr(ip=&#39;::127.0.0.1&#39;, port=3306), status=&#39;ESTABLISHED&#39;, pid=3725),
+    sconn(fd=84, family=&lt;AddressFamily.AF_INET6: 30&gt;, type=1, laddr=addr(ip=&#39;::127.0.0.1&#39;, port=62905), raddr=addr(ip=&#39;::127.0.0.1&#39;, port=3306), status=&#39;ESTABLISHED&#39;, pid=3725),
+    sconn(fd=93, family=&lt;AddressFamily.AF_INET6: 30&gt;, type=1, laddr=addr(ip=&#39;::&#39;, port=8080), raddr=(), status=&#39;LISTEN&#39;, pid=3725),
+    sconn(fd=103, family=&lt;AddressFamily.AF_INET6: 30&gt;, type=1, laddr=addr(ip=&#39;::127.0.0.1&#39;, port=62918), raddr=addr(ip=&#39;::127.0.0.1&#39;, port=3306), status=&#39;ESTABLISHED&#39;, pid=3725),
+    sconn(fd=105, family=&lt;AddressFamily.AF_INET6: 30&gt;, type=1, ..., pid=3725),
+    sconn(fd=106, family=&lt;AddressFamily.AF_INET6: 30&gt;, type=1, ..., pid=3725),
+    sconn(fd=107, family=&lt;AddressFamily.AF_INET6: 30&gt;, type=1, ..., pid=3725),
+    ...
+    sconn(fd=27, family=&lt;AddressFamily.AF_INET: 2&gt;, type=2, ..., pid=1)
+]
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="获取进程信息">获取进程信息</h3>
+<p>通过psutil可以获取到所有进程的详细信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; psutil.pids() # 所有进程ID
+[3865, 3864, 3863, 3856, 3855, 3853, 3776, ..., 45, 44, 1, 0]
+&gt; p = psutil.Process(3776) # 获取指定进程ID=3776，其实就是当前Python交互环境
+&gt; p.name() # 进程名称
+&#39;python3.6&#39;
+&gt; p.exe() # 进程exe路径
+&#39;/Users/michael/anaconda3/bin/python3.6&#39;
+&gt; p.cwd() # 进程工作目录
+&#39;/Users/michael&#39;
+&gt; p.cmdline() # 进程启动的命令行
+[&#39;python3&#39;]
+&gt; p.ppid() # 父进程ID
+3765
+&gt; p.parent() # 父进程
+&lt;psutil.Process(pid=3765, name=&#39;bash&#39;) at 4503144040&gt;
+&gt; p.children() # 子进程列表
+[]
+&gt; p.status() # 进程状态
+&#39;running&#39;
+&gt; p.username() # 进程用户名
+&#39;michael&#39;
+&gt; p.create_time() # 进程创建时间
+1511052731.120333
+&gt; p.terminal() # 进程终端
+&#39;/dev/ttys002&#39;
+&gt; p.cpu_times() # 进程使用的CPU时间
+pcputimes(user=0.081150144, system=0.053269812, children_user=0.0, children_system=0.0)
+&gt; p.memory_info() # 进程使用的内存
+pmem(rss=8310784, vms=2481725440, pfaults=3207, pageins=18)
+&gt; p.open_files() # 进程打开的文件
+[]
+&gt; p.connections() # 进程相关网络连接
+[]
+&gt; p.num_threads() # 进程的线程数量
+1
+&gt; p.threads() # 所有线程信息
+[pthread(id=1, user_time=0.090318, system_time=0.062736)]
+&gt; p.environ() # 进程环境变量
+{&#39;SHELL&#39;: &#39;/bin/bash&#39;, &#39;PATH&#39;: &#39;/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:...&#39;, &#39;PWD&#39;: &#39;/Users/michael&#39;, &#39;LANG&#39;: &#39;zh_CN.UTF-8&#39;, ...}
+&gt; p.terminate() # 结束进程
+Terminated: 15 &lt;-- 自己把自己结束了
+</code></pre></td></tr></table>
+</div>
+</div><p>和获取网络连接类似，获取一个root用户的进程需要root权限，启动Python交互环境或者<code>.py</code>文件时，需要<code>sudo</code>权限。</p>
+<p>psutil还提供了一个<code>test()</code>函数，可以模拟出<code>ps</code>命令的效果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo python3
+Password: ******
+Python 3.6.3 ... on darwin
+Type &#34;help&#34;, ... for more information.
+&gt; import psutil
+&gt; psutil.test()
+USER         PID %MEM     VSZ     RSS TTY           START    TIME  COMMAND
+root           0 24.0 74270628 2016380 ?             Nov18   40:51  kernel_task
+root           1  0.1 2494140    9484 ?             Nov18   01:39  launchd
+root          44  0.4 2519872   36404 ?             Nov18   02:02  UserEventAgent
+root          45    ? 2474032    1516 ?             Nov18   00:14  syslogd
+root          47  0.1 2504768    8912 ?             Nov18   00:03  kextd
+root          48  0.1 2505544    4720 ?             Nov18   00:19  fseventsd
+_appleeven    52  0.1 2499748    5024 ?             Nov18   00:00  appleeventsd
+root          53  0.1 2500592    6132 ?             Nov18   00:02  configd
+...
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="小结">小结</h3>
+<p>psutil使得Python程序获取系统信息变得易如反掌。</p>
+<p>psutil还可以获取用户信息、Windows服务等很多有用的系统信息，具体请参考psutil的官网：<a href="https://github.com/giampaolo/psutil" target="_blank" rel="noopener noreffer">https://github.com/giampaolo/psutil</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2015-12-02</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-psutil/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-psutil/" data-title="常用第三方模块--psutil" data-hashtags="Python"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-psutil/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-psutil/" data-title="常用第三方模块--psutil"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-psutil/" data-title="常用第三方模块--psutil"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-psutil/" data-title="常用第三方模块--psutil"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">Python</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97-requests/" class="prev" rel="prev" title="常用第三方模块--requests"><i class="fas fa-angle-left fa-fw"></i>常用第三方模块--requests</a>
+            <a href="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" class="next" rel="next" title="面向对象编程">面向对象编程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"Bu42IhLNJc94WvCDKSsRwTqa-gzGzoHsz","appKey":"bKSP5XiBoIHs8PyXC4uhGhqQ","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

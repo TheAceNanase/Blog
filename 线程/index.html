@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>线程 - ❤Nanase</title><meta name="Description" content="线程（英文：thread），操作系统技术中的术语，是操作系统能够进行运算调度的最小单位，它被包涵在进程之中，是行程中的实际运作单位。"><meta property="og:title" content="线程" />
+<meta property="og:description" content="线程（英文：thread），操作系统技术中的术语，是操作系统能够进行运算调度的最小单位，它被包涵在进程之中，是行程中的实际运作单位。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/%E7%BA%BF%E7%A8%8B/" />
+<meta property="og:image" content="/logo.png"/>
+<meta property="article:published_time" content="2016-04-03T15:46:34+08:00" />
+<meta property="article:modified_time" content="2016-04-03T15:46:34+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/logo.png"/>
+
+<meta name="twitter:title" content="线程"/>
+<meta name="twitter:description" content="线程（英文：thread），操作系统技术中的术语，是操作系统能够进行运算调度的最小单位，它被包涵在进程之中，是行程中的实际运作单位。"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="/%E7%BA%BF%E7%A8%8B/" /><link rel="prev" href="/%E8%BF%9B%E7%A8%8B/" /><link rel="next" href="/%E5%8D%8F%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "线程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "\/%E7%BA%BF%E7%A8%8B\/"
+        },"genre": "posts","keywords": "Python","wordcount":  3514 ,
+        "url": "\/%E7%BA%BF%E7%A8%8B\/","datePublished": "2016-04-03T15:46:34+08:00","dateModified": "2016-04-03T15:46:34+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": "线程（英文：thread），操作系统技术中的术语，是操作系统能够进行运算调度的最小单位，它被包涵在进程之中，是行程中的实际运作单位。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">线程</h1><h2 class="single-subtitle">线程 </h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-04-03">2016-04-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3514 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/%E7%BA%BF%E7%A8%8B/" class="leancloud_visitors" data-flag-title="线程">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#线程简介"><a href="">线程简介</a></a></li>
+        <li><a href="#线程属性"><a href="">线程属性</a></a></li>
+        <li><a href="#线程进程"><a href="">线程进程</a></a></li>
+        <li><a href="#线程周期"><a href="">线程周期</a></a></li>
+        <li><a href="#线程调度"><a href="">线程调度</a></a></li>
+        <li><a href="#线程的组"><a href="">线程的组</a></a></li>
+        <li><a href="#join和守护线程"><a href="">join()和守护线程</a></a></li>
+        <li><a href="#gil全局解释器锁"><a href="">GIL全局解释器锁</a></a></li>
+        <li><a href="#线程锁用户锁"><a href="">线程锁/用户锁</a></a></li>
+        <li><a href="#semaphore信号量"><a href="">Semaphore(信号量)</a></a></li>
+        <li><a href="#-线程池实现并发"><a href=""> 线程池实现并发</a></a></li>
+        <li><a href="#线程池的使用"><a href="">线程池的使用</a></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>线程（英文：thread），，操作系统技术中的术语，是操作系统能够进行运算调度的最小单位，它被包涵在进程之中，是行程中的实际运作单位。一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并行多个线程，每条线程并行执行不同的任务。在Unix SystemV及SunOS中也被称为轻量进程（lightweight processes），但轻量进程更多指内核线程(kernel thread)，而把用户线程(user thread)称为线程。计算机科学术语，指运行中的程序的调度单位。</p>
+<h2 id="线程简介"><a href="" rel="">线程简介</a></h2>
+<p>线程，有时被称为轻量级进程(Lightweight Process，LWP)，是程序执行流的最小单元。一个标准的线程由线程ID，当前指令指针(PC)，寄存器集合和堆栈组成。另外，线程是进程中的一个实体，是被系统独立调度和分派的基本单位，线程自己不拥有系统资源，只拥有一点在运行中必不可少的资源，但它可与同属一个进程的其它线程共享进程所拥有的全部资源。一个线程可以创建和撤消另一个线程，同一进程中的多个线程之间可以并发执行。由于线程之间的相互制约，致使线程在运行中呈现出间断性。线程也有就绪、阻塞和运行三种基本状态。每一个程序都至少有一个线程，那就是程序本身。</p>
+<p>　　线程是程序中一个单一的顺序控制流程。在单个程序中同时运行多个线程完成不同的工作，称为<a href="https://baike.sogou.com/lemma/ShowInnerLink.htm?lemmaId=452880&amp;ss_c=ssc.citiao.link" target="_blank" rel="noopener noreffer">多线程</a>。</p>
+<h2 id="线程属性"><a href="" rel="">线程属性</a></h2>
+<p>在多线程OS中，通常是在一个进程中包括多个线程，每个线程都是作为利用CPU的基本单位，是花费最小开销的实体。线程具有以下属性。</p>
+<p>　　<strong>1）轻型实体</strong></p>
+<p>　　线程中的实体基本上不拥有系统资源，只是有一点必不可少的、能保证独立运行的资源，比如，在每个线程中都应具有一个用于控制线程运行的<a href="https://baike.sogou.com/lemma/ShowInnerLink.htm?lemmaId=57718223&amp;ss_c=ssc.citiao.link" target="_blank" rel="noopener noreffer">线程控制块</a>TCB，用于指示被执行指令序列的程序计数器、保留局部变量、少数状态参数和返回地址等的一组寄存器和堆栈。</p>
+<p>　　<strong>2）独立调度和分派的基本单位。</strong></p>
+<p>　　在多线程OS中，线程是能独立运行的基本单位，因而也是独立调度和分派的基本单位。由于线程很“轻”，故线程的切换非常迅速且开销小。</p>
+<p>　　<strong>3）可并发执行。</strong></p>
+<p>　　在一个进程中的多个线程之间，可以并发执行，甚至允许在一个进程中所有线程都能并发执行；同样，不同进程中的线程也能并发执行。</p>
+<p>　　<strong>4）共享进程资源。</strong></p>
+<p>　　在同一进程中的各个线程，都可以共享该进程所拥有的资源，这首先表现在：所有线程都具有相同的地址空间（进程的地址空间），这意味着，线程可以访问该地址空间的每一个虚地址；此外，还可以访问进程所拥有的已打开文件、定时器、<a href="https://baike.sogou.com/lemma/ShowInnerLink.htm?lemmaId=398107&amp;ss_c=ssc.citiao.link" target="_blank" rel="noopener noreffer">信号量</a>机构等。</p>
+<h2 id="线程进程"><a href="" rel="">线程进程</a></h2>
+<p>线程和进程的区别在于：子进程和父进程有不同的代码和数据空间，而多个线程则共享数据空间，每个线程有自己的执行堆栈和程序计数器为其执行上下文。多线程主要是为了节约CPU时间，发挥利用，根据具体情况而定。线程的运行中需要使用计算机的内存资源和CPU。</p>
+<p>通常在一个进程中可以包含若干个线程，它们可以利用进程所拥有的资源。在引入线程的操作系统中，通常都是把进程作为分配资源的基本单位，而把线程作为独立运行和独立调度的基本单位。由于线程比进程更小，基本上不拥有系统资源，故对它的调度所付出的开销就会小得多，能更高效的提高系统内多个程序间并发执行的程度，从而显著提高系统资源的利用率和吞吐量。
+因而近年来推出的通用操作系统都引入了线程，以便进一步提高系统的并发性，并把它视为现代操作系统的一个重要指标。</p>
+<p>　　线程与进程的区别可以归纳为以下几点：</p>
+<p>　　1）地址空间和其它资源（如打开文件）：进程间相互独立，同一进程的各线程间共享。某进程内的线程在其它进程不可见。</p>
+<p>　　2）通信：进程间通信IPC，线程间可以直接读写进程数据段（如全局变量）来进行通信——需要进程同步和互斥手段的辅助，以保证数据的一致性。 
+　　3）调度和切换：线[上下文切换比进程上下文切换要快得多。 
+　　4）在多线程OS中，进程不是一个可执行的实体。</p>
+<h2 id="线程周期"><a href="" rel="">线程周期</a></h2>
+<p>　　1.新建 2.就绪 3.运行 4.阻塞 5.死亡</p>
+<h2 id="线程调度"><a href="" rel="">线程调度</a></h2>
+<p>　　有线程进入了就绪状态，需要有线程调度程序来决定何时执行，根据优先级来调度。</p>
+<h2 id="线程的组"><a href="" rel="">线程的组</a></h2>
+<p>每个线程都是一个线程组的一个成员，线程组把多个线程集成一个对象,通过线程组可以同时对其中的多个线程进行操作。在生成线程时必须将线程放在指定的线程组，也可以放在缺省的线程组中，缺省的就是生成该线程的线程所在的线程组。一旦一个线程加入了某个线程组，不能被移出这个组。</p>
+<h2 id="join和守护线程"><a href="" rel="">join()和守护线程</a></h2>
+<p>t.join()： 实现所有线程都执行结束后再执行主线程</p>
+<p>Python多线程与多进程中join()方法的效果是相同的。</p>
+<p>首先需要明确几个概念：</p>
+<ul>
+<li>
+<p>知识点一：
+当一个进程启动之后，会默认产生一个主线程，因为线程是程序执行流的最小单元，当设置多线程时，主线程会创建多个子线程，在python中，默认情况下（其实就是setDaemon(False)），主线程执行完自己的任务以后，就退出了，此时子线程会继续执行自己的任务，直到自己的任务结束，例子见下面一。</p>
+</li>
+<li>
+<p>知识点二：
+当我们使用setDaemon(True)方法，设置子线程为守护线程时，主线程一旦执行结束，则全部线程全部被终止执行，可能出现的情况就是，子线程的任务还没有完全执行结束，就被迫停止，例子见下面二。</p>
+</li>
+<li>
+<p>知识点三：
+此时join的作用就凸显出来了，join所完成的工作就是线程同步，即主线程任务结束之后，进入阻塞状态，一直等待其他的子线程执行结束之后，主线程在终止，例子见下面三。</p>
+</li>
+<li>
+<p>知识点四：
+join有一个timeout参数：</p>
+<ol>
+<li>当设置守护线程时，含义是主线程对于子线程等待timeout的时间将会杀死该子线程，最后退出程序。所以说，如果有10个子线程，全部的等待时间就是每个timeout的累加和。简单的来说，就是给每个子线程一个timeout的时间，让他去执行，时间一到，不管任务有没有完成，直接杀死。</li>
+<li>没有设置守护线程时，主线程将会等待timeout的累加和这样的一段时间，时间一到，主线程结束，但是并没有杀死子线程，子线程依然可以继续执行，直到子线程全部结束，程序退出。</li>
+</ol>
+</li>
+<li>
+<p>关键点：</p>
+</li>
+</ul>
+<ol>
+<li>我们的计时是对主线程计时，主线程结束，计时随之结束，打印出主线程的用时。</li>
+<li>主线程的任务完成之后，主线程随之结束，子线程继续执行自己的任务，直到全部的子线程的任务全部结束，程序结束。</li>
+</ol>
+<h2 id="gil全局解释器锁"><a href="" rel="">GIL全局解释器锁</a></h2>
+<p>作用：在一个进程内，同一时刻只能有一个线程执行，保证同一时间仅有一个线程对资源有操作权限</p>
+<p>说明：python多线程中GIL锁只是在CPU操作时（如：计算）才是串行的，其他都是并行的，所以比串行快很多
+1）为了解决不同线程同时访问同一资源时，数据保护问题，而产生了GIL
+2）GIL在解释器的层面限制了程序在同一时间只有一个线程被CPU实际执行，而不管你的程序里实际开了多少条线程
+3）为了解决这个问题，CPython自己定义了一个全局解释器锁，同一时间仅仅有一个线程可以拿到这个数据
+4）python之所以会产生这种不好的状况是因为python启用一个线程是调用操作系统原生线程，就是C接口
+5）但是这仅仅是CPython这个版本的问题，在PyPy，中就没有这种缺陷</p>
+<h2 id="线程锁用户锁"><a href="" rel="">线程锁/用户锁</a></h2>
+<p>1）当一个线程对某个资源进行CPU计算的操作时加一个线程锁，只有当前线程计算完成主动释放锁，其他线程才能对其操作
+2）这样就可以防止还未计算完成，释放GIL锁后其他线程对这个资源操作导致混乱问题</p>
+<h2 id="semaphore信号量"><a href="" rel="">Semaphore(信号量)</a></h2>
+<ol>
+<li>互斥锁 同时只允许一个线程更改数据，而Semaphore是同时允许一定数量的线程更改数据</li>
+<li>比如厕所有3个坑，那最多只允许3个人上厕所，后面的人只能等里面有人出来了才能再进去</li>
+<li>作用就是同一时刻允许运行的线程数量</li>
+</ol>
+<h2 id="-线程池实现并发"><a href="" rel=""> 线程池实现并发</a></h2>
+<p>系统启动一个新线程的成本是比较高的，因为它涉及与操作系统的交互。在这种情形下，使用线程池可以很好地提升性能，尤其是当程序中需要创建大量生存期很短暂的线程时，更应该考虑使用线程池。</p>
+<p>线程池在系统启动时即创建大量空闲的线程，程序只要将一个函数提交给线程池，线程池就会启动一个空闲的线程来执行它。当该函数执行结束后，该线程并不会死亡，而是再次返回到线程池中变成空闲状态，等待执行下一个函数。</p>
+<p>此外，使用线程池可以有效地控制系统中并发线程的数量。当系统中包含有大量的并发线程时，会导致系统性能急剧下降，甚至导致 Python 解释器崩溃，而线程池的最大线程数参数可以控制系统中并发线程的数量不超过此数。</p>
+<h2 id="线程池的使用"><a href="" rel="">线程池的使用</a></h2>
+<p>线程池的基类是 concurrent.futures 模块中的 Executor，Executor 提供了两个子类，即 ThreadPoolExecutor 和 ProcessPoolExecutor，其中 ThreadPoolExecutor 用于创建线程池，而 ProcessPoolExecutor 用于创建进程池。</p>
+<p>如果使用线程池/进程池来管理并发编程，那么只要将相应的 task 函数提交给线程池/进程池，剩下的事情就由线程池/进程池来搞定。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-04-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E7%BA%BF%E7%A8%8B/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="/%E7%BA%BF%E7%A8%8B/" data-title="线程" data-hashtags="Python"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="/%E7%BA%BF%E7%A8%8B/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="/%E7%BA%BF%E7%A8%8B/" data-title="线程"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="/%E7%BA%BF%E7%A8%8B/" data-title="线程"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="/%E7%BA%BF%E7%A8%8B/" data-title="线程"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">Python</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E8%BF%9B%E7%A8%8B/" class="prev" rel="prev" title="进程"><i class="fas fa-angle-left fa-fw"></i>进程</a>
+            <a href="/%E5%8D%8F%E7%A8%8B/" class="next" rel="next" title="协程">协程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"Bu42IhLNJc94WvCDKSsRwTqa-gzGzoHsz","appKey":"bKSP5XiBoIHs8PyXC4uhGhqQ","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

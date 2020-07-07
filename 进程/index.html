@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>进程 - ❤Nanase</title><meta name="Description" content="进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。"><meta property="og:title" content="进程" />
+<meta property="og:description" content="进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/%E8%BF%9B%E7%A8%8B/" />
+<meta property="og:image" content="/logo.png"/>
+<meta property="article:published_time" content="2016-03-27T15:46:34+08:00" />
+<meta property="article:modified_time" content="2016-03-27T15:46:34+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/logo.png"/>
+
+<meta name="twitter:title" content="进程"/>
+<meta name="twitter:description" content="进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="/%E8%BF%9B%E7%A8%8B/" /><link rel="prev" href="/%E5%BA%8F%E5%88%97%E5%8C%96/" /><link rel="next" href="/%E7%BA%BF%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "进程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "\/%E8%BF%9B%E7%A8%8B\/"
+        },"genre": "posts","keywords": "Python","wordcount":  3157 ,
+        "url": "\/%E8%BF%9B%E7%A8%8B\/","datePublished": "2016-03-27T15:46:34+08:00","dateModified": "2016-03-27T15:46:34+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": "进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">进程</h1><h2 class="single-subtitle">进程 </h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-03-27">2016-03-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3157 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/%E8%BF%9B%E7%A8%8B/" class="leancloud_visitors" data-flag-title="进程">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#进程的概念">进程的概念</a></li>
+            <li><a href="#进程的提出">进程的提出</a></li>
+            <li><a href="#进程的定义">进程的定义</a></li>
+            <li><a href="#进程的概念主要有两点">进程的概念主要有两点</a></li>
+            <li><a href="#引入进程的原因">引入进程的原因</a></li>
+            <li><a href="#进程的特征">进程的特征</a></li>
+            <li><a href="#进程的内容">进程的内容</a></li>
+            <li><a href="#进程的状态">进程的状态</a></li>
+            <li><a href="#进程定义拓展回答内容">进程定义拓展回答内容</a></li>
+            <li><a href="#多道编程概念">多道编程概念</a></li>
+            <li><a href="#有了进程为什么还要线程">有了进程为什么还要线程？</a></li>
+            <li><a href="#进程间互相访问数据的四种方法">进程间互相访问数据的四种方法</a></li>
+            <li><a href="#进程池">进程池</a></li>
+            <li><a href="#进程和程序的区别">进程和程序的区别</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="进程的概念">进程的概念</h3>
+<ul>
+<li>
+<p>进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。</p>
+</li>
+<li>
+<p>在早期面向进程设计的计算机结构中，进程是程序的基本执行实体，在当代面向线程设计的计算机结构中，进程是线程的容器。</p>
+</li>
+<li>
+<p>程序是指令、数据及其组织形式的描述，进程是程序的实体。</p>
+</li>
+</ul>
+<h3 id="进程的提出">进程的提出</h3>
+<p>进程是60年代初首先由麻省理工学院的MULTICS系统和IBM公司的CTSS/360系统引入的。</p>
+<p>进程是一个具有独立功能的程序关于某个数据集合的一次运行活动，它可以申请和拥有系统资源，是一个动态的概念，是一个活动的实体，它不只是程序的代码，还包括当前的活动，通过程序计数器的值和处理寄存器的内容来表示。</p>
+<h3 id="进程的定义">进程的定义</h3>
+<ul>
+<li>
+<p>狭义定义：进程是正在运行的程序的实例an instance of a computerprogram that is being executed）。</p>
+</li>
+<li>
+<p>广义定义：进程是一个具有一定独立功能的程序关于某个数据集合的一次运行活动。它是操作系统动态执行的基本单元，在传统的操作系统中，进程既是基本的分配单元，也是基本的执行单元。</p>
+</li>
+<li>
+<p>进程是操作系统中最基本、重要的概念，是多道程序系统出现后，为了刻画系统内部出现的动态情况，描述系统内部各道程序的活动规律引进的一个概念,所有多道程序设计操作系统都建立在进程的基础上。</p>
+</li>
+</ul>
+<h3 id="进程的概念主要有两点">进程的概念主要有两点</h3>
+<ol>
+<li>进程是一个实体。</li>
+</ol>
+<ul>
+<li>每一个进程都有它自己的地址空间，一般情况下，包括文本区域（textregion）、数据区域（dataregion）和堆栈（stack region）。</li>
+<li>文本区域存储处理器执行的代码；数据区域存储变量和进程执行期间使用的动态分配的内存；堆栈区域存储着活动过程调用的指令和本地变量。</li>
+</ul>
+<ol start="2">
+<li>进程是一个“执行中的程序”。</li>
+</ol>
+<ul>
+<li>程序是一个没有生命的实体，只有处理器赋予程序生命时（操作系统执行之），它才能成为一个活动的实体，我们称其为进程。</li>
+</ul>
+<h3 id="引入进程的原因">引入进程的原因</h3>
+<p>为了能正确反映程序执行时，的活动规律和状态变化，需要引入一个新的概念——进程，从变化的角度，动态的分析和研究程序的执行。</p>
+<ol>
+<li>提高资源的利用率</li>
+</ol>
+<ul>
+<li>把一个计算问题中的，可独立执行的程序模块，看做一个进程来处理，比如输入进程、处理进程、打印进程，通过进程的同步，可以这些进程正确合作，从而是处理器和外围设备并行的工作，提高资源的利用率。</li>
+</ul>
+<ol start="2">
+<li>正确的描述程序的执行情况</li>
+</ol>
+<ul>
+<li>从程序的角度无法正确的描述程序的执行状态，尤其是采用多道程序设计，引入进程是非常必要的。</li>
+<li>从理论角度看，是对正在运行的程序过程的抽象。</li>
+<li>从实现角度看，是一种数据结构，目的在于清晰地刻画动态系统的内在规律，有效管理和调度进入计算机系统主存储器运行的程序。</li>
+</ul>
+<h3 id="进程的特征">进程的特征</h3>
+<ul>
+<li>动态性：进程的实质是程序在多道程序系统中的一次执行过程，进程是动态产生，动态消亡的。</li>
+<li>并发性：任何进程都可以同其他进程一起并发执行</li>
+<li>独立性：进程是一个能独立运行的基本单位，同时也是系统分配资源和调度的独立单位；</li>
+<li>异步性：由于进程间的相互制约，使进程具有执行的间断性，即进程按各自独立的、不可预知的速度向前推进</li>
+<li>结构特征：进程由程序、数据和进程控制块三部分组成。</li>
+<li>多个不同的进程可以包含相同的程序：一个程序在不同的数据集里就构成不同的进程，能得到不同的结果；但是执行过程中，程序不能发生改变。</li>
+</ul>
+<h3 id="进程的内容">进程的内容</h3>
+<p>程序的可运行机器码的一个在存储器的映像。</p>
+<p>分配到的存储器（通常包括虚拟内存的一个区域），存储器的内容包括可运行代码、特定于进程的数据（输入、输出）、调用堆栈、堆栈（用于保存运行时运数中途产生的数据）。</p>
+<p>分配给该进程的资源的操作系统描述符，诸如文件描述符（Unix术语）或文件句柄（Windows）、数据源和数据终端。安全特性，诸如进程拥有者和进程的权限集（可以容许的操作）。处理器状态（内文），诸如寄存器内容、物理存储器寻址等。</p>
+<p>当进程正在运行时，状态通常储存在寄存器，其他情况在存储器。</p>
+<h3 id="进程的状态">进程的状态</h3>
+<p>进程执行时的间断性，决定了进程可能具有多种状态，运行中的进程可能具有以下三种基本状态。</p>
+<ol>
+<li>就绪状态（Ready）
+进程已获得除处理器外的所需资源，等待分配处理器资源；只要分配了处理器进程就可执行，就绪进程可以按多个优先级来划分队列。
+例如，当一个进程由于时间片用完而进入就绪状态时，排入低优先级队列，当进程由I/O操作完成而进入就绪状态时，排入高优先级队列。</li>
+<li>运行状态(Running)
+进程占用处理器资源，处于此状态的进程的数目小于等于处理器的数目，在没有其他进程可以执行时(如所有进程都在阻塞状态)，通常会自动执行系统的空闲进程。</li>
+<li>阻塞状态(Blocked)
+由于进程等待某种条件（如I/O操作或进程同步），在条件满足之前无法继续执行，该事件发生前即使把处理器资源分配给该进程，也无法运行。</li>
+</ol>
+<p>每个进程在执行过程中的任一时刻，当且仅当处于上述三种基本状态之一。</p>
+<h3 id="进程定义拓展回答内容">进程定义拓展回答内容</h3>
+<ol>
+<li>
+<p>程序并不能单独运行，只有将程序装载到内存中，系统为它分配资源才能运行，这种执行的程序就称之为进程</p>
+</li>
+<li>
+<p>程序和进程的区别就在于：程序是指令的集合，它是进程运行的静态描述文本；进程是程序的一次执行活动，属于动态概念</p>
+</li>
+<li>
+<p>在多道编程中，我们允许多个程序同时加载到内存中，在操作系统的调度下，可以实现并发地执行。</p>
+</li>
+<li>
+<p>进程的出现让每个用户感觉到自己独享CPU，因此，进程就是为了在CPU上实现多道编程而提出的。</p>
+</li>
+<li>
+<p>进程之间有自己独立的内存，各进程之间不能相互访问</p>
+</li>
+<li>
+<p>创建一个新线程很简单，创建新进程需要对父进程进行复制</p>
+</li>
+</ol>
+<h3 id="多道编程概念">多道编程概念</h3>
+<p>多道编程： 在计算机内存中同时存放几道相互独立的程序，他们共享系统资源，相互穿插运行</p>
+<p>单道编程： 计算机内存中只允许一个的程序运行</p>
+<h3 id="有了进程为什么还要线程">有了进程为什么还要线程？</h3>
+<ol>
+<li>进程优点</li>
+</ol>
+<p>提供了多道编程，让我们感觉我们每个人都拥有自己的CPU和其他资源，可以提高计算机的利用率</p>
+<ol start="2">
+<li>进程的两个重要缺点</li>
+</ol>
+<p>a. 第一点：进程只能在一个时间干一件事，如果想同时干两件事或多件事，进程就无能为力了。</p>
+<p>b. 第二点：进程在执行的过程中如果阻塞，即使进程中有些工作不依赖于输入的数据，也将无法执行（例如等待输入，整个进程就会挂起）。</p>
+<p>c. 例如，我们在使用qq聊天， qq做为一个独立进程如果同一时间只能干一件事，那他如何实现在同一时刻 即能监听键盘输入、又能监听其它人给你发的消息</p>
+<p>d. 你会说，操作系统不是有分时么？分时是指在不同进程间的分时呀</p>
+<p>e. 即操作系统处理一会你的qq任务，又切换到word文档任务上了，每个cpu时间片分给你的qq程序时，你的qq还是只能同时干一件事呀</p>
+<h3 id="进程间互相访问数据的四种方法">进程间互相访问数据的四种方法</h3>
+<p>注：不同进程间内存是不共享的，所以互相之间不能访问对方数据</p>
+<p>法1:  利用Queues实现父进程到子进程（或子进程间）的数据传递</p>
+<p>法2:  使用管道pipe实现两个进程间数据传递</p>
+<p>法3:  Managers实现很多进程间数据共享</p>
+<p>法4：借助redis中间件进行数据共享</p>
+<h3 id="进程池">进程池</h3>
+<p>产生原因：如果有大量任务需要多进程完成，则可能需要频繁的创建删除进程，给进算计带来较多的资源消耗。</p>
+<p>进程池的原理：创建适当的进程放入进程池，用来处理待处理事件，处理完毕后进程不销毁，仍然在进程池中等待处理其他事件，直到事件全部处理完毕，进程退出。 进程的复用降低了资源的消耗。</p>
+<p>进程池的创建</p>
+<ul>
+<li>创建进程池,在池内放入合适数量的进程</li>
+<li>将事件加入进程池的等待队列</li>
+<li>使用进程池内的进程不断的执行等待事件，直到所有事件执行完毕</li>
+<li>所有事件处理完毕后，关闭进程池，回收进程池</li>
+</ul>
+<h3 id="进程和程序的区别">进程和程序的区别</h3>
+<ol>
+<li>程序只是一个普通文件，是一个机器代码指令和数据的集合，所以，程序是一个静态的实体</li>
+<li>而进程是程序运行在数据集上的动态过程，进程是一个动态实体，它应创建而产生，应调度执行因等待资源或事件而被处于等待状态，因完成任务而被撤消</li>
+<li>进程是系统进行资源分配和调度的一个独立单位</li>
+<li>一个程序对应多个进程，一个进程为多个程序服务（两者之间是多对多的关系）</li>
+<li>一个程序执行在不同的数据集上就成为不同的进程，可以用进程控制块来唯一地标识每个进程</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-03-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E8%BF%9B%E7%A8%8B/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="/%E8%BF%9B%E7%A8%8B/" data-title="进程" data-hashtags="Python"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="/%E8%BF%9B%E7%A8%8B/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="/%E8%BF%9B%E7%A8%8B/" data-title="进程"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="/%E8%BF%9B%E7%A8%8B/" data-title="进程"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="/%E8%BF%9B%E7%A8%8B/" data-title="进程"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">Python</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%BA%8F%E5%88%97%E5%8C%96/" class="prev" rel="prev" title="序列化"><i class="fas fa-angle-left fa-fw"></i>序列化</a>
+            <a href="/%E7%BA%BF%E7%A8%8B/" class="next" rel="next" title="线程">线程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"Bu42IhLNJc94WvCDKSsRwTqa-gzGzoHsz","appKey":"bKSP5XiBoIHs8PyXC4uhGhqQ","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

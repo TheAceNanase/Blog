@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>文件读写 - ❤Nanase</title><meta name="Description" content="读写文件是最常见的IO操作。Python内置了读写文件的函数，用法和C是兼容的。"><meta property="og:title" content="文件读写" />
+<meta property="og:description" content="读写文件是最常见的IO操作。Python内置了读写文件的函数，用法和C是兼容的。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" />
+<meta property="og:image" content="/logo.png"/>
+<meta property="article:published_time" content="2016-03-08T15:46:34+08:00" />
+<meta property="article:modified_time" content="2016-03-08T15:46:34+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/logo.png"/>
+
+<meta name="twitter:title" content="文件读写"/>
+<meta name="twitter:description" content="读写文件是最常见的IO操作。Python内置了读写文件的函数，用法和C是兼容的。"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" /><link rel="prev" href="/io%E7%BC%96%E7%A8%8B/" /><link rel="next" href="/stringio%E5%92%8Cbytesio/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "文件读写",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "\/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99\/"
+        },"genre": "posts","keywords": "Python","wordcount":  1814 ,
+        "url": "\/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99\/","datePublished": "2016-03-08T15:46:34+08:00","dateModified": "2016-03-08T15:46:34+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": "读写文件是最常见的IO操作。Python内置了读写文件的函数，用法和C是兼容的。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">文件读写</h1><h2 class="single-subtitle">文件读写 </h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-03-08">2016-03-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1814 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" class="leancloud_visitors" data-flag-title="文件读写">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#读文件">读文件</a></li>
+            <li><a href="#file-like-object">file-like Object</a></li>
+            <li><a href="#二进制文件">二进制文件</a></li>
+            <li><a href="#字符编码">字符编码</a></li>
+            <li><a href="#写文件">写文件</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>读写文件前，我们先必须了解一下，在磁盘上读写文件的功能都是由操作系统提供的，现代操作系统不允许普通的程序直接操作磁盘，所以，读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符），然后，通过操作系统提供的接口从这个文件对象中读取数据（读文件），或者把数据写入这个文件对象（写文件）。</p>
+<h3 id="读文件">读文件</h3>
+<p>要以读文件的模式打开一个文件对象，使用Python内置的<code>open()</code>函数，传入文件名和标示符：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; f = open(&#39;/Users/michael/test.txt&#39;, &#39;r&#39;)
+</code></pre></td></tr></table>
+</div>
+</div><p>标示符&rsquo;r'表示读，这样，我们就成功地打开了一个文件。</p>
+<p>如果文件不存在，<code>open()</code>函数就会抛出一个<code>IOError</code>的错误，并且给出错误码和详细的信息告诉你文件不存在：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; f=open(&#39;/Users/michael/notfound.txt&#39;, &#39;r&#39;)
+Traceback (most recent call last):
+  File &#34;&lt;stdin&gt;&#34;, line 1, in &lt;module&gt;
+FileNotFoundError: [Errno 2] No such file or directory: &#39;/Users/michael/notfound.txt&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>如果文件打开成功，接下来，调用<code>read()</code>方法可以一次读取文件的全部内容，Python把内容读到内存，用一个<code>str</code>对象表示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; f.read()
+&#39;Hello, world!&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>最后一步是调用<code>close()</code>方法关闭文件。文件使用完毕后必须关闭，因为文件对象会占用操作系统的资源，并且操作系统同一时间能打开的文件数量也是有限的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; f.close()
+</code></pre></td></tr></table>
+</div>
+</div><p>由于文件读写时都有可能产生<code>IOError</code>，一旦出错，后面的<code>f.close()</code>就不会调用。所以，为了保证无论是否出错都能正确地关闭文件，我们可以使用<code>try ... finally</code>来实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">try:
+    f = open(&#39;/path/to/file&#39;, &#39;r&#39;)
+    print(f.read())
+finally:
+    if f:
+        f.close()
+</code></pre></td></tr></table>
+</div>
+</div><p>但是每次都这么写实在太繁琐，所以，Python引入了<code>with</code>语句来自动帮我们调用<code>close()</code>方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">with open(&#39;/path/to/file&#39;, &#39;r&#39;) as f:
+    print(f.read())
+</code></pre></td></tr></table>
+</div>
+</div><p>这和前面的<code>try ... finally</code>是一样的，但是代码更佳简洁，并且不必调用<code>f.close()</code>方法。</p>
+<p>调用<code>read()</code>会一次性读取文件的全部内容，如果文件有10G，内存就爆了，所以，要保险起见，可以反复调用<code>read(size)</code>方法，每次最多读取size个字节的内容。另外，调用<code>readline()</code>可以每次读取一行内容，调用<code>readlines()</code>一次读取所有内容并按行返回<code>list</code>。因此，要根据需要决定怎么调用。</p>
+<p>如果文件很小，<code>read()</code>一次性读取最方便；如果不能确定文件大小，反复调用<code>read(size)</code>比较保险；如果是配置文件，调用<code>readlines()</code>最方便：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">for line in f.readlines():
+    print(line.strip()) # 把末尾的&#39;\n&#39;删掉
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="file-like-object">file-like Object</h3>
+<p>像<code>open()</code>函数返回的这种有个<code>read()</code>方法的对象，在Python中统称为file-like Object。除了file外，还可以是内存的字节流，网络流，自定义流等等。file-like Object不要求从特定类继承，只要写个<code>read()</code>方法就行。</p>
+<p><code>StringIO</code>就是在内存中创建的file-like Object，常用作临时缓冲。</p>
+<h3 id="二进制文件">二进制文件</h3>
+<p>前面讲的默认都是读取文本文件，并且是UTF-8编码的文本文件。要读取二进制文件，比如图片、视频等等，用<code>'rb'</code>模式打开文件即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; f = open(&#39;/Users/michael/test.jpg&#39;, &#39;rb&#39;)
+&gt; f.read()
+b&#39;\xff\xd8\xff\xe1\x00\x18Exif\x00\x00...&#39; # 十六进制表示的字节
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="字符编码">字符编码</h3>
+<p>要读取非UTF-8编码的文本文件，需要给<code>open()</code>函数传入<code>encoding</code>参数，例如，读取GBK编码的文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; f = open(&#39;/Users/michael/gbk.txt&#39;, &#39;r&#39;, encoding=&#39;gbk&#39;)
+&gt; f.read()
+&#39;测试&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>遇到有些编码不规范的文件，你可能会遇到<code>UnicodeDecodeError</code>，因为在文本文件中可能夹杂了一些非法编码的字符。遇到这种情况，<code>open()</code>函数还接收一个<code>errors</code>参数，表示如果遇到编码错误后如何处理。最简单的方式是直接忽略：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; f = open(&#39;/Users/michael/gbk.txt&#39;, &#39;r&#39;, encoding=&#39;gbk&#39;, errors=&#39;ignore&#39;)
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="写文件">写文件</h3>
+<p>写文件和读文件是一样的，唯一区别是调用<code>open()</code>函数时，传入标识符<code>'w'</code>或者<code>'wb'</code>表示写文本文件或写二进制文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; f = open(&#39;/Users/michael/test.txt&#39;, &#39;w&#39;)
+&gt; f.write(&#39;Hello, world!&#39;)
+&gt; f.close()
+</code></pre></td></tr></table>
+</div>
+</div><p>你可以反复调用<code>write()</code>来写入文件，但是务必要调用<code>f.close()</code>来关闭文件。当我们写文件时，操作系统往往不会立刻把数据写入磁盘，而是放到内存缓存起来，空闲的时候再慢慢写入。只有调用<code>close()</code>方法时，操作系统才保证把没有写入的数据全部写入磁盘。忘记调用<code>close()</code>的后果是数据可能只写了一部分到磁盘，剩下的丢失了。所以，还是用<code>with</code>语句来得保险：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">with open(&#39;/Users/michael/test.txt&#39;, &#39;w&#39;) as f:
+    f.write(&#39;Hello, world!&#39;)
+</code></pre></td></tr></table>
+</div>
+</div><p>要写入特定编码的文本文件，请给<code>open()</code>函数传入<code>encoding</code>参数，将字符串自动转换成指定编码。</p>
+<p>以<code>'w'</code>模式写入文件时，如果文件已存在，会直接覆盖（相当于删掉后新写入一个文件）。如果我们希望追加到文件末尾怎么办？可以传入<code>'a'</code>以追加（append）模式写入。</p>
+<p>所有模式的定义及含义可以参考Python的<a href="https://docs.python.org/3/library/functions.html#open" target="_blank" rel="noopener noreffer">官方文档</a>。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-03-08</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-title="文件读写" data-hashtags="Python"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-title="文件读写"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-title="文件读写"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-title="文件读写"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">Python</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/io%E7%BC%96%E7%A8%8B/" class="prev" rel="prev" title="IO编程"><i class="fas fa-angle-left fa-fw"></i>IO编程</a>
+            <a href="/stringio%E5%92%8Cbytesio/" class="next" rel="next" title="StringIO和BytesIO">StringIO和BytesIO<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"Bu42IhLNJc94WvCDKSsRwTqa-gzGzoHsz","appKey":"bKSP5XiBoIHs8PyXC4uhGhqQ","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

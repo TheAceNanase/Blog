@@ -1,0 +1,28 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>数据类型 - 标签 - ❤Nanase</title>
+        <link>/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+        <description>数据类型 - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 07 Oct 2015 14:50:28 &#43;0800</lastBuildDate><atom:link href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="self" type="application/rss+xml" /><item>
+    <title>常用内建模块--hashlib</title>
+    <link>/%E5%B8%B8%E7%94%A8%E5%86%85%E5%BB%BA%E6%A8%A1%E5%9D%97-hashlib/</link>
+    <pubDate>Wed, 07 Oct 2015 14:50:28 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>/%E5%B8%B8%E7%94%A8%E5%86%85%E5%BB%BA%E6%A8%A1%E5%9D%97-hashlib/</guid>
+    <description><![CDATA[Python的hashlib提供了常见的摘要算法，如MD5，SHA1等等。 什么是摘要算法呢？摘要算法又称哈希算法、散列算法。它通过一个函数，]]></description>
+</item><item>
+    <title>lambda匿名函数</title>
+    <link>/lambda%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Sun, 23 Aug 2015 14:50:28 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>/lambda%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0/</guid>
+    <description><![CDATA[当我们在传入函数时，有些时候，不需要显式地定义函数，直接传入匿名函数更方便。 在Python中，对匿名函数提供了有限支持。还是以map()函数]]></description>
+</item><item>
+    <title>数据类型和变量</title>
+    <link>/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8F%98%E9%87%8F/</link>
+    <pubDate>Sat, 13 Jun 2015 14:50:28 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8F%98%E9%87%8F/</guid>
+    <description><![CDATA[字符串和常用数据结构 使用字符串 第二次世界大战促使了现代电子计算机的诞生，最初计算机被应用于导弹弹道的计算，而在计算机诞生后的很多年时间里，计]]></description>
+</item></channel>
+</rss>

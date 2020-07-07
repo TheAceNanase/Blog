@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>序列化 - ❤Nanase</title><meta name="Description" content="我们把变量从内存中变成可存储或传输的过程称之为序列化，在Python中叫pickling。"><meta property="og:title" content="序列化" />
+<meta property="og:description" content="我们把变量从内存中变成可存储或传输的过程称之为序列化，在Python中叫pickling。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/%E5%BA%8F%E5%88%97%E5%8C%96/" />
+<meta property="og:image" content="/logo.png"/>
+<meta property="article:published_time" content="2016-03-22T15:46:34+08:00" />
+<meta property="article:modified_time" content="2016-03-22T15:46:34+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/logo.png"/>
+
+<meta name="twitter:title" content="序列化"/>
+<meta name="twitter:description" content="我们把变量从内存中变成可存储或传输的过程称之为序列化，在Python中叫pickling。"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="/%E5%BA%8F%E5%88%97%E5%8C%96/" /><link rel="prev" href="/%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/" /><link rel="next" href="/%E8%BF%9B%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "序列化",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "\/%E5%BA%8F%E5%88%97%E5%8C%96\/"
+        },"genre": "posts","keywords": "Python","wordcount":  2240 ,
+        "url": "\/%E5%BA%8F%E5%88%97%E5%8C%96\/","datePublished": "2016-03-22T15:46:34+08:00","dateModified": "2016-03-22T15:46:34+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": "我们把变量从内存中变成可存储或传输的过程称之为序列化，在Python中叫pickling。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">序列化</h1><h2 class="single-subtitle">序列化 </h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-03-22">2016-03-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2240 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/%E5%BA%8F%E5%88%97%E5%8C%96/" class="leancloud_visitors" data-flag-title="序列化">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#json">JSON</a></li>
+            <li><a href="#json进阶">JSON进阶</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>在程序运行的过程中，所有的变量都是在内存中，比如，定义一个dict：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">d = dict(name=&#39;Bob&#39;, age=20, score=88)
+</code></pre></td></tr></table>
+</div>
+</div><p>可以随时修改变量，比如把<code>name</code>改成<code>'Bill'</code>，但是一旦程序结束，变量所占用的内存就被操作系统全部回收。如果没有把修改后的<code>'Bill'</code>存储到磁盘上，下次重新运行程序，变量又被初始化为<code>'Bob'</code>。</p>
+<p>我们把变量从内存中变成可存储或传输的过程称之为序列化，在Python中叫pickling，在其他语言中也被称之为serialization，marshalling，flattening等等，都是一个意思。</p>
+<p>序列化之后，就可以把序列化后的内容写入磁盘，或者通过网络传输到别的机器上。</p>
+<p>反过来，把变量内容从序列化的对象重新读到内存里称之为反序列化，即unpickling。</p>
+<p>Python提供了<code>pickle</code>模块来实现序列化。</p>
+<p>首先，我们尝试把一个对象序列化并写入文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; import pickle
+&gt; d = dict(name=&#39;Bob&#39;, age=20, score=88)
+&gt; pickle.dumps(d)
+b&#39;\x80\x03}q\x00(X\x03\x00\x00\x00ageq\x01K\x14X\x05\x00\x00\x00scoreq\x02KXX\x04\x00\x00\x00nameq\x03X\x03\x00\x00\x00Bobq\x04u.&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p><code>pickle.dumps()</code>方法把任意对象序列化成一个<code>bytes</code>，然后，就可以把这个<code>bytes</code>写入文件。或者用另一个方法<code>pickle.dump()</code>直接把对象序列化后写入一个file-like Object：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; f = open(&#39;dump.txt&#39;, &#39;wb&#39;)
+&gt; pickle.dump(d, f)
+&gt; f.close()
+</code></pre></td></tr></table>
+</div>
+</div><p>看看写入的<code>dump.txt</code>文件，一堆乱七八糟的内容，这些都是Python保存的对象内部信息。</p>
+<p>当我们要把对象从磁盘读到内存时，可以先把内容读到一个<code>bytes</code>，然后用<code>pickle.loads()</code>方法反序列化出对象，也可以直接用<code>pickle.load()</code>方法从一个<code>file-like Object</code>中直接反序列化出对象。我们打开另一个Python命令行来反序列化刚才保存的对象：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; f = open(&#39;dump.txt&#39;, &#39;rb&#39;)
+&gt; d = pickle.load(f)
+&gt; f.close()
+&gt; d
+{&#39;age&#39;: 20, &#39;score&#39;: 88, &#39;name&#39;: &#39;Bob&#39;}
+</code></pre></td></tr></table>
+</div>
+</div><p>变量的内容又回来了！</p>
+<p>当然，这个变量和原来的变量是完全不相干的对象，它们只是内容相同而已。</p>
+<p>Pickle的问题和所有其他编程语言特有的序列化问题一样，就是它只能用于Python，并且可能不同版本的Python彼此都不兼容，因此，只能用Pickle保存那些不重要的数据，不能成功地反序列化也没关系。</p>
+<h3 id="json">JSON</h3>
+<p>如果我们要在不同的编程语言之间传递对象，就必须把对象序列化为标准格式，比如XML，但更好的方法是序列化为JSON，因为JSON表示出来就是一个字符串，可以被所有语言读取，也可以方便地存储到磁盘或者通过网络传输。JSON不仅是标准格式，并且比XML更快，而且可以直接在Web页面中读取，非常方便。</p>
+<p>JSON表示的对象就是标准的JavaScript语言的对象，JSON和Python内置的数据类型对应如下：</p>
+<table>
+<thead>
+<tr>
+<th>JSON类型</th>
+<th>Python类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{}</td>
+<td>dict</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>list</td>
+</tr>
+<tr>
+<td>&ldquo;string&rdquo;</td>
+<td>str</td>
+</tr>
+<tr>
+<td>1234.56</td>
+<td>int或float</td>
+</tr>
+<tr>
+<td>true/false</td>
+<td>True/False</td>
+</tr>
+<tr>
+<td>null</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>Python内置的<code>json</code>模块提供了非常完善的Python对象到JSON格式的转换。我们先看看如何把Python对象变成一个JSON：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; import json
+&gt; d = dict(name=&#39;Bob&#39;, age=20, score=88)
+&gt; json.dumps(d)
+&#39;{&#34;age&#34;: 20, &#34;score&#34;: 88, &#34;name&#34;: &#34;Bob&#34;}&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p><code>dumps()</code>方法返回一个<code>str</code>，内容就是标准的JSON。类似的，<code>dump()</code>方法可以直接把JSON写入一个<code>file-like Object</code>。</p>
+<p>要把JSON反序列化为Python对象，用<code>loads()</code>或者对应的<code>load()</code>方法，前者把JSON的字符串反序列化，后者从<code>file-like Object</code>中读取字符串并反序列化：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; json_str = &#39;{&#34;age&#34;: 20, &#34;score&#34;: 88, &#34;name&#34;: &#34;Bob&#34;}&#39;
+&gt; json.loads(json_str)
+{&#39;age&#39;: 20, &#39;score&#39;: 88, &#39;name&#39;: &#39;Bob&#39;}
+</code></pre></td></tr></table>
+</div>
+</div><p>由于JSON标准规定JSON编码是UTF-8，所以我们总是能正确地在Python的<code>str</code>与JSON的字符串之间转换。</p>
+<h3 id="json进阶">JSON进阶</h3>
+<p>Python的<code>dict</code>对象可以直接序列化为JSON的<code>{}</code>，不过，很多时候，我们更喜欢用<code>class</code>表示对象，比如定义<code>Student</code>类，然后序列化：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">import json
+
+class Student(object):
+    def __init__(self, name, age, score):
+        self.name = name
+        self.age = age
+        self.score = score
+
+s = Student(&#39;Bob&#39;, 20, 88)
+print(json.dumps(s))
+</code></pre></td></tr></table>
+</div>
+</div><p>运行代码，毫不留情地得到一个<code>TypeError</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Traceback (most recent call last):
+  ...
+TypeError: &lt;__main__.Student object at 0x10603cc50&gt; is not JSON serializable
+</code></pre></td></tr></table>
+</div>
+</div><p>错误的原因是<code>Student</code>对象不是一个可序列化为JSON的对象。</p>
+<p>如果连<code>class</code>的实例对象都无法序列化为JSON，这肯定不合理！</p>
+<p>别急，我们仔细看看<code>dumps()</code>方法的参数列表，可以发现，除了第一个必须的<code>obj</code>参数外，<code>dumps()</code>方法还提供了一大堆的可选参数：</p>
+<p><a href="https://docs.python.org/3/library/json.html#json.dumps" target="_blank" rel="noopener noreffer">https://docs.python.org/3/library/json.html#json.dumps</a></p>
+<p>这些可选参数就是让我们来定制JSON序列化。前面的代码之所以无法把<code>Student</code>类实例序列化为JSON，是因为默认情况下，<code>dumps()</code>方法不知道如何将<code>Student</code>实例变为一个JSON的<code>{}</code>对象。</p>
+<p>可选参数<code>default</code>就是把任意一个对象变成一个可序列为JSON的对象，我们只需要为<code>Student</code>专门写一个转换函数，再把函数传进去即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">def student2dict(std):
+    return {
+        &#39;name&#39;: std.name,
+        &#39;age&#39;: std.age,
+        &#39;score&#39;: std.score
+    }
+</code></pre></td></tr></table>
+</div>
+</div><p>这样，<code>Student</code>实例首先被<code>student2dict()</code>函数转换成<code>dict</code>，然后再被顺利序列化为JSON：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; print(json.dumps(s, default=student2dict))
+{&#34;age&#34;: 20, &#34;name&#34;: &#34;Bob&#34;, &#34;score&#34;: 88}
+</code></pre></td></tr></table>
+</div>
+</div><p>不过，下次如果遇到一个<code>Teacher</code>类的实例，照样无法序列化为JSON。我们可以偷个懒，把任意<code>class</code>的实例变为<code>dict</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">print(json.dumps(s, default=lambda obj: obj.__dict__))
+</code></pre></td></tr></table>
+</div>
+</div><p>因为通常<code>class</code>的实例都有一个<code>__dict__</code>属性，它就是一个<code>dict</code>，用来存储实例变量。也有少数例外，比如定义了<code>__slots__</code>的class。</p>
+<p>同样的道理，如果我们要把JSON反序列化为一个<code>Student</code>对象实例，<code>loads()</code>方法首先转换出一个<code>dict</code>对象，然后，我们传入的<code>object_hook</code>函数负责把<code>dict</code>转换为<code>Student</code>实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">def dict2student(d):
+    return Student(d[&#39;name&#39;], d[&#39;age&#39;], d[&#39;score&#39;])
+</code></pre></td></tr></table>
+</div>
+</div><p>运行结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; json_str = &#39;{&#34;age&#34;: 20, &#34;score&#34;: 88, &#34;name&#34;: &#34;Bob&#34;}&#39;
+&gt; print(json.loads(json_str, object_hook=dict2student))
+&lt;__main__.Student object at 0x10cd3c190&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>打印出的是反序列化的<code>Student</code>实例对象。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-03-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E5%BA%8F%E5%88%97%E5%8C%96/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="/%E5%BA%8F%E5%88%97%E5%8C%96/" data-title="序列化" data-hashtags="Python"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="/%E5%BA%8F%E5%88%97%E5%8C%96/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="/%E5%BA%8F%E5%88%97%E5%8C%96/" data-title="序列化"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="/%E5%BA%8F%E5%88%97%E5%8C%96/" data-title="序列化"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="/%E5%BA%8F%E5%88%97%E5%8C%96/" data-title="序列化"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">Python</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/" class="prev" rel="prev" title="IO编程"><i class="fas fa-angle-left fa-fw"></i>IO编程</a>
+            <a href="/%E8%BF%9B%E7%A8%8B/" class="next" rel="next" title="进程">进程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"Bu42IhLNJc94WvCDKSsRwTqa-gzGzoHsz","appKey":"bKSP5XiBoIHs8PyXC4uhGhqQ","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
