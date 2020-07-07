@@ -1,79 +1,79 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Python - 标签 - ❤Nanase</title>
-        <link>/tags/python/</link>
+        <link>http://www.nishinonanase.xyz/tags/python/</link>
         <description>Python - 标签 - ❤Nanase</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 25 Jun 2016 00:00:00 &#43;0000</lastBuildDate><atom:link href="/tags/python/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 25 Jun 2016 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/python/" rel="self" type="application/rss+xml" /><item>
     <title>WSGI接口</title>
-    <link>/wsgi%E6%8E%A5%E5%8F%A3/</link>
+    <link>http://www.nishinonanase.xyz/wsgi%E6%8E%A5%E5%8F%A3/</link>
     <pubDate>Sat, 25 Jun 2016 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>/wsgi%E6%8E%A5%E5%8F%A3/</guid>
+    <guid>http://www.nishinonanase.xyz/wsgi%E6%8E%A5%E5%8F%A3/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://p3.music.126.net/WZ8Av-iscuwD2qxwib_qrg==/109951165117366911.jpg" referrerpolicy="no-referrer">
             </div>了解了HTTP协议和HTML文档，我们其实就明白了一个Web应用的本质就是： 浏览器发送一个HTTP请求； 服务器收到请求，生成一个HTML文档]]></description>
 </item><item>
     <title>HTML简介</title>
-    <link>/html%E7%AE%80%E4%BB%8B/</link>
+    <link>http://www.nishinonanase.xyz/html%E7%AE%80%E4%BB%8B/</link>
     <pubDate>Sat, 18 Jun 2016 15:46:34 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>/html%E7%AE%80%E4%BB%8B/</guid>
+    <guid>http://www.nishinonanase.xyz/html%E7%AE%80%E4%BB%8B/</guid>
     <description><![CDATA[什么是HTML HTML 是用来描述网页的一种语言。HTML 是一种在 Web 上使用的通用标记语言。HTML 允许你格式化文本，添加图片，创建链接、输入表单、框]]></description>
 </item><item>
     <title>HTTPS协议</title>
-    <link>/https%E5%8D%8F%E8%AE%AE/</link>
+    <link>http://www.nishinonanase.xyz/https%E5%8D%8F%E8%AE%AE/</link>
     <pubDate>Sat, 11 Jun 2016 15:46:34 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>/https%E5%8D%8F%E8%AE%AE/</guid>
+    <guid>http://www.nishinonanase.xyz/https%E5%8D%8F%E8%AE%AE/</guid>
     <description><![CDATA[什么是HTTPS HTTP 协议（HyperText Transfer Protocol，超文本传输协议）是客户端浏览器或其他程序与Web服务器之间的应用层通信协议 。H]]></description>
 </item><item>
     <title>HTTP协议</title>
-    <link>/http%E5%8D%8F%E8%AE%AE/</link>
+    <link>http://www.nishinonanase.xyz/http%E5%8D%8F%E8%AE%AE/</link>
     <pubDate>Sat, 04 Jun 2016 15:46:34 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>/http%E5%8D%8F%E8%AE%AE/</guid>
+    <guid>http://www.nishinonanase.xyz/http%E5%8D%8F%E8%AE%AE/</guid>
     <description><![CDATA[HTTP协议简介 超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是一种用于分布式、协作式和超媒体信息系统的应用层]]></description>
 </item><item>
     <title>TCP和UDP的区别</title>
-    <link>/tcp%E5%92%8Cudp%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+    <link>http://www.nishinonanase.xyz/tcp%E5%92%8Cudp%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
     <pubDate>Thu, 26 May 2016 15:46:34 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>/tcp%E5%92%8Cudp%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+    <guid>http://www.nishinonanase.xyz/tcp%E5%92%8Cudp%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
     <description><![CDATA[TCP与UDP基本区别 基于连接与无连接 TCP要求系统资源较多，UDP较少； UDP程序结构较简单 流模式（TCP）与数据报模式(UDP); TCP]]></description>
 </item><item>
     <title>UDP协议</title>
-    <link>/udp%E5%8D%8F%E8%AE%AE/</link>
+    <link>http://www.nishinonanase.xyz/udp%E5%8D%8F%E8%AE%AE/</link>
     <pubDate>Fri, 20 May 2016 15:46:34 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>/udp%E5%8D%8F%E8%AE%AE/</guid>
+    <guid>http://www.nishinonanase.xyz/udp%E5%8D%8F%E8%AE%AE/</guid>
     <description><![CDATA[UDP协议 UDP（User Datagram Protocol），用户数据报协议，是OSI(Open System Interconnection，开放式系统互联) 参考模型]]></description>
 </item><item>
     <title>TCP-IP简介</title>
-    <link>/tcp-ip%E7%AE%80%E4%BB%8B/</link>
+    <link>http://www.nishinonanase.xyz/tcp-ip%E7%AE%80%E4%BB%8B/</link>
     <pubDate>Mon, 16 May 2016 15:46:34 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>/tcp-ip%E7%AE%80%E4%BB%8B/</guid>
+    <guid>http://www.nishinonanase.xyz/tcp-ip%E7%AE%80%E4%BB%8B/</guid>
     <description><![CDATA[在世界上各地，各种各样的电脑运行着各自不同的操作系统为大家服务，这些电脑在表达同一种信息的时候所使用的方法是千差万别。就好像圣经中上帝打乱了]]></description>
 </item><item>
     <title>virtualenv虚拟环境</title>
-    <link>/virtualenv%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</link>
+    <link>http://www.nishinonanase.xyz/virtualenv%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</link>
     <pubDate>Tue, 10 May 2016 15:46:34 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>/virtualenv%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</guid>
+    <guid>http://www.nishinonanase.xyz/virtualenv%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</guid>
     <description><![CDATA[在开发Python应用程序的时候，系统安装的Python3只有一个版本：3.4。所有第三方的包都会被pip安装到Python3的site-p]]></description>
 </item><item>
     <title>正则表达式</title>
-    <link>/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+    <link>http://www.nishinonanase.xyz/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
     <pubDate>Wed, 04 May 2016 15:46:34 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
+    <guid>http://www.nishinonanase.xyz/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
     <description><![CDATA[字符串是编程时涉及到的最多的一种数据结构，对字符串进行操作的需求几乎无处不在。比如判断一个字符串是否是合法的Email地址，虽然可以编程提取]]></description>
 </item><item>
     <title>分布式进程</title>
-    <link>/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/</link>
+    <link>http://www.nishinonanase.xyz/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/</link>
     <pubDate>Sat, 30 Apr 2016 15:46:34 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/</guid>
+    <guid>http://www.nishinonanase.xyz/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/</guid>
     <description><![CDATA[在Thread和Process中，应当优选Process，因为Process更稳定，而且，Process可以分布到多台机器上，而Thread]]></description>
 </item></channel>
 </rss>
