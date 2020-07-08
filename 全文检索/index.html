@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/www.nishinonanase.xyz\/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2\/"
-        },"genre": "posts","keywords": "技术要点, Django","wordcount":  3865 ,
+        },"genre": "posts","keywords": "技术要点, Django","wordcount":  3314 ,
         "url": "http:\/\/www.nishinonanase.xyz\/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2\/","datePublished": "2017-03-02T18:33:09+08:00","dateModified": "2017-03-02T18:33:09+08:00","publisher": {
             "@type": "Organization",
             "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
@@ -79,8 +79,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">全文检索</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/"><i class="far fa-folder fa-fw"></i>技术要点</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-03-02">2017-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3865 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" class="leancloud_visitors" data-flag-title="全文检索">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-03-02">2017-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3314 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" class="leancloud_visitors" data-flag-title="全文检索">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -93,11 +93,11 @@
     <li><a href="#haystack">Haystack</a>
       <ul>
         <li><a href="#1什么是haystack">1.什么是Haystack</a></li>
-        <li><a href="#2安装">2.安装</a>
+        <li><a href="#2安装">2.安装</a></li>
+        <li><a href="#3配置">3.配置</a>
           <ul>
             <li>
               <ul>
-                <li><a href="#solr示例">Solr示例</a></li>
                 <li><a href="#elasticsearch示例">Elasticsearch示例</a></li>
                 <li><a href="#whoosh示例">Whoosh示例</a></li>
                 <li><a href="#xapian示例">Xapian示例</a></li>
@@ -108,12 +108,6 @@
         <li><a href="#4处理数据">4.处理数据</a>
           <ul>
             <li><a href="#创建索引">创建索引</a></li>
-          </ul>
-        </li>
-        <li><a href="#5设置视图">5.设置视图</a>
-          <ul>
-            <li><a href="#添加searchview到你的urlconf">添加<code>SearchView</code>到你的<code>URLconf</code></a></li>
-            <li><a href="#搜索模板">搜索模板</a></li>
             <li><a href="#重建索引">重建索引</a></li>
           </ul>
         </li>
@@ -121,7 +115,6 @@
         <li><a href="#8其它配置">8.其它配置</a>
           <ul>
             <li><a href="#增加更多变量">增加更多变量</a></li>
-            <li><a href="#高亮显示">高亮显示</a></li>
           </ul>
         </li>
         <li><a href="#python操作elasticsearch">python操作ElasticSearch</a></li>
@@ -150,6 +143,44 @@
 <h2 id="2安装">2.安装</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pip install django-haystack
+pip install whoosh
+pip install jieba
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3配置">3.配置</h2>
+<p>1 添加Haystack到<code>INSTALLED_APPS</code></p>
+<p>　　跟大多数Django的应用一样，你应该在你的设置文件(通常是<code>settings.py</code>)添加Haystack到<code>INSTALLED_APPS</code>. 示例：</p>
+<p>​```python</p>
+<p>INSTALLED_APPS = [</p>
+<pre><code>'django.contrib.admin',
+
+'django.contrib.auth',
+
+'django.contrib.contenttypes',
+
+'django.contrib.sessions',
+
+'django.contrib.sites',
+</code></pre>
+<p>​</p>
+<pre><code># 添加
+
+'haystack',
+</code></pre>
+<p>​</p>
+<pre><code># 你的app
+
+'blog',
+</code></pre>
+<p>]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -174,92 +205,31 @@
 </span><span class="lnt">22
 </span><span class="lnt">23
 </span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">## 3.配置
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+2 修改`settings.py`
 
-1 添加Haystack到`INSTALLED_APPS`
+在你的`settings.py`中，你需要添加一个设置来指示站点配置文件正在使用的后端，以及其它的后端设置。 `HAYSTACK&amp;mdash;&amp;mdash;CONNECTIONS`是必需的设置，并且应该至少是以下的一种： 
 
-　　跟大多数Django的应用一样，你应该在你的设置文件(通常是`settings.py`)添加Haystack到`INSTALLED_APPS`. 示例： 
+#### Solr示例
 
-​```python
+```python
+HAYSTACK_CONNECTIONS = {
 
-INSTALLED_APPS = [
+    &#39;default&#39;: {
 
-    &#39;django.contrib.admin&#39;,
+        &#39;ENGINE&#39;: &#39;haystack.backends.solr_backend.SolrEngine&#39;,
 
-    &#39;django.contrib.auth&#39;,
+        &#39;URL&#39;: &#39;http://127.0.0.1:8983/solr&#39;
 
-    &#39;django.contrib.contenttypes&#39;,
+        # ...or for multicore...
 
-    &#39;django.contrib.sessions&#39;,
+        # &#39;URL&#39;: &#39;http://127.0.0.1:8983/solr/mysite&#39;,
 
-    &#39;django.contrib.sites&#39;,
+    },
 
-​
-
-    # 添加
-
-    &#39;haystack&#39;,
-
-​
-
-    # 你的app
-
-    &#39;blog&#39;,
-
-]
-
-</code></pre></td></tr></table>
-</div>
-</div><p>2 修改<code>settings.py</code></p>
-<p>　　在你的<code>settings.py</code>中，你需要添加一个设置来指示站点配置文件正在使用的后端，以及其它的后端设置。 <code>HAYSTACK&amp;mdash;&amp;mdash;CONNECTIONS</code>是必需的设置，并且应该至少是以下的一种：</p>
-<h4 id="solr示例">Solr示例</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">HAYSTACK_CONNECTIONS</span> <span class="o">=</span> <span class="p">{</span>
-
-    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
-
-        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;haystack.backends.solr_backend.SolrEngine&#39;</span><span class="p">,</span>
-
-        <span class="s1">&#39;URL&#39;</span><span class="p">:</span> <span class="s1">&#39;http://127.0.0.1:8983/solr&#39;</span>
-
-        <span class="c1"># ...or for multicore...</span>
-
-        <span class="c1"># &#39;URL&#39;: &#39;http://127.0.0.1:8983/solr/mysite&#39;,</span>
-
-    <span class="p">},</span>
-
-<span class="p">}</span>
+}
 
 </code></pre></td></tr></table>
 </div>
@@ -299,49 +269,27 @@ INSTALLED_APPS = [
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="whoosh示例">Whoosh示例</h4>
+<p>需要设置PATH到你的Whoosh索引的文件系统位置
+​```python</p>
+<p>import os</p>
+<p>HAYSTACK_CONNECTIONS = {</p>
+<pre><code>'default': {
+
+    'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+
+    'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+
+},
+</code></pre>
+<p>}</p>
+<p>自动更新索引<br /></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">​```python
-
-import os
-
-HAYSTACK_CONNECTIONS = {
-
-    &#39;default&#39;: {
-
-        &#39;ENGINE&#39;: &#39;haystack.backends.whoosh_backend.WhooshEngine&#39;,
-
-        &#39;PATH&#39;: os.path.join(os.path.dirname(__file__), &#39;whoosh_index&#39;),
-
-    },
-
-}
-
-​&lt;br /&gt;
-
-​```md-fences md-end-block ty-contain-cm modeLoaded&#34;&gt;# 自动更新索引&lt;br /&gt;HAYSTACK_SIGNAL_PROCESSOR = &#39;haystack.signals.RealtimeSignalProcessor&#39;
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">HAYSTACK_SIGNAL_PROCESSOR = &#39;haystack.signals.RealtimeSignalProcessor&#39;
 
 </code></pre></td></tr></table>
 </div>
@@ -453,48 +401,47 @@ HAYSTACK_CONNECTIONS = {
 
 </code></pre></td></tr></table>
 </div>
-</div><p> </p>
-<p>　　为什么要创建索引？索引就像是一本书的目录，可以为读者提供更快速的导航与查找。在这里也是同样的道理，当数据量非常大的时候，若要从这些数据里找出所有的满足搜索条件的几乎是不太可能的，将会给服务器带来极大的负担。所以我们需要为指定的数据添加一个索引（目录），在这里是为Note创建一个索引，索引的实现细节是我们不需要关心的，至于为它的哪些字段创建索引，怎么指定 ,下面开始讲解每个索引里面必须有且只能有一个字段为 document=True，这代表haystack 和搜索引擎将使用此字段的内容作为索引进行检索(primary field)。其他的字段只是附属的属性，方便调用，并不作为检索数据</p>
+</div><p>　　为什么要创建索引？索引就像是一本书的目录，可以为读者提供更快速的导航与查找。在这里也是同样的道理，当数据量非常大的时候，若要从这些数据里找出所有的满足搜索条件的几乎是不太可能的，将会给服务器带来极大的负担。所以我们需要为指定的数据添加一个索引（目录），在这里是为Note创建一个索引，索引的实现细节是我们不需要关心的，至于为它的哪些字段创建索引，怎么指定 ,下面开始讲解每个索引里面必须有且只能有一个字段为 document=True，这代表haystack 和搜索引擎将使用此字段的内容作为索引进行检索(primary field)。其他的字段只是附属的属性，方便调用，并不作为检索数据</p>
 <p>```md-fences md-end-block ty-contain-cm modeLoaded&quot;&gt;注意：如果使用一个字段设置了document=True，则一般约定此字段名为text，这是在ArticleIndex类里面一贯的命名，以防止后台混乱，当然名字你也可以随便改，不过不建议改。另外，我们在<code>text</code>字段上提供了<code>use_template=True</code>。这允许我们使用一个数据模板（而不是容易出错的级联）来构建文档搜索引擎索引。你应该在模板目录下建立新的模板<code>search/indexes/blog/article_text.txt</code>，并将下面内容放在里面。</p>
+<p>​```python</p>
+<p>{{ object.title }}</p>
+<p>{{ object.desc }}</p>
+<p>{{ object.content }}</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">​```python
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
 
-{{ object.title }}
 
-{{ object.desc }}
+这个数据模板的作用是对`Note.title`,`Note.user.get_full_name`,`Note.body`这三个字段建立索引，当检索的时候会对这三个字段做全文检索匹配 
 
-{{ object.content }}
+## 5.设置视图
 
-</code></pre></td></tr></table>
-</div>
-</div><p> </p>
-<p>这个数据模板的作用是对<code>Note.title</code>, <code>Note.user.get_full_name</code>,<code>Note.body</code>这三个字段建立索引，当检索的时候会对这三个字段做全文检索匹配</p>
-<h2 id="5设置视图">5.设置视图</h2>
-<h3 id="添加searchview到你的urlconf">添加<code>SearchView</code>到你的<code>URLconf</code></h3>
-<p>在你的<code>URLconf</code>中添加下面一行：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="err">前后端不分离</span><span class="n">url</span><span class="o">&lt;</span><span class="n">br</span> <span class="o">/&gt;</span><span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^search/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;haystack.urls&#39;</span><span class="p">)),</span><span class="o">&lt;</span><span class="n">br</span> <span class="o">/&gt;&lt;</span><span class="n">br</span> <span class="o">/&gt;</span><span class="err">前后端分离</span><span class="n">url</span><span class="o">&lt;</span><span class="n">br</span> <span class="o">/&gt;</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;search/&#39;</span><span class="p">,</span> <span class="n">MySearchView</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;haystack_search&#39;</span><span class="p">),</span>
+### 添加`SearchView`到你的`URLconf`
+
+在你的`URLconf`中添加下面一行：
+
+```python
+前后端不分离url&lt;br /&gt;url(r&#39;^search/&#39;, include(&#39;haystack.urls&#39;)),&lt;br /&gt;&lt;br /&gt;前后端分离url&lt;br /&gt;path(&#39;search/&#39;, MySearchView(), name=&#39;haystack_search&#39;),
 
 </code></pre></td></tr></table>
 </div>
 </div><p>这会拉取Haystack的默认URLconf，它由单独指向<code>SearchView</code>实例的URLconf组成。你可以通过传递几个关键参数或者完全重新它来改变这个类的行为。</p>
-<p> </p>
 <p>前后端分离后台重写create_response方法，</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -562,160 +509,7 @@ HAYSTACK_CONNECTIONS = {
 
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="搜索模板">搜索模板</h3>
-<p>你的搜索模板(默认在<code>search/search.html</code>)将可能非常简单。下面的足够让你的搜索运行(你的<code>template/block</code>应该会不同)</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&lt;</span><span class="err">!</span><span class="n">DOCTYPE</span> <span class="n">html</span><span class="o">&gt;</span>
-
-<span class="o">&lt;</span><span class="n">html</span><span class="o">&gt;</span>
-
-<span class="o">&lt;</span><span class="n">head</span><span class="o">&gt;</span>
-
-    <span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;&lt;/</span><span class="n">title</span><span class="o">&gt;</span>
-
-    <span class="o">&lt;</span><span class="n">style</span><span class="o">&gt;</span>
-
-        <span class="n">span</span><span class="o">.</span><span class="n">highlighted</span> <span class="p">{</span>
-
-            <span class="n">color</span><span class="p">:</span> <span class="n">red</span><span class="p">;</span>
-
-        <span class="p">}</span>
-
-    <span class="o">&lt;/</span><span class="n">style</span><span class="o">&gt;</span>
-
-<span class="o">&lt;/</span><span class="n">head</span><span class="o">&gt;</span>
-
-<span class="o">&lt;</span><span class="n">body</span><span class="o">&gt;</span>
-
-<span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">highlight</span> <span class="o">%</span><span class="p">}</span>
-
-<span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">query</span> <span class="o">%</span><span class="p">}</span>
-
-    <span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="err">搜索结果如下：</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
-
-    <span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">object_list</span> <span class="o">%</span><span class="p">}</span>
-
-<span class="p">{</span><span class="c1">#        &lt;a href=&#34;/{{ result.object.id }}/&#34;&gt;{{ result.object.title }}&lt;/a&gt;&lt;br/&gt;#}</span>
-
-        <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&#34;/{{ result.object.id }}/&#34;</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span>   <span class="n">highlight</span> <span class="n">result</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">title</span> <span class="k">with</span> <span class="n">query</span> <span class="n">max_length</span> <span class="mi">2</span><span class="o">%</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;</span><span class="n">br</span><span class="o">/&gt;</span>
-
-        <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">result</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">content</span><span class="o">|</span><span class="n">safe</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-
-        <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span> <span class="n">highlight</span> <span class="n">result</span><span class="o">.</span><span class="n">content</span> <span class="k">with</span> <span class="n">query</span> <span class="o">%</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-
-    <span class="p">{</span><span class="o">%</span> <span class="n">empty</span> <span class="o">%</span><span class="p">}</span>
-
-        <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="err">啥也没找到</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-
-    <span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
-
-
-
-    <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">has_previous</span> <span class="ow">or</span> <span class="n">page</span><span class="o">.</span><span class="n">has_next</span> <span class="o">%</span><span class="p">}</span>
-
-        <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
-
-            <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">has_previous</span> <span class="o">%</span><span class="p">}</span>
-
-                <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&#34;?q={{ query }}&amp;amp;amp;page={{ page.previous_page_number }}&#34;</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">laquo</span><span class="p">;</span> <span class="err">上一页</span>
-
-            <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">has_previous</span> <span class="o">%</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
-
-            <span class="o">|</span>
-
-            <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">has_next</span> <span class="o">%</span><span class="p">}</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&#34;?q={{ query }}&amp;amp;amp;page={{ page.next_page_number }}&#34;</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span><span class="err">下一页</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">raquo</span><span class="p">;</span>
-
-            <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">has_next</span> <span class="o">%</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
-
-        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
-
-    <span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
-
-<span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
-
-<span class="o">&lt;/</span><span class="n">body</span><span class="o">&gt;</span>
-
-<span class="o">&lt;/</span><span class="n">html</span><span class="o">&gt;</span>
-
-</code></pre></td></tr></table>
-</div>
-</div><p>需要注意的是<code>page.object_list</code>实际上是<code>SearchResult</code>对象的列表。这些对象返回索引的所有数据。它们可以通过<code>{{result.object}}</code>来访问。所以<code>{{ result.object.title}}</code>实际使用的是数据库中Article对象来访问<code>title</code>字段的。</p>
-<h3 id="重建索引">重建索引</h3>
+</div><h3 id="重建索引">重建索引</h3>
 <p>现在你已经配置好了所有的事情，是时候把数据库中的数据放入索引了。Haystack附带的一个命令行管理工具使它变得很容易。</p>
 <p>简单的运行python <code>./manage.py rebuild_index</code>。你会得到有多少模型进行了处理并放进索引的统计。</p>
 <h2 id="6使用jieba分词">6.使用jieba分词</h2>
@@ -879,8 +673,7 @@ analyzer=ChineseAnalyzer()
 
 </code></pre></td></tr></table>
 </div>
-</div><p> </p>
-<h2 id="8其它配置">8.其它配置</h2>
+</div><h2 id="8其它配置">8.其它配置</h2>
 <h3 id="增加更多变量">增加更多变量</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -936,58 +729,7 @@ analyzer=ChineseAnalyzer()
 
 </code></pre></td></tr></table>
 </div>
-</div><p> </p>
-<h3 id="高亮显示">高亮显示</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span><span class="o">%</span> <span class="n">highlight</span> <span class="n">result</span><span class="o">.</span><span class="n">summary</span> <span class="k">with</span> <span class="n">query</span> <span class="o">%</span><span class="p">}</span>  
-
-<span class="c1"># 这里可以限制最终{{ result.summary }}被高亮处理后的长度  </span>
-
-<span class="p">{</span><span class="o">%</span> <span class="n">highlight</span> <span class="n">result</span><span class="o">.</span><span class="n">summary</span> <span class="k">with</span> <span class="n">query</span> <span class="n">max_length</span> <span class="mi">40</span> <span class="o">%</span><span class="p">}</span>  
-
-
-
-<span class="c1">#html中</span>
-
-    <span class="o">&lt;</span><span class="n">style</span><span class="o">&gt;</span>
-
-        <span class="n">span</span><span class="o">.</span><span class="n">highlighted</span> <span class="p">{</span>
-
-            <span class="n">color</span><span class="p">:</span> <span class="n">red</span><span class="p">;</span>
-
-        <span class="p">}</span>
-
-    <span class="o">&lt;/</span><span class="n">style</span><span class="o">&gt;</span>
-
-</code></pre></td></tr></table>
-</div>
-</div><p> </p>
-<p> </p>
-<p><strong>Elasticsearch</strong></p>
-<p> </p>
+</div><p><strong>Elasticsearch</strong></p>
 <p><strong>简介：</strong></p>
 <p>Elasticsearch 是一个分布式可扩展的实时搜索和分析引擎,一个建立在全文搜索引擎 Apache Lucene(TM) 基础上的搜索引擎.当然 Elasticsearch 并不仅仅是 Lucene 那么简单，它不仅包括了全文搜索功能，还可以进行以下工作:</p>
 <ul>
@@ -1004,14 +746,11 @@ analyzer=ChineseAnalyzer()
 <p>可以扩展到上百台服务器，处理PB级别的结构化或非结构化数据。</p>
 </li>
 </ul>
-<p> </p>
 <p><strong>安装：</strong></p>
-<p><a href="https://www.elastic.co/cn/downloads/elasticsearch" target="_blank"> 下载地址</a></p>
+<p><a href="https://www.elastic.co/cn/downloads/elasticsearch" target="_blank">下载地址</a></p>
 <p>注意：Elasticsearch是用Java开发的，最新版本的Elasticsearch需要安装jdk1.8以上的环境</p>
 <p>安装包下载完，解压，进入到bin目录，启动 elasticsearch.bat 即可</p>
-<p> </p>
 <h2 id="python操作elasticsearch">python操作ElasticSearch</h2>
-<p> </p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1

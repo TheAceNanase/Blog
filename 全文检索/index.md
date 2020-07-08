@@ -27,8 +27,11 @@
 
 
 ## 2.安装
-
-```md-fences md-end-block ty-contain-cm modeLoaded">pip install django-haystack<br />pip install whoosh<br />pip install jieba
+```
+pip install django-haystack
+pip install whoosh
+pip install jieba
+```
 ## 3.配置
 
 1 添加Haystack到`INSTALLED_APPS`
@@ -67,7 +70,7 @@ INSTALLED_APPS = [
 
 2 修改`settings.py`
 
-　　在你的`settings.py`中，你需要添加一个设置来指示站点配置文件正在使用的后端，以及其它的后端设置。 `HAYSTACK&mdash;&mdash;CONNECTIONS`是必需的设置，并且应该至少是以下的一种： 
+在你的`settings.py`中，你需要添加一个设置来指示站点配置文件正在使用的后端，以及其它的后端设置。 `HAYSTACK&mdash;&mdash;CONNECTIONS`是必需的设置，并且应该至少是以下的一种： 
 
 #### Solr示例
 
@@ -111,7 +114,7 @@ HAYSTACK_CONNECTIONS = {
 
 #### Whoosh示例
 
-```md-fences md-end-block ty-contain-cm modeLoaded">#需要设置PATH到你的Whoosh索引的文件系统位置<br />
+需要设置PATH到你的Whoosh索引的文件系统位置
 ​```python
 
 import os
@@ -128,9 +131,11 @@ HAYSTACK_CONNECTIONS = {
 
 }
 
-​<br />
 
-​```md-fences md-end-block ty-contain-cm modeLoaded"># 自动更新索引<br />HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+自动更新索引<br />
+```
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 ```
 
@@ -194,13 +199,13 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
 
 ```
 
-&nbsp;
+
 
 　　为什么要创建索引？索引就像是一本书的目录，可以为读者提供更快速的导航与查找。在这里也是同样的道理，当数据量非常大的时候，若要从这些数据里找出所有的满足搜索条件的几乎是不太可能的，将会给服务器带来极大的负担。所以我们需要为指定的数据添加一个索引（目录），在这里是为Note创建一个索引，索引的实现细节是我们不需要关心的，至于为它的哪些字段创建索引，怎么指定 ,下面开始讲解每个索引里面必须有且只能有一个字段为 document=True，这代表haystack 和搜索引擎将使用此字段的内容作为索引进行检索(primary field)。其他的字段只是附属的属性，方便调用，并不作为检索数据
 
 ```md-fences md-end-block ty-contain-cm modeLoaded">注意：如果使用一个字段设置了document=True，则一般约定此字段名为text，这是在ArticleIndex类里面一贯的命名，以防止后台混乱，当然名字你也可以随便改，不过不建议改。另外，我们在`text`字段上提供了`use_template=True`。这允许我们使用一个数据模板（而不是容易出错的级联）来构建文档搜索引擎索引。你应该在模板目录下建立新的模板`search/indexes/blog/article_text.txt`，并将下面内容放在里面。 
 
-```md-fences mock-cm md-end-block">#在目录&ldquo;templates/search/indexes/应用名称/&rdquo;下创建&ldquo;模型类名称_text.txt&rdquo;文件
+
 ​```python
 
 {{ object.title }}
@@ -211,9 +216,9 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
 
 ```
 
-&nbsp;
 
-这个数据模板的作用是对`Note.title`,&nbsp;`Note.user.get_full_name`,`Note.body`这三个字段建立索引，当检索的时候会对这三个字段做全文检索匹配 
+
+这个数据模板的作用是对`Note.title`,`Note.user.get_full_name`,`Note.body`这三个字段建立索引，当检索的时候会对这三个字段做全文检索匹配 
 
 ## 5.设置视图
 
@@ -228,7 +233,7 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
 
 这会拉取Haystack的默认URLconf，它由单独指向`SearchView`实例的URLconf组成。你可以通过传递几个关键参数或者完全重新它来改变这个类的行为。
 
-&nbsp;
+
 
 前后端分离后台重写create_response方法，
 
@@ -265,86 +270,7 @@ class MySearchView(SearchView):
 
 ```
 
-### 搜索模板
 
-你的搜索模板(默认在`search/search.html`)将可能非常简单。下面的足够让你的搜索运行(你的`template/block`应该会不同)
-
-```python
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-    <title></title>
-
-    <style>
-
-        span.highlighted {
-
-            color: red;
-
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-{% load highlight %}
-
-{% if query %}
-
-    <h3>搜索结果如下：</h3>
-
-    {% for result in page.object_list %}
-
-{#        <a href="/{{ result.object.id }}/">{{ result.object.title }}</a><br/>#}
-
-        <a href="/{{ result.object.id }}/">{%   highlight result.object.title with query max_length 2%}</a><br/>
-
-        <p>{{ result.object.content|safe }}</p>
-
-        <p>{% highlight result.content with query %}</p>
-
-    {% empty %}
-
-        <p>啥也没找到</p>
-
-    {% endfor %}
-
-
-
-    {% if page.has_previous or page.has_next %}
-
-        <div>
-
-            {% if page.has_previous %}
-
-                <a href="?q={{ query }}&amp;amp;page={{ page.previous_page_number }}">{% endif %}&amp;laquo; 上一页
-
-            {% if page.has_previous %}</a>{% endif %}
-
-            |
-
-            {% if page.has_next %}<a href="?q={{ query }}&amp;amp;page={{ page.next_page_number }}">{% endif %}下一页 &amp;raquo;
-
-            {% if page.has_next %}</a>{% endif %}
-
-        </div>
-
-    {% endif %}
-
-{% endif %}
-
-</body>
-
-</html>
-
-```
-
-需要注意的是`page.object_list`实际上是`SearchResult`对象的列表。这些对象返回索引的所有数据。它们可以通过`{{result.object}}`来访问。所以`{{ result.object.title}}`实际使用的是数据库中Article对象来访问`title`字段的。 
 
 ### 重建索引
 
@@ -434,7 +360,7 @@ analyzer=ChineseAnalyzer()
 
 ```
 
-&nbsp;
+
 
 ## 8.其它配置
 
@@ -467,40 +393,13 @@ url(r'^search/', search_views.MySeachView(), name='haystack_search'),
 
 ```
 
-&nbsp;
-
-### 高亮显示
-
-```python
-{% highlight result.summary with query %}  
-
-# 这里可以限制最终{{ result.summary }}被高亮处理后的长度  
-
-{% highlight result.summary with query max_length 40 %}  
 
 
 
-#html中
-
-    <style>
-
-        span.highlighted {
-
-            color: red;
-
-        }
-
-    </style>
-
-```
-
-&nbsp;
-
-&nbsp;
 
 **Elasticsearch** 
 
-&nbsp;
+
 
 **简介：**
 
@@ -518,21 +417,21 @@ Elasticsearch 是一个分布式可扩展的实时搜索和分析引擎,一个�
 
 
 
-&nbsp;
+
 
 **安装：**
 
-<a href="https://www.elastic.co/cn/downloads/elasticsearch" target="_blank">&nbsp;下载地址</a>
+<a href="https://www.elastic.co/cn/downloads/elasticsearch" target="_blank">下载地址</a>
 
 注意：Elasticsearch是用Java开发的，最新版本的Elasticsearch需要安装jdk1.8以上的环境
 
 安装包下载完，解压，进入到bin目录，启动 elasticsearch.bat 即可
 
-&nbsp;
+
 
 ## python操作ElasticSearch
 
-&nbsp;
+
 
 ```python
 from elasticsearch import Elasticsearch
