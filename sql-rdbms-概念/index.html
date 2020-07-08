@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>SQL-SELECT 语法 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="SQL-SELECT 语法" />
+<meta property="og:description" content="RDBMS是关系数据库管理系统(Relational Database Management System)的缩写。 RDBMS是SQL的基础，也是所有现代数据库系统(如MS SQL Se" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/sql-rdbms-%E6%A6%82%E5%BF%B5/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2018-11-12T22:08:04+08:00" />
+<meta property="article:modified_time" content="2018-11-12T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="SQL-SELECT 语法"/>
+<meta name="twitter:description" content="RDBMS是关系数据库管理系统(Relational Database Management System)的缩写。 RDBMS是SQL的基础，也是所有现代数据库系统(如MS SQL Se"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/sql-rdbms-%E6%A6%82%E5%BF%B5/" /><link rel="prev" href="http://www.nishinonanase.xyz/sql%E7%AE%80%E4%BB%8B/" /><link rel="next" href="http://www.nishinonanase.xyz/sql-and-or-and-not/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SQL-SELECT 语法",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/sql-rdbms-%E6%A6%82%E5%BF%B5\/"
+        },"genre": "posts","keywords": "数据库, 基础理论, sql语句","wordcount":  1466 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/sql-rdbms-%E6%A6%82%E5%BF%B5\/","datePublished": "2018-11-12T22:08:04+08:00","dateModified": "2018-11-12T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">SQL-SELECT 语法</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2018-11-12">2018-11-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1466 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/sql-rdbms-%E6%A6%82%E5%BF%B5/" class="leancloud_visitors" data-flag-title="SQL-SELECT 语法">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#什么是表">什么是表？</a></li>
+        <li><a href="#什么是字段">什么是字段？</a></li>
+        <li><a href="#什么是记录或者行数据">什么是记录或者行数据？</a></li>
+        <li><a href="#什么是列">什么是列？</a></li>
+        <li><a href="#什么是空值">什么是空值？</a></li>
+        <li><a href="#sql约束">SQL约束</a></li>
+        <li><a href="#数据完整性">数据完整性</a></li>
+        <li><a href="#数据库规范化">数据库规范化</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>　RDBMS是关系数据库管理系统(Relational Database Management System)的缩写。</p>
+<p>　RDBMS是SQL的基础，也是所有现代数据库系统(如MS SQL Server、IBMDB2、Oracle、MySQL和MicrosoftAccess)的基础。</p>
+<p>　关系数据库管理系统(Relational Database Management System，RDBMS)是一种基于E.F.Codd提出的关系模型的数据库管理系统。</p>
+<h2 id="什么是表">什么是表？</h2>
+<hr>
+<p>　RDBMS中的数据存储在称为表的数据库对象中。这个表基本上是一个相关数据条目的集合，它由许多列和行组成。请记住，表是关系数据库中最常见和最简单的数据存储形式。</p>
+<p>　下面的程序是Customers表的一个示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">+----+----------+-----+-----------+----------+
+| ID | NAME     | AGE | ADDRESS   | SALARY   |
++----+----------+-----+-----------+----------+
+|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |
+|  2 | Khilan   |  25 | Delhi     |  1500.00 |
+|  3 | kaushik  |  23 | Kota      |  2000.00 |
+|  4 | Chaitali |  25 | Mumbai    |  6500.00 |
+|  5 | Hardik   |  27 | Bhopal    |  8500.00 |
+|  6 | Komal    |  22 | MP        |  4500.00 |
+|  7 | Muffy    |  24 | Indore    | 10000.00 |
++----+----------+-----+-----------+----------+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="什么是字段">什么是字段？</h2>
+<hr>
+<p>　每个表都被分解成更小的实体，称为字段。Customers表中的字段由ID、姓名、年龄、地址和薪资组成。</p>
+<p>　字段是表中的列，用于维护有关表中每条记录的特定信息。</p>
+<h2 id="什么是记录或者行数据">什么是记录或者行数据？</h2>
+<hr>
+<p>　记录也称为数据行，即表中存在的每个单独的条目。例如，上面的Customers表中有7条记录。下面是Customers表中的单行数据或记录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">+----+----------+-----+-----------+----------+
+|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |
++----+----------+-----+-----------+----------+
+</code></pre></td></tr></table>
+</div>
+</div><p>　记录是表中的水平实体。</p>
+<h2 id="什么是列">什么是列？</h2>
+<hr>
+<p>　列是表中的垂直实体，其中包含与表中特定字段关联的所有信息。</p>
+<p>　例如，Customers表中的一列是Address，它表示位置描述，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">+-----------+
+| ADDRESS   |
++-----------+
+| Ahmedabad |
+| Delhi     |
+| Kota      |
+| Mumbai    |
+| Bhopal    |
+| MP        |
+| Indore    |
++----+------+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="什么是空值">什么是空值？</h2>
+<hr>
+<p>　表中的空值是显示为空的字段中的值，这意味着具有空值的字段是没有值的字段。</p>
+<p>　非常重要的一点是空值不同于零值或包含空格的字段。具有空值的字段是在创建记录时留空的字段。</p>
+<h2 id="sql约束">SQL约束</h2>
+<hr>
+<p>　约束是在表上的数据列上强制执行的规则。它们用于限制可以进入表中的数据类型。</p>
+<p>　这确保了数据库中数据的准确性和可靠性。</p>
+<p>　约束可以是列级别，也可以是表级别。列级约束仅应用于一列，而表级约束则应用于整个表。</p>
+<p>　以下是sql−中可用的一些最常用的约束</p>
+<ul>
+<li><a href="https://www.w3cschool.cn/sql/6tlpzfpb.html" target="_blank" rel="noopener noreffer">NOT NULL 约束</a>：保证列中数据不能有 NULL 值</li>
+<li><a href="https://www.w3cschool.cn/sql/jm8e9fpj.html" target="_blank" rel="noopener noreffer">DEFAULT 约束</a>：提供该列数据未指定时所采用的默认值</li>
+<li><a href="https://www.w3cschool.cn/sql/wxzqsfpc.html" target="_blank" rel="noopener noreffer">UNIQUE 约束</a>：保证列中的所有数据各不相同</li>
+<li><a href="https://www.w3cschool.cn/sql/vle8zfpd.html" target="_blank" rel="noopener noreffer">主键约束</a>：唯一标识数据表中的行/记录</li>
+<li><a href="https://www.w3cschool.cn/sql/5dycsfpf.html" target="_blank" rel="noopener noreffer">外键约束</a>：唯一标识其他表中的一条行/记录</li>
+<li><a href="https://www.w3cschool.cn/sql/fsq7hfph.html" target="_blank" rel="noopener noreffer">CHECK 约束</a>：此约束保证列中的所有值满足某一条件</li>
+<li><a href="https://www.w3cschool.cn/sql/cuj91oz2.html" target="_blank" rel="noopener noreffer">索引</a>：用于在数据库中快速创建或检索数据</li>
+</ul>
+<p>　约束可以在创建表时规定（通过 CREATE TABLE 语句），或者在表创建之后规定（通过 ALTER TABLE 语句）。</p>
+<h2 id="数据完整性">数据完整性</h2>
+<hr>
+<p>　每个关系数据库管理系统都存在以下类型的数据完整性：</p>
+<blockquote>
+<p>实体完整性−表中没有重复行。
+域完整性−通过限制值的类型、格式或范围来强制执行给定列的有效条目。
+引用完整性−不能删除其他记录使用的行。
+用户定义的完整性−强制执行一些不属于实体、域或引用完整性的特定业务规则。</p>
+</blockquote>
+<h2 id="数据库规范化">数据库规范化</h2>
+<hr>
+<p>　数据库规范化是在数据库中有效地组织数据的过程。这个规范化过程有两个原因：</p>
+<ul>
+<li>消除冗余数据，例如，将相同的数据存储在多个表中。</li>
+<li>确保数据依赖关系是有意义的。</li>
+</ul>
+<p>　这两个原因都是值得追求的目标，因为它们减少了数据库消耗的空间量，并确保了数据的逻辑存储。</p>
+<p>　规范化由一系列指导原则组成，有助于指导您创建良好的数据库结构。</p>
+<p>　规范化指导原则称为范式，范式的目的是组织数据库结构，使其符合第一范式、第二范式和第三范式的规则。</p>
+<p>　你可以更长远的去选择第四范式，第五范式，等等，但一般来说，第三范式已经足够了。</p>
+<blockquote>
+<p>第一范式(1NF)
+第二范式(2NF)
+第三范式(3NF)</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-11-12</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/sql-rdbms-%E6%A6%82%E5%BF%B5/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/sql-rdbms-%E6%A6%82%E5%BF%B5/" data-title="SQL-SELECT 语法" data-hashtags="数据库,基础理论,sql语句"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/sql-rdbms-%E6%A6%82%E5%BF%B5/" data-hashtag="数据库"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/sql-rdbms-%E6%A6%82%E5%BF%B5/" data-title="SQL-SELECT 语法"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/sql-rdbms-%E6%A6%82%E5%BF%B5/" data-title="SQL-SELECT 语法"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/sql-rdbms-%E6%A6%82%E5%BF%B5/" data-title="SQL-SELECT 语法"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>,&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">基础理论</a>,&nbsp;<a href="/tags/sql%E8%AF%AD%E5%8F%A5/">sql语句</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/sql%E7%AE%80%E4%BB%8B/" class="prev" rel="prev" title="SQL简介"><i class="fas fa-angle-left fa-fw"></i>SQL简介</a>
+            <a href="/sql-and-or-and-not/" class="next" rel="next" title="SQL-AND, OR and NOT">SQL-AND, OR and NOT<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

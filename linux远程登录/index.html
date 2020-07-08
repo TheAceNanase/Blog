@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Linux远程登录 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="Linux远程登录" />
+<meta property="og:description" content="Linux一般作为服务器使用，而服务器一般放在机房，你不可能在机房操作你的Linux服务器。 这时我们就需要远程登录到Linux服务器来管理维" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2018-05-28T22:08:04+08:00" />
+<meta property="article:modified_time" content="2018-05-28T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Linux远程登录"/>
+<meta name="twitter:description" content="Linux一般作为服务器使用，而服务器一般放在机房，你不可能在机房操作你的Linux服务器。 这时我们就需要远程登录到Linux服务器来管理维"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" /><link rel="prev" href="http://www.nishinonanase.xyz/linux%E5%BF%98%E8%AE%B0%E5%AF%86%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" /><link rel="next" href="http://www.nishinonanase.xyz/linux%E6%96%87%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux远程登录",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95\/"
+        },"genre": "posts","keywords": "Linux, 操作系统, 基础理论","wordcount":  1350 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95\/","datePublished": "2018-05-28T22:08:04+08:00","dateModified": "2018-05-28T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Linux远程登录</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2018-05-28">2018-05-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1350 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="leancloud_visitors" data-flag-title="Linux远程登录">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#linux一般作为服务器使用而服务器一般放在机房你不可能在机房操作你的linux服务器">Linux一般作为服务器使用，而服务器一般放在机房，你不可能在机房操作你的Linux服务器。</a></li>
+        <li><a href="#使用密钥认证机制远程登录linux">使用密钥认证机制远程登录linux</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="linux一般作为服务器使用而服务器一般放在机房你不可能在机房操作你的linux服务器">Linux一般作为服务器使用，而服务器一般放在机房，你不可能在机房操作你的Linux服务器。</h2>
+<p>这时我们就需要远程登录到Linux服务器来管理维护系统。</p>
+<p>CentOS系统默认安装了openssh</p>
+<p>如果没有安装可以使用命令进行安装：</p>
+<blockquote>
+<p>yum install openssh-server -y</p>
+</blockquote>
+<p>Linux系统中是通过ssh服务实现的远程登录功能，默认ssh服务端口号为 22。</p>
+<p>Window系统上 Linux 远程登录客户端有SecureCRT, Putty, SSH Secure Shell，Xshell等，本文以Putty为例来登录远程服务器。</p>
+<p>putty下载地址：<a href="https://www.putty.org/" target="_blank" rel="noopener noreffer">http://www.putty.org/</a></p>
+<p>如果你下载了putty，请双击putty.exe 然后弹出如下的窗口。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_1.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_1.png, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_1.png 1.5x, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_1.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_1.png"
+        title="5_1" /></p>
+<p>在Host Name( or IP address) 下面的框中输入你要登录的远程服务器IP(可以通过ifconfig命令查看服务器ip)，然后回车。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_12.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_12.png, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_12.png 1.5x, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_12.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_12.png"
+        title="5_12" /></p>
+<p>此时，提示我们输入要登录的用户名。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_13.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_13.png, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_13.png 1.5x, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_13.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_13.png"
+        title="5_13" /></p>
+<p>输入root 然后回车，再输入密码，就能登录到远程的linux系统了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_14.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_14.png, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_14.png 1.5x, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_14.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_14.png"
+        title="5_14" /></p>
+<hr>
+<h2 id="使用密钥认证机制远程登录linux">使用密钥认证机制远程登录linux</h2>
+<p>SSH 为 Secure Shell 的缩写，由 IETF 的网络工作小组（Network Working Group）所制定。</p>
+<p>SSH 为建立在应用层和传输层基础上的安全协议。</p>
+<p>首先使用工具 PUTTYGEN.EXE 生成密钥对。打开工具PUTTYGEN.EXE后如下图所示：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_15.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_15.png, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_15.png 1.5x, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_15.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_15.png"
+        title="5_15" /></p>
+<p>该工具可以生成三种格式的key ：SSH-1(RSA)
+SSH-2(RSA) SSH-2(DSA) ，我们采用默认的格式即SSH-2(RSA)。Number of bits in a 
+generated key 这个是指生成的key的大小，这个数值越大，生成的key就越复杂，安全性就越高。这里我们写2048.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_16.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_16.png, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_16.png 1.5x, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_16.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_16.png"
+        title="5_16" /></p>
+<p>然后单击Generate 开始生成密钥对：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_17.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_17.png, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_17.png 1.5x, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_17.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_17.png"
+        title="5_17" /></p>
+<p>注意的是，在这个过程中鼠标要来回的动，否则这个进度条是不会动的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_18.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_18.png, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_18.png 1.5x, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_18.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_18.png"
+        title="5_18" /></p>
+<p>到这里，密钥对已经生成了。你可以给你的密钥输入一个密码，（在Key
+Passphrase那里）也可以留空。然后点 Save public key 保存公钥，点 Save private 
+Key 保存私钥。笔者建议你放到一个比较安全的地方，一来防止别人偷窥，二来防止误删除。接下来就该到远程linux主机上设置了。</p>
+<p>1）创建目录 /root/.ssh 并设置权限</p>
+<p>[root@localhost ~]# mkdir /root/.ssh mkdir 命令用来创建目录，以后会详细介绍，暂时只了解即可。</p>
+<p>[root@localhost ~]# chmod 700 /root/.ssh chmod 命令是用来修改文件属性权限的，以后会详细介绍。</p>
+<p>2）创建文件 / root/.ssh/authorized_keys</p>
+<p>[root@localhost ~]# vim /root/.ssh/authorized_keys vim 命令是编辑一个文本文件的命令，同样在后续章节详细介绍。</p>
+<p>3）打开刚才生成的public
+key 文件，建议使用写字板打开，这样看着舒服一些，复制从AAAA开头至 &ldquo;&mdash;- END SSH2 PUBLIC KEY 
+&mdash;-&rdquo; 该行上的所有内容，粘贴到/root/.ssh/authorized_keys 文件中，要保证所有字符在一行。（可以先把复制的内容拷贝至记事本，然后编辑成一行载粘贴到该文件中）。</p>
+<p>在这里要简单介绍一下，如何粘贴，用vim打开那个文件后，该文件不存在，所以vim会自动创建。按一下字母&quot;i&quot;然后同时按shift</p>
+<ul>
+<li>Insert 进行粘贴（或者单击鼠标右键即可），前提是已经复制到剪切板中了。粘贴好后，然后把光标移动到该行最前面输入ssh-rsa 
+，然后按空格。再按ESC，然后输入冒号wq 即 :wq 就保存了。格式如下图：</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_19.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_19.png, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_19.png 1.5x, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_19.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_19.png"
+        title="5_19" /></p>
+<p>4）再设置putty选项，点窗口左侧的SSh –&gt; Auth ，单击窗口右侧的Browse… 选择刚刚生成的私钥， 再点Open ，此时输入root，就不用输入密码就能登录了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_20.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_20.png, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_20.png 1.5x, https://atts.w3cschool.cn/attachments/uploads/2014/06/5_20.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/uploads/2014/06/5_20.png"
+        title="5_20" /></p>
+<p>如果在前面你设置了Key Passphrase ，那么此时就会提示你输入密码的。为了更加安全建议大家要设置一个Key Passphrase。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-05-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" data-title="Linux远程登录" data-hashtags="Linux,操作系统,基础理论"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" data-hashtag="Linux"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" data-title="Linux远程登录"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" data-title="Linux远程登录"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" data-title="Linux远程登录"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>,&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">基础理论</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux%E5%BF%98%E8%AE%B0%E5%AF%86%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="prev" rel="prev" title="Linux忘记密码解决方法"><i class="fas fa-angle-left fa-fw"></i>Linux忘记密码解决方法</a>
+            <a href="/linux%E6%96%87%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7/" class="next" rel="next" title="Linux文件基本属性">Linux文件基本属性<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

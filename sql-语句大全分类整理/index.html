@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>SQL-语句大全分类整理 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="SQL-语句大全分类整理" />
+<meta property="og:description" content="一、基础篇 1、说明：创建数据库 1 CREATE DATABASE database-name 2、说明：删除数据库 1 drop database dbname 3、说明：备份sql server &mdash; 创建 备份数据的 device 1 2 USE master EXEC sp_addumpdevice &#39;disk&#39;, &#39;testBack&#39;, &#39;c:\mssql7backup\MyNwind_1.dat&#39; &mdash; 开始 备份 1 BACKUP DATABASE" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2019-12-28T22:08:04+08:00" />
+<meta property="article:modified_time" content="2019-12-28T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="SQL-语句大全分类整理"/>
+<meta name="twitter:description" content="一、基础篇 1、说明：创建数据库 1 CREATE DATABASE database-name 2、说明：删除数据库 1 drop database dbname 3、说明：备份sql server &mdash; 创建 备份数据的 device 1 2 USE master EXEC sp_addumpdevice &#39;disk&#39;, &#39;testBack&#39;, &#39;c:\mssql7backup\MyNwind_1.dat&#39; &mdash; 开始 备份 1 BACKUP DATABASE"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/" /><link rel="prev" href="http://www.nishinonanase.xyz/sql-%E4%B8%BB%E6%9C%BA/" /><link rel="next" href="http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SQL-语句大全分类整理",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86\/"
+        },"genre": "posts","keywords": "数据库, 基础理论, sql语句","wordcount":  5713 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86\/","datePublished": "2019-12-28T22:08:04+08:00","dateModified": "2019-12-28T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">SQL-语句大全分类整理</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a>&nbsp;<a href="/categories/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"><i class="far fa-folder fa-fw"></i>心得体会</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-12-28">2019-12-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5713 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;<span id="/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/" class="leancloud_visitors" data-flag-title="SQL-语句大全分类整理">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一基础篇">一、基础篇</a>
+          <ul>
+            <li><a href="#1说明创建数据库"><strong>1、说明：创建数据库</strong></a></li>
+            <li><a href="#2说明删除数据库"><strong>2、说明：删除数据库</strong></a></li>
+            <li><a href="#3说明备份sql-server"><strong>3、说明：备份sql server</strong></a></li>
+            <li><a href="#4说明创建新表"><strong>4、说明：创建新表</strong></a></li>
+            <li><a href="#5说明删除新表"><strong>5、说明：删除新表</strong></a></li>
+            <li><a href="#6说明增加一个列"><strong>6、说明：增加一个列</strong></a></li>
+            <li><a href="#7说明添加主键"><strong>7</strong>**、说明：添加主键**</a></li>
+            <li><a href="#8说明创建索引"><strong>8、说明：创建索引</strong></a></li>
+            <li><a href="#9说明创建视图"><strong>9、说明：创建视图</strong></a></li>
+            <li><a href="#10说明几个简单的基本的sql语句"><strong>10、说明：几个简单的基本的sql语句</strong></a></li>
+            <li><a href="#11说明几个高级查询运算词"><strong>11、说明：几个高级查询运算词</strong></a></li>
+            <li><a href="#12说明使用外连接"><strong>12、说明：使用外连接</strong></a></li>
+            <li><a href="#13分组group-by"><strong>13、分组:Group by:</strong></a></li>
+            <li><a href="#14对数据库进行操作"><strong>14、对数据库进行操作</strong></a></li>
+            <li><a href="#15如何修改数据库的名称"><strong>15、如何修改数据库的名称</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#二提升篇">二、提升篇</a>
+          <ul>
+            <li><a href="#1说明复制表只复制结构源表名a-新表名b-access可用"><strong>1、说明：复制表(只复制结构,源表名：a 新表名：b) (Access可用)</strong></a></li>
+            <li><a href="#2说明拷贝表拷贝数据源表名a-目标表名b-access可用"><strong>2、说明：拷贝表(拷贝数据,源表名：a 目标表名：b) (Access可用)</strong></a></li>
+            <li><a href="#3说明跨数据库之间表的拷贝具体数据使用绝对路径-access可用"><strong>3、说明：跨数据库之间表的拷贝(具体数据使用绝对路径) (Access可用)</strong></a></li>
+            <li><a href="#4说明子查询表名1a-表名2b"><strong>4、说明：子查询(表名1：a 表名2：b)</strong></a></li>
+            <li><a href="#5说明显示文章提交人和最后回复时间"><strong>5、说明：显示文章、提交人和最后回复时间</strong></a></li>
+            <li><a href="#6说明外连接查询表名1a-表名2b"><strong>6、说明：外连接查询(表名1：a 表名2：b)</strong></a></li>
+            <li><a href="#7说明在线视图查询表名1a-"><strong>7、说明：在线视图查询(表名1：a )</strong></a></li>
+            <li><a href="#8说明between的用法between限制查询数据范围时包括了边界值not-between不包括"><strong>8、说明：between的用法,between限制查询数据范围时包括了边界值,not between不包括</strong></a></li>
+            <li><a href="#9说明in-的使用方法"><strong>9、说明：in 的使用方法</strong></a></li>
+            <li><a href="#10说明两张关联表删除主表中已经在副表中没有的信息"><strong>10、说明：两张关联表，删除主表中已经在副表中没有的信息</strong></a></li>
+            <li><a href="#11说明四表联查问题"><strong>11、说明：四表联查问题</strong></a></li>
+            <li><a href="#12说明日程安排提前五分钟提醒"><strong>12、说明：日程安排提前五分钟提醒</strong></a></li>
+            <li><a href="#13说明一条sql-语句搞定数据库分页"><strong>13、说明：一条sql 语句搞定数据库分页</strong></a></li>
+            <li><a href="#14说明前10条记录"><strong>14、说明：前10条记录</strong></a></li>
+            <li><a href="#15说明选择在每一组b值相同的数据中对应的a最大的记录的所有信息类似这样的用法可以用于论坛每月排行榜每月热销产品分析按科目成绩排名等等"><strong>15、说明：选择在每一组b值相同的数据中对应的a最大的记录的所有信息(类似这样的用法可以用于论坛每月排行榜,每月热销产品分析,按科目成绩排名,等等.)</strong></a></li>
+            <li><a href="#16说明包括所有在-tablea-中但不在-tableb和tablec-中的行并消除所有重复行而派生出一个结果表"><strong>16、说明：包括所有在 TableA 中但不在 TableB和TableC 中的行并消除所有重复行而派生出一个结果表</strong></a></li>
+            <li><a href="#17说明随机取出10条数据"><strong>17、说明：随机取出10条数据</strong></a></li>
+            <li><a href="#18说明随机选择记录"><strong>18、说明：随机选择记录</strong></a></li>
+            <li><a href="#19说明删除重复记录"><strong>19、说明：删除重复记录</strong></a></li>
+            <li><a href="#20说明列出数据库里所有的表名"><strong>20、说明：列出数据库里所有的表名</strong></a></li>
+            <li><a href="#21说明列出表里的所有的列名"><strong>21、说明：列出表里的所有的列名</strong></a></li>
+            <li><a href="#22说明列示typevenderpcs字段以type字段排列case可以方便地实现多重选择类似select-中的case"><strong>22、说明：列示type、vender、pcs字段，以type字段排列，case可以方便地实现多重选择，类似select 中的case。</strong></a></li>
+            <li><a href="#23说明初始化表table1"><strong>23、说明：初始化表table1</strong></a></li>
+            <li><a href="#24说明选择从10到15的记录"><strong>24、说明：选择从10到15的记录</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#三技巧篇">三、技巧篇</a>
+          <ul>
+            <li><a href="#11112的使用在sql语句组合时用的较多"><strong>1、1=1，1=2的使用，在SQL语句组合时用的较多</strong></a></li>
+            <li><a href="#2收缩数据库"><strong>2、收缩数据库</strong></a></li>
+            <li><a href="#3压缩数据库"><strong>3、压缩数据库</strong></a></li>
+            <li><a href="#4转移数据库给新用户以已存在用户权限"><strong>4、转移数据库给新用户以已存在用户权限</strong></a></li>
+            <li><a href="#5检查备份集"><strong>5、检查备份集</strong></a></li>
+            <li><a href="#6修复数据库"><strong>6、修复数据库</strong></a></li>
+            <li><a href="#7日志清除"><strong>7、日志清除</strong></a></li>
+            <li><a href="#8说明更改某个表"><strong>8、说明：更改某个表</strong></a></li>
+            <li><a href="#9存储更改全部表"><strong>9、存储更改全部表</strong></a></li>
+            <li><a href="#10sql-server中直接循环写入数据"><strong>10、SQL SERVER中直接循环写入数据</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#四数据开发篇"><strong>四、数据开发篇</strong></a>
+          <ul>
+            <li><a href="#1按姓氏笔画排序"><strong>1.按姓氏笔画排序</strong></a></li>
+            <li><a href="#2数据库加密"><strong>2.数据库加密</strong></a></li>
+            <li><a href="#3取回表中字段"><strong>3.取回表中字段</strong></a></li>
+            <li><a href="#4查看硬盘分区"><strong>4.查看硬盘分区</strong></a></li>
+            <li><a href="#5比较ab表是否相等"><strong>5.比较A,B表是否相等</strong></a></li>
+            <li><a href="#6杀掉所有的事件探察器进程"><strong>6.杀掉所有的事件探察器进程</strong></a></li>
+            <li><a href="#7记录搜索"><strong>7.记录搜索</strong></a></li>
+            <li><a href="#9获取当前数据库中的所有用户表"><strong>9：获取当前数据库中的所有用户表</strong></a></li>
+            <li><a href="#10获取某一个表的所有字段"><strong>10：获取某一个表的所有字段</strong></a></li>
+            <li><a href="#11查看与某一个表相关的视图存储过程函数"><strong>11：查看与某一个表相关的视图、存储过程、函数</strong></a></li>
+            <li><a href="#12查看当前数据库中所有存储过程"><strong>12：查看当前数据库中所有存储过程</strong></a></li>
+            <li><a href="#13查询用户创建的所有数据库"><strong>13：查询用户创建的所有数据库</strong></a></li>
+            <li><a href="#14查询某一个表的字段和数据类型"><strong>14：查询某一个表的字段和数据类型</strong></a></li>
+            <li><a href="#15不同服务器数据库之间的数据操作"><strong>15：不同服务器数据库之间的数据操作</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="一基础篇">一、基础篇</h2>
+<hr>
+<h3 id="1说明创建数据库"><strong>1、说明：创建数据库</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CREATE DATABASE database-name
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2说明删除数据库"><strong>2、说明：删除数据库</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">drop database dbname
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3说明备份sql-server"><strong>3、说明：备份sql server</strong></h3>
+<p>　&mdash; 创建 备份数据的 device</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">USE master
+EXEC sp_addumpdevice &#39;disk&#39;, &#39;testBack&#39;, &#39;c:\mssql7backup\MyNwind_1.dat&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>　&mdash; 开始 备份</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">BACKUP DATABASE pubs TO testBack
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4说明创建新表"><strong>4、说明：创建新表</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">create table tabname(col1 type1 [not null] [primary key],col2 type2 [not null],..)
+</code></pre></td></tr></table>
+</div>
+</div><p>　根据已有的表创建新表： 
+　A：create table tab_new like tab_old (使用旧表创建新表)
+　B    ：create table tab_new as select col1,col2… from tab_old definition only</p>
+<h3 id="5说明删除新表"><strong>5、说明：删除新表</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">drop table tabname
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="6说明增加一个列"><strong>6、说明：增加一个列</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Alter table tabname add column col type
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>**注：**列增加后将不能删除。DB2中列加上后数据类型也不能改变，唯一能改变的是增加varchar类型的长度。</p>
+</blockquote>
+<h3 id="7说明添加主键"><strong>7</strong>**、说明：添加主键**</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Alter table tabname add primary key(col)
+</code></pre></td></tr></table>
+</div>
+</div><p>　删除主键：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Alter table tabname drop primary key(col)
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="8说明创建索引"><strong>8、说明：创建索引</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">create [unique] index idxname on tabname(col….)
+</code></pre></td></tr></table>
+</div>
+</div><p>　删除索引：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">drop index idxname
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>**注：**索引是不可更改的，想更改必须删除重新建。</p>
+</blockquote>
+<h3 id="9说明创建视图"><strong>9、说明：创建视图</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">create view viewname as select statement
+</code></pre></td></tr></table>
+</div>
+</div><p>　删除视图：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">drop view viewname
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="10说明几个简单的基本的sql语句"><strong>10、说明：几个简单的基本的sql语句</strong></h3>
+<p>​</p>
+<ul>
+<li>
+<p>选择：</p>
+</li>
+<li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">  select * from table1 where 范围
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>插入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">insert into table1(field1,field2) values(value1,value2)
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>删除：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">delete from table1 where 范围
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>更新：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">update table1 set field1=value1 where 范围
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查找：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * from table1 where field1 like ’%value1%’ 
+</code></pre></td></tr></table>
+</div>
+</div><p>&mdash;like</p>
+<p>的语法很精妙，请查资料</p>
+<p>!</p>
+</li>
+<li>
+<p>排序：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * from table1 order by field1,field2 [desc]
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>总数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select count as totalcount from table1
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>求和：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select sum(field1) as sumvalue from table1
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>平均：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select avg(field1) as avgvalue from table1
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>最大：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select max(field1) as maxvalue from table1
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>最小：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select min(field1) as minvalue from table1
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="11说明几个高级查询运算词"><strong>11、说明：几个高级查询运算词</strong></h3>
+<p>　<strong>A： UNION 运算符</strong>  <br>
+　UNION 运算符通过组合其他两个结果表（例如  TABLE1 和 TABLE2）并消去表中任何重复行而派生出一个结果表。当 ALL 随     UNION一起使用时（即 UNION ALL），不消除重复行。两种情况下，派生表的每一行不是来自 TABLE1 就是来自  TABLE2。</p>
+<p>　**B： EXCEPT 运算符</p>
+<p>**　EXCEPT 运算符通过包括所有在 TABLE1 中但不在 TABLE2 中的行并消除所有重复行而派生出一个结果表。当 ALL 随         EXCEPT 一起使用时 (EXCEPT ALL)，不消除重复行。</p>
+<p>　**C： INTERSECT 运算符</p>
+<p>**　INTERSECT 运算符通过只包括     TABLE1 和 TABLE2 中都有的行并消除所有重复行而派生出一个结果表。当 ALL 随 INTERSECT 一起使用时 (INTERSECT ALL)，不消除重复行。</p>
+<blockquote>
+<p>**注：**使用运算词的几个查询结果行必须是一致的。</p>
+</blockquote>
+<h3 id="12说明使用外连接"><strong>12、说明：使用外连接</strong></h3>
+<p>　<strong>A、left （outer） join：</strong>  <br>
+　左外连接（左连接）：结果集几包括连接表的匹配行，也包括左连接表的所有行。<br>
+　SQL: select a.a, a.b, a.c, b.c, b.d, b.f from a LEFT OUT JOIN b ON a.a = b.c</p>
+<p>　**B：right （outer） join:</p>
+<p>**　右外连接(右连接)：结果集既包括连接表的匹配连接行，也包括右连接表的所有行。</p>
+<p>　<strong>C：full/cross （outer） join：</strong> 
+　全外连接：不仅包括符号连接表的匹配行，还包括两个连接表中的所有记录。</p>
+<h3 id="13分组group-by"><strong>13、分组:Group by:</strong></h3>
+<p>　一张表，一旦分组 完成后，查询后只能得到组相关的信息。
+　组相关的信息：（统计信息） count,sum,max,min,avg 分组的标准)
+　在SQLServer中分组时：不能以    text,ntext,image类型的字段作为分组依据
+　在selecte统计函数中的字段，不能和普通的字段放在一起；</p>
+<h3 id="14对数据库进行操作"><strong>14、对数据库进行操作</strong></h3>
+<p>　分离数据库： sp_detach_db; 附加数据库：sp_attach_db 后接表明，附加需要完整的路径名</p>
+<h3 id="15如何修改数据库的名称"><strong>15、如何修改数据库的名称</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sp_renamedb &#39;old_name&#39;, &#39;new_name&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<p>​    <img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/day_161129/201611291902096052.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/day_161129/201611291902096052.png, https://atts.w3cschool.cn/attachments/day_161129/201611291902096052.png 1.5x, https://atts.w3cschool.cn/attachments/day_161129/201611291902096052.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/day_161129/201611291902096052.png"
+        title="SQL语句提升篇" /></p>
+<p>​</p>
+<h2 id="二提升篇">二、提升篇</h2>
+<hr>
+<p>​</p>
+<h3 id="1说明复制表只复制结构源表名a-新表名b-access可用"><strong>1、说明：复制表(只复制结构,源表名：a 新表名：b) (Access可用)</strong></h3>
+<p>　<strong>方法一：</strong>（仅用于SQlServer）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * into b from a where 1&lt;&gt;1
+</code></pre></td></tr></table>
+</div>
+</div><p>　<strong>方法二：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select top 0 * into b from a
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2说明拷贝表拷贝数据源表名a-目标表名b-access可用"><strong>2、说明：拷贝表(拷贝数据,源表名：a 目标表名：b) (Access可用)</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">insert into b(a, b, c) select d,e,f from a;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3说明跨数据库之间表的拷贝具体数据使用绝对路径-access可用"><strong>3、说明：跨数据库之间表的拷贝(具体数据使用绝对路径) (Access可用)</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">insert into b(a, b, c) select d,e,f from b in ‘具体数据库’ where 条件 
+</code></pre></td></tr></table>
+</div>
+</div><p>　例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">..from b in &#39;&#34;&amp;Server.MapPath(&#34;.&#34;)&amp;&#34;\data.mdb&#34; &amp;&#34;&#39; where..
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4说明子查询表名1a-表名2b"><strong>4、说明：子查询(表名1：a 表名2：b)</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select a,b,c from a where a IN (select d from b ) 
+</code></pre></td></tr></table>
+</div>
+</div><p>　或者:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select a,b,c from a where a IN (1,2,3)
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="5说明显示文章提交人和最后回复时间"><strong>5、说明：显示文章、提交人和最后回复时间</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select a.title,a.username,b.adddate from table a,(select max(adddate) adddate from table where table.title=a.title) b
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="6说明外连接查询表名1a-表名2b"><strong>6、说明：外连接查询(表名1：a 表名2：b)</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select a.a, a.b, a.c, b.c, b.d, b.f from a LEFT OUT JOIN b ON a.a = b.c
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="7说明在线视图查询表名1a-"><strong>7、说明：在线视图查询(表名1：a )</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * from (SELECT a,b,c FROM a) T where t.a &gt; 1;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="8说明between的用法between限制查询数据范围时包括了边界值not-between不包括"><strong>8、说明：between的用法,between限制查询数据范围时包括了边界值,not between不包括</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * from table1 where time between time1 and time2 
+select a,b,c, from table1 where a not between 数值1 and 数值2
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="9说明in-的使用方法"><strong>9、说明：in 的使用方法</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * from table1 where a [not] in (‘值1’,’值2’,’值4’,’值6’)
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="10说明两张关联表删除主表中已经在副表中没有的信息"><strong>10、说明：两张关联表，删除主表中已经在副表中没有的信息</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">delete from table1 where not exists ( select * from table2 where table1.field1=table2.field1 )
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="11说明四表联查问题"><strong>11、说明：四表联查问题</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * from a left inner join b on a.a=b.b right inner join c on a.a=c.c inner join d on a.a=d.d where ......
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="12说明日程安排提前五分钟提醒"><strong>12、说明：日程安排提前五分钟提醒</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * from 日程安排 where datediff(&#39;minute&#39;,f开始时间,getdate())&gt;5
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="13说明一条sql-语句搞定数据库分页"><strong>13、说明：一条sql 语句搞定数据库分页</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select top 10 b.* from (select top 20 主键字段,排序字段 from 表名 order by 排序字段 desc) a,表名 b where b.主键字段 = a.主键字段 order by a.排序字段
+</code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<p>　<strong>具体实现：</strong>  <br>
+　关于数据库分页：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">declare @start int,@end int
+@sql nvarchar(600)
+set @sql=’select top’+str(@end-@start+1)+’+from T where rid not in(select top’+str(@str-1)+’Rid from T where Rid&gt;-1)’
+exec sp_executesql @sql
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>**注意：**在top后不能直接跟一个变量，所以在实际应用中只有这样的进行特殊的处理。Rid为一个标识列，如果top后还有具体的字段，这样做是非常有好处的。因为这样可以避免 top的字段如果是逻辑索引的，查询的结果后实际表中的不一致（逻辑索引中的数据有可能和数据表中的不一致，而查询时如果处在索引则首先查询索引）</p>
+</blockquote>
+<h3 id="14说明前10条记录"><strong>14、说明：前10条记录</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select top 10 * form table1 where 范围
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="15说明选择在每一组b值相同的数据中对应的a最大的记录的所有信息类似这样的用法可以用于论坛每月排行榜每月热销产品分析按科目成绩排名等等"><strong>15、说明：选择在每一组b值相同的数据中对应的a最大的记录的所有信息(类似这样的用法可以用于论坛每月排行榜,每月热销产品分析,按科目成绩排名,等等.)</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select a,b,c from tablename ta where a=(select max(a) from tablename tb where tb.b=ta.b)
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="16说明包括所有在-tablea-中但不在-tableb和tablec-中的行并消除所有重复行而派生出一个结果表"><strong>16、说明：包括所有在 TableA 中但不在 TableB和TableC 中的行并消除所有重复行而派生出一个结果表</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">(select a from tableA ) except (select a from tableB) except (select a from tableC)
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="17说明随机取出10条数据"><strong>17、说明：随机取出10条数据</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select top 10 * from tablename order by newid()
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="18说明随机选择记录"><strong>18、说明：随机选择记录</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select newid()
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="19说明删除重复记录"><strong>19、说明：删除重复记录</strong></h3>
+<p>　<strong>1、</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">delete from tablename where id not in (select max(id) from tablename group by col1,col2,...) 
+</code></pre></td></tr></table>
+</div>
+</div><p>　<strong>2、</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select distinct * into temp from tablename 
+delete from tablename 
+insert into tablename select * from temp
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>​    <strong>评价：</strong> 这种操作牵连大量的数据的移动，这种做法不适合大容量但数据操作</p>
+</blockquote>
+<p>**3、**<strong>例如：在一个外部表中导入数据，由于某些原因第一次只导入了一部分，但很难判断具体位置，这样只有在下一次全部导入，这样也就产生好多重复的字段，怎样删除重复字段</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">alter table tablename 
+--添加一个自增列 
+add column_b int identity(1,1) 
+delete from tablename where column_b not in( 
+select max(column_b) from tablename group by column1,column2,...) 
+alter table tablename drop column column_b
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="20说明列出数据库里所有的表名"><strong>20、说明：列出数据库里所有的表名</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select name from sysobjects where type=&#39;U&#39; // U代表用户
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="21说明列出表里的所有的列名"><strong>21、说明：列出表里的所有的列名</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select name from syscolumns where id=object_id(&#39;TableName&#39;) 
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="22说明列示typevenderpcs字段以type字段排列case可以方便地实现多重选择类似select-中的case"><strong>22、说明：列示type、vender、pcs字段，以type字段排列，case可以方便地实现多重选择，类似select 中的case。</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select type,sum(case vender when &#39;A&#39; then pcs else 0 end),sum(case vender when &#39;C&#39; then pcs else 0 end),sum(case vender when &#39;B&#39; then pcs else 0 end) FROM tablename group by type 
+</code></pre></td></tr></table>
+</div>
+</div><p>　显示结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">type vender pcs
+电脑 A 1 
+电脑 A 1 
+光盘 B 2 
+光盘 A 2 
+手机 B 3 
+手机 C 3
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="23说明初始化表table1"><strong>23、说明：初始化表table1</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">TRUNCATE TABLE table1
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="24说明选择从10到15的记录"><strong>24、说明：选择从10到15的记录</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select top 5 * from (select top 15 * from table order by id asc) table_别名 order by id desc
+</code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<p>​    <img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/day_161129/201611291903496964.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/day_161129/201611291903496964.png, https://atts.w3cschool.cn/attachments/day_161129/201611291903496964.png 1.5x, https://atts.w3cschool.cn/attachments/day_161129/201611291903496964.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/day_161129/201611291903496964.png"
+        title="SQL语句技巧篇" /></p>
+<p>​</p>
+<h2 id="三技巧篇">三、技巧篇</h2>
+<hr>
+<h3 id="11112的使用在sql语句组合时用的较多"><strong>1、1=1，1=2的使用，在SQL语句组合时用的较多</strong></h3>
+<p>　<strong>“where 1=</strong>            **1” 是表示选择全部 “where 1=2”**<strong>全部不选，</strong>  <br>
+　如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">if @strWhere !=&#39;&#39; 
+begin
+set @strSQL = &#39;select count(*) as Total from [&#39; + @tblName + &#39;] where &#39; + @strWhere 
+end
+else 
+begin
+set @strSQL = &#39;select count(*) as Total from [&#39; + @tblName + &#39;]&#39; 
+end
+</code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<p>　我们可以直接写成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">错误！未找到目录项。
+set @strSQL = &#39;select count(*) as Total from [&#39; + @tblName + &#39;] where 1=1 安定&#39;+ @strWhere
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2收缩数据库"><strong>2、收缩数据库</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">--重建索引
+DBCC REINDEX
+DBCC INDEXDEFRAG
+--收缩数据和日志
+DBCC SHRINKDB
+DBCC SHRINKFILE
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3压缩数据库"><strong>3、压缩数据库</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">dbcc shrinkdatabase(dbname)
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4转移数据库给新用户以已存在用户权限"><strong>4、转移数据库给新用户以已存在用户权限</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">exec sp_change_users_login &#39;update_one&#39;,&#39;newname&#39;,&#39;oldname&#39;
+go
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="5检查备份集"><strong>5、检查备份集</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">RESTORE VERIFYONLY from disk=&#39;E:\dvbbs.bak&#39;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="6修复数据库"><strong>6、修复数据库</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ALTER DATABASE [dvbbs] SET SINGLE_USER
+GO
+DBCC CHECKDB(&#39;dvbbs&#39;,repair_allow_data_loss) WITH TABLOCK
+GO
+ALTER DATABASE [dvbbs] SET MULTI_USER
+GO
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="7日志清除"><strong>7、日志清除</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">SET NOCOUNT ON
+DECLARE @LogicalFileName sysname,
+@MaxMinutes INT,
+@NewSize INT
+</code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">USE tablename -- 要操作的数据库名
+SELECT @LogicalFileName = &#39;tablename_log&#39;, -- 日志文件名 
+@MaxMinutes = 10, -- Limit on time allowed to wrap log.
+@NewSize = 1 -- 你想设定的日志文件的大小(M)
+Setup / initialize
+DECLARE @OriginalSize int
+SELECT @OriginalSize = size 
+FROM sysfiles
+WHERE name = @LogicalFileName
+SELECT &#39;Original Size of &#39; + db_name() + &#39; LOG is &#39; + 
+CONVERT(VARCHAR(30),@OriginalSize) + &#39; 8K pages or &#39; + 
+CONVERT(VARCHAR(30),(@OriginalSize*8/1024)) + &#39;MB&#39;
+FROM sysfiles
+WHERE name = @LogicalFileName
+CREATE TABLE DummyTrans
+(DummyColumn char (8000) not null)
+</code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">DECLARE @Counter INT,
+@StartTime DATETIME,
+@TruncLog VARCHAR(255)
+SELECT @StartTime = GETDATE(),
+@TruncLog = &#39;BACKUP LOG &#39; + db_name() + &#39; WITH TRUNCATE_ONLY&#39;
+DBCC SHRINKFILE (@LogicalFileName, @NewSize)
+EXEC (@TruncLog)
+-- Wrap the log if necessary.
+WHILE @MaxMinutes &gt; DATEDIFF (mi, @StartTime, GETDATE()) -- time has not expired
+AND @OriginalSize = (SELECT size FROM sysfiles WHERE name = @LogicalFileName) 
+AND (@OriginalSize * 8 /1024) &gt; @NewSize 
+BEGIN -- Outer loop.
+SELECT @Counter = 0
+WHILE ((@Counter &lt; @OriginalSize / 16) AND (@Counter &lt; 50000))
+BEGIN -- update
+INSERT DummyTrans VALUES (&#39;Fill Log&#39;) DELETE DummyTrans
+SELECT @Counter = @Counter + 1
+END
+EXEC (@TruncLog) 
+END
+SELECT &#39;Final Size of &#39; + db_name() + &#39; LOG is &#39; +
+CONVERT(VARCHAR(30),size) + &#39; 8K pages or &#39; + 
+CONVERT(VARCHAR(30),(size*8/1024)) + &#39;MB&#39;
+FROM sysfiles 
+WHERE name = @LogicalFileName
+DROP TABLE DummyTrans
+SET NOCOUNT OFF
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="8说明更改某个表"><strong>8、说明：更改某个表</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">exec sp_changeobjectowner &#39;tablename&#39;,&#39;dbo&#39; 
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="9存储更改全部表"><strong>9、存储更改全部表</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CREATE PROCEDURE dbo.User_ChangeObjectOwnerBatch
+@OldOwner as NVARCHAR(128),
+@NewOwner as NVARCHAR(128)
+AS
+DECLARE @Name as NVARCHAR(128)
+DECLARE @Owner as NVARCHAR(128)
+DECLARE @OwnerName as NVARCHAR(128)
+DECLARE curObject CURSOR FOR 
+select &#39;Name&#39; = name,
+&#39;Owner&#39; = user_name(uid)
+from sysobjects
+where user_name(uid)=@OldOwner
+order by name
+OPEN curObject
+FETCH NEXT FROM curObject INTO @Name, @Owner
+WHILE(@@FETCH_STATUS=0)
+BEGIN 
+if @Owner=@OldOwner 
+begin
+set @OwnerName = @OldOwner + &#39;.&#39; + rtrim(@Name)
+exec sp_changeobjectowner @OwnerName, @NewOwner
+end
+-- select @name,@NewOwner,@OldOwner
+FETCH NEXT FROM curObject INTO @Name, @Owner
+END
+close curObject
+deallocate curObject
+GO
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="10sql-server中直接循环写入数据"><strong>10、SQL SERVER中直接循环写入数据</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">declare @i int
+set @i=1
+while @i&lt;30
+begin
+insert into test (userid) values(@i)
+set @i=@i+1
+end
+</code></pre></td></tr></table>
+</div>
+</div><p>　案例    ：</p>
+<p>　有如下表，要求就裱中所有沒有及格的成績，在每次增長0.1的基礎上，使他們剛好及格：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Name score
+Zhangshan 80
+Lishi 59
+Wangwu 50
+Songquan 69
+while((select min(score) from tb_table)&lt;60) 
+begin 
+update tb_table set score =score*1.01 
+where score&lt;60 
+if (select min(score) from tb_table)&gt;60 
+break 
+else 
+continue 
+end
+</code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<p>​</p>
+<p>**<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/day_161129/201611291904494065.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/day_161129/201611291904494065.png, https://atts.w3cschool.cn/attachments/day_161129/201611291904494065.png 1.5x, https://atts.w3cschool.cn/attachments/day_161129/201611291904494065.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/day_161129/201611291904494065.png"
+        title="SQL语句数据开发篇" /></p>
+<p>**</p>
+<p>**
+**</p>
+<h2 id="四数据开发篇"><strong>四、数据开发篇</strong></h2>
+<hr>
+<p>​</p>
+<h3 id="1按姓氏笔画排序"><strong>1.按姓氏笔画排序</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Select * From TableName Order By CustomerName Collate Chinese_PRC_Stroke_ci_as //从少到多
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2数据库加密"><strong>2.数据库加密</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select encrypt(&#39;原始密码&#39;) 
+select pwdencrypt(&#39;原始密码&#39;) 
+select pwdcompare(&#39;原始密码&#39;,&#39;加密后密码&#39;) = 1--相同；否则不相同 encrypt(&#39;原始密码&#39;) 
+select pwdencrypt(&#39;原始密码&#39;) 
+select pwdcompare(&#39;原始密码&#39;,&#39;加密后密码&#39;) = 1--相同；否则不相同
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3取回表中字段"><strong>3.取回表中字段</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">declare @list varchar(1000), 
+@sql nvarchar(1000)  
+select @list=@list+&#39;,&#39;+b.name from sysobjects a,syscolumns b where a.id=b.id and a.name=&#39;表A&#39; 
+set @sql=&#39;select &#39;+right(@list,len(@list)-1)+&#39; from 表A&#39;  
+exec (@sql)
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4查看硬盘分区"><strong>4.查看硬盘分区</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">EXEC master..xp_fixeddrives
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="5比较ab表是否相等"><strong>5.比较A,B表是否相等</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">if (select checksum_agg(binary_checksum(*)) from A) 
+= 
+(select checksum_agg(binary_checksum(*)) from B) 
+print &#39;相等&#39; 
+else 
+print &#39;不相等&#39;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="6杀掉所有的事件探察器进程"><strong>6.杀掉所有的事件探察器进程</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">DECLARE hcforeach CURSOR GLOBAL FOR SELECT &#39;kill &#39;+RTRIM(spid) FROM master.dbo.sysprocesses 
+WHERE program_name IN(&#39;SQL profiler&#39;,N&#39;SQL 事件探查器&#39;) 
+EXEC sp_msforeach_worker &#39;?&#39;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="7记录搜索"><strong>7.记录搜索</strong></h3>
+<p>　开头到N条记录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Select Top N * From 表 
+</code></pre></td></tr></table>
+</div>
+</div><p>​ <br>
+　N到M条记录(要有主索引ID)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Select Top M-N * From 表 Where ID in (Select Top M ID From 表) Order by ID Desc 
+</code></pre></td></tr></table>
+</div>
+</div><p>​ <br>
+　N到结尾记录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Select Top N * From 表 Order by ID Desc
+</code></pre></td></tr></table>
+</div>
+</div><p>​ <br>
+　案例</p>
+<p>　示例1：一张表有一万多条记录，表的第一个字段 RecID 是自增长字段， 写一个SQL语句， 找出表的第31到第40个记录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select top 10 recid from A where recid not in(select top 30 recid from A)
+</code></pre></td></tr></table>
+</div>
+</div><p>　**分析：**如果这样写会产生某些问题，如果recid在表中存在逻辑索引。</p>
+<p>　select top 10 recid from A where……是从索引中查找，而后面的select top 30 recid from A则在数据表中查找，这样由于索引中的顺序有可能和数据表中的不一致，这样就导致查询到的不是本来的欲得到的数据。</p>
+<p>​</p>
+<p>　<strong>解决方案</strong></p>
+<p>　<strong>1， 用order by</strong> select top 30 recid from A order by ricid <strong>如果该字段不是自增长，就会出现问题</strong></p>
+<p>　**2， 在那个子查询中也加条件：**select top 30 recid from A where recid&gt;-1</p>
+<p>　<strong>示例2：查询表中的最后以条记录，并不知道这个表共有多少数据,以及表结构。</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">set @s = &#39;select top 1 * from T where pid not in (select top &#39; + str(@count-1) + &#39; pid from T)&#39;
+print @s exec sp_executesql @s
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="9获取当前数据库中的所有用户表"><strong>9：获取当前数据库中的所有用户表</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select Name from sysobjects where xtype=&#39;u&#39; and status&gt;=0
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="10获取某一个表的所有字段"><strong>10：获取某一个表的所有字段</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select name from syscolumns where id=object_id(&#39;表名&#39;)
+select name from syscolumns where id in (select id from sysobjects where type = &#39;u&#39; and name = &#39;表名&#39;)
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>**注：**以上两种方式的效果相同</p>
+</blockquote>
+<h3 id="11查看与某一个表相关的视图存储过程函数"><strong>11：查看与某一个表相关的视图、存储过程、函数</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select a.* from sysobjects a, syscomments b where a.id = b.id and b.text like &#39;%表名%&#39;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="12查看当前数据库中所有存储过程"><strong>12：查看当前数据库中所有存储过程</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select name as 存储过程名称 from sysobjects where xtype=&#39;P&#39;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="13查询用户创建的所有数据库"><strong>13：查询用户创建的所有数据库</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * from master..sysdatabases D where sid not in(select sid from master..syslogins where name=&#39;sa&#39;)
+</code></pre></td></tr></table>
+</div>
+</div><p>　或者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select dbid, name AS DB_NAME from master..sysdatabases where sid &lt;&gt; 0x01
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="14查询某一个表的字段和数据类型"><strong>14：查询某一个表的字段和数据类型</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select column_name,data_type from information_schema.columns 
+where table_name = &#39;表名&#39;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="15不同服务器数据库之间的数据操作"><strong>15：不同服务器数据库之间的数据操作</strong></h3>
+<p>　&ndash;创建链接服务器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">exec sp_addlinkedserver &#39;ITSV &#39;, &#39; &#39;, &#39;SQLOLEDB &#39;, &#39;远程服务器名或ip地址 &#39;
+exec sp_addlinkedsrvlogin &#39;ITSV &#39;, &#39;false &#39;,null, &#39;用户名 &#39;, &#39;密码 &#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>　&ndash;查询示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * from ITSV.数据库名.dbo.表名
+</code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<p>　&ndash;导入示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * into 表 from ITSV.数据库名.dbo.表名
+</code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<p>　&ndash;以后不再使用时删除链接服务器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">exec sp_dropserver &#39;ITSV &#39;, &#39;droplogins &#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<p>　&ndash;连接远程/局域网数据(openrowset/openquery/opendatasource)</p>
+<p>　&ndash;1、openrowset</p>
+<p>　&ndash;查询示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * from openrowset( &#39;SQLOLEDB &#39;, &#39;sql服务器名 &#39;; &#39;用户名 &#39;; &#39;密码 &#39;,数据库名.dbo.表名)
+</code></pre></td></tr></table>
+</div>
+</div><p>　&ndash;生成本地表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select * into 表 from openrowset( &#39;SQLOLEDB &#39;, &#39;sql服务器名 &#39;; &#39;用户名 &#39;; &#39;密码 &#39;,数据库名.dbo.表名)
+</code></pre></td></tr></table>
+</div>
+</div><p>　&ndash;把本地表导入远程表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">insert openrowset( &#39;SQLOLEDB &#39;, &#39;sql服务器名 &#39;; &#39;用户名 &#39;; &#39;密码 &#39;,数据库名.dbo.表名)
+select *from 本地表
+</code></pre></td></tr></table>
+</div>
+</div><p>　&ndash;更新本地表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">update b
+set b.列A=a.列A
+from openrowset( &#39;SQLOLEDB &#39;, &#39;sql服务器名 &#39;; &#39;用户名 &#39;; &#39;密码 &#39;,数据库名.dbo.表名)as a inner join 本地表 b
+on a.column1=b.column1
+</code></pre></td></tr></table>
+</div>
+</div><p>　&ndash;openquery用法需要创建一个连接</p>
+<p>　&ndash;首先创建一个连接创建链接服务器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">exec sp_addlinkedserver &#39;ITSV &#39;, &#39; &#39;, &#39;SQLOLEDB &#39;, &#39;远程服务器名或ip地址 &#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>　&ndash;查询</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select *
+FROM openquery(ITSV, &#39;SELECT * FROM 数据库.dbo.表名 &#39;)
+</code></pre></td></tr></table>
+</div>
+</div><p>　&ndash;把本地表导入远程表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">insert openquery(ITSV, &#39;SELECT * FROM 数据库.dbo.表名 &#39;)
+select * from 本地表
+</code></pre></td></tr></table>
+</div>
+</div><p>　&ndash;更新本地表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">update b
+set b.列B=a.列B
+FROM openquery(ITSV, &#39;SELECT * FROM 数据库.dbo.表名 &#39;) as a
+inner join 本地表 b on a.列A=b.列A
+</code></pre></td></tr></table>
+</div>
+</div><p>　&ndash;3、opendatasource/openrowset</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">SELECT *
+FROM opendatasource( &#39;SQLOLEDB &#39;, &#39;Data Source=ip/ServerName;User ID=登陆名;Password=密码&#39; ).test.dbo.roy_ta
+</code></pre></td></tr></table>
+</div>
+</div><p>　&ndash;把本地表导入远程表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">insert opendatasource( &#39;SQLOLEDB &#39;, &#39;Data Source=ip/ServerName;User ID=登陆名;Password=密码 &#39;).数据库.dbo.表名
+select * from 本地表
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-12-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/" data-title="SQL-语句大全分类整理" data-hashtags="数据库,基础理论,sql语句"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/" data-hashtag="数据库"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/" data-title="SQL-语句大全分类整理"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/" data-title="SQL-语句大全分类整理"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/" data-title="SQL-语句大全分类整理"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>,&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">基础理论</a>,&nbsp;<a href="/tags/sql%E8%AF%AD%E5%8F%A5/">sql语句</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/sql-%E4%B8%BB%E6%9C%BA/" class="prev" rel="prev" title="SQL-主机"><i class="fas fa-angle-left fa-fw"></i>SQL-主机</a>
+            <a href="/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" class="next" rel="next" title="电商网站技术要点剖析">电商网站技术要点剖析<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

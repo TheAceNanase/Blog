@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Django将mixins与基于类的视图一起使用 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="Django将mixins与基于类的视图一起使用" />
+<meta property="og:description" content="在基于类的视图中使用mixins 警告： 这是一个高级主题。在探索这些技术之前，建议您对Django基于类的视图有一定的了解。 Django的内置" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2018-01-22T22:08:04+08:00" />
+<meta property="article:modified_time" content="2018-01-22T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Django将mixins与基于类的视图一起使用"/>
+<meta name="twitter:description" content="在基于类的视图中使用mixins 警告： 这是一个高级主题。在探索这些技术之前，建议您对Django基于类的视图有一定的了解。 Django的内置"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E8%BF%9B%E8%A1%8C%E8%A1%A8%E5%8D%95%E5%A4%84%E7%90%86/" /><link rel="next" href="http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Django将mixins与基于类的视图一起使用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8\/"
+        },"genre": "posts","keywords": "后端框架, Django, Python","wordcount":  7571 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8\/","datePublished": "2018-01-22T22:08:04+08:00","dateModified": "2018-01-22T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Django将mixins与基于类的视图一起使用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2018-01-22">2018-01-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7571 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 16 分钟&nbsp;<span id="/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/" class="leancloud_visitors" data-flag-title="Django将mixins与基于类的视图一起使用">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#在基于类的视图中使用mixins">在基于类的视图中使用mixins</a>
+      <ul>
+        <li><a href="#上下文和模板答复">上下文和模板答复</a></li>
+        <li><a href="#建立django基于类的通用视图">建立Django基于类的通用视图</a>
+          <ul>
+            <li><a href="#detailview使用单个django对象">DetailView：使用单个Django对象</a></li>
+            <li><a href="#listview使用许多django对象">ListView：使用许多Django对象</a></li>
+          </ul>
+        </li>
+        <li><a href="#使用django的基于类的视图混入">使用Django的基于类的视图混入</a>
+          <ul>
+            <li><a href="#singleobjectmixin与view一起使用">SingleObjectMixin与View一起使用</a></li>
+            <li><a href="#singleobjectmixin与-使用listview">SingleObjectMixin与 使用ListView</a></li>
+          </ul>
+        </li>
+        <li><a href="#避免任何更复杂">避免任何更复杂</a>
+          <ul>
+            <li><a href="#formmixin与--使用detailview">FormMixin与  使用DetailView</a></li>
+            <li><a href="#更好的解决方案">更好的解决方案</a></li>
+            <li><a href="#另一种更好的解决方案">另一种更好的解决方案</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="在基于类的视图中使用mixins">在基于类的视图中使用mixins</h1>
+<p><strong>警告：</strong> 这是一个高级主题。在探索这些技术之前，建议您对<a href="https://www.w3cschool.cn/django/django-lq1g37h4.html" target="_blank" rel="noopener noreffer">Django基于类的视图</a>有一定的了解。</p>
+<p>Django的内置基于类的视图提供了许多功能，但您可能需要单独使用其中的一些功能。例如，您可能想编写一个视图，该视图呈现一个模板以进行HTTP响应，但是您不能使用 TemplateView;  也许您只需要在上渲染模板POST，然后GET完全执行其他操作即可。虽然您可以TemplateResponse直接使用 ，但这可能会导致代码重复。</p>
+<p>因此，Django还提供了许多混合器，这些混合器提供了更多离散功能。例如，模板呈现封装在中 TemplateResponseMixin。Django参考文档包含所有mixins的完整文档。</p>
+<h2 id="上下文和模板答复">上下文和模板答复</h2>
+<p>提供了两个中央mixin，它们有助于在使用基于类的视图中的模板时提供一致的界面。</p>
+<ul>
+<li>TemplateResponseMixin每个返回a的内置视图都 TemplateResponse将调用提供的 render_to_response()  方法TemplateResponseMixin。在大多数情况下，都会为您调用此get()方法（例如，由TemplateView和  实现的方法都调用它DetailView）；同样，不太可能需要覆盖它，尽管如果您希望响应返回的内容不是通过Django模板呈现的，那么您就需要这样做。有关此示例，请参见JSONResponseMixin示例。render_to_response()本身调用 get_template_names()，默认情况下会  template_name在基于类的视图上查询；其他两个mixin（SingleObjectTemplateResponseMixin 和  MultipleObjectTemplateResponseMixin）覆盖此属性，以便在处理实际对象时提供更灵活的默认值。</li>
+<li>ContextMixin每个需要上下文数据（例如用于渲染模板（包括TemplateResponseMixin上述内容））的内置视图都应调用 get_context_data()传递它们想要确保位于其中的任何数据作为关键字参数。  get_context_data()返回字典；在ContextMixin其中返回其关键字参数，但是通常会覆盖此参数以将更多成员添加到字典中。您也可以使用该 extra_context属性。</li>
+</ul>
+<h2 id="建立django基于类的通用视图">建立Django基于类的通用视图</h2>
+<p>让我们看看Django的两个基于类的通用视图是如何通过提供离散功能的mixin构建的。我们将考虑 DetailView，它呈现一个对象的“详细”视图，而  ListView，它将呈现一个对象列表（通常来自查询集），并可选地对它们进行分页。这将向我们介绍四个mixin，它们在使用单个Django对象或多个对象时提供有用的功能。</p>
+<p>也有参与通用编辑观点混入（FormView和特定型号的意见CreateView， UpdateView和 DeleteView），并在基于日期的通用视图。这些已在mixin参考文档中介绍。</p>
+<h3 id="detailview使用单个django对象">DetailView：使用单个Django对象</h3>
+<p>要显示对象的详细信息，我们基本上需要做两件事：我们需要查找对象，然后需要TemplateResponse使用合适的模板制作一个 ，并将该对象作为上下文。</p>
+<p>要获得该对象，需要DetailView 依赖SingleObjectMixin，该get_object() 方法提供了一种方法，该  方法可以根据请求的URL找出对象（它会根据URLConf中的声明查找pk和slug关键字参数，然后从model视图的属性中查找该对象 ，或提供的 queryset 属性）。SingleObjectMixin也会覆盖  get_context_data()，它在所有Django的所有基于类的内置视图中使用，以为模板渲染提供上下文数据。</p>
+<p>然后TemplateResponse，要 DetailView使用SingleObjectTemplateResponseMixin，则使用 ，  如上所讨论的，它扩展了TemplateResponseMixin，覆盖  get_template_names()。实际上，它提供了一组相当复杂的选项，但是大多数人要使用的主要选项是  /_detail.html。该_detail部分可以通过设置来改变 template_name_suffix  的一个子类别的东西。（例如，通用编辑观点使用_form的创建和更新的意见，并 _confirm_delete进行删除的意见。）</p>
+<h3 id="listview使用许多django对象">ListView：使用许多Django对象</h3>
+<p>对象列表遵循大致相同的模式：我们需要一个（可能是分页的）对象列表，通常为 QuerySet，然后我们需要TemplateResponse使用该对象列表使用合适的模板制作一个 。</p>
+<p>要获取对象，请ListView使用 MultipleObjectMixin，同时提供 get_queryset() 和  paginate_queryset()。与with不同SingleObjectMixin，不需要关闭URL的一部分来确定要使用的查询集，因此默认值使用 view类上的querysetor model属性。覆盖get_queryset() 此处的常见原因  是动态地改变对象，例如取决于当前用户或排除博客的将来帖子。</p>
+<p>MultipleObjectMixin还重写 get_context_data()以包括用于分页的适当上下文变量（如果禁用了分页，则提供虚拟变量）。它依赖object_list于作为关键字参数进行传递的关键字参数ListView。</p>
+<p>做一个TemplateResponse， ListView然后使用 MultipleObjectTemplateResponseMixin;  与SingleObjectTemplateResponseMixin  上面的方法一样，此方法将覆盖，get_template_names()以提供，最常用的是 ，而该部分再次从  属性中获取。（基于日期的通用视图使用诸如的后缀， 以此类推，以便为各种专门的基于日期的列表视图使用不同的模板。）a range of  options/_list.html<code>_listtemplate_name_suffix_archive</code>_archive_year</p>
+<h2 id="使用django的基于类的视图混入">使用Django的基于类的视图混入</h2>
+<p>现在，我们已经了解了Django的基于类的通用视图如何使用提供的mixins，让我们看一下将它们组合在一起的其他方法。当然，我们仍将它们与内置的基于类的视图或其他通用的基于类的视图结合起来，但是您可以解决许多比Django开箱即用的罕见问题。</p>
+<p>**警告：**并非所有的mixin都可以一起使用，也不是所有基于通用类的视图都可以与所有其他mixin一起使用。在这里，我们提供了一些可行的示例。如果要合并其他功能，则必须考虑使用的不同类之间重叠的属性和方法之间的交互，以及方法解析顺序将如何影响以何种顺序调用哪些版本的方法。</p>
+<p>Django的基于类的视图和基于类的视图mixin的参考文档将帮助您了解哪些属性和方法可能会导致不同的类和mixin之间发生冲突。</p>
+<p>如有疑问，通常最好还是放弃并以 View或为基础TemplateView，也许使用 SingleObjectMixin和  MultipleObjectMixin。尽管您可能最终会写出更多的代码，但是以后其他人可能更容易理解它，而更少的交互性让您担心，可以节省一些时间。（当然，您总是可以深入了解Django基于类的通用视图的实现，以获取有关如何解决问题的灵感。）</p>
+<h3 id="singleobjectmixin与view一起使用">SingleObjectMixin与View一起使用</h3>
+<p>如果我们要编写一个仅对做出响应的基于类的视图，则将创建子POST类View并post()在该子类中编写一个方法。但是，如果我们希望我们的处理能够处理从URL识别的特定对象，我们将需要提供的功能 SingleObjectMixin。</p>
+<p>我们将通过在基于通用类的视图简介中Author使用的模型来 演示这一点。</p>
+<p>的views.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.urls import reverse
+from django.views import View
+from django.views.generic.detail import SingleObjectMixin
+from books.models import Author
+
+class RecordInterest(SingleObjectMixin, View):
+    &#34;&#34;&#34;Records the current user&#39;s interest in an author.&#34;&#34;&#34;
+    model = Author
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden()
+
+        # Look up the author we&#39;re interested in.
+        self.object = self.get_object()
+        # Actually record interest somehow here!
+
+        return HttpResponseRedirect(reverse(&#39;author-detail&#39;, kwargs={&#39;pk&#39;: self.object.pk}))
+</code></pre></td></tr></table>
+</div>
+</div><p>实际上，您可能希望将兴趣记录在键值存储而不是关系数据库中，因此我们省略了这一点。唯一需要担心使用的视图 SingleObjectMixin就是我们要查找感兴趣的作者的地方，它通过调用来完成  self.get_object()。mixin会为我们处理其他所有事务。</p>
+<p>我们可以很容易地将其挂接到我们的URL中：</p>
+<p>的urls.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.urls import path
+from books.views import RecordInterest
+
+urlpatterns = [
+    #...
+    path(&#39;author/&lt;int:pk&gt;/interest/&#39;, RecordInterest.as_view(), name=&#39;author-interest&#39;),
+]
+</code></pre></td></tr></table>
+</div>
+</div><p>请注意pk命名组，该组 get_object()用于查找Author实例。您还可以使用slug或的任何其他功能 SingleObjectMixin。</p>
+<h3 id="singleobjectmixin与-使用listview">SingleObjectMixin与 使用ListView</h3>
+<p>ListView提供内置的分页功能，但是您可能希望对所有通过外键链接到另一个对象的对象列表进行分页。在我们的出版示例中，您可能希望对特定出版商的所有书籍进行分页。</p>
+<p>一种实现方法是与结合ListView使用 SingleObjectMixin，以便分页图书清单的查询集可以脱离作为单个对象找到的出版商。为此，我们需要有两个不同的查询集：</p>
+<ul>
+<li>Book 由&hellip;使用的查询集 ListView由于我们可以访问Publisher要列出的书，因此我们可以覆盖get_queryset()和使用Publisher的反向外键管理器。</li>
+<li>Publisher queryset用于  get_object()我们将依靠的默认实现get_object()来获取正确的Publisher对象。但是，我们需要显式传递一个queryset参数，因为否则默认的的实现get_object()将调用 get_queryset()我们已重写以返回Book对象而不是对象的对象Publisher。</li>
+</ul>
+<p>**注意：**我们必须仔细考虑get_context_data()。由于SingleObjectMixin和 ListView都会将事物放置在上下文数据中（context_object_name如果已设置）的值之下，因此我们将明确确保事物在  Publisher上下文数据中。ListView 将增加在合适的page_obj和paginator我们提供我们记得打电话super()。</p>
+<p>现在我们可以写一个新的PublisherDetail：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.views.generic import ListView
+from django.views.generic.detail import SingleObjectMixin
+from books.models import Publisher
+
+class PublisherDetail(SingleObjectMixin, ListView):
+    paginate_by = 2
+    template_name = &#34;books/publisher_detail.html&#34;
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object(queryset=Publisher.objects.all())
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context[&#39;publisher&#39;] = self.object
+        return context
+
+    def get_queryset(self):
+        return self.object.book_set.all()
+</code></pre></td></tr></table>
+</div>
+</div><p>请注意我们是如何设置的self.object，get()以便稍后在get_context_data()和中再次使用它get_queryset()。如果您未设置template_name，则模板将默认为正常 ListView选择，在这种情况下，这是 &ldquo;books/book_list.html&quot;因为它是一本书籍清单；  ListView一无所知SingleObjectMixin，因此毫无 头绪Publisher。</p>
+<h2 id="避免任何更复杂">避免任何更复杂</h2>
+<p>一般来说，你可以使用 TemplateResponseMixin和  SingleObjectMixin当你需要它们的功能。如上所示，稍加注意，您甚至可以SingleObjectMixin与结合使用  ListView。但是，随着您尝试这样做，事情变得越来越复杂，一个好的经验法则是：</p>
+<p>**暗示：**您的每个视图都应仅使用mixins或一组基于类的通用视图中的视图：详细信息，列表，编辑和日期。例如，将TemplateView（内置于视图中）与 MultipleObjectMixin（通用列表）结合在一起是很好的选择  ，但是将SingleObjectMixin（通用细节）与MultipleObjectMixin（通用列表）结合起来可能会遇到问题。</p>
+<p>为了显示当您尝试变得更复杂时会发生什么，我们展示了一个示例，该示例在存在更简单的解决方案时会牺牲可读性和可维护性。首先，让我们看一下与结合DetailView使用的天真尝试 ， FormMixin以使我们能够 POST将Django Form带到与我们使用来显示对象相同的URL DetailView。</p>
+<h3 id="formmixin与--使用detailview">FormMixin与  使用DetailView</h3>
+<p>回想一下我们先前使用View和 SingleObjectMixin在一起的示例。我们正在记录用户对特定作者的兴趣；现在说，我们要让他们留下信息，说明他们为什么喜欢他们。再次，让我们假设我们不会将其存储在关系数据库中，而是存储在我们不再担心的更深奥的东西中。</p>
+<p>此时，很自然地可以Form将封装从用户浏览器发送到Django的信息。还要说我们在REST上投入了巨资，因此我们想使用与显示来自用户的消息相同的URL来显示作者。让我们重写我们的代码AuthorDetailView。</p>
+<p>尽管必须将a添加到上下文数据中，以便将其呈现在模板中，但我们将保留GET来自的处理。我们还希望从中引入表单处理，并编写一些代码，以便在表单上正确调用。DetailViewFormFormMixinPOST</p>
+<p>**注意：**我们使用FormMixin并实现 post()自己，而不是尝试DetailView与之 混合FormView（这post()已经提供了合适的方法），因为这两个视图都实现get()，并且事情会变得更加混乱。</p>
+<p>我们的新AuthorDetail外观如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># CAUTION: you almost certainly do not want to do this.
+# It is provided as part of a discussion of problems you can
+# run into when combining different generic class-based view
+# functionality that is not designed to be used together.
+
+from django import forms
+from django.http import HttpResponseForbidden
+from django.urls import reverse
+from django.views.generic import DetailView
+from django.views.generic.edit import FormMixin
+from books.models import Author
+
+class AuthorInterestForm(forms.Form):
+    message = forms.CharField()
+
+class AuthorDetail(FormMixin, DetailView):
+    model = Author
+    form_class = AuthorInterestForm
+
+    def get_success_url(self):
+        return reverse(&#39;author-detail&#39;, kwargs={&#39;pk&#39;: self.object.pk})
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden()
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        # Here, we would record the user&#39;s interest using the message
+        # passed in form.cleaned_data[&#39;message&#39;]
+        return super().form_valid(form)
+</code></pre></td></tr></table>
+</div>
+</div><p>get_success_url()提供重定向到的位置，该位置可用于的默认实现form_valid()。post()如前所述，我们必须提供我们自己的。</p>
+<h3 id="更好的解决方案">更好的解决方案</h3>
+<p>之间微妙的相互作用的数量 FormMixin和DetailView已测试我们的管理事物的能力。您不太可能想自己编写此类。</p>
+<p>在这种情况下，尽管编写处理代码涉及很多重复，但是您可以post()自己编写方法，并保持 DetailView唯一的通用功能 Form。</p>
+<p>可替代地，它仍然会比上面的方法工作少到具有用于处理的形式，其可以使用一个单独的视图 FormView从不同 DetailView无顾虑。</p>
+<h3 id="另一种更好的解决方案">另一种更好的解决方案</h3>
+<p>我们实际上在这里试图做的是使用来自同一URL的两个不同的基于类的视图。那么为什么不这样做呢？我们在这里有一个非常清楚的划分：GET请求应获取 DetailView（Form添加到上下文数据中），POST请求应获取FormView。让我们先设置这些视图。</p>
+<p>该AuthorDisplay视图与我们首次引入AuthorDetail时几乎相同；我们在写我们自己get_context_data()，使 AuthorInterestForm可用的模板。get_object()为了清楚起见，我们将跳过之前的 替代：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django import forms
+from django.views.generic import DetailView
+from books.models import Author
+
+class AuthorInterestForm(forms.Form):
+    message = forms.CharField()
+
+class AuthorDisplay(DetailView):
+    model = Author
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context[&#39;form&#39;] = AuthorInterestForm()
+        return context
+</code></pre></td></tr></table>
+</div>
+</div><p>然后AuthorInterest是a FormView，但是我们必须带进来，  SingleObjectMixin以便我们可以找到我们正在谈论的作者，并且我们必须记住进行设置template_name以确保表单错误将呈现与AuthorDisplayon 相同的模板GET：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.http import HttpResponseForbidden
+from django.urls import reverse
+from django.views.generic import FormView
+from django.views.generic.detail import SingleObjectMixin
+
+class AuthorInterest(SingleObjectMixin, FormView):
+    template_name = &#39;books/author_detail.html&#39;
+    form_class = AuthorInterestForm
+    model = Author
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden()
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse(&#39;author-detail&#39;, kwargs={&#39;pk&#39;: self.object.pk})
+</code></pre></td></tr></table>
+</div>
+</div><p>最后，我们以一种新的AuthorDetail观点将它们组合在一起。我们已经知道，调用as_view()基于类的视图会使我们的行为与基于函数的视图完全相同，因此我们可以在两个子视图之间进行选择。</p>
+<p>当然，您可以通过传递关键字参数as_view()的方式与在URLconf中传递 方式相同，例如，如果您希望该AuthorInterest行为也出现在另一个URL上，但使用不同的模板：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.views import View
+
+class AuthorDetail(View):
+
+    def get(self, request, *args, **kwargs):
+        view = AuthorDisplay.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        view = AuthorInterest.as_view()
+        return view(request, *args, **kwargs)
+</code></pre></td></tr></table>
+</div>
+</div><p>此方法还可以与任何其他直接从View或继承的常规基于类的视图或您自己的基于类的视图一起使用 TemplateView，因为它可以使不同的视图尽可能地分开。</p>
+<p>当您想多次执行相同的操作时，基于类的视图就会大放异彩。假设您正在编写一个API，并且每个视图都应返回JSON而不是呈现的HTML。</p>
+<p>我们可以创建一个mixin类以在所有视图中使用，一次处理到JSON的转换。</p>
+<p>例如，JSON混合可能看起来像这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.http import JsonResponse
+
+class JSONResponseMixin:
+    &#34;&#34;&#34;
+    A mixin that can be used to render a JSON response.
+    &#34;&#34;&#34;
+    def render_to_json_response(self, context, **response_kwargs):
+        &#34;&#34;&#34;
+        Returns a JSON response, transforming &#39;context&#39; to make the payload.
+        &#34;&#34;&#34;
+        return JsonResponse(
+            self.get_data(context),
+            **response_kwargs
+        )
+
+    def get_data(self, context):
+        &#34;&#34;&#34;
+        Returns an object that will be serialized as JSON by json.dumps().
+        &#34;&#34;&#34;
+        # Note: This is *EXTREMELY* naive; in reality, you&#39;ll need
+        # to do much more complex handling to ensure that arbitrary
+        # objects -- such as Django model instances or querysets
+        # -- can be serialized as JSON.
+        return context
+</code></pre></td></tr></table>
+</div>
+</div><p>**注意：**请查看序列化Django对象文档，以获取有关如何正确将Django模型和查询集正确转换为JSON的更多信息。</p>
+<p>这个mixin提供了render_to_json_response()一种与签名相同的方法render_to_response()。要使用它，我们需要将其混入一个TemplateView例如，并重写 render_to_response()以render_to_json_response()代替调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.views.generic import TemplateView
+
+class JSONView(JSONResponseMixin, TemplateView):
+    def render_to_response(self, context, **response_kwargs):
+        return self.render_to_json_response(context, **response_kwargs)
+</code></pre></td></tr></table>
+</div>
+</div><p>同样，我们可以将我们的mixin与通用视图之一一起使用。我们可以DetailView通过JSONResponseMixin与django.views.generic.detail.BaseDetailView– 混合来制作自己的版本（混合 了 DetailView模板渲染之前的行为）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.views.generic.detail import BaseDetailView
+
+class JSONDetailView(JSONResponseMixin, BaseDetailView):
+    def render_to_response(self, context, **response_kwargs):
+        return self.render_to_json_response(context, **response_kwargs)
+</code></pre></td></tr></table>
+</div>
+</div><p>然后可以以与其他任何视图相同的方式部署此视图 DetailView，并且行为完全相同-除了响应的格式。</p>
+<p>如果你想成为真正的冒险，你甚至可以混合使用一个 DetailView子类，它能够返回两个 HTML和JSON的内容，根据不同的HTTP请求，的某些属性，如查询参数或HTTP标头。混合使用  JSONResponseMixin和和  SingleObjectTemplateResponseMixin，并render_to_response()  根据用户请求的响应类型覆盖的实现， 以采用适当的呈现方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.views.generic.detail import SingleObjectTemplateResponseMixin
+
+class HybridDetailView(JSONResponseMixin, SingleObjectTemplateResponseMixin, BaseDetailView):
+    def render_to_response(self, context):
+        # Look for a &#39;format=json&#39; GET argument
+        if self.request.GET.get(&#39;format&#39;) == &#39;json&#39;:
+            return self.render_to_json_response(context)
+        else:
+            return super().render_to_response(context)
+</code></pre></td></tr></table>
+</div>
+</div><p>由于Python解决方法重载的方式，对的调用 super().render_to_response(context)最终调用的 render_to_response() 实现TemplateResponseMixin。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-01-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/" data-title="Django将mixins与基于类的视图一起使用" data-hashtags="后端框架,Django,Python"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/" data-hashtag="后端框架"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/" data-title="Django将mixins与基于类的视图一起使用"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/" data-title="Django将mixins与基于类的视图一起使用"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/" data-title="Django将mixins与基于类的视图一起使用"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6/">后端框架</a>,&nbsp;<a href="/tags/django/">Django</a>,&nbsp;<a href="/tags/python/">Python</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/django%E4%BD%BF%E7%94%A8%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E8%BF%9B%E8%A1%8C%E8%A1%A8%E5%8D%95%E5%A4%84%E7%90%86/" class="prev" rel="prev" title="Django使用基于类的视图进行表单处理"><i class="fas fa-angle-left fa-fw"></i>Django使用基于类的视图进行表单处理</a>
+            <a href="/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/" class="next" rel="next" title="Django使用WSGI进行部署">Django使用WSGI进行部署<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>建造者模式 - ❤Nanase</title><meta name="Description" content="将一个复杂对象的构造与它的表示分离，使同样的构建过程可以创建不同的表示，这样的设计模式被称为建造者模式。"><meta property="og:title" content="建造者模式" />
+<meta property="og:description" content="将一个复杂对象的构造与它的表示分离，使同样的构建过程可以创建不同的表示，这样的设计模式被称为建造者模式。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2016-11-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-11-24T00:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="建造者模式"/>
+<meta name="twitter:description" content="将一个复杂对象的构造与它的表示分离，使同样的构建过程可以创建不同的表示，这样的设计模式被称为建造者模式。"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" /><link rel="prev" href="http://www.nishinonanase.xyz/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/" /><link rel="next" href="http://www.nishinonanase.xyz/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "建造者模式",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F\/"
+        },"genre": "posts","keywords": "基础理论, 设计模式","wordcount":  2862 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F\/","datePublished": "2016-11-24T00:00:00+00:00","dateModified": "2016-11-24T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "zhaoqiang"
+            },"description": "将一个复杂对象的构造与它的表示分离，使同样的构建过程可以创建不同的表示，这样的设计模式被称为建造者模式。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">建造者模式</h1><h2 class="single-subtitle">使用多个简单的对象一步一步构建成一个复杂的对象</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>zhaoqiang</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2016-11-24">2016-11-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2862 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="leancloud_visitors" data-flag-title="建造者模式">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#意图intent">意图Intent</a></li>
+        <li><a href="#适用场景">适用场景</a></li>
+        <li><a href="#四个要素">四个要素</a></li>
+        <li><a href="#show-me-the-code">Show me the code</a></li>
+        <li><a href="#优点">优点</a></li>
+        <li><a href="#缺点">缺点</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="意图intent">意图Intent</h2>
+<p>Builder Pattern: Separate the construction of a complex object form its representation so that the same construction process can create different representations 造者模式:将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p>
+<p>建造者模式是一步一步创建一个复杂的对象，它允许用户只通过指定复杂对象的类型和内容就可以构建它们，用户不需要知道内部的具体构建细节。建造者模式属于对象创建型模式。根据中文翻译的不同，建造者模式又可以称为生成器模式。</p>
+<hr>
+<h2 id="适用场景">适用场景</h2>
+<p>在以下情况下可以使用建造者模式：</p>
+<ul>
+<li>需要生成的产品对象有复杂的内部结构，这些产品对象通常包含多个成员属性。</li>
+<li>需要生成的产品对象的属性相互依赖，需要指定其生成顺序。</li>
+<li>对象的创建过程独立于创建该对象的类。在建造者模式中引入了指挥者类，将创建过程封装在指挥者类中，而不在建造者类中。</li>
+<li>隔离复杂对象的创建和使用，并使得相同的创建过程可以创建不同的产品。</li>
+</ul>
+<hr>
+<h2 id="四个要素">四个要素</h2>
+<ul>
+<li>抽象建造者(Builder)：引入抽象建造者的目的，是为了将建造的具体过程交与它的子类来实现。这样更容易扩展。一般至少会有两个抽象方法，一个用来建造产品，一个是用来返回产品。</li>
+<li>具体建造者(ConcreteBuilder)：实现抽象类的所有未实现的方法，具体来说一般是两项任务：组建产品；返回组建好的产品。</li>
+<li>导演类(Director)：负责调用适当的建造者来组建产品，导演类一般不与产品类发生依赖关系，与导演类直接交互的是建造者类。一般来说，导演类被用来封装程序中易变的部分。</li>
+<li>产品类(Product)：一般是一个较为复杂的对象，也就是说创建对象的过程比较复杂，一般会有比较多的代码量。在本类图中，产品类是一个具体的类，而非抽象类。实际编程中，产品类可以是由一个抽象类与它的不同实现组成，也可以是由多个抽象类与他们的实现组成。</li>
+</ul>
+<p>Builder Pattern 类图Builder Pattern 类图</p>
+<hr>
+<h2 id="show-me-the-code">Show me the code</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">    class Product {
+            private String name;
+            private String type;
+            public void showProduct(){
+                System.out.println(&#34;名称：&#34;+name);
+                System.out.println(&#34;型号：&#34;+type);
+            }
+            public void setName(String name) {
+                this.name = name;
+            }
+            public void setType(String type) {
+                this.type = type;
+            }
+        }
+        abstract class Builder {
+            public abstract void setPart(String arg1, String arg2);
+            public abstract Product getProduct();
+        }
+        class ConcreteBuilder extends Builder {
+            private Product product = new Product();
+            public Product getProduct() {
+                return product;
+            }
+            public void setPart(String name, String type) {
+                product.setName(name);
+                product.setType(type);
+            }
+        }
+        public class Director {
+            private Builder builder = new ConcreteBuilder();
+            public Product getAProduct(){
+                builder.setPart(&#34;宝马汽车&#34;,&#34;X7&#34;);
+                return builder.getProduct();
+            }
+            public Product getBProduct(){
+                builder.setPart(&#34;奥迪汽车&#34;,&#34;Q5&#34;);
+                return builder.getProduct();
+            }
+        }
+        public class Client {
+            public static void main(String[] args){
+                Director director = new Director();
+                Product product1 = director.getAProduct();
+                product1.showProduct();
+                Product product2 = director.getBProduct();
+                product2.showProduct();
+            }
+        }
+</code></pre></td></tr></table>
+</div>
+</div><p>看了上面的例子，会感觉建造者模式与工厂模式是极为相似的，总体上，建造者模式仅仅只比工厂模式多了一个”导演类”的角色。在建造者模式的类图中，假如把这个导演类看做是最终调用的客户端，那么图中剩余的部分就可以看作是一个简单的工厂模式了。 工厂模式的区别：工厂模式关注的是创建单个产品，而建造者模式则关注创建复合对象，多个部分。 上面的例子是比较完整的Builder模式的例子，我们再来举一个简单的，也是比较常用的例子。现在手机都可以自己组装了，我们知道每个手机都会有OS，CPU，GPU….等模块，但是不同的手机采用的CPU，GPU都不一样。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">    <span class="kn">package</span> <span class="nx">com</span><span class="p">.</span><span class="nx">builder</span><span class="p">;</span>
+    <span class="cm">/**
+</span><span class="cm">     *
+</span><span class="cm">     * Phone, the class with many parameters.
+</span><span class="cm">     *
+</span><span class="cm">     */</span>
+    <span class="nx">public</span> <span class="nx">class</span> <span class="nx">Phone</span> <span class="p">{</span>
+    	<span class="nx">private</span> <span class="nx">String</span> <span class="nx">OS</span><span class="p">;</span>
+    	<span class="nx">private</span> <span class="nx">String</span> <span class="nx">CPU</span><span class="p">;</span>
+    	<span class="nx">private</span> <span class="nx">String</span> <span class="nx">GPU</span><span class="p">;</span>
+    	<span class="nx">private</span> <span class="nx">String</span> <span class="nx">RAM</span><span class="p">;</span>
+    	<span class="nx">private</span> <span class="nx">String</span> <span class="nx">FLASH</span><span class="p">;</span>
+    	<span class="nx">private</span> <span class="nx">String</span> <span class="nx">BATTERY</span><span class="p">;</span>
+    	<span class="nx">private</span> <span class="nx">String</span> <span class="nx">USB</span><span class="p">;</span>
+    	<span class="nx">private</span> <span class="nx">String</span> <span class="nx">DISPLAY</span><span class="p">;</span>
+    	<span class="nx">private</span> <span class="nx">String</span> <span class="nx">CAMERA</span><span class="p">;</span>
+    	<span class="nx">private</span> <span class="nx">String</span> <span class="nx">GPS</span><span class="p">;</span>
+    	<span class="nx">public</span> <span class="nf">Phone</span><span class="p">(</span><span class="nx">PhoneBuilder</span> <span class="nx">builder</span><span class="p">)</span> <span class="p">{</span>
+    		<span class="nx">this</span><span class="p">.</span><span class="nx">OS</span> <span class="p">=</span> <span class="nx">builder</span><span class="p">.</span><span class="nx">OS</span><span class="p">;</span>
+    		<span class="nx">this</span><span class="p">.</span><span class="nx">CPU</span> <span class="p">=</span> <span class="nx">builder</span><span class="p">.</span><span class="nx">CPU</span><span class="p">;</span>
+    		<span class="nx">this</span><span class="p">.</span><span class="nx">GPU</span> <span class="p">=</span> <span class="nx">builder</span><span class="p">.</span><span class="nx">GPU</span><span class="p">;</span>
+    		<span class="nx">this</span><span class="p">.</span><span class="nx">RAM</span> <span class="p">=</span> <span class="nx">builder</span><span class="p">.</span><span class="nx">RAM</span><span class="p">;</span>
+    		<span class="nx">this</span><span class="p">.</span><span class="nx">FLASH</span> <span class="p">=</span> <span class="nx">builder</span><span class="p">.</span><span class="nx">FLASH</span><span class="p">;</span>
+    		<span class="nx">this</span><span class="p">.</span><span class="nx">BATTERY</span> <span class="p">=</span> <span class="nx">builder</span><span class="p">.</span><span class="nx">BATTERY</span><span class="p">;</span>
+    		<span class="nx">this</span><span class="p">.</span><span class="nx">USB</span> <span class="p">=</span> <span class="nx">builder</span><span class="p">.</span><span class="nx">USB</span><span class="p">;</span>
+    		<span class="nx">this</span><span class="p">.</span><span class="nx">DISPLAY</span> <span class="p">=</span> <span class="nx">builder</span><span class="p">.</span><span class="nx">DISPLAY</span><span class="p">;</span>
+    		<span class="nx">this</span><span class="p">.</span><span class="nx">CAMERA</span> <span class="p">=</span> <span class="nx">builder</span><span class="p">.</span><span class="nx">CAMERA</span><span class="p">;</span>
+    		<span class="nx">this</span><span class="p">.</span><span class="nx">GPS</span> <span class="p">=</span> <span class="nx">builder</span><span class="p">.</span><span class="nx">GPS</span><span class="p">;</span>
+    	<span class="p">}</span>
+    	<span class="err">@</span><span class="nx">Override</span>
+    	<span class="nx">public</span> <span class="nx">String</span> <span class="nf">toString</span><span class="p">()</span> <span class="p">{</span>
+    		<span class="k">return</span> <span class="s">&#34;Phone [OS=&#34;</span> <span class="o">+</span> <span class="nx">OS</span> <span class="o">+</span> <span class="s">&#34;, CPU=&#34;</span> <span class="o">+</span> <span class="nx">CPU</span> <span class="o">+</span> <span class="s">&#34;, GPU=&#34;</span> <span class="o">+</span> <span class="nx">GPU</span> <span class="o">+</span> <span class="s">&#34;, RAM=&#34;</span> <span class="o">+</span> <span class="nx">RAM</span> <span class="o">+</span> <span class="s">&#34;, FLASH=&#34;</span> <span class="o">+</span> <span class="nx">FLASH</span> <span class="o">+</span> <span class="s">&#34;, BATTERY=&#34;</span>
+    				<span class="o">+</span> <span class="nx">BATTERY</span> <span class="o">+</span> <span class="s">&#34;, USB=&#34;</span> <span class="o">+</span> <span class="nx">USB</span> <span class="o">+</span> <span class="s">&#34;, DISPLAY=&#34;</span> <span class="o">+</span> <span class="nx">DISPLAY</span> <span class="o">+</span> <span class="s">&#34;, CAMERA=&#34;</span> <span class="o">+</span> <span class="nx">CAMERA</span> <span class="o">+</span> <span class="s">&#34;, GPS=&#34;</span> <span class="o">+</span> <span class="nx">GPS</span> <span class="o">+</span> <span class="s">&#34;]&#34;</span><span class="p">;</span>
+    	<span class="p">}</span>
+      <span class="c1">// 手机Builder类
+</span><span class="c1"></span>    	<span class="nx">public</span> <span class="nx">static</span> <span class="nx">class</span> <span class="nx">PhoneBuilder</span> <span class="p">{</span>
+    		<span class="nx">private</span> <span class="nx">String</span> <span class="nx">OS</span><span class="p">;</span>
+    		<span class="nx">private</span> <span class="nx">String</span> <span class="nx">CPU</span><span class="p">;</span>
+    		<span class="nx">private</span> <span class="nx">String</span> <span class="nx">GPU</span><span class="p">;</span>
+    		<span class="nx">private</span> <span class="nx">String</span> <span class="nx">RAM</span><span class="p">;</span>
+    		<span class="nx">private</span> <span class="nx">String</span> <span class="nx">FLASH</span><span class="p">;</span>
+    		<span class="nx">private</span> <span class="nx">String</span> <span class="nx">BATTERY</span><span class="p">;</span>
+    		<span class="nx">private</span> <span class="nx">String</span> <span class="nx">USB</span><span class="p">;</span>
+    		<span class="nx">private</span> <span class="nx">String</span> <span class="nx">DISPLAY</span><span class="p">;</span>
+    		<span class="nx">private</span> <span class="nx">String</span> <span class="nx">CAMERA</span><span class="p">;</span>
+    		<span class="nx">private</span> <span class="nx">String</span> <span class="nx">GPS</span><span class="p">;</span>
+    		<span class="nx">public</span> <span class="nx">PhoneBuilder</span> <span class="nf">withOS</span><span class="p">(</span><span class="nx">String</span> <span class="nx">os</span><span class="p">){</span>
+    			<span class="nx">this</span><span class="p">.</span><span class="nx">OS</span> <span class="p">=</span> <span class="nx">os</span><span class="p">;</span>
+    			<span class="k">return</span> <span class="nx">this</span><span class="p">;</span>
+    		<span class="p">}</span>
+    		<span class="nx">public</span> <span class="nx">PhoneBuilder</span> <span class="nf">withCPU</span><span class="p">(</span><span class="nx">String</span> <span class="nx">cpu</span><span class="p">){</span>
+    			<span class="nx">this</span><span class="p">.</span><span class="nx">CPU</span> <span class="p">=</span> <span class="nx">cpu</span><span class="p">;</span>
+    			<span class="k">return</span> <span class="nx">this</span><span class="p">;</span>
+    		<span class="p">}</span>
+    		<span class="nx">public</span> <span class="nx">PhoneBuilder</span> <span class="nf">withGPU</span><span class="p">(</span><span class="nx">String</span> <span class="nx">gpu</span><span class="p">){</span>
+    			<span class="nx">this</span><span class="p">.</span><span class="nx">GPU</span> <span class="p">=</span> <span class="nx">gpu</span><span class="p">;</span>
+    			<span class="k">return</span> <span class="nx">this</span><span class="p">;</span>
+    		<span class="p">}</span>
+    		<span class="nx">public</span> <span class="nx">PhoneBuilder</span> <span class="nf">withRAM</span><span class="p">(</span><span class="nx">String</span> <span class="nx">ram</span><span class="p">){</span>
+    			<span class="nx">this</span><span class="p">.</span><span class="nx">RAM</span> <span class="p">=</span> <span class="nx">ram</span><span class="p">;</span>
+    			<span class="k">return</span> <span class="nx">this</span><span class="p">;</span>
+    		<span class="p">}</span>
+    		<span class="nx">public</span> <span class="nx">PhoneBuilder</span> <span class="nf">withFLASH</span><span class="p">(</span><span class="nx">String</span> <span class="nx">flash</span><span class="p">){</span>
+    			<span class="nx">this</span><span class="p">.</span><span class="nx">FLASH</span> <span class="p">=</span> <span class="nx">flash</span><span class="p">;</span>
+    			<span class="k">return</span> <span class="nx">this</span><span class="p">;</span>
+    		<span class="p">}</span>
+    		<span class="nx">public</span> <span class="nx">PhoneBuilder</span> <span class="nf">withBATTERY</span><span class="p">(</span><span class="nx">String</span> <span class="nx">battery</span><span class="p">){</span>
+    			<span class="nx">this</span><span class="p">.</span><span class="nx">BATTERY</span> <span class="p">=</span> <span class="nx">battery</span><span class="p">;</span>
+    			<span class="k">return</span> <span class="nx">this</span><span class="p">;</span>
+    		<span class="p">}</span>
+    		<span class="nx">public</span> <span class="nx">PhoneBuilder</span> <span class="nf">withUSB</span><span class="p">(</span><span class="nx">String</span> <span class="nx">usb</span><span class="p">){</span>
+    			<span class="nx">this</span><span class="p">.</span><span class="nx">USB</span> <span class="p">=</span> <span class="nx">usb</span><span class="p">;</span>
+    			<span class="k">return</span> <span class="nx">this</span><span class="p">;</span>
+    		<span class="p">}</span>
+    		<span class="nx">public</span> <span class="nx">PhoneBuilder</span> <span class="nf">withDISPLAY</span><span class="p">(</span><span class="nx">String</span> <span class="nx">display</span><span class="p">){</span>
+    			<span class="nx">this</span><span class="p">.</span><span class="nx">DISPLAY</span> <span class="p">=</span> <span class="nx">display</span><span class="p">;</span>
+    			<span class="k">return</span> <span class="nx">this</span><span class="p">;</span>
+    		<span class="p">}</span>
+    		<span class="nx">public</span> <span class="nx">PhoneBuilder</span> <span class="nf">withCAMERA</span><span class="p">(</span><span class="nx">String</span> <span class="nx">camera</span><span class="p">){</span>
+    			<span class="nx">this</span><span class="p">.</span><span class="nx">CAMERA</span> <span class="p">=</span> <span class="nx">camera</span><span class="p">;</span>
+    			<span class="k">return</span> <span class="nx">this</span><span class="p">;</span>
+    		<span class="p">}</span>
+    		<span class="nx">public</span> <span class="nx">PhoneBuilder</span> <span class="nf">withGPS</span><span class="p">(</span><span class="nx">String</span> <span class="nx">gps</span><span class="p">){</span>
+    			<span class="nx">this</span><span class="p">.</span><span class="nx">GPS</span> <span class="p">=</span> <span class="nx">gps</span><span class="p">;</span>
+    			<span class="k">return</span> <span class="nx">this</span><span class="p">;</span>
+    		<span class="p">}</span>
+    		<span class="nx">public</span> <span class="nx">Phone</span> <span class="nf">build</span><span class="p">()</span> <span class="p">{</span>
+    			<span class="k">return</span> <span class="nx">new</span> <span class="nf">Phone</span><span class="p">(</span><span class="nx">this</span><span class="p">);</span>
+    		<span class="p">}</span>
+    	<span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后我们组合不同的模块和具体的参数，就可以生产不同的手机：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">    public static void main(String[] args) {
+    		Phone phone = new Phone.PhoneBuilder()
+    		.withOS(&#34;myos&#34;)
+    		.withBATTERY(&#34;mybattery&#34;)
+    		.withCAMERA(&#34;mycamera&#34;)
+    		.withCPU(&#34;mycpu&#34;)
+    		.withDISPLAY(&#34;mydisplay&#34;)
+    		.withFLASH(&#34;myflash&#34;)
+    		.build();
+    		System.out.println(phone.toString());
+    	}
+
+output：
+
+    Phone [OS=myos, CPU=mycpu, GPU=null, RAM=null, FLASH=myflash, BATTERY=mybattery, USB=null, DISPLAY=mydisplay, CAMERA=mycamera, GPS=null]
+</code></pre></td></tr></table>
+</div>
+</div><p>模式应用举例</p>
+<p>在Android源码中，我们最常用到的Builder模式就是android/platform/frameworks/base/core/java/android/app/AlertDialog.java， 使用该Builder来构建复杂的AlertDialog对象.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">     public static class Builder {
+            private final AlertController.AlertParams P;
+            public Builder(Context context) {
+                this(context, resolveDialogTheme(context, 0));
+            }
+           ...
+            public Builder setTitle(@StringRes int titleId) {
+                P.mTitle = P.mContext.getText(titleId);
+                return this;
+            }
+            public Builder setTitle(CharSequence title) {
+                P.mTitle = title;
+                return this;
+            }
+              public Builder setCustomTitle(View customTitleView) {
+                P.mCustomTitleView = customTitleView;
+                return this;
+            }
+            public Builder setMessage(@StringRes int messageId) {
+                P.mMessage = P.mContext.getText(messageId);
+                return this;
+            }
+            ...
+            public AlertDialog create() {
+                // Context has already been wrapped with the appropriate theme.
+                final AlertDialog dialog = new AlertDialog(P.mContext, 0, false);
+                P.apply(dialog.mAlert);
+                dialog.setCancelable(P.mCancelable);
+                if (P.mCancelable) {
+                    dialog.setCanceledOnTouchOutside(true);
+                }
+                dialog.setOnCancelListener(P.mOnCancelListener);
+                dialog.setOnDismissListener(P.mOnDismissListener);
+                if (P.mOnKeyListener != null) {
+                    dialog.setOnKeyListener(P.mOnKeyListener);
+                }
+                return dialog;
+            }
+</code></pre></td></tr></table>
+</div>
+</div><p>我们在AlertDialog创建时的示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">     AlertDialog.Builder builder = new AlertDialog.Builder(context);  
+            builder.setIcon(R.drawable.icon);  
+            builder.setTitle(&#34;Title&#34;);  
+            builder.setMessage(&#34;Message&#34;);  
+            builder.setPositiveButton(&#34;Ok&#34;,  
+                    new DialogInterface.OnClickListener() {  
+                        public void onClick(DialogInterface dialog, int whichButton) {  
+                            setTitle(&#34;Hi&#34;);  
+                        }  
+                    });
+            builder.create().show();  // 构建AlertDialog， 并且显示
+</code></pre></td></tr></table>
+</div>
+</div><p>还有我们熟悉的android/platform/frameworks/base/core/java/android/app/Notification.java同样也使用了Builder模式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">    Notification noti = new Notification.Builder(mContext)
+                  .setContentTitle(&#34;Title&#34;)
+                  .setContentText(subject)
+                  .setSmallIcon(R.drawable.new_mail)
+                  .setLargeIcon(aBitmap)
+                  .build();
+</code></pre></td></tr></table>
+</div>
+</div><p>另外一些有名的开源库中比如图片加载库Picasso中也使用了Builder模式。有兴趣的可以自行查看com/squareup/picasso/Picasso.java源码。</p>
+<hr>
+<h2 id="优点">优点</h2>
+<ul>
+<li>在建造者模式中， 客户端不必知道产品内部组成的细节，将产品本身与产品的创建过程解耦，使得相同的创建过程可以创建不同的产品对象。</li>
+<li>每一个具体建造者都相对独立，而与其他的具体建造者无关，因此可以很方便地替换具体建造者或增加新的具体建造者， 用户使用不同的具体建造者即可得到不同的产品对象 。</li>
+<li>可以更加精细地控制产品的创建过程 。将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰，也更方便使用程序来控制创建过程。</li>
+<li>增加新的具体建造者无须修改原有类库的代码，指挥者类针对抽象建造者类编程，系统扩展方便，符合“开闭原则”。</li>
+</ul>
+<hr>
+<h2 id="缺点">缺点</h2>
+<ul>
+<li>建造者模式所创建的产品一般具有较多的共同点，其组成部分相似，如果产品之间的差异性很大，则不适合使用建造者模式，因此其使用范围受到一定的限制。</li>
+<li>如果产品的内部变化复杂，可能会导致需要定义很多具体建造者类来实现这种变化，导致系统变得很庞大。</li>
+</ul>
+<hr>
+<h2 id="总结">总结</h2>
+<p>建造者模式将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式是一步一步创建一个复杂的对象，它允许用户只通过指定复杂对象的类型和内容就可以构建它们，用户不需要知道内部的具体构建细节。建造者模式属于对象创建型模式。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2016-11-24</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" data-title="建造者模式" data-hashtags="基础理论,设计模式"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" data-hashtag="基础理论"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" data-title="建造者模式"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" data-title="建造者模式"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" data-title="建造者模式"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">基础理论</a>,&nbsp;<a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/" class="prev" rel="prev" title="抽象工厂"><i class="fas fa-angle-left fa-fw"></i>抽象工厂</a>
+            <a href="/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="next" rel="next" title="适配器模式">适配器模式<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

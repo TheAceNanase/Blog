@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>node(五)之mysql数据库的操作 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="node(五)之mysql数据库的操作" />
+<meta property="og:description" content="使用node操作mysql数据库时，需要先下载mysql模块： 1 npm install mysql --save-dev 在引入mysql模块后，就可以进行数据库的连接和其他的操作了。 1 2 //" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2017-09-18T22:08:04+08:00" />
+<meta property="article:modified_time" content="2017-09-18T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="node(五)之mysql数据库的操作"/>
+<meta name="twitter:description" content="使用node操作mysql数据库时，需要先下载mysql模块： 1 npm install mysql --save-dev 在引入mysql模块后，就可以进行数据库的连接和其他的操作了。 1 2 //"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/" /><link rel="prev" href="http://www.nishinonanase.xyz/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" /><link rel="next" href="http://www.nishinonanase.xyz/node%E5%85%AD%E4%B9%8Bexpress%E5%88%9D%E8%AF%86/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "node(五)之mysql数据库的操作",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C\/"
+        },"genre": "posts","keywords": "node","wordcount":  3429 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C\/","datePublished": "2017-09-18T22:08:04+08:00","dateModified": "2017-09-18T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">node(五)之mysql数据库的操作</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-09-18">2017-09-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3429 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/" class="leancloud_visitors" data-flag-title="node(五)之mysql数据库的操作">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1-连接数据库">1. 连接数据库</a></li>
+            <li><a href="#2-curd">2. CURD</a>
+              <ul>
+                <li><a href="#21-查询">2.1 查询</a></li>
+                <li><a href="#22-添加">2.2 添加</a></li>
+                <li><a href="#23-更新">2.3 更新</a></li>
+                <li><a href="#24-删除">2.4 删除</a></li>
+              </ul>
+            </li>
+            <li><a href="#3-连接池">3. 连接池</a>
+              <ul>
+                <li><a href="#31-创建连接池">3.1 创建连接池</a></li>
+                <li><a href="#32-连接池事件">3.2 连接池事件</a></li>
+                <li><a href="#33-query与getconnection的区别">3.3 query与getConnection的区别</a></li>
+              </ul>
+            </li>
+            <li><a href="#4-sql防注入">4. sql防注入</a>
+              <ul>
+                <li><a href="#41-使用escape对参数进行编码">4.1 使用escape()对参数进行编码</a></li>
+                <li><a href="#42-占位符">4.2 占位符</a></li>
+                <li><a href="#43-使用mysqlformat转义参数">4.3 使用mysql.format()转义参数</a></li>
+              </ul>
+            </li>
+            <li><a href="#5-多语句查询">5. 多语句查询</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>使用node操作mysql数据库时，需要先下载<code>mysql</code>模块：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">npm install mysql --save-dev
+</code></pre></td></tr></table>
+</div>
+</div><p>在引入mysql模块后，就可以进行数据库的连接和其他的操作了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// test.js
+var mysql = require(&#39;mysql&#39;);
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="1-连接数据库">1. 连接数据库</h3>
+<p>首先保证本地已经安装数据库，并已正常启动，然后开始进行连接：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// test.js
+var mysql = require(&#39;mysql&#39;);
+
+// 创建连接
+var conn = mysql.createConnection({
+    host : &#39;127.0.0.1&#39;,
+    user : &#39;root&#39;,
+    password : &#39;123&#39;,
+    database : &#39;test&#39;
+});
+
+// 创建连接后不论是否成功都会调用
+conn.connect(function(err){
+    if(err) throw err;
+    console.log(&#39;connect success!&#39;);
+});
+
+// 其他的数据库操作，位置预留
+
+// 关闭连接时调用
+conn.end(function(err){
+    if(err) throw err;
+    console.log(&#39;connect end&#39;);
+})
+</code></pre></td></tr></table>
+</div>
+</div><p>执行<code>node test.js</code>后，就会输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ node test.js
+connect success!
+connect end
+</code></pre></td></tr></table>
+</div>
+</div><p>连接成功，然后连接关闭。这就说明程序可以正常连接数据库了，然后就开始进行增删改查的操作。</p>
+<h3 id="2-curd">2. CURD</h3>
+<p>比如我们有这样的一个<code>user</code>表，里面有4个字段，其中uid是自增字段：</p>
+<table>
+<thead>
+<tr>
+<th>uid</th>
+<th>username</th>
+<th>password</th>
+<th>email</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>meizi</td>
+<td>meizi</td>
+<td><a href="mailto:123@qq.com">123@qq.com</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td>test</td>
+<td>test</td>
+<td><a href="mailto:456@qq.com">456@qq.com</a></td>
+</tr>
+</tbody>
+</table>
+<p>我们就对这个表进行增删改查的操作。</p>
+<p>mysql中有个<code>query</code>方法可以用来执行任意正确的sql语句，然后在回调函数里给出执行sql语句后的结果。query方法是异步执行的，若并列书写多个query方法的话，是不能按照书写顺序依次阻塞式执行的。</p>
+<h4 id="21-查询">2.1 查询</h4>
+<p>使用最普遍最多的就是查询操作了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">conn.query(&#39;SELECT * FROM `user`&#39;, function(err, result, fields){
+    if(err) throw err;
+    console.log(result);
+});
+console.log( &#39;select ended!&#39; );
+</code></pre></td></tr></table>
+</div>
+</div><p>输出的结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">select ended! // 先输出
+
+[
+    RowDataPacket {                  
+        uid: 1,                        
+        username: &#39;meizi&#39;,            
+        password: &#39;meizi&#39;
+        email: &#39;123@qq.com&#39;
+    },      
+        RowDataPacket {                  
+        uid: 2,                        
+        username: &#39;test&#39;,              
+        password: &#39;test&#39;
+        email: &#39;456@qq.com&#39;
+    }
+]
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到，结果集是一个数组，数组中的每条数据都是一个<code>RowDataPacket</code>对象，在使用时，可以像json对象一样获取数据，也可以使用<code>JSON.stringify</code>把result转换为json字符串，但是，result并不是JSON数据。而且，即使结果集中只有一条数据，也是以数组的形式返回的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">console.log(result[0].username); // meizi  
+</code></pre></td></tr></table>
+</div>
+</div><p>输出即为字符串类型的数据。</p>
+<h4 id="22-添加">2.2 添加</h4>
+<p>向数据库中添加数据使用的是<code>INSERT</code>，INSERT语句有两种形式都可以使用：</p>
+<p>第1种，先列好要插入的数据对应的字段，然后跟上数据（如果要给所有的字段都插入数据，可以省略字段不写，但是数据的书写顺序要跟数据表里的字段一一对应）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">INSERT INTO table_name ( field1, field2,...fieldN ) VALUES ( value1, value2,...valueN );
+</code></pre></td></tr></table>
+</div>
+</div><p>第2种，可以像update操作一样书写，将field与value对应的更紧密：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">INSERT INTO table_name SET field1=value1, field2=value2, ... fieldN=valueN;
+</code></pre></td></tr></table>
+</div>
+</div><p>我更加喜欢第2种方式，这种方式更能看出操作了哪些字段，看出字段和数据的对应关系。在node中插入数据：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">conn.query(&#34;INSERT INTO `user` SET `username`=&#39;qwerty&#39;, `password`=&#39;741&#39;, `email`=&#39;qwerty@qq.com&#39;&#34;, function(err, result){
+    if(err) throw err;
+    console.log(result);
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>插入数据后返回的结果是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">OkPacket {              
+    fieldCount: 0,        
+    affectedRows: 1,
+    insertId: 4, // 数据插入成功时，对应的主键id
+    serverStatus: 2,      
+    warningCount: 0,      
+    message: &#39;&#39;,          
+    protocol41: true,      
+    changedRows: 0
+}
+</code></pre></td></tr></table>
+</div>
+</div><p><code>affectedRows</code>表示数据表中受影响的行数，数据插入成功则为1，失败则为0；在主键自增的情况下，<code>insertId</code>是数据插入成功后对应的主键id，如果主键不自增，则insertId为0。</p>
+<h4 id="23-更新">2.3 更新</h4>
+<p>使用<code>update</code>语句更新数据：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 更新uid的密码
+conn.query(&#39;UPDATE `user` SET `password`=&#34;123456&#34; WHERE `uid`=4&#39;, function(err, result){
+    if(err) throw err;
+    console.log(result);
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>输出的结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">OkPacket {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 0,
+    serverStatus: 2,
+    warningCount: 0,
+    message: &#39;(Rows matched: 1  Changed: 1  Warnings: 0&#39;,
+    protocol41: true,
+    changedRows: 1
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到输出结果的类型与插入数据时输出结果的类型是一样的。我们分析一下，执行sql语句后，有3种结果：</p>
+<ol>
+<li>成功修改数据： affectedRows：1, changedRows:1</li>
+<li>要修改的数据与原数据相同： affectedRows：1, changedRows:0</li>
+<li>未找到需要修改的数据： affectedRows：0, changedRows:0</li>
+</ol>
+<p>因此可以根据这两个字段输出相应的结果。</p>
+<h4 id="24-删除">2.4 删除</h4>
+<p>使用<code>delete</code>语句删除语句：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">conn.query(&#39;DELETE FROM `user` WHERE `uid`=4&#39;, function(err, result, fields){
+    if(err) throw err;
+    console.log(result);
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>输出的结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">OkPacket {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 0,
+    serverStatus: 2,
+    warningCount: 0,
+    message: &#39;&#39;,
+    protocol41: true,
+    changedRows: 0
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>删除成功，则affectedRows为1，删除的数据不存在，则为0。</p>
+<h3 id="3-连接池">3. 连接池</h3>
+<p>数据库连接是一种有限的，能够显著影响到整个应用程序的伸缩性和健壮性的资源，在多用户的网页应用程序中体现得尤为突出。</p>
+<p>数据库连接池正是针对这个问题提出来的，它会负责分配、管理和释放数据库连接，允许应用程序重复使用一个现有的数据库连接，而不是重新建立一个连接，释放空闲时间超过最大允许空闲时间的数据库连接以避免因为连接未释放而引起的数据库连接遗漏。</p>
+<h4 id="31-创建连接池">3.1 创建连接池</h4>
+<p>使用<code>mysql.createPool()</code>可创建连接池：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// test.js
+var mysql = require(&#39;mysql&#39;);
+
+var pool = mysql.createPool({
+    host : &#39;127.0.0.1&#39;,
+    user : &#39;root&#39;,
+    password : &#39;123&#39;,
+    database : &#39;test&#39;
+})
+
+pool.query(&#39;SELECT * FROM `user`&#39;, function(err, result){
+    if(err) throw err;
+
+    console.log(result);
+
+    pool.end(function(err){
+        if(err) throw err;
+        console.log(&#39;connection ended&#39;);
+    })
+});
+</code></pre></td></tr></table>
+</div>
+</div><p><code>getConnection()</code>可以共享一个连接，或管理多个连接。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// test.js
+var mysql = require(&#39;mysql&#39;);
+
+var pool = mysql.createPool({
+    host : &#39;127.0.0.1&#39;,
+    user : &#39;root&#39;,
+    password : &#39;123&#39;,
+    database : &#39;test&#39;
+})
+
+pool.getConnection(function(err, connection){
+    if(err) throw err;
+
+    connection.query(&#39;SELECT * FROM `user`&#39;, function(err, result){
+        if(err) throw err;
+
+        console.log(result);
+    })
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>连接使用完后通过调用connection.release()方法可以将连接返回到连接池中，这个连接可以被其它人重复使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pool.getConnection(function(err, connection){
+    if(err) throw err;
+
+    connection.query(&#39;SELECT * FROM `user`&#39;, function(err, result){
+        if(err) throw err;
+
+        console.log(result);
+        connection.release();
+        // 接下来connection已经无法使用，它已经被返回到连接池中 
+    })
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>可以使用<code>connection.destroy()</code>彻底销毁连接。</p>
+<h4 id="32-连接池事件">3.2 连接池事件</h4>
+<p><code>createPool()</code>方法会返回一个连接池实例对象，这个对象中有一些事件。</p>
+<p><code>connection</code></p>
+<p>连接池中产生新连接时会发送&rsquo;connection'事件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pool.on(&#39;connection&#39;, function (connection) {
+      console.log(&#39;new connection&#39;);
+});
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="33-query与getconnection的区别">3.3 query与getConnection的区别</h4>
+<p>这两个方法都能进行操作，那么这两者有什么区别呢？</p>
+<p>在<code>pool.getConnection</code>中的<code>connection</code>在其回调函数里是一直的，可以保证这一系列的操作都是在同一个connection中执行的；<code>pool.query</code>则每次执行时可能会在不同的connection中执行，可能会得到意想不到的结果。</p>
+<p>比如<code>SQL_CALC_FOUND_ROWS</code>和<code>FOUND_ROWS</code>这需要两个sql语句完成，是获取检索行的数目。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pool.query(&#39;SELECT SQL_CALC_FOUND_ROWS * FROM `user`&#39;);
+pool.query(&#39;SELECT FOUND_ROWS()&#39;);
+</code></pre></td></tr></table>
+</div>
+</div><p>这两个可能在不同的<code>connection</code>中执行，第2个sql语句返回的就不是上一个sql语句的结果了。</p>
+<h3 id="4-sql防注入">4. sql防注入</h3>
+<p>sql防注入的关键就是不能直接把数据拼接到sql语句中，必须得对数据进行转义，或者使用提供的方法拼接sql语句。这里主要有四种方法可以使用。</p>
+<h4 id="41-使用escape对参数进行编码">4.1 使用escape()对参数进行编码</h4>
+<p>参数编码方法有：<code>mysql.escape()/connection.escape()/pool.escape()</code>，这三个方法可以在你需要的时候调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var sql = &#39;SELECT * FROM `user` WHERE `uid`=&#39;+connection.escape(&#39;&#34;123&#34;;//--&#39;);
+console.log(sql); // SELECT * FROM `user` WHERE `uid`=&#39;\&#34;123\&#34;;//--&#39;
+
+connection.query(sql, function(err, result){
+    if(err) throw err;
+
+    console.log(result);
+})
+</code></pre></td></tr></table>
+</div>
+</div><p>对双引号进行了安全转义。</p>
+<p><code>escapeId()</code>可以对不信任的表名，字段名进行转义。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var sql = &#39;SELECT * FROM &#39;+connection.escapeId(&#39;user&#39;)+&#39; WHERE `uid`=1&#39;;
+connection.query(sql, function(err, result){
+    console.log(result);
+})
+console.log(query.sql); // SELECT * FROM `user` WHERE `uid`=1
+</code></pre></td></tr></table>
+</div>
+</div><p>同时，escape()的编码规则如下：</p>
+<ul>
+<li>Numbers不进行转换</li>
+<li>Booleans转换为true/false</li>
+<li>Date对象转换为’YYYY-mm-dd HH:ii:ss’字符串</li>
+<li>Buffers转换为hex字符串，如X&rsquo;0fa5&rsquo;</li>
+<li>Strings进行安全转义</li>
+<li>Arrays转换为列表，如[&lsquo;a&rsquo;, &lsquo;b&rsquo;]会转换为&rsquo;a&rsquo;, &lsquo;b&rsquo;</li>
+<li>多维数组转换为组列表，如[[&lsquo;a&rsquo;, &lsquo;b&rsquo;], [&lsquo;c&rsquo;, &lsquo;d&rsquo;]]会转换为(&lsquo;a&rsquo;, &lsquo;b&rsquo;), (&lsquo;c&rsquo;, &lsquo;d&rsquo;)</li>
+<li>Objects会转换为key=value键值对的形式。嵌套的对象转换为字符串</li>
+<li>undefined/null会转换为NULL</li>
+<li>MySQL不支持NaN/Infinity，并且会触发MySQL错误</li>
+</ul>
+<h4 id="42-占位符">4.2 占位符</h4>
+<p>可以使用<code>?</code>作为参数占位符。在使用查询参数占位符时，在其内部自动调用 connection.escape() 方法对传入参数进行编码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var params = [&#39;test&#39;, &#39;test&#39;];
+var query = connection.query(&#39;SELECT * FROM `user` WHERE `username`=? AND `password`=?&#39;, params, function(err, result){
+    console.log(result);
+});
+console.log(query.sql); // SELECT * FROM `user` WHERE `username`=&#39;test&#39; AND `password`=&#39;test&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>同时，如果执行添加或更新操作时，还可以这样写：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var params = {username:&#39;qwerty&#39;, password:&#39;qwerty&#39;, email:&#39;qwerty@qq.com&#39;};
+var query = connection.query(&#39;INSERT INTO `user` SET ?&#39;, params, function(err, result){
+    if(err) throw err;
+    console.log(result);
+});
+console.log(query.sql); // INSERT INTO `user` SET `username` = &#39;qwerty&#39;, `password` = &#39;qwerty&#39;, `email` = &#39;qwerty@qq.com&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>数据库中的表明和字段名，可以使用<code>??</code>作为占位符，在拼接完成后会自动添加上``：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var params = [&#39;user&#39;, &#39;username&#39;, &#39;test&#39;, &#39;password&#39;, &#39;test&#39;];
+var query = connection.query(&#39;SELECT * FROM ?? WHERE ??=? AND ??=?&#39;, params, function(err, result){
+    console.log(result);
+})
+console.log(query.sql); // SELECT * FROM `user` WHERE `username`=&#39;test&#39; AND `password`=&#39;test&#39;
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="43-使用mysqlformat转义参数">4.3 使用mysql.format()转义参数</h4>
+<p>不多说，样例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var userId = 1;
+var sql = &#34;SELECT * FROM ?? WHERE ?? = ?&#34;;
+var inserts = [&#39;user&#39;, &#39;uid&#39;, userId];
+sql = mysql.format(sql, inserts); // SELECT * FROM `user` WHERE `uid` = 1
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="5-多语句查询">5. 多语句查询</h3>
+<p>出于安全考虑node-mysql默认禁止多语句查询（可以防止SQL注入），启用多语句查询可以将<code>multipleStatements</code>选项设置为<code>true</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var connection = mysql.createConnection({multipleStatements: true});
+</code></pre></td></tr></table>
+</div>
+</div><p>启用后可以在一个query查询中执行多条语句：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">connection.query(&#39;SELECT 1; SELECT 2&#39;, function(err, results) {
+      if (err) throw err;
+
+      // `results`是一个包含多个语句查询结果的数组
+      console.log(results[0]);
+      console.log(results[1]);
+});
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2017-09-18</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/" data-title="node(五)之mysql数据库的操作" data-hashtags="node"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/" data-hashtag="node"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/" data-title="node(五)之mysql数据库的操作"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/" data-title="node(五)之mysql数据库的操作"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/" data-title="node(五)之mysql数据库的操作"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/node/">node</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" class="prev" rel="prev" title="node(四)之简易的网络爬虫"><i class="fas fa-angle-left fa-fw"></i>node(四)之简易的网络爬虫</a>
+            <a href="/node%E5%85%AD%E4%B9%8Bexpress%E5%88%9D%E8%AF%86/" class="next" rel="next" title="node(六)之express初识">node(六)之express初识<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Django使用WSGI进行部署 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="Django使用WSGI进行部署" />
+<meta property="og:description" content="简介 Django的主要部署平台是WSGI，这是Web服务器和应用程序的Python标准。 Django的startproject管理命令为您设" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2018-02-06T22:08:04+08:00" />
+<meta property="article:modified_time" content="2018-02-06T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Django使用WSGI进行部署"/>
+<meta name="twitter:description" content="简介 Django的主要部署平台是WSGI，这是Web服务器和应用程序的Python标准。 Django的startproject管理命令为您设"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/" /><link rel="prev" href="http://www.nishinonanase.xyz/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/" /><link rel="next" href="http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8asgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Django使用WSGI进行部署",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2\/"
+        },"genre": "posts","keywords": "后端框架, Django, Python, 部署, 技术要点","wordcount":  6074 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2\/","datePublished": "2018-02-06T22:08:04+08:00","dateModified": "2018-02-06T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Django使用WSGI进行部署</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/"><i class="far fa-folder fa-fw"></i>技术要点</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2018-02-06">2018-02-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6074 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;<span id="/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/" class="leancloud_visitors" data-flag-title="Django使用WSGI进行部署">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#该application对象">该application对象</a></li>
+        <li><a href="#配置设置模块">配置设置模块</a></li>
+        <li><a href="#应用wsgi中间件">应用WSGI中间件</a></li>
+      </ul>
+    </li>
+    <li><a href="#django与gunicorn-的使用">Django与Gunicorn 的使用</a>
+      <ul>
+        <li><a href="#安装gunicorn">安装Gunicorn</a></li>
+      </ul>
+    </li>
+    <li><a href="#如何使用django与uwsgi">如何使用Django与uWSGI</a>
+      <ul>
+        <li><a href="#先决条件uwsgi">先决条件：uWSGI</a>
+          <ul>
+            <li><a href="#uwsgi模型">uWSGI模型</a></li>
+            <li><a href="#为django配置和启动uwsgi服务器">为Django配置和启动uWSGI服务器</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#在apache和django中使用django和mod_wsgi">在Apache和Django中使用Django和mod_wsgi</a>
+      <ul>
+        <li><a href="#基本配置">基本配置</a></li>
+        <li><a href="#使用mod_wsgi守护程序模式">使用mod_wsgi守护程序模式</a></li>
+        <li><a href="#服务文件">服务文件</a></li>
+        <li><a href="#提供管理文件">提供管理文件</a></li>
+        <li><a href="#从apache对django用户数据库进行身份验证">从Apache对Django用户数据库进行身份验证</a></li>
+        <li><a href="#使用进行身份验证mod_wsgi">使用进行身份验证mod_wsgi</a>
+          <ul>
+            <li><a href="#mod_wsgi和django组的授权">mod_wsgi和Django组的授权</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="简介">简介</h2>
+<p>Django的主要部署平台是<a href="https://wsgi.readthedocs.io/en/latest/" target="_blank" rel="noopener noreffer">WSGI</a>，这是Web服务器和应用程序的Python标准。</p>
+<p>Django的startproject管理命令为您设置了一个最小的默认WSGI配置，您可以根据项目的需要对其进行调整，并指导任何符合WSGI的应用服务器使用。</p>
+<p>Django包括以下WSGI服务器的入门文档：</p>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/gunicorn/" target="_blank" rel="noopener noreffer">如何在Gunicorn中使用Django</a></li>
+<li><a href="https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/uwsgi/" target="_blank" rel="noopener noreffer">如何在uWSGI中使用Django</a></li>
+<li><a href="https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/modwsgi/" target="_blank" rel="noopener noreffer">如何将Django与Apache和 mod_wsgi</a></li>
+<li><a href="https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/apache-auth/" target="_blank" rel="noopener noreffer">从Apache对Django用户数据库进行身份验证</a></li>
+</ul>
+<h2 id="该application对象">该application对象</h2>
+<p>使用WSGI进行部署的关键概念是application应用服务器用来与您的代码进行通信的Callable。通常application以在服务器可访问的Python模块中命名的对象的形式提供。</p>
+<p>该startproject命令将创建一个/wsgi.py包含此类application可调用文件的文件 。</p>
+<p>Django的开发服务器和生产WSGI部署都使用了它。</p>
+<p>WSGI服务器application从其配置中获取可调用对象的路径。Django的内置服务器（即runserver 命令）从WSGI_APPLICATION设置中读取它。默认情况下，它设置为.wsgi.application，它指向中的application 可调用对象/wsgi.py。</p>
+<h2 id="配置设置模块">配置设置模块</h2>
+<p>当WSGI服务器加载您的应用程序时，Django需要导入settings模块-定义整个应用程序的地方。</p>
+<p>Django使用 DJANGO_SETTINGS_MODULE环境变量以找到适当的设置模块。它必须包含指向设置模块的虚线路径。您可以将不同的值用于开发和生产。这完全取决于您如何组织设置。</p>
+<p>如果未设置此变量，则默认wsgi.py将其设置为 mysite.settings，其中mysite是项目的名称。这就是 runserver默认情况下发现默认设置文件的方式。</p>
+<p>**注意：**由于环境变量是进程范围的，因此当您在同一进程中运行多个Django站点时，这将无效。这与mod_wsgi一起发生。</p>
+<p>为避免此问题，请对每个站点在自己的守护进程中使用mod_wsgi的守护程序模式，或通过在中强制执行来覆盖环境中的值。os.environ[&ldquo;DJANGO_SETTINGS_MODULE&rdquo;] = &ldquo;mysite.settings&quot;``wsgi.py</p>
+<h2 id="应用wsgi中间件">应用WSGI中间件</h2>
+<p>要应用WSGI中间件，您可以包装应用程序对象。例如，您可以在以下位置添加这些行wsgi.py：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from helloworld.wsgi import HelloWorldApplication
+application = HelloWorldApplication(application)
+</code></pre></td></tr></table>
+</div>
+</div><p>如果您想将Django应用程序与另一个框架的WSGI应用程序结合使用，也可以用自定义WSGI应用程序替换Django WSGI应用程序，该应用程序以后将其委托给Django WSGI应用程序。</p>
+<h1 id="django与gunicorn-的使用">Django与Gunicorn 的使用</h1>
+<p>Gunicorn（“绿色独角兽”）是用于UNIX的纯Python WSGI服务器。它没有依赖性，可以使用安装pip。</p>
+<h2 id="安装gunicorn">安装Gunicorn</h2>
+<p>通过运行安装gunicorn 。有关更多详细信息，请参见<a href="https://docs.gunicorn.org/en/latest/install.html" target="_blank" rel="noopener noreffer">gunicorn文档</a>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">python -m pip install gunicorn
+</code></pre></td></tr></table>
+</div>
+</div><p>在Gunicorn中将Django作为通用WSGI应用程序运行</p>
+<p>安装Gunicorn后，将gunicorn提供一个命令来启动Gunicorn服务器进程。gunicorn的最简单调用是传递包含名为的WSGI应用程序对象的模块的位置application，对于典型的Django项目，该对象应 类似于：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">gunicorn myproject.wsgi
+</code></pre></td></tr></table>
+</div>
+</div><p>这将启动一个进程，该进程运行一个正在侦听的线程127.0.0.1:8000。它要求您的项目位于Python路径上；确保该命令最简单的方法是在与manage.py文件相同的目录中运行此命令。</p>
+<p>有关其他提示，请参见Gunicorn的<a href="https://docs.gunicorn.org/en/latest/deploy.html" target="_blank" rel="noopener noreffer">部署文档</a>。</p>
+<h1 id="如何使用django与uwsgi">如何使用Django与uWSGI</h1>
+<p>uWSGI是使用纯C编码的快速，自修复且对开发人员/ sysadmin友好的应用程序容器服务器。</p>
+<p>也可以看看</p>
+<p>uWSGI文档提供了一个涵盖Django，nginx和uWSGI（许多可能的部署设置）的<a href="https://uwsgi.readthedocs.io/en/latest/tutorials/Django_and_nginx.html" target="_blank" rel="noopener noreffer">教程</a>。以下文档重点介绍如何将Django与uWSGI集成。</p>
+<h2 id="先决条件uwsgi">先决条件：uWSGI</h2>
+<p>uWSGI Wiki描述了几种安装过程。使用Python软件包管理器pip，您可以通过单个命令安装任何uWSGI版本。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Install current stable version.
+$ python -m pip install uwsgi
+
+# Or install LTS (long term support).
+$ python -m pip install https://projects.unbit.it/downloads/uwsgi-lts.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="uwsgi模型">uWSGI模型</h3>
+<p>uWSGI在客户端-服务器模型上运行。您的Web服务器（例如nginx，Apache）与django-uwsgi“工作者”进程进行通信以提供动态内容。</p>
+<h3 id="为django配置和启动uwsgi服务器">为Django配置和启动uWSGI服务器</h3>
+<p>uWSGI支持多种配置过程的方式。</p>
+<p>这是启动uWSGI服务器的示例命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">uwsgi --chdir=/path/to/your/project \
+    --module=mysite.wsgi:application \
+    --env DJANGO_SETTINGS_MODULE=mysite.settings \
+    --master --pidfile=/tmp/project-master.pid \
+    --socket=127.0.0.1:49152 \      # can also be a file
+    --processes=5 \                 # number of worker processes
+    --uid=1000 --gid=2000 \         # if root, uwsgi can drop privileges
+    --harakiri=20 \                 # respawn processes taking more than 20 seconds
+    --max-requests=5000 \           # respawn processes after serving 5000 requests
+    --vacuum \                      # clear environment on exit
+    --home=/path/to/virtual/env \   # optional path to a virtual environment
+    --daemonize=/var/log/uwsgi/yourproject.log      # background the process
+</code></pre></td></tr></table>
+</div>
+</div><p>假设您有一个名为的顶级项目包mysite，并且mysite/wsgi.py其中包含一个包含WSGI application  对象的模块。如果您使用Django的最新版本（使用您自己的项目名称代替）运行，这将是您的布局。如果该文件不存在，则需要创建它。请参阅“ <a href="https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/" target="_blank" rel="noopener noreffer">如何使用WSGI进行部署”</a>文档，以获取应放在此文件中的默认内容以及可以添加的其他内容。django-admin startproject mysite``mysite</p>
+<p>Django特定的选项如下：</p>
+<ul>
+<li>chdir：需要在Python的导入路径上的目录路径-即包含mysite软件包的目录。</li>
+<li>module：要使用的WSGI模块-可能mysite.wsgi是startproject创建的模块。</li>
+<li>env：应该至少包含DJANGO_SETTINGS_MODULE。</li>
+<li>home：项目虚拟环境的可选路径。</li>
+</ul>
+<p>示例ini配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[uwsgi]
+chdir=/path/to/your/project
+module=mysite.wsgi:application
+master=True
+pidfile=/tmp/project-master.pid
+vacuum=True
+max-requests=5000
+daemonize=/var/log/uwsgi/yourproject.log
+</code></pre></td></tr></table>
+</div>
+</div><p>ini配置文件用法示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">uwsgi --ini uwsgi.ini
+</code></pre></td></tr></table>
+</div>
+</div><p>修复UnicodeEncodeError文件上传</p>
+<p>如果UnicodeEncodeError在上传文件名包含非ASCII字符的文件时看到，请确保将uWSGI配置为接受非ASCII文件名，方法是将其添加到您的uwsgi.ini：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">env = LANG=en_US.UTF-8
+</code></pre></td></tr></table>
+</div>
+</div><p>有关详细信息，请参见Unicode参考指南的“ 文件”部分。</p>
+<p>请参阅有关管理uWSGI进程的uWSGI文档，以获取有关启动，停止和重新加载uWSGI工作程序的信息。</p>
+<h1 id="在apache和django中使用django和mod_wsgi">在Apache和Django中使用Django和mod_wsgi</h1>
+<p>使用Apache和mod_wsgi部署Django 是使Django投入生产的一种久经考验的方法。</p>
+<p>mod_wsgi是一个Apache模块，可以承载任何Python WSGI应用程序，包括Django。Django可以与任何支持mod_wsgi的Apache版本一起使用。</p>
+<p>在官方的mod_wsgi文档是你的所有关于如何使用mod_wsgi的详细信息来源。您可能需要从安装和配置文档开始。</p>
+<h2 id="基本配置">基本配置</h2>
+<p>安装并激活mod_wsgi后，请编辑Apache服务器的 httpd.conf文件并添加以下内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">WSGIScriptAlias / /path/to/mysite.com/mysite/wsgi.py
+WSGIPythonHome /path/to/venv
+WSGIPythonPath /path/to/mysite.com
+
+&lt;Directory /path/to/mysite.com/mysite&gt;
+&lt;Files wsgi.py&gt;
+Require all granted
+&lt;/Files&gt;
+&lt;/Directory&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>该WSGIScriptAlias行的第一位是您要在其上为应用程序提供服务的基本URL路径（/表示根URL），第二位是“  WSGI文件”的位置–参见下文–在系统上，通常在项目内部包（mysite在此示例中）。这告诉Apache使用该文件中定义的WSGI应用程序为给定URL下的任何请求提供服务。</p>
+<p>如果您将项目的Python依赖项安装在中，请使用添加路径。有关更多详细信息，请参见<a href="https://modwsgi.readthedocs.io/en/develop/user-guides/virtual-environments.html" target="_blank" rel="noopener noreffer">mod_wsgi虚拟环境指南</a>。virtual environmentWSGIPythonHome</p>
+<p>该WSGIPythonPath行确保您的项目包可用于在Python路径上导入；换句话说，那行得通。import mysite</p>
+<p>该<code>部分确保Apache可以访问您的wsgi.py</code> 文件。</p>
+<p>接下来，我们需要确保wsgi.pyWSGI应用程序对象存在。从Django 1.4版开始，startproject将为您创建一个。否则，您将需要创建它。请参阅<a href="https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/" target="_blank" rel="noopener noreffer">WSGI概述文档</a>，以获取应放在此文件中的默认内容以及可以添加的其他内容。</p>
+<p>**警告：**如果在单个mod_wsgi进程中运行多个Django站点，则所有站点都将使用碰巧先运行的站点的设置。可以通过以下方法解决：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">os.environ.setdefault(&#34;DJANGO_SETTINGS_MODULE&#34;, &#34;{{ project_name }}.settings&#34;)
+</code></pre></td></tr></table>
+</div>
+</div><p>在中wsgi.py，至：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">os.environ[&#34;DJANGO_SETTINGS_MODULE&#34;] = &#34;{{ project_name }}.settings&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>或通过使用mod_wsgi守护程序模式并确保每个站点都在其自己的守护进程中运行。</p>
+<p>修复UnicodeEncodeError文件上传</p>
+<p>如果UnicodeEncodeError在上传文件名包含非ASCII字符的文件时看到，请确保Apache配置为接受非ASCII文件名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">export LANG=&#39;en_US.UTF-8&#39;
+export LC_ALL=&#39;en_US.UTF-8&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>放置此配置的常见位置是/etc/apache2/envvars。</p>
+<p>有关详细信息，请参见Unicode参考指南的“ <a href="https://docs.djangoproject.com/en/3.0/ref/unicode/#unicode-files" target="_blank" rel="noopener noreffer">文件”</a>部分。</p>
+<h2 id="使用mod_wsgi守护程序模式">使用mod_wsgi守护程序模式</h2>
+<p>建议使用“守护程序模式”运行mod_wsgi（在非Windows平台上）。要创建所需的守护进程组并委派Django实例在其中运行，您将需要添加适当的  WSGIDaemonProcess和WSGIProcessGroup指令。如果您使用守护程序模式，则对上述配置的进一步更改是您不能使用WSGIPythonPath；相反，您应该使用的python-path选项 WSGIDaemonProcess，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">WSGIDaemonProcess example.com python-home=/path/to/venv python-path=/path/to/mysite.com
+WSGIProcessGroup example.com
+</code></pre></td></tr></table>
+</div>
+</div><p>如果要在子目录中服务项目（https://example.com/mysite在此示例中），则可以添加WSGIScriptAlias 到上面的配置中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">WSGIScriptAlias /mysite /path/to/mysite.com/mysite/wsgi.py process-group=example.com
+</code></pre></td></tr></table>
+</div>
+</div><p>有关<a href="https://modwsgi.readthedocs.io/en/develop/user-guides/quick-configuration-guide.html#delegation-to-daemon-process" target="_blank" rel="noopener noreffer">设置守护程序模式的详细信息，</a>请参见mod_wsgi官方文档。</p>
+<h2 id="服务文件">服务文件</h2>
+<p>Django本身不提供文件；它将工作交给您选择的任何Web服务器。</p>
+<p>我们建议使用单独的Web服务器（即未同时运行Django的服务器）来提供媒体服务。这里有一些不错的选择：</p>
+<ul>
+<li>Nginx的</li>
+<li>精简版的Apache</li>
+</ul>
+<p>但是，如果您别无选择，只能在与VirtualHostDjango 相同的Apache上提供媒体文件，则 可以设置Apache以将某些URL用作静态媒体，而将另一些URL使用Django的mod_wsgi接口提供。</p>
+<p>这个例子设置的Django在站点根目录，但发球robots.txt， favicon.ico和在什么/static/和/media/URL空间作为静态文件。所有其他URL将使用mod_wsgi提供：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Alias /robots.txt /path/to/mysite.com/static/robots.txt
+Alias /favicon.ico /path/to/mysite.com/static/favicon.ico
+
+Alias /media/ /path/to/mysite.com/media/
+Alias /static/ /path/to/mysite.com/static/
+
+&lt;Directory /path/to/mysite.com/static&gt;
+Require all granted
+&lt;/Directory&gt;
+
+&lt;Directory /path/to/mysite.com/media&gt;
+Require all granted
+&lt;/Directory&gt;
+
+WSGIScriptAlias / /path/to/mysite.com/mysite/wsgi.py
+
+&lt;Directory /path/to/mysite.com/mysite&gt;
+&lt;Files wsgi.py&gt;
+Require all granted
+&lt;/Files&gt;
+&lt;/Directory&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="提供管理文件">提供管理文件</h2>
+<p>在django.contrib.staticfiles中时INSTALLED_APPS，Django开发服务器会自动提供admin应用程序（以及所有其他已安装的应用程序）的静态文件。但是，当您使用任何其他服务器布置时，情况并非如此。您负责设置Apache或您使用的任何Web服务器来提供管理文件。</p>
+<p>管理文件位于django/contrib/admin/static/adminDjango发行版的（）中。</p>
+<p>我们强烈建议您使用django.contrib.staticfiles处理管理文件（如上一节中列出Web服务器一起，使用这种手段collectstatic的管理命令收集的静态文件STATIC_ROOT，然后配置你的Web服务器服务STATIC_ROOT的STATIC_URL），但这里有三个其他方法：</p>
+<ol>
+<li>从文档根目录创建指向管理静态文件的符号链接（这可能+FollowSymLinks在您的Apache配置中需要）。</li>
+<li>Alias如上所示，使用指令将适当的URL（可能为STATIC_URL+ admin/）别名为管理文件的实际位置。</li>
+<li>复制管理静态文件，以使它们位于Apache文档根目录中。</li>
+</ol>
+<h2 id="从apache对django用户数据库进行身份验证">从Apache对Django用户数据库进行身份验证</h2>
+<p>Django提供了一个处理程序，允许Apache直接针对Django的身份验证后端对用户进行身份验证。</p>
+<p>由于与多个Apache处理身份验证数据库时保持同步是一个常见问题，因此可以将Apache配置为直接针对Django的身份验证系统进行身份 验证。这需要Apache版本&gt; = 2.2和mod_wsgi&gt; = 2.0。例如：</p>
+<ul>
+<li>仅将静态/媒体文件直接从Apache提供给经过身份验证的用户。</li>
+<li>拥有一定的权限，针对Django用户验证对Subversion存储库的访问。</li>
+<li>允许某些用户连接到使用mod_dav创建的WebDAV共享。</li>
+</ul>
+<p>**注意：**如果您已经安装了自定义用户模型并希望使用此默认身份验证处理程序，则它必须支持一个is_active  属性。如果要使用基于组的授权，则自定义用户必须具有一个名为“组”的关系，该关系引用具有“名称”字段的相关对象。如果您的自定义不符合这些要求，则还可以指定自己的自定义mod_wsgi身份验证处理程序。</p>
+<h2 id="使用进行身份验证mod_wsgi">使用进行身份验证mod_wsgi</h2>
+<p>**注意：**在以下配置中使用时，假设您的Apache实例仅运行一个Django应用程序。如果您正在运行多个Django应用程序，请参阅mod_wsgi文档的“ 定义应用程序组”部分以获取有关此设置的更多信息。WSGIApplicationGroup %{GLOBAL}</p>
+<p>确保已安装并激活了mod_wsgi，并且已按照步骤使用mod_wsgi设置Apache。</p>
+<p>接下来，编辑您的Apache配置，以添加仅希望经过身份验证的用户才能查看的位置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">WSGIScriptAlias / /path/to/mysite.com/mysite/wsgi.py
+WSGIPythonPath /path/to/mysite.com
+
+WSGIProcessGroup %{GLOBAL}
+WSGIApplicationGroup %{GLOBAL}
+
+&lt;Location &#34;/secret&#34;&gt;
+    AuthType Basic
+    AuthName &#34;Top Secret&#34;
+    Require valid-user
+    AuthBasicProvider wsgi
+    WSGIAuthUserScript /path/to/mysite.com/mysite/wsgi.py
+&lt;/Location&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>该WSGIAuthUserScript指令告诉mod_wsgi check_password在指定的wsgi脚本中执行该 功能，并传递从提示符处收到的用户名和密码。在此示例中，与  定义由django-admin startproject创建的应用程序WSGIAuthUserScript的相同。WSGIScriptAlias</p>
+<p>结合使用Apache 2.2和身份验证</p>
+<p>确保mod_auth_basic和mod_authz_user已加载。</p>
+<p>这些可能会静态地编译到Apache中，或者您可能需要使用LoadModule在您的中动态加载它们httpd.conf：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">LoadModule auth_basic_module modules/mod_auth_basic.so
+LoadModule authz_user_module modules/mod_authz_user.so
+</code></pre></td></tr></table>
+</div>
+</div><p>最后，mysite.wsgi通过导入以下check_password 功能来编辑WSGI脚本，以将Apache的身份验证与站点的身份验证机制联系起来：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">import os
+
+os.environ[&#39;DJANGO_SETTINGS_MODULE&#39;] = &#39;mysite.settings&#39;
+
+from django.contrib.auth.handlers.modwsgi import check_password
+
+from django.core.handlers.wsgi import WSGIHandler
+application = WSGIHandler()
+</code></pre></td></tr></table>
+</div>
+</div><p>/secret/现在开始的请求将要求用户进行身份验证。</p>
+<p>mod_wsgi 访问控制机制文档提供了其他详细信息和有关替代身份验证方法的信息。</p>
+<h3 id="mod_wsgi和django组的授权">mod_wsgi和Django组的授权</h3>
+<p>mod_wsgi还提供了将特定位置限制为组成员的功能。</p>
+<p>在这种情况下，Apache配置应如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">WSGIScriptAlias / /path/to/mysite.com/mysite/wsgi.py
+
+WSGIProcessGroup %{GLOBAL}
+WSGIApplicationGroup %{GLOBAL}
+
+&lt;Location &#34;/secret&#34;&gt;
+    AuthType Basic
+    AuthName &#34;Top Secret&#34;
+    AuthBasicProvider wsgi
+    WSGIAuthUserScript /path/to/mysite.com/mysite/wsgi.py
+    WSGIAuthGroupScript /path/to/mysite.com/mysite/wsgi.py
+    Require group secret-agents
+    Require valid-user
+&lt;/Location&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>为了支持该WSGIAuthGroupScript指令，相同的WSGI脚本 mysite.wsgi还必须导入该groups_for_user函数，该函数返回给定用户所属的列表组。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.contrib.auth.handlers.modwsgi import check_password, groups_for_user
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-02-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/" data-title="Django使用WSGI进行部署" data-hashtags="后端框架,Django,Python,部署,技术要点"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/" data-hashtag="后端框架"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/" data-title="Django使用WSGI进行部署"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/" data-title="Django使用WSGI进行部署"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/" data-title="Django使用WSGI进行部署"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6/">后端框架</a>,&nbsp;<a href="/tags/django/">Django</a>,&nbsp;<a href="/tags/python/">Python</a>,&nbsp;<a href="/tags/%E9%83%A8%E7%BD%B2/">部署</a>,&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/">技术要点</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/" class="prev" rel="prev" title="Django将mixins与基于类的视图一起使用"><i class="fas fa-angle-left fa-fw"></i>Django将mixins与基于类的视图一起使用</a>
+            <a href="/django%E4%BD%BF%E7%94%A8asgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/" class="next" rel="next" title="Django使用ASGI进行部署">Django使用ASGI进行部署<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

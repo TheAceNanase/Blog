@@ -3,77 +3,75 @@
         <title>基础理论 - 分类 - ❤Nanase</title>
         <link>http://www.nishinonanase.xyz/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/</link>
         <description>基础理论 - 分类 - ❤Nanase</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 25 Jun 2016 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" rel="self" type="application/rss+xml" /><item>
-    <title>WSGI接口</title>
-    <link>http://www.nishinonanase.xyz/wsgi%E6%8E%A5%E5%8F%A3/</link>
-    <pubDate>Sat, 25 Jun 2016 00:00:00 &#43;0000</pubDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 18 Jan 2020 22:08:04 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" rel="self" type="application/rss+xml" /><item>
+    <title>SQL-解析SQL存储过程</title>
+    <link>http://www.nishinonanase.xyz/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</link>
+    <pubDate>Sat, 18 Jan 2020 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/wsgi%E6%8E%A5%E5%8F%A3/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://p3.music.126.net/WZ8Av-iscuwD2qxwib_qrg==/109951165117366911.jpg" referrerpolicy="no-referrer">
-            </div>了解了HTTP协议和HTML文档，我们其实就明白了一个Web应用的本质就是： 浏览器发送一个HTTP请求； 服务器收到请求，生成一个HTML文档]]></description>
+    <guid>http://www.nishinonanase.xyz/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</guid>
+    <description><![CDATA[全面解析SQL存储过程 存储过程(Stored Procedure),是一组为了完成特定功能的SQL 语句，类似一门程序设计语言，也包括了数据类型]]></description>
 </item><item>
-    <title>HTML简介</title>
-    <link>http://www.nishinonanase.xyz/html%E7%AE%80%E4%BB%8B/</link>
-    <pubDate>Sat, 18 Jun 2016 15:46:34 &#43;0800</pubDate>
+    <title>SQL-语句大全分类整理</title>
+    <link>http://www.nishinonanase.xyz/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/</link>
+    <pubDate>Sat, 28 Dec 2019 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/html%E7%AE%80%E4%BB%8B/</guid>
-    <description><![CDATA[什么是HTML HTML 是用来描述网页的一种语言。HTML 是一种在 Web 上使用的通用标记语言。HTML 允许你格式化文本，添加图片，创建链接、输入表单、框]]></description>
+    <guid>http://www.nishinonanase.xyz/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/</guid>
+    <description><![CDATA[一、基础篇 1、说明：创建数据库 1 CREATE DATABASE database-name 2、说明：删除数据库 1 drop database dbname 3、说明：备份sql server &mdash; 创建 备份数据的 device 1 2 USE master EXEC sp_addumpdevice &#39;disk&#39;, &#39;testBack&#39;, &#39;c:\mssql7backup\MyNwind_1.dat&#39; &mdash; 开始 备份 1 BACKUP DATABASE]]></description>
 </item><item>
-    <title>HTTPS协议</title>
-    <link>http://www.nishinonanase.xyz/https%E5%8D%8F%E8%AE%AE/</link>
-    <pubDate>Sat, 11 Jun 2016 15:46:34 &#43;0800</pubDate>
+    <title>SQL-主机</title>
+    <link>http://www.nishinonanase.xyz/sql-%E4%B8%BB%E6%9C%BA/</link>
+    <pubDate>Sun, 22 Dec 2019 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/https%E5%8D%8F%E8%AE%AE/</guid>
-    <description><![CDATA[什么是HTTPS HTTP 协议（HyperText Transfer Protocol，超文本传输协议）是客户端浏览器或其他程序与Web服务器之间的应用层通信协议 。H]]></description>
+    <guid>http://www.nishinonanase.xyz/sql-%E4%B8%BB%E6%9C%BA/</guid>
+    <description><![CDATA[SQL 主机 如果您想要您的网站存储数据在数据库并从数据库显示数据，您的 Web 服务器必须能使用 SQL 语言访问数据库系统。 如果您的 Web 服务器托管在互联网服务提供]]></description>
 </item><item>
-    <title>HTTP协议</title>
-    <link>http://www.nishinonanase.xyz/http%E5%8D%8F%E8%AE%AE/</link>
-    <pubDate>Sat, 04 Jun 2016 15:46:34 &#43;0800</pubDate>
+    <title>SQL-函数</title>
+    <link>http://www.nishinonanase.xyz/sql-%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Sun, 15 Dec 2019 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/http%E5%8D%8F%E8%AE%AE/</guid>
-    <description><![CDATA[HTTP协议简介 超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是一种用于分布式、协作式和超媒体信息系统的应用层]]></description>
+    <guid>http://www.nishinonanase.xyz/sql-%E5%87%BD%E6%95%B0/</guid>
+    <description><![CDATA[SQL 函数 SQL 拥有很多可用于计数和计算的内建函数。 SQL Aggregate 函数 SQL Aggregate 函数计算从列中取得的值，返回一个单一的值。 有用的 Aggregate 函数： AVG() - 返回平均值 COUNT() - 返回行数 FIRST()]]></description>
 </item><item>
-    <title>TCP和UDP的区别</title>
-    <link>http://www.nishinonanase.xyz/tcp%E5%92%8Cudp%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
-    <pubDate>Thu, 26 May 2016 15:46:34 &#43;0800</pubDate>
+    <title>SQL-MS Access、MySQL 和 SQL Server 数据类型</title>
+    <link>http://www.nishinonanase.xyz/sql-ms-accessmysql-%E5%92%8C-sql-server-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+    <pubDate>Sat, 07 Dec 2019 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/tcp%E5%92%8Cudp%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
-    <description><![CDATA[TCP与UDP基本区别 基于连接与无连接 TCP要求系统资源较多，UDP较少； UDP程序结构较简单 流模式（TCP）与数据报模式(UDP); TCP]]></description>
+    <guid>http://www.nishinonanase.xyz/sql-ms-accessmysql-%E5%92%8C-sql-server-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+    <description><![CDATA[SQL 用于各种数据库的数据类型 Microsoft Access、MySQL 和 SQL Server 所使用的数据类型和范围。 Microsoft Access 数据类型 数据类型 描述 存储 Text 用于文本或文本与数字的组合。]]></description>
 </item><item>
-    <title>UDP协议</title>
-    <link>http://www.nishinonanase.xyz/udp%E5%8D%8F%E8%AE%AE/</link>
-    <pubDate>Fri, 20 May 2016 15:46:34 &#43;0800</pubDate>
+    <title>SQL-临时表</title>
+    <link>http://www.nishinonanase.xyz/sql-%E4%B8%B4%E6%97%B6%E8%A1%A8/</link>
+    <pubDate>Sun, 24 Nov 2019 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/udp%E5%8D%8F%E8%AE%AE/</guid>
-    <description><![CDATA[UDP协议 UDP（User Datagram Protocol），用户数据报协议，是OSI(Open System Interconnection，开放式系统互联) 参考模型]]></description>
+    <guid>http://www.nishinonanase.xyz/sql-%E4%B8%B4%E6%97%B6%E8%A1%A8/</guid>
+    <description><![CDATA[SQL 临时表 某些关系型数据库管理系统支持临时表。临时表是一项很棒的特性，能够让你像操作普通的 SQL 数据表一样，使用 SELECT、UPDATE 和 JOIN 等功]]></description>
 </item><item>
-    <title>TCP-IP简介</title>
-    <link>http://www.nishinonanase.xyz/tcp-ip%E7%AE%80%E4%BB%8B/</link>
-    <pubDate>Mon, 16 May 2016 15:46:34 &#43;0800</pubDate>
+    <title>SQL-通配符</title>
+    <link>http://www.nishinonanase.xyz/sql-%E9%80%9A%E9%85%8D%E7%AC%A6/</link>
+    <pubDate>Mon, 18 Nov 2019 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/tcp-ip%E7%AE%80%E4%BB%8B/</guid>
-    <description><![CDATA[在世界上各地，各种各样的电脑运行着各自不同的操作系统为大家服务，这些电脑在表达同一种信息的时候所使用的方法是千差万别。就好像圣经中上帝打乱了]]></description>
+    <guid>http://www.nishinonanase.xyz/sql-%E9%80%9A%E9%85%8D%E7%AC%A6/</guid>
+    <description><![CDATA[SQL 通配符 我们已经讨论过 SQL 的 LIKE 操作符了，它可以利用通配符来对两个相似的值作比较。 SQL 支持以下两个通配符与 LIKE 操作符一起使用： 通配符 描述 百分号（%）]]></description>
 </item><item>
-    <title>virtualenv虚拟环境</title>
-    <link>http://www.nishinonanase.xyz/virtualenv%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</link>
-    <pubDate>Tue, 10 May 2016 15:46:34 &#43;0800</pubDate>
+    <title>SQL-使用序列</title>
+    <link>http://www.nishinonanase.xyz/sql-%E4%BD%BF%E7%94%A8%E5%BA%8F%E5%88%97/</link>
+    <pubDate>Fri, 08 Nov 2019 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/virtualenv%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</guid>
-    <description><![CDATA[在开发Python应用程序的时候，系统安装的Python3只有一个版本：3.4。所有第三方的包都会被pip安装到Python3的site-p]]></description>
+    <guid>http://www.nishinonanase.xyz/sql-%E4%BD%BF%E7%94%A8%E5%BA%8F%E5%88%97/</guid>
+    <description><![CDATA[SQL 使用序列 序列是根据需要产生的一组有序整数：1, 2, 3 &hellip; 序列在数据库中经常用到，因为许多应用要求数据表中的的每一行都有一个唯一的值，序列为此提]]></description>
 </item><item>
-    <title>正则表达式</title>
-    <link>http://www.nishinonanase.xyz/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
-    <pubDate>Wed, 04 May 2016 15:46:34 &#43;0800</pubDate>
+    <title>SQL-事务</title>
+    <link>http://www.nishinonanase.xyz/sql-%E4%BA%8B%E5%8A%A1/</link>
+    <pubDate>Fri, 01 Nov 2019 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
-    <description><![CDATA[字符串是编程时涉及到的最多的一种数据结构，对字符串进行操作的需求几乎无处不在。比如判断一个字符串是否是合法的Email地址，虽然可以编程提取]]></description>
+    <guid>http://www.nishinonanase.xyz/sql-%E4%BA%8B%E5%8A%A1/</guid>
+    <description><![CDATA[SQL 事务 事务是在数据库上按照一定的逻辑顺序执行的任务序列，既可以由用户手动执行，也可以由某种数据库程序自动执行。 事务实际上就是对数据库的一个或]]></description>
 </item><item>
-    <title>分布式进程</title>
-    <link>http://www.nishinonanase.xyz/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/</link>
-    <pubDate>Sat, 30 Apr 2016 15:46:34 &#43;0800</pubDate>
+    <title>SQL-HAVING 子句</title>
+    <link>http://www.nishinonanase.xyz/sql-having-%E5%AD%90%E5%8F%A5/</link>
+    <pubDate>Fri, 25 Oct 2019 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/</guid>
-    <description><![CDATA[在Thread和Process中，应当优选Process，因为Process更稳定，而且，Process可以分布到多台机器上，而Thread]]></description>
+    <guid>http://www.nishinonanase.xyz/sql-having-%E5%AD%90%E5%8F%A5/</guid>
+    <description><![CDATA[SQL HAVING 子句 HAVING 子句使你能够指定过滤条件，从而控制查询结果中哪些组可以出现在最终结果里面。 WHERE 子句对被选择的列施加条件，而 HAVING 子句则对 GROUP BY 子句所产生的]]></description>
 </item></channel>
 </rss>

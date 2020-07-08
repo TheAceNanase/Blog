@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Websocket - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="Websocket" />
+<meta property="og:description" content="轮询：在前端通过写js实现。缺点：有延迟、服务器压力大。 1 2 就是客户端通过一定的时间间隔以频繁请求的方式向服务器发送请求，来保持客户端和服务" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/websocket/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2020-04-23T13:24:15+08:00" />
+<meta property="article:modified_time" content="2020-04-23T13:24:15+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Websocket"/>
+<meta name="twitter:description" content="轮询：在前端通过写js实现。缺点：有延迟、服务器压力大。 1 2 就是客户端通过一定的时间间隔以频繁请求的方式向服务器发送请求，来保持客户端和服务"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/websocket/" /><link rel="prev" href="http://www.nishinonanase.xyz/webshell/" /><link rel="next" href="http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E8%A5%BF%E8%91%AB%E8%8A%A6%E7%95%AA%E8%8C%84%E7%82%92%E9%B8%A1%E8%9B%8B%E7%82%92%E9%9D%A2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Websocket",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/websocket\/"
+        },"genre": "posts","keywords": "技术要点, Web, 前后端","wordcount":  2223 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/websocket\/","datePublished": "2020-04-23T13:24:15+08:00","dateModified": "2020-04-23T13:24:15+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Websocket</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/"><i class="far fa-folder fa-fw"></i>技术要点</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-04-23">2020-04-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2223 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/websocket/" class="leancloud_visitors" data-flag-title="Websocket">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#2websocket">2.websocket</a>
+              <ul>
+                <li><a href="#21-原理">2.1 原理</a></li>
+                <li><a href="#22具体实现">2.2具体实现：</a></li>
+                <li><a href="#23-手动创建支持websocket的服务端理解">2.3 手动创建支持websocket的服务端（理解）</a></li>
+                <li><a href="#24-企业应用">2.4 企业应用</a></li>
+                <li><a href="#基于vue的websocket客户端">基于vue的websocket客户端</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>轮询</strong>：在前端通过写js实现。缺点：有延迟、服务器压力大。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"> 就是客户端通过一定的时间间隔以频繁请求的方式向服务器发送请求，来保持客户端和服务器端的数据同步。问题很明显，当客户端以固定频率向服务器端发送请求时，服务器端的数据可能并没有更新，带来很多无谓请求，浪费带宽，效率低下。
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>长轮询</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">首先需要为每个用户维护一个队列，用户浏览器会通过js递归向后端自己的队列获取数据，自己队列没有数据，会将请求夯住（去队列中获取数据），夯一段时间之后再返回。
+注意：一旦有数据立即获取，获取到数据之后会再发送请求。
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">用户发来请求之后，最多会夯住N秒（30s），因为有消息的时候回立即返回，没有消息时才最多夯N秒。
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2websocket">2.websocket</h3>
+<h4 id="21-原理">2.1 原理</h4>
+<ul>
+<li>
+<p>WebSocket 是 HTML5 一种新的协议。它实现了浏览器与服务器全双工通信，能更好的节省服务器资源和带宽并达到实时通讯，它建立在 TCP 之上，同 HTTP 一样通过 TCP 来传输数据，但是它和 HTTP 最大不同是：</p>
+</li>
+<li>
+<p>WebSocket 是一种双向通信协议，在建立连接后，WebSocket 服务器和 Browser/Client Agent 都能主动的向对方发送或接收数据，就像 Socket 一样；</p>
+</li>
+<li>
+<p>WebSocket 需要类似 TCP 的客户端和服务器端通过握手连接，连接成功后才能相互通信。</p>
+</li>
+</ul>
+<h4 id="22具体实现">2.2具体实现：</h4>
+<ul>
+<li>
+<p>客户端向服务端发送随机字符串，在http的请求头中 <code>Sec-WebSocket-Key</code></p>
+</li>
+<li>
+<p>服务端接受到到随机字符串</p>
+</li>
+<li>
+<p>随机字符串 + 魔法字符串</p>
+</li>
+<li>
+<p>sha1加密</p>
+</li>
+<li>
+<p>base64加密</p>
+</li>
+<li>
+<p>放在响应头中给用户返回 <code>Sec-WebSocket-Accept</code></p>
+</li>
+<li>
+<p>客户端浏览器会进行校验，校验不通过：服务端不支持websocket协议。</p>
+</li>
+<li>
+<p>客户端和服务端进行相互收发消息，数据加密和解密。</p>
+</li>
+<li>
+<p>解密细节：</p>
+</li>
+<li>
+<p>获取第二个字节的后7位，payload len</p>
+</li>
+<li>
+<p>判断payload len的值</p>
+</li>
+<li>
+<p>= 127</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">2字节  + 8字节  +  4字节 + 数据
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>= 126</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">2字节  + 2字节  +  4字节 + 数据
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>&lt;= 125</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">2字节  +  4字节 + 数据
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用masking key 对数据进行解密</li>
+</ul>
+<h4 id="23-手动创建支持websocket的服务端理解">2.3 手动创建支持websocket的服务端（理解）</h4>
+<ul>
+<li>服务端</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">import socket
+import hashlib
+import base64
+
+
+def get_headers(data):
+    &#34;&#34;&#34;
+    将请求头格式化成字典
+    :param data:
+    :return:
+    &#34;&#34;&#34;
+    header_dict = {}
+    data = str(data, encoding=&#39;utf-8&#39;)
+    header, body = data.split(&#39;\r\n\r\n&#39;, 1)
+    header_list = header.split(&#39;\r\n&#39;)
+    for i in range(0, len(header_list)):
+        if i == 0:
+            if len(header_list[i].split(&#39; &#39;)) == 3:
+                header_dict[&#39;method&#39;], header_dict[&#39;url&#39;], header_dict[&#39;protocol&#39;] = header_list[i].split(&#39; &#39;)
+        else:
+            k, v = header_list[i].split(&#39;:&#39;, 1)
+            header_dict[k] = v.strip()
+    return header_dict
+
+
+def get_data(info):
+    &#34;&#34;&#34;
+    对数据进行就解密
+    &#34;&#34;&#34;
+    payload_len = info[1] &amp;amp; 127
+    if payload_len == 126:
+        extend_payload_len = info[2:4]
+        mask = info[4:8]
+        decoded = info[8:]
+    elif payload_len == 127:
+        extend_payload_len = info[2:10]
+        mask = info[10:14]
+        decoded = info[14:]
+    else:
+        extend_payload_len = None
+        mask = info[2:6]
+        decoded = info[6:]
+
+    bytes_list = bytearray()
+    for i in range(len(decoded)):
+        chunk = decoded[i] ^ mask[i % 4]
+        bytes_list.append(chunk)
+    body = str(bytes_list, encoding=&#39;utf-8&#39;)
+    return body
+
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+sock.bind((&#39;127.0.0.1&#39;, 8002))
+sock.listen(5)
+
+
+# 等待用户连接
+conn, address = sock.accept()
+# 握手环节
+header_dict = get_headers(conn.recv(1024))
+# 公认的魔法字符串(固定)
+magic_string = &#39;258EAFA5-E914-47DA-95CA-C5AB0DC85B11&#39;
+
+random_string = header_dict[&#39;Sec-WebSocket-Key&#39;]
+value = random_string + magic_string
+ac = base64.b64encode(hashlib.sha1(value.encode(&#39;utf-8&#39;)).digest())
+# 给前端发送的响应数据
+response = &#34;HTTP/1.1 101 Switching Protocols\r\n&#34; \
+      &#34;Upgrade:websocket\r\n&#34; \
+      &#34;Connection: Upgrade\r\n&#34; \
+      &#34;Sec-WebSocket-Accept: %s\r\n&#34; \
+      &#34;WebSocket-Location: ws://127.0.0.1:8002\r\n\r\n&#34;
+
+response = response %ac.decode(&#39;utf-8&#39;)
+
+conn.send(response.encode(&#39;utf-8&#39;))
+
+# 接受数据
+while True:
+    data = conn.recv(1024)
+    msg = get_data(data)
+    print(msg)
+
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>html</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;en&#34;&gt;
+&lt;head&gt;
+    &lt;meta charset=&#34;UTF-8&#34;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;input type=&#34;button&#34; value=&#34;开始&#34; onclick=&#34;startConnect();&#34;&gt;
+
+&lt;script&gt;
+    var ws = null;
+    function startConnect() {
+        // 1. 内部会先发送随机字符串
+        // 2. 内部会校验加密字符串
+        ws = new WebSocket(&#39;ws://127.0.0.1:8002&#39;)
+    }
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="24-企业应用">2.4 企业应用</h4>
+<p>我们学过django和flask框架，内部基于wsgi做的socket，默认他俩都不支持websocket协议，只支持http协议。</p>
+<ul>
+<li>flask中应用</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pip3 install gevent-websocket 
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>django中应用</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pip3 install channels
+
+</code></pre></td></tr></table>
+</div>
+</div><p>在基于Django实现的时候因为需要导入<code>channels</code>模块，会跟Django中的<code>wsgiref</code>发生冲突所以需要在配置文件中添加配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">1.首先是在settings文件中的需要注册这个应用：
+	INSTALLED_APPS = [&#39;channels&#39;]
+    
+2.在settings文件中增加一个文件的路径：
+	ASGI_APPLICATION = &#34;wechat.routing.application&#34;   
+这个文件是用来写前端使用websocket发送数据时指定的接收路径，相当于url；
+	
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>1v1示例</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from channels.generic.websocket import WebsocketConsumer
+# 这里除了 WebsocketConsumer 之外还有
+# JsonWebsocketConsumer
+# AsyncWebsocketConsumer
+# AsyncJsonWebsocketConsumer
+# WebsocketConsumer 与 JsonWebsocketConsumer 就是多了一个可以自动处理JSON的方法
+# AsyncWebsocketConsumer 与 AsyncJsonWebsocketConsumer 也是多了一个JSON的方法
+# AsyncWebsocketConsumer 与 WebsocketConsumer 才是重点
+# 看名称似乎理解并不难 Async 无非就是异步带有 async / await
+# 是的理解并没有错,但对与我们来说他们唯一不一样的地方,可能就是名字的长短了,用法是一模一样的
+# 最夸张的是,基类是同一个,而且这个基类的方法也是Async异步的
+
+class ChatService(WebsocketConsumer):
+    # 当Websocket创建连接时
+    def connect(self):
+        #保持连接状态
+        self.accept()
+        print(&#39;找到女朋友了&#39;)
+        pass
+    
+    # 当Websocket接收到消息时
+    def receive(self, text_data=None, bytes_data=None):
+        #发送接收到的消息
+        self.send(text_data)
+        print(&#39;正在发送消息&#39;)
+        pass
+    
+    # 当Websocket发生断开连接时
+    def disconnect(self, code):
+        print(&#39;分手了&#39;)
+        pass
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="基于vue的websocket客户端">基于vue的websocket客户端</h4>
+<pre><code>&lt;template&gt;
+    &lt;div&gt;
+        &lt;input type=&quot;text&quot; v-model=&quot;message&quot;&gt;
+        &lt;p&gt;&lt;input type=&quot;button&quot; @click=&quot;send&quot; value=&quot;发送&quot;&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;input type=&quot;button&quot; @click=&quot;close_socket&quot; value=&quot;关闭&quot;&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+
+&lt;script&gt;
+export default {
+    name:'websocket1',
+    data() {
+        return {
+            message:'',
+            testsocket:'',
+            username:''
+        }
+    },
+    methods:{
+        send(){
+           
+        //    send  发送信息
+        //    close 关闭连接
+
+            this.testsocket.send(this.message)
+            this.testsocket.onmessage = (res) =&gt; {
+                console.log(&quot;WS的返回结果&quot;,res.data);         
+            }
+
+        },
+        close_socket(){
+            this.testsocket.close()
+        },
+        generate_uuid: function() {
+            var d = new Date().getTime();
+            if (window.performance &amp;&amp; typeof window.performance.now === &quot;function&quot;) {
+                d += performance.now(); //use high-precision timer if available
+            }
+            var uuid = &quot;xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx&quot;.replace(
+                /[xy]/g,
+                function(c) {
+                var r = (d + Math.random() * 16) % 16 | 0;
+                d = Math.floor(d / 16);
+                return (c == &quot;x&quot; ? r : (r &amp; 0x3) | 0x8).toString(16);
+                }
+            );
+            return uuid;
+        },
+
+    },
+    mounted(){
+        this.username = this.generate_uuid();
+
+        this.testsocket = new WebSocket(&quot;ws://127.0.0.1:8000/ws/&quot;+ this.username + &quot;/&quot;) 
+
+
+        // onopen     定义打开时的函数
+        // onclose    定义关闭时的函数
+        // onmessage  定义接收数据时候的函数
+        this.testsocket.onopen = function(){
+            console.log(&quot;开始连接socket&quot;)
+        },
+        this.testsocket.onclose = function(){
+            console.log(&quot;socket连接已经关闭&quot;)
+        }
+        this.testsocket.onmessage = (res) =&gt; {
+                console.log(&quot;WS的返回结果&quot;,res.data);         
+        }
+    }
+}
+&lt;/script&gt;
+</code></pre>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-04-23</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/websocket/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/websocket/" data-title="Websocket" data-hashtags="技术要点,Web,前后端"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/websocket/" data-hashtag="技术要点"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/websocket/" data-title="Websocket"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/websocket/" data-title="Websocket"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/websocket/" data-title="Websocket"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/">技术要点</a>,&nbsp;<a href="/tags/web/">web</a>,&nbsp;<a href="/tags/%E5%89%8D%E5%90%8E%E7%AB%AF/">前后端</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/webshell/" class="prev" rel="prev" title="Webshell"><i class="fas fa-angle-left fa-fw"></i>Webshell</a>
+            <a href="/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E8%A5%BF%E8%91%AB%E8%8A%A6%E7%95%AA%E8%8C%84%E7%82%92%E9%B8%A1%E8%9B%8B%E7%82%92%E9%9D%A2/" class="next" rel="next" title="小宁的爱吃厨房--西葫芦番茄炒鸡蛋炒面">小宁的爱吃厨房--西葫芦番茄炒鸡蛋炒面<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

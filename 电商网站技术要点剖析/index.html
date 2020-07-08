@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>电商网站技术要点剖析 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="电商网站技术要点剖析" />
+<meta property="og:description" content="电商网站技术要点剖析 商业模式 B2B - 商家对商家，交易双方都是企业（商家），最典型的案例就是阿里巴巴。 C2C - 个人对个人，例如：淘宝、人人车。 B2C - 商家" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2020-01-11T13:24:15+08:00" />
+<meta property="article:modified_time" content="2020-01-11T13:24:15+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="电商网站技术要点剖析"/>
+<meta name="twitter:description" content="电商网站技术要点剖析 商业模式 B2B - 商家对商家，交易双方都是企业（商家），最典型的案例就是阿里巴巴。 C2C - 个人对个人，例如：淘宝、人人车。 B2C - 商家"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" /><link rel="prev" href="http://www.nishinonanase.xyz/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/" /><link rel="next" href="http://www.nishinonanase.xyz/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "电商网站技术要点剖析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90\/"
+        },"genre": "posts","keywords": "心得体会, 技术要点, 项目实战","wordcount":  7861 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90\/","datePublished": "2020-01-11T13:24:15+08:00","dateModified": "2020-01-11T13:24:15+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">电商网站技术要点剖析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/"><i class="far fa-folder fa-fw"></i>技术要点</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-01-11">2020-01-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7861 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 16 分钟&nbsp;<span id="/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" class="leancloud_visitors" data-flag-title="电商网站技术要点剖析">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#电商网站技术要点剖析">电商网站技术要点剖析</a>
+          <ul>
+            <li><a href="#商业模式">商业模式</a></li>
+            <li><a href="#需求要点">需求要点</a></li>
+            <li><a href="#物理模型设计">物理模型设计</a></li>
+            <li><a href="#第三方登录">第三方登录</a>
+              <ul>
+                <li><a href="#oauth-20授权流程">OAuth 2.0授权流程</a></li>
+              </ul>
+            </li>
+            <li><a href="#缓存预热和查询缓存">缓存预热和查询缓存</a>
+              <ul>
+                <li><a href="#缓存预热">缓存预热</a></li>
+                <li><a href="#查询缓存">查询缓存</a></li>
+              </ul>
+            </li>
+            <li><a href="#购物车实现">购物车实现</a></li>
+            <li><a href="#集成支付功能">集成支付功能</a></li>
+            <li><a href="#秒杀和超卖">秒杀和超卖</a></li>
+            <li><a href="#静态资源管理">静态资源管理</a></li>
+            <li><a href="#全文检索">全文检索</a>
+              <ul>
+                <li><a href="#方案选择">方案选择</a></li>
+                <li><a href="#elasticsearch">ElasticSearch</a></li>
+                <li><a href="#配置中文分词和拼音插件">配置中文分词和拼音插件</a></li>
+                <li><a href="#全文检索功能">全文检索功能</a></li>
+                <li><a href="#django对接elasticsearch">Django对接ElasticSearch</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="电商网站技术要点剖析">电商网站技术要点剖析</h2>
+<h3 id="商业模式">商业模式</h3>
+<ol>
+<li>B2B - 商家对商家，交易双方都是企业（商家），最典型的案例就是阿里巴巴。</li>
+<li>C2C - 个人对个人，例如：淘宝、人人车。</li>
+<li>B2C - 商家对个人，例如：唯品会，聚美优品。</li>
+<li>C2B - 个人对商家，先有消费者提出需求，后有商家按需求组织生产，例如： 尚品宅配。</li>
+<li>O2O - 线上到线下，将线下的商务机会与互联网结合，让互联网成为线下交易的平台，例如：美团外卖、饿了么。</li>
+<li>B2B2C - 商家对商家对个人，例如：天猫、京东。</li>
+</ol>
+<h3 id="需求要点">需求要点</h3>
+<ol>
+<li>用户端
+<ul>
+<li>
+<p>首页（商品分类、广告轮播、滚动快讯、瀑布加载、推荐、折扣、热销、……）</p>
+</li>
+<li>
+<p>用户（登录（第三方登录）、注册、注销、自服务（个人信息、浏览历史、收货地址、……））</p>
+</li>
+<li>
+<p>商品（分类、列表、详情、搜索、热门搜索、搜索历史、添加到购物车、收藏、关注、评论、……）</p>
+</li>
+<li>
+<p>购物车（查看、编辑（修改数量、删除商品、清空））</p>
+</li>
+<li>
+<p>订单（提交订单（支付）、历史订单、订单详情、订单评价、……）</p>
+</li>
+</ul>
+</li>
+<li>管理端
+<ul>
+<li>核心业务实体的CRUD</li>
+<li>定时任务（周期性和非周期性，如处理未支付订单、采集数据对异常事件报警、……）</li>
+<li>报表功能（导入导出Excel、PDF等以及前端ECharts统计图表展示）</li>
+<li>权限控制（RBAC、白名单、黑名单、……）</li>
+<li>业务流转（如发起退款流程，常用流程引擎有：Activity、Airflow、Spiff等）</li>
+<li>三方服务（接入地图、短信、物流、支付、实名认证、天气、监控、云存储、……）</li>
+</ul>
+</li>
+</ol>
+<h3 id="物理模型设计">物理模型设计</h3>
+<p>首先要搞清楚两个概念：SPU（Standard Product Unit）和SKU（Stock Keeping Unit）。</p>
+<ul>
+<li>SPU：iPhone 6s</li>
+<li>SKU：iPhone 6s 64G 土豪金</li>
+</ul>
+<h3 id="第三方登录">第三方登录</h3>
+<p>第三方登录是指利用第三方网站（通常是知名社交网站）的账号进行登录验证（主要是通过知名第三方网站获取到用户相关信息），比如国内的 QQ、微博，国外的Google、Facebook等。第三方登录大部分都是使用<a href="https://en.wikipedia.org/wiki/OAuth" target="_blank" rel="noopener noreffer">OAuth</a>协议，它是一个关于授权的开放网络标准（<strong>数据的所有者告诉系统，同意授权第三方应用进入系统，获取这些数据。系统从而产生一个短期的进入令牌，用来代替密码，供第三方应用使用</strong>），得到了广泛的应用，目前通常使用的是2.0版本。关于OAuth的基础知识，可以阅读阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="noopener noreffer">《理解OAuth 2.0》</a>。关于<strong>令牌</strong>和<strong>密码</strong>的区别，我们可以简单总结出以下三点差异：</p>
+<ol>
+<li>令牌是短期的，到期会自动失效，用户自己无法修改。密码一般长期有效，用户不修改，就不会发生变化。</li>
+<li>令牌可以被数据所有者撤销，会立即失效。以上例而言，屋主可以随时取消快递员的令牌。密码一般不允许被他人撤销。</li>
+<li>令牌有权限范围（scope），比如只能进小区的二号门。对于网络服务来说，只读令牌就比读写令牌更安全。密码一般是完整权限。</li>
+</ol>
+<p>所以，通过令牌既可以让第三方应用获得权限，同时又随时可控，不会危及系统安全。这就是OAuth协议的优势。</p>
+<h4 id="oauth-20授权流程">OAuth 2.0授权流程</h4>
+<ol>
+<li>用户打开客户端以后，客户端要求用户（资源所有者）给予授权。</li>
+<li>用户（资源所有者）同意给予客户端授权。</li>
+<li>客户端使用上一步获得的授权，向认证服务器申请访问令牌。</li>
+<li>认证服务器对客户端进行认证以后，发放访问令牌。</li>
+<li>客户端使用访问令牌向资源服务器申请获取资源。</li>
+<li>资源服务器确认访问令牌无误，同意向客户端开放资源。</li>
+</ol>
+<p>如果使用微博登录进行接入，其具体步骤可以参考微博开放平台上的<a href="http://open.weibo.com/wiki/Connect/login" target="_blank" rel="noopener noreffer">“微博登录接入”</a>文档。使用QQ登录进行接入，需要首先注册成为QQ互联开发者并通过审核，具体的步骤可以参考QQ互联上的<a href="http://wiki.connect.qq.com/" target="_blank" rel="noopener noreffer">“接入指南”</a>，具体的步骤可以参考<a href="http://wiki.connect.qq.com/%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C_oauth2-0" target="_blank" rel="noopener noreffer">“网站开发流程”</a>。</p>
+<blockquote>
+<p>提示：在Gitbook上面有一本名为<a href="https://shenxgan.gitbooks.io/django/content/publish/2015-08-10-django-oauth-login.html" target="_blank" rel="noopener noreffer">《Django博客入门》</a>的书以Github为例介绍了第三方账号登录，有兴趣的可以自行阅读。</p>
+</blockquote>
+<p>通常电商网站在使用第三方登录时，会要求与网站账号进行绑定或者根据获取到的第三方账号信息（如：手机号）自动完成账号绑定。</p>
+<h3 id="缓存预热和查询缓存">缓存预热和查询缓存</h3>
+<h4 id="缓存预热">缓存预热</h4>
+<p>所谓缓存预热，是指在启动服务器时将数据提前加载到缓存中，为此可以在Django应用的<code>apps.py</code>模块中编写<code>AppConfig</code>的子类并重写<code>ready()</code>方法，代码如下所示。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">import</span> <span class="nn">pymysql</span>
+
+<span class="kn">from</span> <span class="nn">django.apps</span> <span class="kn">import</span> <span class="n">AppConfig</span>
+<span class="kn">from</span> <span class="nn">django.core.cache</span> <span class="kn">import</span> <span class="n">cache</span>
+
+<span class="n">SELECT_PROVINCE_SQL</span> <span class="o">=</span> <span class="s1">&#39;select distid, name from tb_district where pid is null&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">CommonConfig</span><span class="p">(</span><span class="n">AppConfig</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;common&#39;</span>
+
+    <span class="k">def</span> <span class="nf">ready</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;1.2.3.4&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3306</span><span class="p">,</span>
+                               <span class="n">user</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;pass&#39;</span><span class="p">,</span>
+                               <span class="n">database</span><span class="o">=</span><span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">,</span>
+                               <span class="n">cursorclass</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">cursors</span><span class="o">.</span><span class="n">DictCursor</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">SELECT_PROVINCE_SQL</span><span class="p">)</span>
+                <span class="n">provinces</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+                <span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;provinces&#39;</span><span class="p">,</span> <span class="n">provinces</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>接下来，还需要在应用的<code>__init__.py</code>中编写下面的代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">default_app_config</span> <span class="o">=</span> <span class="s1">&#39;common.apps.CommonConfig&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>或者在项目的<code>settings.py</code>文件中注册应用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="o">...</span>
+    <span class="s1">&#39;common.apps.CommonConfig&#39;</span><span class="p">,</span>
+    <span class="o">...</span>
+<span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="查询缓存">查询缓存</h4>
+<p>自定义装饰器实现查询结果的缓存。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">from</span> <span class="nn">pickle</span> <span class="kn">import</span> <span class="n">dumps</span><span class="p">,</span> <span class="n">loads</span>
+
+<span class="kn">from</span> <span class="nn">django.core.cache</span> <span class="kn">import</span> <span class="n">caches</span>
+
+<span class="n">MODEL_CACHE_KEY</span> <span class="o">=</span> <span class="s1">&#39;project:modelcache:</span><span class="si">%s</span><span class="s1">&#39;</span>
+
+
+<span class="k">def</span> <span class="nf">my_model_cache</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;实现模型缓存的装饰器&#34;&#34;&#34;</span>
+
+    <span class="k">def</span> <span class="nf">wrapper1</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">wrapper2</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">real_key</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">:</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">MODEL_CACHE_KEY</span> <span class="o">%</span> <span class="n">key</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">)))</span>
+            <span class="n">serialized_data</span> <span class="o">=</span> <span class="n">caches</span><span class="p">[</span><span class="n">section</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">real_key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">serialized_data</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">serialized_data</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">real_key</span><span class="p">,</span> <span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">data</span>
+
+        <span class="k">return</span> <span class="n">wrapper2</span>
+
+    <span class="k">return</span> <span class="n">wrapper1</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="nd">@my_model_cache</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s1">&#39;provinces&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_all_provinces</span><span class="p">():</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">Province</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="购物车实现">购物车实现</h3>
+<p>问题一：已登录用户的购物车放在哪里？未登录用户的购物车放在哪里？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="k">class</span> <span class="nc">CartItem</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;购物车中的商品项&#34;&#34;&#34;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sku</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">selected</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sku</span> <span class="o">=</span> <span class="n">sku</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">amount</span> <span class="o">=</span> <span class="n">amount</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="n">selected</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sku</span><span class="o">.</span><span class="n">price</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">amount</span>
+
+
+<span class="k">class</span> <span class="nc">ShoppingCart</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;购物车&#34;&#34;&#34;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">sku</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">sku</span><span class="o">.</span><span class="n">id</span><span class="p">]</span><span class="o">.</span><span class="n">amount</span> <span class="o">+=</span> <span class="n">item</span><span class="o">.</span><span class="n">amount</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">sku</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+
+    <span class="k">def</span> <span class="nf">remove_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sku_id</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sku_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">sku_id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">clear_all_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cart_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cart_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">total</span> <span class="o">+=</span> <span class="n">item</span><span class="o">.</span><span class="n">total</span>
+        <span class="k">return</span> <span class="n">total</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>已登录用户的购物车可以放在数据库中（可以先在Redis中缓存）；未登录用户的购物车可以保存在Cookie、localStorage或sessionStorage中（减少服务器端内存开销）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+    <span class="err">&#39;1001&#39;:</span> <span class="err">{sku:</span> <span class="err">{...</span><span class="p">}</span><span class="err">,</span> <span class="err">&#39;amount&#39;:</span> <span class="mi">1</span><span class="err">,</span> <span class="err">&#39;selected&#39;:</span> <span class="err">True},</span> 
+    <span class="err">&#39;</span><span class="mi">1002</span><span class="err">&#39;:</span> <span class="p">{</span><span class="err">sku:</span> <span class="err">{...</span><span class="p">}</span><span class="err">,</span> <span class="err">&#39;amount&#39;:</span> <span class="mi">2</span><span class="err">,</span> <span class="err">&#39;selected&#39;:</span> <span class="err">False},</span>
+    <span class="err">&#39;</span><span class="mi">1003</span><span class="err">&#39;:</span> <span class="p">{</span><span class="err">sku:</span> <span class="err">{...</span><span class="p">}</span><span class="err">,</span> <span class="err">&#39;amount&#39;:</span> <span class="mi">3</span><span class="err">,</span> <span class="err">&#39;selected&#39;:</span> <span class="err">True},</span>
+<span class="err">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">request</span><span class="o">.</span><span class="n">get_signed_cookie</span><span class="p">(</span><span class="s1">&#39;cart&#39;</span><span class="p">)</span>
+
+<span class="n">cart_base64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">base64encode</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">cart</span><span class="p">))</span>
+<span class="n">response</span><span class="o">.</span><span class="n">set_signed_cookie</span><span class="p">(</span><span class="s1">&#39;cart&#39;</span><span class="p">,</span> <span class="n">cart_base64</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>问题二：用户登录之后，如何合并购物车？（目前电商应用的购物车几乎都做了持久化处理，主要是方便在多个终端之间共享数据）</p>
+<h3 id="集成支付功能">集成支付功能</h3>
+<p>问题一：支付信息如何持久化？（必须保证每笔交易都有记录）</p>
+<p>问题二：如何接入支付宝？（接入其他平台基本类似）</p>
+<ol>
+<li><a href="https://open.alipay.com/platform/home.htm" target="_blank" rel="noopener noreffer">蚂蚁金服开放平台</a>。</li>
+<li><a href="https://open.alipay.com/platform/homeRoleSelection.htm" target="_blank" rel="noopener noreffer">入驻平台</a>。</li>
+<li><a href="https://openhome.alipay.com/platform/appManage.htm#/apps" target="_blank" rel="noopener noreffer">开发者中心</a>。</li>
+<li><a href="https://docs.open.alipay.com/270/105899/" target="_blank" rel="noopener noreffer">文档中心</a>。</li>
+<li><a href="https://docs.open.alipay.com/54/103419" target="_blank" rel="noopener noreffer">SDK集成</a> - <a href="https://pypi.org/project/alipay-sdk-python/" target="_blank" rel="noopener noreffer">PYPI链接</a>。</li>
+<li><a href="https://docs.open.alipay.com/270/105900/" target="_blank" rel="noopener noreffer">API列表</a>。</li>
+</ol>
+<p>配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">ALIPAY_APPID</span> <span class="o">=</span> <span class="s1">&#39;......&#39;</span>
+<span class="n">ALIPAY_URL</span> <span class="o">=</span> <span class="s1">&#39;https://openapi.alipaydev.com/gateway.do&#39;</span>
+<span class="n">ALIPAY_DEBUG</span> <span class="o">=</span> <span class="bp">False</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>获得支付链接（发起支付）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="c1"># 创建调用支付宝的对象</span>
+<span class="n">alipay</span> <span class="o">=</span> <span class="n">AliPay</span><span class="p">(</span>
+    <span class="c1"># 在线创建应用时分配的ID</span>
+    <span class="n">appid</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">ALIPAY_APPID</span><span class="p">,</span>
+    <span class="n">app_notify_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="c1"># 自己应用的私钥</span>
+    <span class="n">app_private_key_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span> 
+        <span class="s1">&#39;keys/app_private_key.pem&#39;</span><span class="p">),</span>
+    <span class="c1"># 支付宝的公钥</span>
+    <span class="n">alipay_public_key_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span> 
+        <span class="s1">&#39;keys/alipay_public_key.pem&#39;</span><span class="p">),</span>
+    <span class="n">sign_type</span><span class="o">=</span><span class="s1">&#39;RSA2&#39;</span><span class="p">,</span>
+    <span class="n">debug</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">ALIPAY_DEBUG</span>
+<span class="p">)</span>
+<span class="c1"># 调用获取支付页面操作</span>
+<span class="n">order_info</span> <span class="o">=</span> <span class="n">alipay</span><span class="o">.</span><span class="n">api_alipay_trade_page_pay</span><span class="p">(</span>
+    <span class="n">out_trade_no</span><span class="o">=</span><span class="s1">&#39;...&#39;</span><span class="p">,</span>
+    <span class="n">total_amount</span><span class="o">=</span><span class="s1">&#39;...&#39;</span><span class="p">,</span>
+    <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;...&#39;</span><span class="p">,</span>
+    <span class="n">return_url</span><span class="o">=</span><span class="s1">&#39;http://...&#39;</span>
+<span class="p">)</span>
+<span class="c1"># 生成完整的支付页面URL</span>
+<span class="n">alipay_url</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">ALIPAY_URL</span> <span class="o">+</span> <span class="s1">&#39;?&#39;</span> <span class="o">+</span> <span class="n">order_info</span>
+<span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;alipay_url&#39;</span><span class="p">:</span> <span class="n">alipay_url</span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>通过上面返回的链接可以进入支付页面，支付完成后会自动跳转回上面代码中设定好的项目页面，在该页面中可以获得订单号（out_trade_no）、支付流水号（trade_no）、交易金额（total_amount）和对应的签名（sign）并请求后端验证和保存交易结果，代码如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="c1"># 创建调用支付宝的对象</span>
+<span class="n">alipay</span> <span class="o">=</span> <span class="n">AliPay</span><span class="p">(</span>
+    <span class="c1"># 在线创建应用时分配的ID</span>
+    <span class="n">appid</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">ALIPAY_APPID</span><span class="p">,</span>
+    <span class="n">app_notify_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="c1"># 自己应用的私钥</span>
+    <span class="n">app_private_key_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span> 
+        <span class="s1">&#39;keys/app_private_key.pem&#39;</span><span class="p">),</span>
+    <span class="c1"># 支付宝的公钥</span>
+    <span class="n">alipay_public_key_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span> 
+        <span class="s1">&#39;keys/alipay_public_key.pem&#39;</span><span class="p">),</span>
+    <span class="n">sign_type</span><span class="o">=</span><span class="s1">&#39;RSA2&#39;</span><span class="p">,</span>
+    <span class="n">debug</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">ALIPAY_DEBUG</span>
+<span class="p">)</span>
+<span class="c1"># 请求参数（假设是POST请求）中包括订单号、支付流水号、交易金额和签名</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+<span class="c1"># 调用验证操作</span>
+<span class="k">if</span> <span class="n">alipay</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;sign&#39;</span><span class="p">)):</span>
+    <span class="c1"># 对交易进行持久化操作</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>支付宝的支付API还提供了交易查询、交易结算、退款、退款查询等一系列的接口，可以根据业务需要进行调用，此处不再进行赘述。</p>
+<h3 id="秒杀和超卖">秒杀和超卖</h3>
+<ol>
+<li>秒杀：秒杀是通常意味着要在很短的时间处理极高的并发，系统在短时间需要承受平时百倍以上的流量，因此秒杀架构是一个比较复杂的问题，其核心思路是流量控制和性能优化，需要从前端（通过JavaScript实现倒计时、避免重复提交和限制频繁刷新）到后台各个环节的配合。流量控制主要是限制只有少部分流量进入服务后端（毕竟最终只有少部分用户能够秒杀成功），同时在物理架构上使用缓存（一方面是因为读操作多写操作少；另外可以将库存放在Redis中，利用DECR原语实现减库存；同时也可以利用Redis来进行限流，道理跟限制频繁发送手机验证码是一样的）和消息队列（消息队列最为重要的作用就是“削峰”和“上下游节点解耦合”）来进行优化；此外还要采用无状态服务设计，这样才便于进行水平扩展（通过增加设备来为系统扩容）。</li>
+<li>超卖现象：比如某商品的库存为1，此时用户1和用户2并发购买该商品，用户1提交订单后该商品的库存被修改为0，而此时用户2并不知道的情况下提交订单，该商品的库存再次被修改为-1这就是超卖现象。解决超卖现象有三种常见的思路：
+<ul>
+<li>悲观锁控制：查询商品数量的时候就用<code>select ... for update</code>对数据加锁，这样的话用户1查询库存时，用户2因无法读取库存数量被阻塞，直到用户1提交或者回滚了更新库存的操作后才能继续，从而解决了超卖问题。但是这种做法对并发访问量很高的商品来说性能太过糟糕，实际开发中可以在库存小于某个值时才考虑加锁，但是总的来说这种做法不太可取。</li>
+<li>乐观锁控制：查询商品数量不用加锁，更新库存的时候设定商品数量必须与之前查询数量相同才能更新，否则说明其他事务已经更新了库存，必须重新发出请求。</li>
+<li>尝试减库存：将上面的查询（<code>select</code>）和更新（<code>update</code>）操作合并为一条SQL操作，更新库存的时候，在<code>where</code>筛选条件中加上<code>库存&gt;=购买数量</code>或<code>库存-购买数量&gt;=0</code>的条件，这种做法要求事务隔离级别为读提交（read committed）。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>提示：有兴趣的可以自己在知乎上看看关于这类问题的讨论。</p>
+</blockquote>
+<h3 id="静态资源管理">静态资源管理</h3>
+<p>静态资源的管理可以自己架设文件服务器或者分布式文件服务器（FastDFS），但是一般的项目中没有必要这样做而且效果未必是最好的，我们建议使用云存储服务来管理网站的静态资源，国内外的云服务提供商如<a href="https://amazonaws-china.com/cn/" target="_blank" rel="noopener noreffer">亚马逊</a>、<a href="https://www.aliyun.com/product/oss" target="_blank" rel="noopener noreffer">阿里云</a>、<a href="https://www.qiniu.com/products/kodo" target="_blank" rel="noopener noreffer">七牛</a>、<a href="https://leancloud.cn/storage/" target="_blank" rel="noopener noreffer">LeanCloud</a>、<a href="https://www.bmob.cn/cloud" target="_blank" rel="noopener noreffer">Bmob</a>等都提供了非常优质的云存储服务，而且价格也是一般公司可以接受的，具体的操作可以参考官方文档，例如：阿里云的<a href="https://www.alibabacloud.com/zh/support/developer-resources" target="_blank" rel="noopener noreffer">对象存储 OSS开发人员指南</a>。</p>
+<h3 id="全文检索">全文检索</h3>
+<h4 id="方案选择">方案选择</h4>
+<ol>
+<li>使用数据库的模糊查询功能 - 效率低，每次需要全表扫描，不支持分词。</li>
+<li>使用数据库的全文检索功能 - MySQL 5.6以前只适用于MyISAM引擎，检索操作和其他的DML操作耦合在数据库中，可能导致检索操作非常缓慢，数据量达到百万级性能显著下降，查询时间很长。</li>
+<li>使用开源搜索引擎 - 索引数据和原始数据分离，可以使用ElasticSearch或Solr来提供外置索引服务，如果不考虑高并发的全文检索需求，纯Python的Whoosh也可以考虑。</li>
+</ol>
+<h4 id="elasticsearch">ElasticSearch</h4>
+<p>ElasticSearch既是一个分布式文档数据库又是一个高可扩展的开源全文搜索和分析引擎，它允许存储、搜索和分析大量的数据，并且这个过程是近实时的。它通常被用作底层引擎和技术，为复杂的搜索功能和要求提供动力，大家熟知的维基百科、Stack-Overflow、Github都使用了ElasticSearch。</p>
+<p>ElasticSearch的底层是开源搜索引擎<a href="https://lucene.apache.org/" target="_blank" rel="noopener noreffer">Lucene</a>，但是直接用Lucene会非常麻烦，必须自己编写代码去调用它的接口而且只支持Java语言。ElasticSearch相当于对Lucene进行了一次全面的封装，提供了REST风格的API接口，通过基于HTTP协议的访问方式屏蔽了编程语言的差异。ElasticSearch会为数据构建<a href="https://zh.wikipedia.org/zh-hans/%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95" target="_blank" rel="noopener noreffer">倒排索引</a>，但是ElasticSearch内置的分词器对中文分词的支持几乎为零，因此需要通过安装elasticsearch-analysis-ik插件来提供中文分词服务。</p>
+<p>ElasticSearch的安装和配置可以参考<a href="https://blog.csdn.net/jinyidong/article/details/80475320" target="_blank" rel="noopener noreffer">《ElasticSearch之Docker安装》</a>。除了ElasticSearch之外，也可以使用Solr、Whoosh等来提供搜索引擎服务，基本上Django项目中可以考虑如下几种方案：</p>
+<ul>
+<li>haystack（django-haystack / drf-haystack） + whoosh + Jieba</li>
+<li>haystack （django-haystack / drf-haystack）+ elasticsearch</li>
+<li>requests + elasticsearch</li>
+<li>django-elasticsearch-dsl</li>
+</ul>
+<p>####安装和使用ElasticSearch</p>
+<ol>
+<li>
+<p>使用Docker安装ElasticSearch。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Shell" data-lang="Shell">docker pull elasticsearch:7.6.0
+docker run -d -p 9200:9200 -p 9300:9300 -e <span class="s2">&#34;discovery.type=single-node&#34;</span> -e <span class="nv">ES_JAVA_OPTS</span><span class="o">=</span><span class="s2">&#34;-Xms512m -Xmx512m&#34;</span> --name es elasticsearch:7.6.0
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>说明：上面创建容器时通过<code>-e</code>参数指定了使用单机模式和Java虚拟机最小最大可用堆空间的大小，堆空间大小可以根据服务器实际能够提供给ElasticSearch的内存大小来决定，默认为2G。</p>
+</blockquote>
+</li>
+<li>
+<p>创建数据库。</p>
+<p>请求：PUT - <code>http://1.2.3.4:9200/demo/</code></p>
+<p>响应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+   <span class="nt">&#34;acknowledged&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+   <span class="nt">&#34;shards_acknowledged&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+   <span class="nt">&#34;index&#34;</span><span class="p">:</span> <span class="s2">&#34;demo&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查看创建的数据库。</p>
+<p>请求：GET - <code>http://1.2.3.4:9200/demo/</code></p>
+<p>响应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+    <span class="nt">&#34;demo&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;aliases&#34;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="nt">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="nt">&#34;settings&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;index&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;creation_date&#34;</span><span class="p">:</span> <span class="s2">&#34;1552213970199&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;number_of_shards&#34;</span><span class="p">:</span> <span class="s2">&#34;5&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;number_of_replicas&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;uuid&#34;</span><span class="p">:</span> <span class="s2">&#34;ny3rCn10SAmCsqW6xPP1gw&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&#34;created&#34;</span><span class="p">:</span> <span class="s2">&#34;6050399&#34;</span>
+                <span class="p">},</span>
+                <span class="nt">&#34;provided_name&#34;</span><span class="p">:</span> <span class="s2">&#34;demo&#34;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>插入数据。</p>
+<p>请求：POST - <code>http://1.2.3.4:9200/demo/goods/1/</code></p>
+<p>请求头：Content-Type: application/json</p>
+<p>参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+    <span class="nt">&#34;no&#34;</span><span class="p">:</span> <span class="s2">&#34;5089253&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Apple iPhone X (A1865) 64GB 深空灰色 移动联通电信4G手机&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;brand&#34;</span><span class="p">:</span> <span class="s2">&#34;Apple&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Apple iPhone X&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;product&#34;</span><span class="p">:</span> <span class="s2">&#34;中国大陆&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;resolution&#34;</span><span class="p">:</span> <span class="s2">&#34;2436 x 1125&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;intro&#34;</span><span class="p">:</span> <span class="s2">&#34;一直以来，Apple都心存一个设想，期待能够打造出这样一部iPhone：它有整面屏幕，能让你在使用时，完全沉浸其中，仿佛忘了它的存在。它是如此智能，哪怕轻轻一瞥，都能得到它心有灵犀的回应。而这个设想，终于随着iPhone X的到来成为了现实。现在，就跟未来见个面吧。&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>响应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+    <span class="nt">&#34;_index&#34;</span><span class="p">:</span> <span class="s2">&#34;demo&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_type&#34;</span><span class="p">:</span> <span class="s2">&#34;goods&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_version&#34;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&#34;result&#34;</span><span class="p">:</span> <span class="s2">&#34;created&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_shards&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;total&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&#34;successful&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&#34;failed&#34;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;_seq_no&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&#34;_primary_term&#34;</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>删除数据。</p>
+<p>请求：DELETE -  <code>http://1.2.3.4:9200/demo/goods/1/</code></p>
+<p>响应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+    <span class="nt">&#34;_index&#34;</span><span class="p">:</span> <span class="s2">&#34;demo&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_type&#34;</span><span class="p">:</span> <span class="s2">&#34;goods&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_version&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&#34;result&#34;</span><span class="p">:</span> <span class="s2">&#34;deleted&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_shards&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;total&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&#34;successful&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&#34;failed&#34;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;_seq_no&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&#34;_primary_term&#34;</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>更新数据。</p>
+<p>请求：PUT - <code>http://1.2.3.4:9200/demo/goods/1/_update</code></p>
+<p>请求头：Content-Type: application/json</p>
+<p>参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+ <span class="nt">&#34;doc&#34;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="nt">&#34;no&#34;</span><span class="p">:</span> <span class="s2">&#34;5089253&#34;</span><span class="p">,</span>
+     <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Apple iPhone X (A1865) 64GB 深空灰色 移动联通电信4G手机&#34;</span><span class="p">,</span>
+     <span class="nt">&#34;brand&#34;</span><span class="p">:</span> <span class="s2">&#34;Apple(苹果)&#34;</span><span class="p">,</span>
+     <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Apple iPhone X&#34;</span><span class="p">,</span>
+     <span class="nt">&#34;product&#34;</span><span class="p">:</span> <span class="s2">&#34;美国&#34;</span><span class="p">,</span>
+     <span class="nt">&#34;resolution&#34;</span><span class="p">:</span> <span class="s2">&#34;2436 x 1125&#34;</span><span class="p">,</span>
+     <span class="nt">&#34;intro&#34;</span><span class="p">:</span> <span class="s2">&#34;一直以来，Apple都心存一个设想，期待能够打造出这样一部iPhone：它有整面屏幕，能让你在使用时，完全沉浸其中，仿佛忘了它的存在。它是如此智能，哪怕轻轻一瞥，都能得到它心有灵犀的回应。而这个设想，终于随着iPhone X的到来成为了现实。现在，就跟未来见个面吧。&#34;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>响应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+    <span class="nt">&#34;_index&#34;</span><span class="p">:</span> <span class="s2">&#34;demo&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_type&#34;</span><span class="p">:</span> <span class="s2">&#34;goods&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_version&#34;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nt">&#34;result&#34;</span><span class="p">:</span> <span class="s2">&#34;updated&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_shards&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;total&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&#34;successful&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&#34;failed&#34;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;_seq_no&#34;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="nt">&#34;_primary_term&#34;</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查询数据。</p>
+<p>请求：GET - <code>http://1.2.3.4:9200/demo/goods/1/</code></p>
+<p>响应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+    <span class="nt">&#34;_index&#34;</span><span class="p">:</span> <span class="s2">&#34;demo&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_type&#34;</span><span class="p">:</span> <span class="s2">&#34;goods&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;_version&#34;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nt">&#34;found&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&#34;_source&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;doc&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;no&#34;</span><span class="p">:</span> <span class="s2">&#34;5089253&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Apple iPhone X (A1865) 64GB 深空灰色 移动联通电信4G手机&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;brand&#34;</span><span class="p">:</span> <span class="s2">&#34;Apple(苹果)&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Apple iPhone X&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;product&#34;</span><span class="p">:</span> <span class="s2">&#34;美国&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;resolution&#34;</span><span class="p">:</span> <span class="s2">&#34;2436 x 1125&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;intro&#34;</span><span class="p">:</span> <span class="s2">&#34;一直以来，Apple都心存一个设想，期待能够打造出这样一部iPhone：它有整面屏幕，能让你在使用时，完全沉浸其中，仿佛忘了它的存在。它是如此智能，哪怕轻轻一瞥，都能得到它心有灵犀的回应。而这个设想，终于随着iPhone X的到来成为了现实。现在，就跟未来见个面吧。&#34;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h4 id="配置中文分词和拼音插件">配置中文分词和拼音插件</h4>
+<ol>
+<li>
+<p>进入Docker容器的plugins目录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Shell" data-lang="Shell">docker <span class="nb">exec</span> -it es /bin/bash
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>下载和ElasticSearch版本对应的<a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener noreffer">ik</a>和<a href="https://github.com/medcl/elasticsearch-analysis-pinyin" target="_blank" rel="noopener noreffer">pinyin</a>插件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Shell" data-lang="Shell">yum install -y wget
+<span class="nb">cd</span> plugins/
+mkdir ik
+<span class="nb">cd</span> ik
+wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.6.0/elasticsearch-analysis-ik-7.6.0.zip
+unzip elasticsearch-analysis-ik-7.6.0.zip
+rm -f elasticsearch-analysis-ik-7.6.0.zip
+<span class="nb">cd</span> ..
+mkdir pinyin
+<span class="nb">cd</span> pinyin
+wget https://github.com/medcl/elasticsearch-analysis-pinyin/releases/download/v7.6.0/elasticsearch-analysis-pinyin-7.6.0.zip
+unzip elasticsearch-analysis-pinyin-7.6.0.zip
+rm -f elasticsearch-analysis-pinyin-7.6.0.zip
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>退出容器，重启ElasticSearch。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Shell" data-lang="Shell">docker restart es
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>测试中文分词效果。</p>
+<p>请求：POST - <code>http://1.2.3.4:9200/_analyze</code></p>
+<p>请求头：Content-Type: application/json</p>
+<p>参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;ik_smart&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;中国男足在2022年卡塔尔世界杯预选赛中勇夺小组最后一名&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>响应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+    <span class="nt">&#34;tokens&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;中国&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;男足&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;在&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">2</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;2022年&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;TYPE_CQUAN&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">3</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;卡塔尔&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">4</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;世界杯&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">5</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;预选赛&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">6</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;中&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">7</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;勇夺&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">8</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;小组&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">9</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;最后&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">10</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;一名&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">11</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>测试拼音分词效果。</p>
+<p>请求：POST - <code>http://1.2.3.4:9200/_analyze</code></p>
+<p>请求头：Content-Type: application/json</p>
+<p>参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;pinyin&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;张学友&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>响应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+    <span class="nt">&#34;tokens&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;zhang&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;zxy&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;xue&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;you&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">2</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h4 id="全文检索功能">全文检索功能</h4>
+<p>可以通过GET或者POST请求进行搜索，下面演示了搜索有“未来”关键词商品。</p>
+<ol>
+<li>
+<p>GET - <code>http://120.77.222.217:9200/demo/goods/_search?q=未来</code></p>
+<blockquote>
+<p>注意：URL中的中文应该要处理成百分号编码。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+    <span class="nt">&#34;took&#34;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
+    <span class="nt">&#34;timed_out&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&#34;_shards&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;total&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="nt">&#34;successful&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="nt">&#34;skipped&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&#34;failed&#34;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;hits&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;total&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&#34;max_score&#34;</span><span class="p">:</span> <span class="mf">0.73975396</span><span class="p">,</span>
+        <span class="nt">&#34;hits&#34;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">&#34;_index&#34;</span><span class="p">:</span> <span class="s2">&#34;demo&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;_type&#34;</span><span class="p">:</span> <span class="s2">&#34;goods&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;_score&#34;</span><span class="p">:</span> <span class="mf">0.73975396</span><span class="p">,</span>
+                <span class="nt">&#34;_source&#34;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&#34;doc&#34;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&#34;no&#34;</span><span class="p">:</span> <span class="s2">&#34;5089253&#34;</span><span class="p">,</span>
+                        <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Apple iPhone X (A1865) 64GB 深空灰色 移动联通电信4G手机&#34;</span><span class="p">,</span>
+                        <span class="nt">&#34;brand&#34;</span><span class="p">:</span> <span class="s2">&#34;Apple(苹果)&#34;</span><span class="p">,</span>
+                        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Apple iPhone X&#34;</span><span class="p">,</span>
+                        <span class="nt">&#34;product&#34;</span><span class="p">:</span> <span class="s2">&#34;美国&#34;</span><span class="p">,</span>
+                        <span class="nt">&#34;resolution&#34;</span><span class="p">:</span> <span class="s2">&#34;2436*1125&#34;</span><span class="p">,</span>
+                        <span class="nt">&#34;intro&#34;</span><span class="p">:</span> <span class="s2">&#34;一直以来，Apple都心存一个设想，期待能够打造出这样一部iPhone：它有整面屏幕，能让你在使用时，完全沉浸其中，仿佛忘了它的存在。它是如此智能，哪怕轻轻一瞥，都能得到它心有灵犀的回应。而这个设想，终于随着iPhone X的到来成为了现实。现在，就跟未来见个面吧。&#34;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">&#34;_index&#34;</span><span class="p">:</span> <span class="s2">&#34;demo&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;_type&#34;</span><span class="p">:</span> <span class="s2">&#34;goods&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="s2">&#34;3&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;_score&#34;</span><span class="p">:</span> <span class="mf">0.68324494</span><span class="p">,</span>
+                <span class="nt">&#34;_source&#34;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&#34;no&#34;</span><span class="p">:</span> <span class="s2">&#34;42417956432&#34;</span><span class="p">,</span>
+                    <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;小米9 透明尊享版 手机 透明尊享 全网通(12GB + 256GB)&#34;</span><span class="p">,</span>
+                    <span class="nt">&#34;brand&#34;</span><span class="p">:</span> <span class="s2">&#34;小米（MI）&#34;</span><span class="p">,</span>
+                    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;小米（MI）小米9透明&#34;</span><span class="p">,</span>
+                    <span class="nt">&#34;product&#34;</span><span class="p">:</span> <span class="s2">&#34;中国大陆&#34;</span><span class="p">,</span>
+                    <span class="nt">&#34;resolution&#34;</span><span class="p">:</span> <span class="s2">&#34;2340*1080&#34;</span><span class="p">,</span>
+                    <span class="nt">&#34;intro&#34;</span><span class="p">:</span> <span class="s2">&#34;全面透明机身，独特科幻机甲风，来自未来的设计。&#34;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>URL中可用的搜索参数如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>q</td>
+<td>查询字符串</td>
+</tr>
+<tr>
+<td>analyzer</td>
+<td>分析查询字符串使用的分词器</td>
+</tr>
+<tr>
+<td>analyze_wildcard</td>
+<td>通配符或者前缀查询是否被分析，默认为false</td>
+</tr>
+<tr>
+<td>default_operator</td>
+<td>多个条件之间的关系，默认为OR，可以修改为AND</td>
+</tr>
+<tr>
+<td>explain</td>
+<td>在返回的结果中包含评分机制的解释</td>
+</tr>
+<tr>
+<td>fields</td>
+<td>只返回索引中指定的列，多个列中间用逗号隔开</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>排序参考的字段，可以用:asc和:desc来指定升序和降序</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>超时时间</td>
+</tr>
+<tr>
+<td>from</td>
+<td>匹配结果的开始值，默认为0</td>
+</tr>
+<tr>
+<td>size</td>
+<td>匹配结果的条数，默认为10</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>POST - <code>http://120.77.222.217:9200/demo/goods/_search</code></p>
+<p>请求头：Content-Type: application/json</p>
+<p>参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">{</span>
+    <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;term&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>POST搜索是基于DSL的。</p>
+</li>
+</ol>
+<h4 id="django对接elasticsearch">Django对接ElasticSearch</h4>
+<p>Python对接ElasticSearch的第三方库是HayStack，在Django项目中可以使用django-haystack，通过HayStack可以在不修改代码对接多种搜索引擎服务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">pip install django-haystack elasticsearch
+</code></pre></td></tr></table>
+</div>
+</div><p>配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="o">...</span>
+    <span class="s1">&#39;haystack&#39;</span><span class="p">,</span>
+    <span class="o">...</span>
+<span class="p">]</span>
+
+<span class="n">HAYSTACK_CONNECTIONS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1"># 引擎配置</span>
+        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine&#39;</span><span class="p">,</span>
+        <span class="c1"># 搜索引擎服务的URL</span>
+        <span class="s1">&#39;URL&#39;</span><span class="p">:</span> <span class="s1">&#39;http://1.2.3.4:9200&#39;</span><span class="p">,</span>
+        <span class="c1"># 索引库的名称</span>
+        <span class="s1">&#39;INDEX_NAME&#39;</span><span class="p">:</span> <span class="s1">&#39;goods&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c1"># 添加/删除/更新数据时自动生成索引</span>
+<span class="n">HAYSTACK_SIGNAL_PROCESSOR</span> <span class="o">=</span> <span class="s1">&#39;haystack.signals.RealtimeSignalProcessor&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>索引类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">from</span> <span class="nn">haystack</span> <span class="kn">import</span> <span class="n">indexes</span>
+
+
+<span class="k">class</span> <span class="nc">GoodsIndex</span><span class="p">(</span><span class="n">indexes</span><span class="o">.</span><span class="n">SearchIndex</span><span class="p">,</span> <span class="n">indexes</span><span class="o">.</span><span class="n">Indexable</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">indexes</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">document</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">use_template</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Goods</span>
+
+    <span class="k">def</span> <span class="nf">index_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_model</span><span class="p">()</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>编辑text字段的模板（需要放在templates/search/indexes/demo/goods_text.txt）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{{object.title}}
+{{object.intro}}
+</code></pre></td></tr></table>
+</div>
+</div><p>配置URL：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># ...</span>
+    <span class="n">url</span><span class="p">(</span><span class="s1">&#39;search/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;haystack.urls&#39;</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>生成初始索引：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Shell" data-lang="Shell">python manage.py rebuild_index
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-01-11</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" data-title="电商网站技术要点剖析" data-hashtags="心得体会,技术要点,项目实战"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" data-hashtag="心得体会"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" data-title="电商网站技术要点剖析"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" data-title="电商网站技术要点剖析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" data-title="电商网站技术要点剖析"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/">心得体会</a>,&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/">技术要点</a>,&nbsp;<a href="/tags/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">项目实战</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/sql-%E8%AF%AD%E5%8F%A5%E5%A4%A7%E5%85%A8%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86/" class="prev" rel="prev" title="SQL-语句大全分类整理"><i class="fas fa-angle-left fa-fw"></i>SQL-语句大全分类整理</a>
+            <a href="/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" class="next" rel="next" title="SQL-解析SQL存储过程">SQL-解析SQL存储过程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

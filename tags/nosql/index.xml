@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Nosql - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/nosql/</link>
+        <description>Nosql - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 23 Dec 2016 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/nosql/" rel="self" type="application/rss+xml" /><item>
+    <title>Redis持久化</title>
+    <link>http://www.nishinonanase.xyz/redis%E6%8C%81%E4%B9%85%E5%8C%96/</link>
+    <pubDate>Fri, 23 Dec 2016 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/redis%E6%8C%81%E4%B9%85%E5%8C%96/</guid>
+    <description><![CDATA[RDB持久化 RDB持久化是把当前进程数据生成快照保存到硬盘的过程，触发RDB持久化过程分为手动触发和自动触发 1）触发机制 手动触发分别对应sa]]></description>
+</item><item>
+    <title>NoSQL入门</title>
+    <link>http://www.nishinonanase.xyz/nosql%E5%85%A5%E9%97%A8/</link>
+    <pubDate>Thu, 15 Dec 2016 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/nosql%E5%85%A5%E9%97%A8/</guid>
+    <description><![CDATA[NoSQL入门 NoSQL概述 如今，大多数的计算机系统（包括服务器、PC、移动设备等）都会产生庞大的数据量。其实，早在2012年的时候，全世界]]></description>
+</item></channel>
+</rss>

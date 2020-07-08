@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>代码规范 - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</link>
+        <description>代码规范 - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 03 Aug 2016 10:18:12 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" rel="self" type="application/rss+xml" /><item>
+    <title>Python编程惯例</title>
+    <link>http://www.nishinonanase.xyz/python%E7%BC%96%E7%A8%8B%E6%83%AF%E4%BE%8B/</link>
+    <pubDate>Wed, 03 Aug 2016 10:18:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/python%E7%BC%96%E7%A8%8B%E6%83%AF%E4%BE%8B/</guid>
+    <description><![CDATA[Python编程惯例 “惯例”这个词指的是“习惯的做法，常规的办法，一贯的做法”，与这个词对应的英文单词叫“idiom”。由于Python跟其]]></description>
+</item><item>
+    <title>PEP8风格指南</title>
+    <link>http://www.nishinonanase.xyz/pep8%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/</link>
+    <pubDate>Tue, 05 Jul 2016 11:25:07 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/pep8%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/</guid>
+    <description><![CDATA[PEP 8风格指南 PEP是Python Enhancement Proposal的缩写，通常翻译为“Python增强提案”。每个PEP都是一份为Python社区提供的指导]]></description>
+</item></channel>
+</rss>

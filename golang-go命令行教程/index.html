@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Golang之命令行教程 - ❤Nanase</title><meta name="Description" content="Go是由Robert Griesemer，Rob Pike和Ken Thompson在Google设计的一种静态类型的编译型编程语言。Go在语法上类似于C，但是具有内存安全性，垃圾回收，结构化类型和CSP样式的并发性。由于其域名golang.org，该语言通常称为“ Golang”，但专有名称是Go。"><meta property="og:title" content="Golang之命令行教程" />
+<meta property="og:description" content="Go是由Robert Griesemer，Rob Pike和Ken Thompson在Google设计的一种静态类型的编译型编程语言。Go在语法上类似于C，但是具有内存安全性，垃圾回收，结构化类型和CSP样式的并发性。由于其域名golang.org，该语言通常称为“ Golang”，但专有名称是Go。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2020-05-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-24T00:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Golang之命令行教程"/>
+<meta name="twitter:description" content="Go是由Robert Griesemer，Rob Pike和Ken Thompson在Google设计的一种静态类型的编译型编程语言。Go在语法上类似于C，但是具有内存安全性，垃圾回收，结构化类型和CSP样式的并发性。由于其域名golang.org，该语言通常称为“ Golang”，但专有名称是Go。"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B/" /><link rel="prev" href="http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E6%89%8B%E6%93%80%E9%9D%A2/" /><link rel="next" href="http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E7%83%99%E9%A5%BC/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Golang之命令行教程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B\/"
+        },"genre": "posts","keywords": "技术要点, golang, command","wordcount":  1999 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B\/","datePublished": "2020-05-24T00:00:00+00:00","dateModified": "2020-05-24T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "zhaoqiang"
+            },"description": "Go是由Robert Griesemer，Rob Pike和Ken Thompson在Google设计的一种静态类型的编译型编程语言。Go在语法上类似于C，但是具有内存安全性，垃圾回收，结构化类型和CSP样式的并发性。由于其域名golang.org，该语言通常称为“ Golang”，但专有名称是Go。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Golang之命令行教程</h1><h2 class="single-subtitle">Go是用于管理Go源代码的工具</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>zhaoqiang</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/"><i class="far fa-folder fa-fw"></i>技术要点</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-24">2020-05-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1999 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B/" class="leancloud_visitors" data-flag-title="Golang之命令行教程">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一-命令行预览">一. 命令行预览</a></li>
+    <li><a href="#二-命令行说明">二. 命令行说明</a>
+      <ul>
+        <li><a href="#1-bug">1. bug</a></li>
+        <li><a href="#2-build">2. build</a></li>
+        <li><a href="#3-clean">3. clean</a></li>
+        <li><a href="#4-doc">4. doc</a></li>
+        <li><a href="#5env">5.env</a></li>
+        <li><a href="#6-fix">6. fix</a></li>
+        <li><a href="#7-fmt">7. fmt</a></li>
+        <li><a href="#8-generate">8. generate</a></li>
+        <li><a href="#9-get">9. get</a></li>
+        <li><a href="#10-install">10. install</a></li>
+        <li><a href="#11-list">11. list</a></li>
+        <li><a href="#12-mod">12. mod</a></li>
+        <li><a href="#13-run">13. run</a></li>
+        <li><a href="#14-test">14. test</a></li>
+        <li><a href="#15-tool">15. tool</a></li>
+        <li><a href="#16-version">16. version</a></li>
+        <li><a href="#17-vet">17. vet</a></li>
+        <li><a href="#18-godoc">18. godoc</a></li>
+        <li><a href="#19-help">19. help</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="一-命令行预览">一. 命令行预览</h1>
+<p>Go命令行使用二级命令，格式<code>go &lt;command&gt; [arguments]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ go <span class="nb">help</span>
+Go is a tool <span class="k">for</span> managing Go <span class="nb">source</span> code.
+
+Usage:
+
+        go &lt;command&gt; <span class="o">[</span>arguments<span class="o">]</span>
+
+The commands are:
+
+        bug         start a bug report
+        build       compile packages and dependencies
+        clean       remove object files and cached files
+        doc         show documentation <span class="k">for</span> package or symbol
+        env         print Go environment information
+        fix         update packages to use new APIs
+        fmt         gofmt <span class="o">(</span>reformat<span class="o">)</span> package sources
+        generate    generate Go files by processing <span class="nb">source</span>
+        get         add dependencies to current module and install them
+        install     compile and install packages and dependencies
+        list        list packages or modules
+        mod         module maintenance
+        run         compile and run Go program
+        <span class="nb">test</span>        <span class="nb">test</span> packages
+        tool        run specified go tool
+        version     print Go version
+        vet         report likely mistakes in packages
+
+Use <span class="s2">&#34;go help &lt;command&gt;&#34;</span> <span class="k">for</span> more information about a command.
+
+Additional <span class="nb">help</span> topics:
+
+        buildmode   build modes
+        c           calling between Go and C
+        cache       build and <span class="nb">test</span> caching
+        environment environment variables
+        filetype    file types
+        go.mod      the go.mod file
+        gopath      GOPATH environment variable
+        gopath-get  legacy GOPATH go get
+        goproxy     module proxy protocol
+        importpath  import path syntax
+        modules     modules, module versions, and more
+        module-get  module-aware go get
+        module-auth module authentication using go.sum
+        module-private module configuration <span class="k">for</span> non-public modules
+        packages    package lists and patterns
+        testflag    testing flags
+        testfunc    testing functions
+
+Use <span class="s2">&#34;go help &lt;topic&gt;&#34;</span> <span class="k">for</span> more information about that topic.
+</code></pre></td></tr></table>
+</div>
+</div><hr>
+<h1 id="二-命令行说明">二. 命令行说明</h1>
+<h2 id="1-bug">1. bug</h2>
+<p><strong>说明：</strong> 在浏览器,向Golang官方github<code>提交bug报告</code>。</p>
+<h2 id="2-build">2. build</h2>
+<p><strong>说明：</strong> 编译项目和文件。</p>
+<ul>
+<li>支持10种操作系统:<code>darwin,freebsd,linux,windows,android,dragonfly,netbsd,openbsd,plan9,solaris</code></li>
+<li>支持9种处理器架构:<code>arm,arm64,386,amd64,ppc64,ppc64le,mips64,mips64le,s390x</code></li>
+</ul>
+<p><strong>交叉编译：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ <span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span> <span class="nv">GOOS</span><span class="o">=</span>darwin  <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -o demo.darwin.amd64
+$ <span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span> <span class="nv">GOOS</span><span class="o">=</span>linux   <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -o demo.linux.amd64
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3-clean">3. clean</h2>
+<p><strong>说明：</strong> 清理生成的可执行文件和包(不支持自定义的编译文件名),参考<a href="#10-install" rel="">install示例</a>。</p>
+<ul>
+<li><code>-i</code> 清除关联的安装的包和可运行文件，也就是通过go install安装的文件</li>
+<li><code>-n</code> 把需要执行的清除命令打印出来，但是不执行，这样就可以很容易的知道底层是如何运行的</li>
+<li><code>-r</code> 循环的清除在import中引入的包</li>
+<li><code>-x</code> 打印出来执行的详细命令，其实就是-n打印的执行版本</li>
+</ul>
+<h2 id="4-doc">4. doc</h2>
+<p><strong>说明：</strong> 查看源码文档，格式：<code>go doc 包名.成员名</code>,成员可以是<code>常量、变量、结构体、函数、方法...</code>,如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ go doc fmt <span class="p">|</span> less     <span class="c1">#查看标准库文档，使用less输出(空格和w控制上下翻动)</span>
+$ go doc fmt.Println    <span class="c1">#查看方法</span>
+$ go doc <span class="nb">builtin</span>        <span class="c1">#查看内置包builtin的包结构</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="5env">5.env</h2>
+<p><strong>说明：</strong> 打印环境信息。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CGO_ENABLED        </td>
+<td>指明cgo工具是否可用的标识</td>
+</tr>
+<tr>
+<td>GOARCH</td>
+<td>程序构建环境的目标计算架构</td>
+</tr>
+<tr>
+<td>GOBIN</td>
+<td>存放可执行文件的目录的绝对路径</td>
+</tr>
+<tr>
+<td>GOCHAR</td>
+<td>程序构建环境的目标计算架构的单字符标识</td>
+</tr>
+<tr>
+<td>GOEXE</td>
+<td>可执行文件的后缀</td>
+</tr>
+<tr>
+<td>GOHOSTARCH</td>
+<td>程序运行环境的目标计算架构</td>
+</tr>
+<tr>
+<td>GOOS</td>
+<td>程序构建环境的目标操作系统</td>
+</tr>
+<tr>
+<td>GOHOSTOS</td>
+<td>程序运行环境的目标操作系统</td>
+</tr>
+<tr>
+<td>GOPATH</td>
+<td>工作区目录的绝对路径</td>
+</tr>
+<tr>
+<td>GORACE</td>
+<td>用于数据竞争检测的相关选项</td>
+</tr>
+<tr>
+<td>GOROOT</td>
+<td>Go语言的安装目录的绝对路径</td>
+</tr>
+<tr>
+<td>GOTOOLDIR</td>
+<td>Go工具目录的绝对路径</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-fix">6. fix</h2>
+<p><strong>说明：</strong> 源码库升级，可参考：<a href="https://github.com/hyper0x/go_command_tutorial/blob/71833ffcab991a2931d3106490d96008f45c3177/0.10.md" target="_blank" rel="noopener noreffer">go fix与go tool fix</a></p>
+<h2 id="7-fmt">7. fmt</h2>
+<p><strong>说明：</strong> 格式化源码文件 <a href="https://www.jianshu.com/p/104b33439ac2" target="_blank" rel="noopener noreffer">查看参考文章</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ go fmt main.go
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="8-generate">8. generate</h2>
+<p><strong>说明：</strong> 查找项目中所有源码，执行代码中诸如<code>//go:generate cmd</code>的注解命令 ，<a href="https://www.jianshu.com/p/a866147021da" target="_blank" rel="noopener noreffer">参考链接</a> 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">//go:generate echo hello
+</span><span class="c1">//go:generate go run main.go
+</span><span class="c1">//go:generate  echo file=$GOFILE pkg=$GOPACKAGE
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;main func&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ go generate <span class="c1">#执行自动生成命令</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="9-get">9. get</h2>
+<p><strong>说明：</strong> 下载安装源码包，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">go get github.com/go-redis/redis/v7
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>-d</code> 只下载不安装</li>
+<li><code>-f</code> 只有在你包含了-u参数的时候才有效，不让-u去验证import中的每一个都已经获取了，这对于本地fork的包特别有用</li>
+<li><code>-fix</code> 在获取源码之后先运行fix，然后再去做其他的事情</li>
+<li><code>-t</code> 同时也下载需要为运行测试所需要的包</li>
+<li><code>-u</code> 强制使用网络去更新包和它的依赖包</li>
+<li><code>-v</code> 显示执行的命令</li>
+</ul>
+<h2 id="10-install">10. install</h2>
+<p><strong>说明：</strong> 编译并安装</p>
+<ul>
+<li>第一步：生成结果文件(可执行文件或者<code>.a</code>包)；</li>
+<li>第二步：把编译好的结果移到<code>$GOPATH/bin</code>；</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 创建main文件，并初始化mod</span>
+go mod init my-first-pro
+
+<span class="c1"># 项目目录</span>
+$ tree
+.
+├── go.mod
+└── main.go
+
+<span class="c1"># 编译安装</span>
+<span class="c1"># go install</span>
+
+<span class="c1"># 查看生成到文件</span>
+$ ll <span class="nv">$GOPATH</span>/bin
+$ ll <span class="nv">$GOPATH</span>/pkg/darwin_amd64
+
+<span class="c1"># 清理生成到文件</span>
+$ go  clean -x -i
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="11-list">11. list</h2>
+<p><strong>说明：</strong> 查看包路径、名称、导入项、代码文件，测试文件，依赖项等信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ go list -json errors<span class="p">|</span>less
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+        <span class="nt">&#34;Dir&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/local/go/src/errors&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;ImportPath&#34;</span><span class="p">:</span> <span class="s2">&#34;errors&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;Name&#34;</span><span class="p">:</span> <span class="s2">&#34;errors&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;Doc&#34;</span><span class="p">:</span> <span class="s2">&#34;Package errors implements functions to manipulate errors.&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;Target&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/local/go/pkg/darwin_amd64/errors.a&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;Root&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/local/go&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;Match&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;errors&#34;</span>
+        <span class="p">],</span>
+        <span class="nt">&#34;Goroot&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&#34;Standard&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&#34;GoFiles&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;errors.go&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;wrap.go&#34;</span>
+        <span class="p">],</span>
+        <span class="nt">&#34;Imports&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;internal/reflectlite&#34;</span>
+        <span class="p">],</span>
+        <span class="nt">&#34;Deps&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;internal/bytealg&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;internal/cpu&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;internal/reflectlite&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;runtime&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;runtime/internal/atomic&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;runtime/internal/math&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;runtime/internal/sys&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;unsafe&#34;</span>
+        <span class="p">],</span>
+        <span class="nt">&#34;XTestGoFiles&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;errors_test.go&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;example_test.go&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;wrap_test.go&#34;</span>
+        <span class="p">],</span>
+        <span class="nt">&#34;XTestImports&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;errors&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;fmt&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;os&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;reflect&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;testing&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;time&#34;</span>
+        <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="12-mod">12. mod</h2>
+<p><strong>说明：</strong> 依赖包管理, <a href="https://blog.csdn.net/Gusand/article/details/99507561" target="_blank" rel="noopener noreffer">参考链接</a> 。</p>
+<h2 id="13-run">13. run</h2>
+<p><strong>说明：</strong> 运行Golang程序。</p>
+<h2 id="14-test">14. test</h2>
+<p><strong>说明：</strong> 执行单元测试。</p>
+<ul>
+<li><code>-bench regexp</code> 执行相应的benchmarks，例如 -bench=.</li>
+<li><code>-cover</code> 开启测试覆盖率</li>
+<li><code>-run regexp</code> 只运行regexp匹配的函数，例如 -run=Array 那么就执行包含有Array开头的函数</li>
+<li><code>-v</code> 显示测试的详细命令</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ go <span class="nb">test</span> demo_test.go demo.go           <span class="c1"># 单元测试</span>
+$ go <span class="nb">test</span> --cover demo_test.go demo.go   <span class="c1"># 单元测试覆盖率</span>
+$ go <span class="nb">test</span> -bench<span class="o">=</span>. demo_test.go demo.go  <span class="c1"># 性能测试</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="15-tool">15. tool</h2>
+<p><strong>说明：</strong> 运行指定的go工具, 如：<code>go tool pprof</code> 。</p>
+<h2 id="16-version">16. version</h2>
+<p><strong>说明：</strong> 打印golang版本信息。</p>
+<h2 id="17-vet">17. vet</h2>
+<p><strong>说明：</strong> 用于检查静态错误,即编译不易发现的错误。<a href="https://studygolang.com/articles/9619" target="_blank" rel="noopener noreffer">查看参考文章</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ go tool vet &lt;directory<span class="p">|</span>files&gt;
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">// 1.可疑代码
+</span><span class="c1"></span>   <span class="kd">var</span> <span class="nx">i</span> <span class="p">=</span> <span class="mi">0</span>
+   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">i</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span>
+   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+
+   <span class="c1">//// 2.格式化参数错误
+</span><span class="c1"></span>   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%d\n&#34;</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">)</span>
+
+   <span class="c1">// 3.除零错误
+</span><span class="c1"></span>   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">0</span><span class="p">)</span>
+
+   <span class="c1">// 4. 读不到的代码
+</span><span class="c1"></span>   <span class="k">goto</span> <span class="nx">OVER</span>
+   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">)</span>
+<span class="nx">OVER</span><span class="p">:</span>
+
+   <span class="c1">// 5.竞态代码
+</span><span class="c1"></span>   <span class="nx">words</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;foo&#34;</span><span class="p">,</span> <span class="s">&#34;bar&#34;</span><span class="p">,</span> <span class="s">&#34;baz&#34;</span><span class="p">}</span>
+   <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">word</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">words</span> <span class="p">{</span>
+      <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+         <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">word</span><span class="p">)</span>
+      <span class="p">}()</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="18-godoc">18. godoc</h2>
+<p><strong>说明：</strong> 用于展示指定代码包的文档。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ godoc fmt
+$ godoc fmt Printf
+$ godoc fmt Printf Println
+$ godoc -src fmt Printf
+$ godoc cmd/go
+$ godoc -http<span class="o">=</span>:9999  <span class="c1">#启动$GOROOT\doc下的帮助站点</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="19-help">19. help</h2>
+<p><strong>说明：</strong> 帮助命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ go <span class="nb">help</span> modules
+$ go <span class="nb">help</span> vet
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>参考：
+<a href="https://github.com/hyper0x/go_command_tutorial">https://github.com/hyper0x/go_command_tutorial</a></p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-05-24</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B/" data-title="Golang之命令行教程" data-hashtags="技术要点,golang,command"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B/" data-hashtag="技术要点"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B/" data-title="Golang之命令行教程"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B/" data-title="Golang之命令行教程"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B/" data-title="Golang之命令行教程"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/">技术要点</a>,&nbsp;<a href="/tags/golang/">golang</a>,&nbsp;<a href="/tags/command/">command</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E6%89%8B%E6%93%80%E9%9D%A2/" class="prev" rel="prev" title="小宁的爱吃厨房--手擀面"><i class="fas fa-angle-left fa-fw"></i>小宁的爱吃厨房--手擀面</a>
+            <a href="/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E7%83%99%E9%A5%BC/" class="next" rel="next" title="小宁的爱吃厨房--烙饼">小宁的爱吃厨房--烙饼<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

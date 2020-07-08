@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Django的缓存框架 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="Django的缓存框架" />
+<meta property="og:description" content="动态网站的基本权衡是动态的。每次用户请求页面时，Web服务器都会进行各种计算-从数据库查询到模板呈现再到业务逻辑-创建站点访问者可以看到的页" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2018-03-26T22:08:04+08:00" />
+<meta property="article:modified_time" content="2018-03-26T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Django的缓存框架"/>
+<meta name="twitter:description" content="动态网站的基本权衡是动态的。每次用户请求页面时，Web服务器都会进行各种计算-从数据库查询到模板呈现再到业务逻辑-创建站点访问者可以看到的页"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/" /><link rel="prev" href="http://www.nishinonanase.xyz/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/" /><link rel="next" href="http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Django的缓存框架",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6\/"
+        },"genre": "posts","keywords": "后端框架, Django, Python, 部署, 基础理论","wordcount":  14905 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6\/","datePublished": "2018-03-26T22:08:04+08:00","dateModified": "2018-03-26T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Django的缓存框架</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2018-03-26">2018-03-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 14905 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 30 分钟&nbsp;<span id="/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/" class="leancloud_visitors" data-flag-title="Django的缓存框架">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#设置缓存">设置缓存</a>
+          <ul>
+            <li><a href="#memcached">Memcached</a></li>
+            <li><a href="#数据库高速缓存">数据库高速缓存</a>
+              <ul>
+                <li><a href="#创建缓存表">创建缓存表</a></li>
+                <li><a href="#多个数据库">多个数据库</a></li>
+              </ul>
+            </li>
+            <li><a href="#文件系统缓存">文件系统缓存</a></li>
+            <li><a href="#本地内存缓存">本地内存缓存</a></li>
+            <li><a href="#虚拟缓存用于开发">虚拟缓存（用于开发）</a></li>
+            <li><a href="#使用自定义缓存后端">使用自定义缓存后端</a></li>
+            <li><a href="#缓存参数">缓存参数</a></li>
+          </ul>
+        </li>
+        <li><a href="#每个站点的缓存">每个站点的缓存</a></li>
+        <li><a href="#每视图缓存">每视图缓存</a>
+          <ul>
+            <li><a href="#在urlconf中指定每个视图的缓存">在URLconf中指定每个视图的缓存</a></li>
+          </ul>
+        </li>
+        <li><a href="#模板片段缓存">模板片段缓存</a></li>
+        <li><a href="#低级缓存api">低级缓存API</a>
+          <ul>
+            <li><a href="#访问缓存">访问缓存</a></li>
+            <li><a href="#基本用法">基本用法</a></li>
+            <li><a href="#缓存键前缀">缓存键前缀</a></li>
+            <li><a href="#缓存版本">缓存版本</a></li>
+            <li><a href="#缓存键转换">缓存键转换</a></li>
+            <li><a href="#缓存键警告">缓存键警告</a></li>
+          </ul>
+        </li>
+        <li><a href="#下游缓存">下游缓存</a></li>
+        <li><a href="#使用vary标题">使用Vary标题</a></li>
+        <li><a href="#控制缓存使用其他头文件">控制缓存：使用其他头文件</a></li>
+        <li><a href="#middleware">MIDDLEWARE</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>动态网站的基本权衡是动态的。每次用户请求页面时，Web服务器都会进行各种计算-从数据库查询到模板呈现再到业务逻辑-创建站点访问者可以看到的页面。从处理开销的角度来看，这比标准的从文件中读取文件的服务器系统要贵得多。</p>
+<p>对于大多数Web应用程序而言，此开销并不大。大多数Web应用程序不是washingtonpost.com或slashdot.org; 它们是流量中等的中小型网站。但是对于中到高流量的站点，必须尽可能减少开销。</p>
+<p>那就是缓存的来源。</p>
+<p>缓存某些内容是为了保存昂贵的计算结果，因此您下次不必执行计算。以下是一些伪代码，用于说明如何将其应用于动态生成的网页：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">given a URL, try finding that page in the cache
+if the page is in the cache:
+    return the cached page
+else:
+    generate the page
+    save the generated page in the cache (for next time)
+    return the generated page
+</code></pre></td></tr></table>
+</div>
+</div><p>Django带有一个健壮的缓存系统，可让您保存动态页面，因此不必为每个请求都计算它们。为了方便起见，Django提供了不同级别的缓存粒度：您可以缓存特定视图的输出，可以仅缓存难以生成的片段，或者可以缓存整个站点。</p>
+<p>Django还可以与“下游”缓存（例如Squid和基于浏览器的缓存）配合使用。这些是您不直接控制的缓存类型，但是您可以向它们提供提示（通过HTTP标头）有关站点的哪些部分以及应该如何缓存的提示。</p>
+<p>也可以看看</p>
+<p>该缓存框架的设计理念， 解释了一些框架的设计决策。</p>
+<h2 id="设置缓存">设置缓存</h2>
+<p>缓存系统需要少量设置。即，您必须告诉它缓存的数据应该存放在哪里–无论是在数据库中，在文件系统上还是直接在内存中。这是一个影响缓存性能的重要决定。是的，某些缓存类型比其他类型更快。</p>
+<p>您的缓存首选项进入CACHES设置文件中的设置。以下是的所有可用值的说明 CACHES。</p>
+<h3 id="memcached">Memcached</h3>
+<p>Memcached是Django原生支持的最快，最高效的缓存类型， 是一种完全基于内存的缓存服务器，最初是为处理LiveJournal.com上的高负载而开发的，随后由Danga Interactive开源。Facebook和Wikipedia等网站使用它来减少数据库访问并显着提高网站性能。</p>
+<p>Memcached作为守护程序运行，并分配了指定数量的RAM。它所做的只是提供一个用于添加，检索和删除缓存中数据的快速接口。所有数据都直接存储在内存中，因此没有数据库或文件系统使用的开销。</p>
+<p>本身安装Memcached后，您需要安装Memcached绑定。有几种可用的Python Memcached绑定。两种最常见的是python-memcached和pylibmc。</p>
+<p>要将Memcached与Django结合使用，请执行以下操作：</p>
+<ul>
+<li>设置BACKEND为 django.core.cache.backends.memcached.MemcachedCache或 django.core.cache.backends.memcached.PyLibMCCache（取决于您选择的内存缓存绑定）</li>
+<li>设置LOCATION为ip:port值，其中ip是Memcached守护程序的IP地址，port是运行Memcached的端口，或者设置为unix:path值，其中 path是Memcached Unix套接字文件的路径。</li>
+</ul>
+<p>在此示例中，Memcached使用python-memcached绑定在本地主机（127.0.0.1）端口11211上运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.MemcachedCache&#39;,
+        &#39;LOCATION&#39;: &#39;127.0.0.1:11211&#39;,
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>在此示例中，可以/tmp/memcached.sock使用python-memcached绑定通过本地Unix套接字文件使用Memcached ：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.MemcachedCache&#39;,
+        &#39;LOCATION&#39;: &#39;unix:/tmp/memcached.sock&#39;,
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>使用pylibmc绑定时，请勿包括unix:/前缀：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.PyLibMCCache&#39;,
+        &#39;LOCATION&#39;: &#39;/tmp/memcached.sock&#39;,
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>Memcached的一项出色功能是能够在多个服务器上共享缓存。这意味着您可以在多台计算机上运行Memcached守护程序，并且该程序会将计算机组视为单个 缓存，而无需在每台计算机上重复缓存值。要利用此功能，请将所有服务器地址包含在中 LOCATION，以分号或逗号分隔的字符串或列表的形式。</p>
+<p>在此示例中，缓存在IP地址为172.19.26.240和172.19.26.242且均在端口11211上运行的Memcached实例之间共享：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.MemcachedCache&#39;,
+        &#39;LOCATION&#39;: [
+            &#39;172.19.26.240:11211&#39;,
+            &#39;172.19.26.242:11211&#39;,
+        ]
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>在以下示例中，缓存在运行在IP地址172.19.26.240（端口11211），172.19.26.42（端口11212）和172.19.26.244（端口11213）上的Memcached实例上共享：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.MemcachedCache&#39;,
+        &#39;LOCATION&#39;: [
+            &#39;172.19.26.240:11211&#39;,
+            &#39;172.19.26.242:11212&#39;,
+            &#39;172.19.26.244:11213&#39;,
+        ]
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>关于Memcached的最后一点是基于内存的缓存有一个缺点：由于缓存的数据存储在内存中，因此如果服务器崩溃，数据将丢失。显然，内存不是用于永久性数据存储的，因此不要依赖基于内存的缓存作为唯一的数据存储。毫无疑问，任何 Django缓存后端都不应该用于永久存储-它们都旨在作为缓存而非存储的解决方案-但我们在此指出这一点是因为基于内存的缓存特别临时。</p>
+<h3 id="数据库高速缓存">数据库高速缓存</h3>
+<p>Django可以将其缓存的数据存储在您的数据库中。如果您拥有快速索引良好的数据库服务器，则此方法效果最佳。</p>
+<p>要将数据库表用作缓存后端：</p>
+<ul>
+<li>设置BACKEND于 django.core.cache.backends.db.DatabaseCache</li>
+<li>设置LOCATION为tablename，数据库表的名称。该名称可以是您想要的任何名称，只要它是数据库中尚未使用的有效表名即可。</li>
+</ul>
+<p>在此示例中，缓存表的名称为my_cache_table：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.db.DatabaseCache&#39;,
+        &#39;LOCATION&#39;: &#39;my_cache_table&#39;,
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="创建缓存表">创建缓存表</h4>
+<p>在使用数据库缓存之前，必须使用以下命令创建缓存表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">python manage.py createcachetable
+</code></pre></td></tr></table>
+</div>
+</div><p>这会在您的数据库中创建一个表，该表的格式与Django的数据库缓存系统期望的格式相同。该表的名称取自 LOCATION。</p>
+<p>如果使用多个数据库缓存，请createcachetable为每个缓存创建一个表。</p>
+<p>如果您使用多个数据库，请createcachetable遵循allow_migrate()数据库路由器的 方法（请参见下文）。</p>
+<p>像一样migrate，createcachetable不会触摸现有表格。它只会创建丢失的表。</p>
+<p>要打印将要运行的SQL，而不是运行它，请使用 选项。createcachetable &ndash;dry-run</p>
+<h4 id="多个数据库">多个数据库</h4>
+<p>如果将数据库缓存与多个数据库一起使用，则还需要为数据库缓存表设置路由说明。为了进行路由，数据库高速缓存表CacheEntry在名为的应用程序中显示为名为的模型 django_cache。该模型不会出现在模型缓存中，但是可以将模型详细信息用于路由目的。</p>
+<p>例如，以下路由器会将所有缓存读取操作定向到cache_replica，并将所有写入操作定向到 cache_primary。缓存表将仅同步到 cache_primary：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">class CacheRouter:
+    &#34;&#34;&#34;A router to control all database cache operations&#34;&#34;&#34;
+
+    def db_for_read(self, model, **hints):
+        &#34;All cache read operations go to the replica&#34;
+        if model._meta.app_label == &#39;django_cache&#39;:
+            return &#39;cache_replica&#39;
+        return None
+
+    def db_for_write(self, model, **hints):
+        &#34;All cache write operations go to primary&#34;
+        if model._meta.app_label == &#39;django_cache&#39;:
+            return &#39;cache_primary&#39;
+        return None
+
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+        &#34;Only install the cache model on primary&#34;
+        if app_label == &#39;django_cache&#39;:
+            return db == &#39;cache_primary&#39;
+        return None
+</code></pre></td></tr></table>
+</div>
+</div><p>如果您没有为数据库缓存模型指定路由方向，则缓存后端将使用default数据库。</p>
+<p>当然，如果您不使用数据库缓存后端，则无需担心为数据库缓存模型提供路由说明。</p>
+<h3 id="文件系统缓存">文件系统缓存</h3>
+<p>基于文件的后端将每个缓存值序列化并存储为单独的文件。要将此后端设置BACKEND为&quot;django.core.cache.backends.filebased.FileBasedCache&quot;并 设置到 LOCATION合适的目录。例如，要在中存储缓存的数据/var/tmp/django_cache，请使用以下设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.filebased.FileBasedCache&#39;,
+        &#39;LOCATION&#39;: &#39;/var/tmp/django_cache&#39;,
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>如果您使用的是Windows，请将驱动器号放在路径的开头，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.filebased.FileBasedCache&#39;,
+        &#39;LOCATION&#39;: &#39;c:/foo/bar&#39;,
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>目录路径应该是绝对的-也就是说，它应该从文件系统的根目录开始。是否在设置的末尾加斜杠都没关系。</p>
+<p>确保此设置指向的目录存在，并且Web服务器在其下运行的系统用户可以读写。继续上面的示例，如果您的服务器以用户身份运行apache，请确保该目录/var/tmp/django_cache存在并且可由用户读取和写入apache。</p>
+<h3 id="本地内存缓存">本地内存缓存</h3>
+<p>如果未在设置文件中指定其他缓存，则这是默认缓存。如果您想要内存中缓存的速度优势，但又不具备运行Memcached的功能，请考虑使用本地内存缓存后端。该缓存是按进程（请参阅下文）并且是线程安全的。要使用它，请设置BACKEND为&quot;django.core.cache.backends.locmem.LocMemCache&rdquo;。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.locmem.LocMemCache&#39;,
+        &#39;LOCATION&#39;: &#39;unique-snowflake&#39;,
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>高速缓存LOCATION用于标识各个内存存储。如果只有一个locmem缓存，则可以省略 LOCATION; 但是，如果您有多个本地内存缓存，则需要至少为其分配一个名称，以使它们分开。</p>
+<p>缓存使用最近最少使用（LRU）淘汰策略。</p>
+<p>请注意，每个进程都有其自己的专用缓存实例，这意味着不可能进行跨进程缓存。这显然也意味着本地内存缓存不是特别有效的内存，因此对于生产环境而言，它可能不是一个好选择。这对开发很好。</p>
+<h3 id="虚拟缓存用于开发">虚拟缓存（用于开发）</h3>
+<p>最后，Django附带了一个“虚拟”缓存，该缓存实际上并没有缓存-它只是实现了缓存接口而无所事事。</p>
+<p>如果您的生产站点在各个地方都使用了重型缓存，但是在开发/测试环境中却不想缓存并且不想将代码更改为后者的特殊情况，这将非常有用。要激活虚拟缓存，设置BACKEND如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.dummy.DummyCache&#39;,
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="使用自定义缓存后端">使用自定义缓存后端</h3>
+<p>尽管Django开箱即用地支持许多缓存后端，但有时您可能希望使用自定义的缓存后端。要使用Django的外部缓存后端，使用Python导入路径作为 BACKEND该的CACHES设置，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;path.to.backend&#39;,
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>如果要构建自己的后端，则可以将标准缓存后端用作参考实现。您将django/core/cache/backends/在Django源代码的目录中找到代码 。</p>
+<p>注意：如果没有真正令人信服的理由，例如不支持它们的主机，则应坚持使用Django随附的缓存后端。他们已经过充分的测试并且有据可查。</p>
+<h3 id="缓存参数">缓存参数</h3>
+<p>可以为每个缓存后端提供其他参数来控制缓存行为。这些参数作为设置中的其他键提供 CACHES。有效参数如下：</p>
+<ul>
+<li>TIMEOUT：用于缓存的默认超时（以秒为单位）。此参数默认为300秒（5分钟）。您可以设置TIMEOUT为None默认情况下，缓存键永不过期。值的值0使键立即过期（有效地是“不缓存”）。</li>
+<li>OPTIONS：应传递到缓存后端的所有选项。有效选项的列表将随每个后端而有所不同，并且由第三方库支持的缓存后端会将其选项直接传递给基础缓存库。实现自己的扑杀战略（即缓存后端locmem，filesystem以及database后端）将履行下列选项：MAX_ENTRIES：删除旧值之前，缓存中允许的最大条目数。此参数默认为300。CULL_FREQUENCY：MAX_ENTRIES到达时被剔除的条目分数。实际比例为 ，因此设置为在达到时剔除一半条目。此参数应为整数，默认为。1 / CULL_FREQUENCYCULL_FREQUENCY2MAX_ENTRIES3值0for CULL_FREQUENCY表示MAX_ENTRIES到达时将转储整个缓存。在一些后端（database尤其是）这使得扑杀多 以更高速缓存未命中的代价更快。Memcached后端将OPTIONS as关键字参数的内容传递给客户端构造函数，从而可以更高级地控制客户端行为。有关用法示例，请参见下文。</li>
+<li>KEY_PREFIX：一个字符串，它将自动包含在Django服务器使用的所有缓存键中（默认为前缀）。有关更多信息，请参见缓存文档。</li>
+<li>VERSION：Django服务器生成的缓存键的默认版本号。有关更多信息，请参见缓存文档。</li>
+<li>KEY_FUNCTION 一个字符串，其中包含指向函数的虚线路径，该函数定义了如何将前缀，版本和键组成最终的缓存键。有关 更多信息，请参见<a href="https://docs.djangoproject.com/en/3.0/topics/cache/#cache-key-transformation" target="_blank" rel="noopener noreffer">缓存文档</a>。</li>
+</ul>
+<p>在此示例中，文件系统后端的超时时间为60秒，最大容量为1000：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.filebased.FileBasedCache&#39;,
+        &#39;LOCATION&#39;: &#39;/var/tmp/django_cache&#39;,
+        &#39;TIMEOUT&#39;: 60,
+        &#39;OPTIONS&#39;: {
+            &#39;MAX_ENTRIES&#39;: 1000
+        }
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>这python-memcached是对象大小限制为2MB 的基于后端的示例配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.MemcachedCache&#39;,
+        &#39;LOCATION&#39;: &#39;127.0.0.1:11211&#39;,
+        &#39;OPTIONS&#39;: {
+            &#39;server_max_value_length&#39;: 1024 * 1024 * 2,
+        }
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>这是pylibmc基于基础的后端的示例配置，该配置启用了二进制协议，SASL身份验证和ketama行为模式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CACHES = {
+    &#39;default&#39;: {
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.PyLibMCCache&#39;,
+        &#39;LOCATION&#39;: &#39;127.0.0.1:11211&#39;,
+        &#39;OPTIONS&#39;: {
+            &#39;binary&#39;: True,
+            &#39;username&#39;: &#39;user&#39;,
+            &#39;password&#39;: &#39;pass&#39;,
+            &#39;behaviors&#39;: {
+                &#39;ketama&#39;: True,
+            }
+        }
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="每个站点的缓存">每个站点的缓存</h2>
+<p>一旦设置了缓存，使用缓存的最简单方法就是缓存整个站点。您需要将&rsquo;django.middleware.cache.UpdateCacheMiddleware'和 添加 &lsquo;django.middleware.cache.FetchFromCacheMiddleware'到 MIDDLEWARE设置中，如以下示例所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">MIDDLEWARE = [
+    &#39;django.middleware.cache.UpdateCacheMiddleware&#39;,
+    &#39;django.middleware.common.CommonMiddleware&#39;,
+    &#39;django.middleware.cache.FetchFromCacheMiddleware&#39;,
+]
+</code></pre></td></tr></table>
+</div>
+</div><p>注意</p>
+<p>不，这不是输入错误：“更新”中间件必须位于列表的第一位，“获取”中间件必须位于最后。细节有些晦涩，但是如果您想了解完整的故事，请参阅下面的MIDDLEWARE顺序。</p>
+<p>然后，将以下必需设置添加到Django设置文件中：</p>
+<ul>
+<li>CACHE_MIDDLEWARE_ALIAS –用于存储的缓存别名。</li>
+<li>CACHE_MIDDLEWARE_SECONDS –每个页面应缓存的秒数。</li>
+<li>CACHE_MIDDLEWARE_KEY_PREFIX–如果使用同一Django安装在多个站点之间共享缓存，请将其设置为站点名称或该Django实例唯一的其他字符串，以防止按键冲突。如果您不在乎，请使用空字符串。</li>
+</ul>
+<p>FetchFromCacheMiddleware缓存状态为200的GET和HEAD响应，其中请求和响应标头允许。对具有不同查询参数的相同URL请求的响应被视为唯一页面，并分别进行缓存。该中间件期望用与相应的GET请求相同的响应头来应答HEAD请求。在这种情况下，它可以为HEAD请求返回缓存的GET响应。</p>
+<p>此外，会UpdateCacheMiddleware自动在每个标题中设置一些标题 HttpResponse：</p>
+<ul>
+<li>将Expires标题设置为当前日期/时间加上定义的 CACHE_MIDDLEWARE_SECONDS。</li>
+<li>Cache-Control再次设置，将页眉设置为页面的最长使用期限CACHE_MIDDLEWARE_SECONDS。</li>
+</ul>
+<p>有关中间件的更多信息，请参见中间件。</p>
+<p>如果视图设置了自己的缓存到期时间（即max-age，其Cache-Control标题中有一个部分），则页面将一直缓存到到期时间，而不是CACHE_MIDDLEWARE_SECONDS。使用装饰器 django.views.decorators.cache可以轻松设置视图的过期时间（使用cache_control()装饰器）或禁用视图的缓存（使用 never_cache()装饰器）。有关这些装饰器的更多信息，请参见“ 使用其他标头”部分。</p>
+<p>如果USE_I18N设置为，True则生成的缓存键将包括活动语言的名称-另请参见 Django如何发现语言首选项。这使您可以轻松地缓存多语言站点，而不必自己创建缓存密钥。</p>
+<p>缓存键还包括积极的语言时， USE_L10N设置为True与当前时区时USE_TZ被设置为True。</p>
+<h2 id="每视图缓存">每视图缓存</h2>
+<ul>
+<li><code>django.views.decorators.cache.``cache_page</code>（）</li>
+</ul>
+<p>使用缓存框架的更精细的方法是缓存单个视图的输出。django.views.decorators.cache定义一个cache_page 装饰器，该装饰器将自动为您缓存视图的响应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.views.decorators.cache import cache_page
+
+@cache_page(60 * 15)
+def my_view(request):
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><p>cache_page有一个参数：缓存超时（以秒为单位）。在上面的示例中，my_view()视图结果将被缓存15分钟。（请注意，我们出于可读性的目的编写了该代码。它将被评估为– 15分钟乘以每分钟60秒。）60 * 1560 * 15900</p>
+<p>与每个站点的缓存一样，每个视图的缓存也是从URL键入的。如果多个URL指向同一视图，则每个URL将被分别缓存。继续该my_view示例，如果您的URLconf如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">urlpatterns = [
+    path(&#39;foo/&lt;int:code&gt;/&#39;, my_view),
+]
+</code></pre></td></tr></table>
+</div>
+</div><p>然后，您所期望的/foo/1/和的请求/foo/23/将分别进行缓存。但是，一旦/foo/23/请求了特定的URL（例如），则对该URL的后续请求将使用缓存。</p>
+<p>cache_page也可以采用可选的关键字参数，cache该参数指示装饰器CACHES在缓存视图结果时使用特定的缓存（来自您的 设置）。默认情况下， default将使用缓存，但是您可以指定所需的任何缓存：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">@cache_page(60 * 15, cache=&#34;special_cache&#34;)
+def my_view(request):
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><p>您还可以基于每个视图覆盖缓存前缀。cache_page 带有一个可选的关键字参数，key_prefix其工作方式CACHE_MIDDLEWARE_KEY_PREFIX 与中间件的设置相同。可以这样使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">@cache_page(60 * 15, key_prefix=&#34;site1&#34;)
+def my_view(request):
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><p>的key_prefix和cache参数可以被同时指定。该 key_prefix参数和KEY_PREFIX 规定下，CACHES将串联。</p>
+<h3 id="在urlconf中指定每个视图的缓存">在URLconf中指定每个视图的缓存</h3>
+<p>上一节中的示例已经硬编码了缓存视图的事实，因为该视图cache_page改变了my_view功能。这种方法将您的视图耦合到高速缓存系统，由于多种原因，这种方法并不理想。例如，您可能想在另一个无缓存的站点上重用视图功能，或者可能希望将视图分发给可能希望在不被缓存的情况下使用它们的人。这些问题的解决方案是在URLconf中指定每个视图的缓存，而不是在视图函数本身旁边。</p>
+<p>您可以通过cache_page在URLconf中引用视图函数时将其包装在一起来实现。这是之前的旧版URLconf：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">urlpatterns = [
+    path(&#39;foo/&lt;int:code&gt;/&#39;, my_view),
+]
+</code></pre></td></tr></table>
+</div>
+</div><p>这是同一件事，my_view包裹在其中cache_page：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.views.decorators.cache import cache_page
+
+urlpatterns = [
+    path(&#39;foo/&lt;int:code&gt;/&#39;, cache_page(60 * 15)(my_view)),
+]
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="模板片段缓存">模板片段缓存</h2>
+<p>如果您希望获得更多控制权，则还可以使用cachetemplate标签缓存模板片段。要让您的模板访问此标签，请放在 模板顶部附近。</p>
+<p>该模板标签缓存块中的内容给定的时间量。它至少需要两个参数：高速缓存超时（以秒为单位）和提供高速缓存片段的名称。如果超时为，则片段将永远被缓存。名称将按原样使用，请勿使用变量。</p>
+<p>有时，您可能希望根据片段内显示的一些动态数据来缓存片段的多个副本。例如，您可能想要为站点中的每个用户提供上一个示例中使用的侧边栏的单独的缓存副本。为此，请将一个或多个其他参数（可以是带或不带过滤器的变量）传递给模板标记，以唯一地标识缓存片段</p>
+<p>如果USE_I18N将设置为True每个站点，则中间件缓存将 尊重活动语言。对于cache模板标记，您可以使用模板中可用的特定于 翻译的变量之一来获得相同的结果：</p>
+<p>缓存超时可以是模板变量，只要模板变量解析为整数值即可。</p>
+<p>此功能有助于避免模板中的重复。您可以在一个位置的变量中设置超时，然后重用该值。</p>
+<p>默认情况下，缓存标签将尝试使用名为“ template_fragments”的缓存。如果不存在这样的缓存，它将退回到使用默认缓存。您可以选择与using关键字参数一起使用的备用缓存后端，该参数必须是标记的最后一个参数。</p>
+<p>指定未配置的缓存名称被视为错误。</p>
+<ul>
+<li><code>django.core.cache.utils.``make_template_fragment_key</code>（<em>fragment_name</em>，<em>vary_on =无</em>）</li>
+</ul>
+<p>如果要获取用于缓存片段的缓存密钥，可以使用 make_template_fragment_key。fragment_name与cachetemplate标签的第二个参数相同；vary_on是传递给标记的所有其他参数的列表。该功能对于使缓存项无效或覆盖很有用</p>
+<h2 id="低级缓存api">低级缓存API</h2>
+<p>有时，缓存整个渲染的页面并不会带来太多好处，实际上，这会带来不便。</p>
+<p>例如，也许您的站点包含一个视图，该视图的结果取决于几个昂贵的查询，这些查询的结果以不同的间隔更改。在这种情况下，使用每个站点或每个视图缓存策略提供的全页缓存并不理想，因为您不想缓存整个结果（因为某些数据经常更改），但您仍想缓存很少更改的结果。</p>
+<p>对于此类情况，Django会公开一个低级缓存API。您可以使用此API以所需的任意粒度级别将对象存储在缓存中。您可以缓存可以安全腌制的任何Python对象：字符串，字典，模型对象列表等。（可以对大多数常见的Python对象进行腌制；有关腌制的更多信息，请参考Python文档。）</p>
+<h3 id="访问缓存">访问缓存</h3>
+<ul>
+<li>
+<p><code>django.core.cache.``caches</code></p>
+<p>您可以<a href="https://docs.djangoproject.com/en/3.0/ref/settings/#std:setting-CACHES" target="_blank" rel="noopener noreffer"><code>CACHES</code></a>通过类似dict的对象访问在设置中配置的缓存：<code>django.core.cache.caches</code>。在同一线程中重复请求相同的别名将返回相同的对象。<code>&gt;&gt;&gt; from django.core.cache import caches &gt;&gt;&gt; cache1 = caches['myalias'] &gt;&gt;&gt; cache2 = caches['myalias'] &gt;&gt;&gt; cache1 is cache2 True </code>如果指定的键不存在，<code>InvalidCacheBackendError</code>将引发。为了提供线程安全，将为每个线程返回不同的缓存后端实例。</p>
+</li>
+<li>
+<p><code>django.core.cache.``cache</code></p>
+<p>作为一种快捷方式，默认高速缓存可用于 <code>django.core.cache.cache</code>：<code>&gt;&gt;&gt; from django.core.cache import cache </code>此对象等效于<code>caches['default']</code>。</p>
+</li>
+</ul>
+<h3 id="基本用法">基本用法</h3>
+<p>基本界面是：</p>
+<ul>
+<li>
+<p><code>cache.``set</code>（<em>key</em>，<em>value</em>，<em>timeout = DEFAULT_TIMEOUT</em>，<em>version = None</em>）</p>
+<p><code>&gt;&gt;&gt; cache.set('my_key', 'hello, world!', 30) </code></p>
+</li>
+<li>
+<p><code>cache.``get</code>（<em>key</em>，<em>default = None</em>，<em>version = None</em>）</p>
+<p><code>&gt;&gt;&gt; cache.get('my_key') 'hello, world!' </code></p>
+</li>
+</ul>
+<p>key应该是str，并且value可以是任何可挑选的Python对象。</p>
+<p>该timeout参数是可选的，并且默认为设置中timeout相应后端的参数CACHES（如上所述）。这是该值应存储在缓存中的秒数。传递 Nonefor timeout将永远缓存该值。一个timeout的0 将不缓存值。</p>
+<p>如果对象在缓存中不存在，则cache.get()返回None：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; # Wait 30 seconds for &#39;my_key&#39; to expire...
+&gt;&gt;&gt; cache.get(&#39;my_key&#39;)
+None
+</code></pre></td></tr></table>
+</div>
+</div><p>我们建议不要将文字值存储None在缓存中，因为您将无法区分存储的None值和返回值为的缓存未命中None。</p>
+<p>cache.get()可以default争论。这指定了如果对象在缓存中不存在则返回哪个值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; cache.get(&#39;my_key&#39;, &#39;has expired&#39;)
+&#39;has expired&#39;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>cache.``add</code>（<em>key</em>，<em>value</em>，<em>timeout = DEFAULT_TIMEOUT</em>，<em>version = None</em>）</li>
+</ul>
+<p>若要仅在密钥尚不存在时添加密钥，请使用add()方法。它使用与相同的参数set()，但是如果指定的键已经存在，它将不会尝试更新缓存：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; cache.set(&#39;add_key&#39;, &#39;Initial value&#39;)
+&gt;&gt;&gt; cache.add(&#39;add_key&#39;, &#39;New value&#39;)
+&gt;&gt;&gt; cache.get(&#39;add_key&#39;)
+&#39;Initial value&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>如果您需要知道是否add()在缓存中存储了值，则可以检查返回值。True如果存储了值，它将返回， False否则返回。</p>
+<ul>
+<li><code>cache.``get_or_set</code>（<em>key</em>，<em>default</em>，<em>timeout = DEFAULT_TIMEOUT</em>，<em>version = None</em>）</li>
+</ul>
+<p>如果要获取键的值，或者如果键不在缓存中则要设置值，则可以使用该get_or_set()方法。它使用与相同的参数，get() 但默认设置为该键的新缓存值，而不是返回：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; cache.get(&#39;my_new_key&#39;)  # returns None
+&gt;&gt;&gt; cache.get_or_set(&#39;my_new_key&#39;, &#39;my new value&#39;, 100)
+&#39;my new value&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>您还可以将任何callable作为默认值传递：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; import datetime
+&gt;&gt;&gt; cache.get_or_set(&#39;some-timestamp-key&#39;, datetime.datetime.now)
+datetime.datetime(2014, 12, 11, 0, 15, 49, 457920)
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>cache.``get_many</code>（<em>keys</em>，<em>version = None</em>）</li>
+</ul>
+<p>还有一个get_many()接口只命中一次缓存。 get_many()返回一个字典，其中包含您要求的所有键，这些键实际上已存在于缓存中（并且尚未过期）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; cache.set(&#39;a&#39;, 1)
+&gt;&gt;&gt; cache.set(&#39;b&#39;, 2)
+&gt;&gt;&gt; cache.set(&#39;c&#39;, 3)
+&gt;&gt;&gt; cache.get_many([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])
+{&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 3}
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>cache.``set_many</code>（<em>dict</em>，<em>超时</em>）</li>
+</ul>
+<p>要更有效地设置多个值，请使用set_many()传递键值对字典：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; cache.set_many({&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 3})
+&gt;&gt;&gt; cache.get_many([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])
+{&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 3}
+</code></pre></td></tr></table>
+</div>
+</div><p>像一样cache.set()，set_many()带有一个可选timeout参数。</p>
+<p>在支持的后端（memcached）上，set_many()返回未能插入的密钥列表。</p>
+<ul>
+<li><code>cache.``delete</code>（<em>key</em>，<em>version = None</em>）</li>
+</ul>
+<p>您可以显式删除键，delete()以清除特定对象的缓存：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; cache.delete(&#39;a&#39;)
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>cache.``delete_many</code>（<em>keys</em>，<em>version = None</em>）</li>
+</ul>
+<p>如果要一次清除一堆键，delete_many()可以列出要清除的键列表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; cache.delete_many([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>cache.``clear</code>（）</li>
+</ul>
+<p>最后，如果要删除缓存中的所有键，请使用 cache.clear()。注意这一点。clear()将从 缓存中删除所有内容，而不仅仅是您的应用程序设置的键。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; cache.clear()
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>cache.``touch</code>（<em>key</em>，<em>timeout = DEFAULT_TIMEOUT</em>，<em>version = None</em>）</li>
+</ul>
+<p>cache.touch()为密钥设置新的到期时间。例如，要将密钥更新为从现在起10秒钟过期：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; cache.touch(&#39;a&#39;, 10)
+True
+</code></pre></td></tr></table>
+</div>
+</div><p>与其他方法一样，该timeout参数是可选的，并且默认为设置中TIMEOUT相应后端的 选项<a href="https://docs.djangoproject.com/en/3.0/ref/settings/#std:setting-CACHES" target="_blank" rel="noopener noreffer">CACHES</a>。</p>
+<p>touch()True如果按键被成功触摸，False 则返回；否则返回。</p>
+<ul>
+<li>
+<p><code>cache.``incr</code>（<em>key</em>，<em>delta = 1</em>，<em>version = None</em>）</p>
+</li>
+<li>
+<p><code>cache.``decr</code>（<em>key</em>，<em>delta = 1</em>，<em>version = None</em>）</p>
+</li>
+</ul>
+<p>您也可以分别使用incr()或decr()方法递增或递减已存在的键 。默认情况下，现有的高速缓存值将递增或递减1。可以通过为递增/递减调用提供参数来指定其他递增/递减值。如果您尝试增加或减少不存在的缓存键，将引发ValueError：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; cache.set(&#39;num&#39;, 1)
+&gt;&gt;&gt; cache.incr(&#39;num&#39;)
+2
+&gt;&gt;&gt; cache.incr(&#39;num&#39;, 10)
+12
+&gt;&gt;&gt; cache.decr(&#39;num&#39;)
+11
+&gt;&gt;&gt; cache.decr(&#39;num&#39;, 5)
+6
+</code></pre></td></tr></table>
+</div>
+</div><p>**注意：**incr()/ decr()方法不保证是原子的。在那些支持原子增量/减量的后端（最值得注意的是，内存缓存的后端）上，增量和减量操作将是原子的。但是，如果后端本身不提供增量/减量操作，则将使用两步检索/更新来实现。</p>
+<ul>
+<li><code>cache.``close</code>（）</li>
+</ul>
+<p>close()如果由缓存后端实现，则可以关闭与缓存的连接。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; cache.close()
+</code></pre></td></tr></table>
+</div>
+</div><p>**注意：**对于不实现close方法的缓存，它是无操作的。</p>
+<h3 id="缓存键前缀">缓存键前缀</h3>
+<p>如果要在服务器之间或生产环境与开发环境之间共享缓存实例，则一台服务器缓存的数据可能会被另一台服务器使用。如果服务器之间的缓存数据格式不同，则可能导致某些很难诊断的问题。</p>
+<p>为防止这种情况，Django提供了为服务器使用的所有缓存键添加前缀的功能。保存或检索特定的缓存键后，Django将自动为缓存键添加KEY_PREFIX缓存设置的值 。</p>
+<p>通过确保每个Django实例都有一个不同的 KEY_PREFIX，您可以确保缓存值不会发生冲突。</p>
+<h3 id="缓存版本">缓存版本</h3>
+<p>更改使用缓存值的运行代码时，可能需要清除所有现有的缓存值。最简单的方法是刷新整个缓存，但这会导致仍然有效且有用的缓存值丢失。</p>
+<p>Django提供了一种更好的方法来定位各个缓存值。Django的缓存框架具有系统范围的版本标识符，该标识符使用VERSION缓存设置指定。此设置的值会自动与缓存前缀和用户提供的缓存键组合在一起，以获取最终的缓存键。</p>
+<p>默认情况下，任何密钥请求都将自动包含站点默认的缓存密钥版本。但是，原始缓存功能都包含一个version参数，因此您可以指定要设置或获取的特定缓存键版本。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; # Set version 2 of a cache key
+&gt;&gt;&gt; cache.set(&#39;my_key&#39;, &#39;hello world!&#39;, version=2)
+&gt;&gt;&gt; # Get the default version (assuming version=1)
+&gt;&gt;&gt; cache.get(&#39;my_key&#39;)
+None
+&gt;&gt;&gt; # Get version 2 of the same key
+&gt;&gt;&gt; cache.get(&#39;my_key&#39;, version=2)
+&#39;hello world!&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>可以使用incr_version()和decr_version()方法对特定键的版本进行递增和递减。这样可以使特定的键更改为新版本，而其他键不受影响。继续前面的示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; # Increment the version of &#39;my_key&#39;
+&gt;&gt;&gt; cache.incr_version(&#39;my_key&#39;)
+&gt;&gt;&gt; # The default version still isn&#39;t available
+&gt;&gt;&gt; cache.get(&#39;my_key&#39;)
+None
+# Version 2 isn&#39;t available, either
+&gt;&gt;&gt; cache.get(&#39;my_key&#39;, version=2)
+None
+&gt;&gt;&gt; # But version 3 *is* available
+&gt;&gt;&gt; cache.get(&#39;my_key&#39;, version=3)
+&#39;hello world!&#39;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="缓存键转换">缓存键转换</h3>
+<p>如前两节所述，用户不能完全原样使用用户提供的缓存密钥，而是将其与缓存前缀和密钥版本结合使用以提供最终的缓存密钥。默认情况下，这三个部分使用冒号连接起来以生成最终字符串：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">def make_key(key, key_prefix, version):
+    return &#39;%s:%s:%s&#39; % (key_prefix, version, key)
+</code></pre></td></tr></table>
+</div>
+</div><p>如果要以不同的方式组合各部分，或对最终键进行其他处理（例如，获取键部分的哈希摘要），则可以提供自定义键功能。</p>
+<p>的KEY_FUNCTION高速缓存设置指定匹配的原型的功能的虚线路径 make_key()的上方。如果提供，将使用此自定义按键功能代替默认的按键组合功能。</p>
+<h3 id="缓存键警告">缓存键警告</h3>
+<p>Memcached是最常用的生产缓存后端，它不允许长度超过250个字符或包含空格或控制字符的缓存键，并且使用此类键会导致异常。为了鼓励缓存可移植的代码并最大程度地减少令人不快的意外，django.core.cache.backends.base.CacheKeyWarning如果使用的键会导致memcached错误，则其他内置的缓存后端会发出警告（）。</p>
+<p>如果您使用的生产后端可以接受更广泛的键范围（自定义后端或非内存缓存的内置后端之一），并且希望在没有警告的情况下使用更大范围的键，则可以CacheKeyWarning在此代码中保持静音management您之一的模块 INSTALLED_APPS：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">import warnings
+
+from django.core.cache import CacheKeyWarning
+
+warnings.simplefilter(&#34;ignore&#34;, CacheKeyWarning)
+</code></pre></td></tr></table>
+</div>
+</div><p>如果您想为内置后端之一提供自定义密钥验证逻辑，则可以对其进行子类化，仅覆盖validate_key 方法，并按照说明使用自定义缓存后端。例如，要为locmem后端执行此操作，请将以下代码放在模块中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.core.cache.backends.locmem import LocMemCache
+
+class CustomLocMemCache(LocMemCache):
+    def validate_key(self, key):
+        &#34;&#34;&#34;Custom validation, raising exceptions or warnings as needed.&#34;&#34;&#34;
+        ...
+</code></pre></td></tr></table>
+</div>
+</div><p>…并在设置的BACKEND一部分中使用指向该类的虚线Python路径 CACHES。</p>
+<h2 id="下游缓存">下游缓存</h2>
+<p>到目前为止，本文档的重点是缓存您自己的数据。但是另一种类型的缓存也与Web开发有关：由“下游”缓存执行的缓存。这些系统甚至可以在请求到达您的网站之前为用户缓存页面。</p>
+<p>以下是下游缓存的一些示例：</p>
+<ul>
+<li>您的ISP可能会缓存某些页面，因此，如果您从https://example.com/请求一个页面 ，您的ISP将向您发送该页面，而无需直接访问example.com。example.com的维护者不了解这种缓存。ISP位于example.com和您的Web浏览器之间，透明地处理所有缓存。</li>
+<li>您的Django网站可能位于代理缓存（例如Squid Web代理缓存（http://www.squid-cache.org/））之后，该缓存可以缓存页面以提高性能。在这种情况下，每个请求首先将由代理处理，并且仅在需要时才将其传递给您的应用程序。</li>
+<li>您的Web浏览器也缓存页面。如果网页发出适当的标题，您的浏览器将使用本地缓存的副本来对该页面的后续请求，甚至无需再次联系该网页以查看其是否已更改。</li>
+</ul>
+<p>下游缓存可以极大地提高效率，但是却存在危险：许多网页的内容基于身份验证和许多其他变量而有所不同，并且仅基于URL盲目保存页面的缓存系统可能会将不正确或敏感的数据暴露给后续这些页面的访问者。</p>
+<p>例如，如果您使用Web电子邮件系统，则“收件箱”页面的内容取决于登录的用户。如果ISP盲目缓存了您的站点，则第一个通过该ISP登录的用户将拥有其用户。特定的收件箱页面已缓存，以供该站点的后续访问者使用。那不酷。</p>
+<p>幸运的是，HTTP提供了解决此问题的方法。存在许多HTTP标头，以指示下游缓存根据指定的变量来区分其缓存内容，并告知缓存机制不要缓存特定页面。我们将在以下各节中介绍其中的一些标题。</p>
+<h2 id="使用vary标题">使用Vary标题</h2>
+<p>的Vary报头定义哪些请求头的高速缓存机制建立其缓存键时应该考虑到。例如，如果网页的内容取决于用户的语言偏好，则称该页面“随语言而异”。</p>
+<p>默认情况下，Django的缓存系统使用请求的标准URL（例如，）创建其缓存密钥 &ldquo;<a href="https://www.example.com/stories/2005/?order_by=author%22">https://www.example.com/stories/2005/?order_by=author&quot;</a>。这意味着对该URL的每个请求都将使用相同的缓存版本，而不管用户代理差异（例如Cookie或语言偏好设置）如何。但是，如果此页面根据请求标头（例如Cookie，语言或用户代理）的不同而产生不同的内容，则需要使用Vary 标头来告诉缓存机制页面输出取决于那些的东西。</p>
+<p>要在Django中执行此操作，请使用方便的 django.views.decorators.vary.vary_on_headers()视图装饰器，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.views.decorators.vary import vary_on_headers
+
+@vary_on_headers(&#39;User-Agent&#39;)
+def my_view(request):
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><p>在这种情况下，缓存机制（例如Django自己的缓存中间件）将为每个唯一的用户代理缓存页面的单独版本。</p>
+<p>使用vary_on_headers装饰器而不是手动设置Vary标头（使用类似的东西 ）的好处是，装饰器将添加到 标头（可能已经存在），而不是从头开始设置它并可能覆盖其中的任何内容。response[&lsquo;Vary&rsquo;] = &lsquo;user-agent&rsquo;Vary</p>
+<p>您可以将多个标头传递给vary_on_headers()：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">@vary_on_headers(&#39;User-Agent&#39;, &#39;Cookie&#39;)
+def my_view(request):
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><p>这告诉下游缓存在这两者上有所不同，这意味着用户代理和cookie的每种组合都将获得自己的缓存值。例如，具有用户代理Mozilla和cookie值foo=bar的请求将被认为不同于具有用户代理Mozilla和cookie值 的请求foo=ham。</p>
+<p>因为在cookie上进行更改非常普遍，所以有一个 django.views.decorators.vary.vary_on_cookie()装饰器。这两个视图是等效的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">@vary_on_cookie
+def my_view(request):
+    ...
+
+@vary_on_headers(&#39;Cookie&#39;)
+def my_view(request):
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><p>您传递给的标头vary_on_headers不区分大小写； &ldquo;User-Agent&quot;和一样&quot;user-agent&rdquo;。</p>
+<p>您也可以django.utils.cache.patch_vary_headers()直接使用辅助功能。此函数设置或添加到。例如：Vary header</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.shortcuts import render
+from django.utils.cache import patch_vary_headers
+
+def my_view(request):
+    ...
+    response = render(request, &#39;template_name&#39;, context)
+    patch_vary_headers(response, [&#39;Cookie&#39;])
+    return response
+</code></pre></td></tr></table>
+</div>
+</div><p>patch_vary_headers将HttpResponse实例作为第一个参数，并将不区分大小写的标头名称的列表/元组作为第二个参数。</p>
+<p>有关Vary标头的更多信息，请参见 <a href="https://tools.ietf.org/html/rfc7231.html#section-7.1.4" target="_blank" rel="noopener noreffer">官方Vary规格</a>。</p>
+<h2 id="控制缓存使用其他头文件">控制缓存：使用其他头文件</h2>
+<p>缓存的其他问题是数据的私密性以及应在级联缓存中存储数据的位置的问题。</p>
+<p>用户通常面临两种缓存：他们自己的浏览器缓存（私有缓存）和提供者的缓存（公共缓存）。公共缓存由多个用户使用，并由其他人控制。这就给敏感数据带来了麻烦，例如，您不希望将银行帐号存储在公共缓存中。因此，Web应用程序需要一种方法来告诉缓存哪些数据是私有数据，哪些是公共数据。</p>
+<p>解决方案是指示页面的缓存应为“专用”。要在Django中执行此操作，请使用cache_control()视图装饰器。例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.views.decorators.cache import cache_control
+
+@cache_control(private=True)
+def my_view(request):
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><p>该装饰器负责在后台发送适当的HTTP标头。</p>
+<p>请注意，缓存控制设置“专用”和“公用”是互斥的。装饰器确保如果应设置为“ private”，则删除“  public”指令（反之亦然）。这两个伪指令的示例用法是提供私有条目和公共条目的博客网站。公共条目可以缓存在任何共享缓存中。以下代码使用 patch_cache_control()手动方式修改缓存控制标头（由cache_control()装饰器内部调用 ）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.views.decorators.cache import patch_cache_control
+from django.views.decorators.vary import vary_on_cookie
+
+@vary_on_cookie
+def list_blog_entries_view(request):
+    if request.user.is_anonymous:
+        response = render_only_public_entries()
+        patch_cache_control(response, public=True)
+    else:
+        response = render_private_and_public_entries(request.user)
+        patch_cache_control(response, private=True)
+
+    return response
+</code></pre></td></tr></table>
+</div>
+</div><p>您还可以通过其他方式控制下游缓存（请参见 RFC 7234，了解有关HTTP缓存的详细信息）。例如，即使您不使用Django的服务器端缓存框架，您仍然可以使用以下命令告诉客户端将视图缓存一定的时间：最大年龄 指令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.views.decorators.cache import cache_control
+
+@cache_control(max_age=3600)
+def my_view(request):
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><p>（如果你做使用缓存中间件，它已经设置max-age与值CACHE_MIDDLEWARE_SECONDS的设置。在这种情况下，自定义max_age从 cache_control()装饰将优先考虑，并且头部值将被正确地合并。）</p>
+<p>任何有效的Cache-Control响应指令在中均有效cache_control()。这里还有更多示例：</p>
+<ul>
+<li>no_transform=True</li>
+<li>must_revalidate=True</li>
+<li>stale_while_revalidate=num_seconds</li>
+</ul>
+<p>可以在IANA注册中心中找到已知指令的完整列表 （请注意，并非所有指令都适用于响应）。</p>
+<p>如果要使用标头来完全禁用缓存，请 never_cache()使用视图装饰器来添加标头，以确保浏览器或其他缓存不会缓存响应。例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.views.decorators.cache import never_cache
+
+@never_cache
+def myview(request):
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="middleware">MIDDLEWARE</h2>
+<p>如果您使用缓存中间件，则将每一半放在MIDDLEWARE设置中的正确位置上很重要。这是因为缓存中间件需要知道通过哪些头来更改缓存存储。中间件总是尽可能在Vary响应头中添加一些内容。</p>
+<p>UpdateCacheMiddleware在响应阶段运行，中间件以相反的顺序运行，因此列表顶部的项目在响应阶段最后运行。因此，您需要确保它UpdateCacheMiddleware 出现在任何其他可能向Vary 标头添加内容的中间件之前。以下中间件模块可以这样做：</p>
+<ul>
+<li>SessionMiddleware 添加 Cookie</li>
+<li>GZipMiddleware 添加 Accept-Encoding</li>
+<li>LocaleMiddleware 添加 Accept-Language</li>
+</ul>
+<p>FetchFromCacheMiddleware另一方面，在请求阶段运行，其中中间件首先应用，因此列表顶部的项目在请求阶段首先运行。该FetchFromCacheMiddleware还需要经过其他中间件更新运行Vary头，所以 FetchFromCacheMiddleware必须在后的是这样做的任何项目。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-03-26</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/" data-title="Django的缓存框架" data-hashtags="后端框架,Django,Python,部署,基础理论"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/" data-hashtag="后端框架"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/" data-title="Django的缓存框架"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/" data-title="Django的缓存框架"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/" data-title="Django的缓存框架"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6/">后端框架</a>,&nbsp;<a href="/tags/django/">Django</a>,&nbsp;<a href="/tags/python/">Python</a>,&nbsp;<a href="/tags/%E9%83%A8%E7%BD%B2/">部署</a>,&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">基础理论</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/" class="prev" rel="prev" title="Django的安全性"><i class="fas fa-angle-left fa-fw"></i>Django的安全性</a>
+            <a href="/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/" class="next" rel="next" title="Django的缓存框架">Django的缓存框架<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

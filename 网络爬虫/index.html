@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>网络爬虫 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="网络爬虫" />
+<meta property="og:description" content="网络爬虫的概念 网络爬虫（web crawler），以前经常称之为网络蜘蛛（spider），是按照一定的规则自动浏览万维网并获取信息的机器人程序" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2017-06-11T13:22:01+08:00" />
+<meta property="article:modified_time" content="2017-06-11T13:22:01+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="网络爬虫"/>
+<meta name="twitter:description" content="网络爬虫的概念 网络爬虫（web crawler），以前经常称之为网络蜘蛛（spider），是按照一定的规则自动浏览万维网并获取信息的机器人程序"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" /><link rel="prev" href="http://www.nishinonanase.xyz/%E7%BD%91%E7%BB%9Capi%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1/" /><link rel="next" href="http://www.nishinonanase.xyz/%E7%8E%A9%E8%BD%ACpycharm/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "网络爬虫",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB\/"
+        },"genre": "posts","keywords": "技术要点, 爬虫","wordcount":  4064 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB\/","datePublished": "2017-06-11T13:22:01+08:00","dateModified": "2017-06-11T13:22:01+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">网络爬虫</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/"><i class="far fa-folder fa-fw"></i>技术要点</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-06-11">2017-06-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4064 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;<span id="/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" class="leancloud_visitors" data-flag-title="网络爬虫">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#网络爬虫的概念">网络爬虫的概念</a>
+              <ul>
+                <li><a href="#爬虫的应用领域">爬虫的应用领域</a></li>
+              </ul>
+            </li>
+            <li><a href="#合法性和背景调研">合法性和背景调研</a>
+              <ul>
+                <li><a href="#爬虫合法性探讨">爬虫合法性探讨</a></li>
+                <li><a href="#robotstxt文件">Robots.txt文件</a></li>
+              </ul>
+            </li>
+            <li><a href="#相关工具介绍">相关工具介绍</a>
+              <ul>
+                <li><a href="#http协议">HTTP协议</a></li>
+                <li><a href="#相关工具">相关工具</a></li>
+              </ul>
+            </li>
+            <li><a href="#一个简单的爬虫">一个简单的爬虫</a></li>
+            <li><a href="#爬虫注意事项">爬虫注意事项</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="网络爬虫的概念">网络爬虫的概念</h3>
+<p>网络爬虫（web crawler），以前经常称之为网络蜘蛛（spider），是按照一定的规则自动浏览万维网并获取信息的机器人程序（或脚本），曾经被广泛的应用于互联网搜索引擎。使用过互联网和浏览器的人都知道，网页中除了供用户阅读的文字信息之外，还包含一些超链接。网络爬虫系统正是通过网页中的超链接信息不断获得网络上的其它页面。正因如此，网络数据采集的过程就像一个爬虫或者蜘蛛在网络上漫游，所以才被形象的称为网络爬虫或者网络蜘蛛。</p>
+<h4 id="爬虫的应用领域">爬虫的应用领域</h4>
+<p>在理想的状态下，所有ICP（Internet Content Provider）都应该为自己的网站提供API接口来共享它们允许其他程序获取的数据，在这种情况下爬虫就不是必需品，国内比较有名的电商平台（如淘宝、京东等）、社交平台（如腾讯微博等）等网站都提供了自己的Open API，但是这类Open API通常会对可以抓取的数据以及抓取数据的频率进行限制。对于大多数的公司而言，及时的获取行业相关数据是企业生存的重要环节之一，然而大部分企业在行业数据方面的匮乏是其与生俱来的短板，合理的利用爬虫来获取数据并从中提取出有商业价值的信息是至关重要的。当然爬虫还有很多重要的应用领域，下面列举了其中的一部分：</p>
+<ol>
+<li>搜索引擎</li>
+<li>新闻聚合</li>
+<li>社交应用</li>
+<li>舆情监控</li>
+<li>行业数据</li>
+</ol>
+<h3 id="合法性和背景调研">合法性和背景调研</h3>
+<h4 id="爬虫合法性探讨">爬虫合法性探讨</h4>
+<ol>
+<li>网络爬虫领域目前还属于拓荒阶段，虽然互联网世界已经通过自己的游戏规则建立起一定的道德规范(Robots协议，全称是“网络爬虫排除标准”)，但法律部分还在建立和完善中，也就是说，现在这个领域暂时还是灰色地带。</li>
+<li>“法不禁止即为许可”，如果爬虫就像浏览器一样获取的是前端显示的数据（网页上的公开信息）而不是网站后台的私密敏感信息，就不太担心法律法规的约束，因为目前大数据产业链的发展速度远远超过了法律的完善程度。</li>
+<li>在爬取网站的时候，需要限制自己的爬虫遵守Robots协议，同时控制网络爬虫程序的抓取数据的速度；在使用数据的时候，必须要尊重网站的知识产权（从Web 2.0时代开始，虽然Web上的数据很多都是由用户提供的，但是网站平台是投入了运营成本的，当用户在注册和发布内容时，平台通常就已经获得了对数据的所有权、使用权和分发权）。如果违反了这些规定，在打官司的时候败诉几率相当高。</li>
+</ol>
+<h4 id="robotstxt文件">Robots.txt文件</h4>
+<p>大多数网站都会定义robots.txt文件，下面以淘宝的<a href="http://www.taobao.com/robots.txt" target="_blank" rel="noopener noreffer">robots.txt</a>文件为例，看看该网站对爬虫有哪些限制。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+User-agent:  Baiduspider
+Allow:  /article
+Allow:  /oshtml
+Disallow:  /product/
+Disallow:  /
+
+User-Agent:  Googlebot
+Allow:  /article
+Allow:  /oshtml
+Allow:  /product
+Allow:  /spu
+Allow:  /dianpu
+Allow:  /oversea
+Allow:  /list
+Disallow:  /
+
+User-agent:  Bingbot
+Allow:  /article
+Allow:  /oshtml
+Allow:  /product
+Allow:  /spu
+Allow:  /dianpu
+Allow:  /oversea
+Allow:  /list
+Disallow:  /
+
+User-Agent:  360Spider
+Allow:  /article
+Allow:  /oshtml
+Disallow:  /
+
+User-Agent:  Yisouspider
+Allow:  /article
+Allow:  /oshtml
+Disallow:  /
+
+User-Agent:  Sogouspider
+Allow:  /article
+Allow:  /oshtml
+Allow:  /product
+Disallow:  /
+
+User-Agent:  Yahoo!  Slurp
+Allow:  /product
+Allow:  /spu
+Allow:  /dianpu
+Allow:  /oversea
+Allow:  /list
+Disallow:  /
+
+User-Agent:  *
+Disallow:  /
+</code></pre></td></tr></table>
+</div>
+</div><p>注意上面robots.txt第一段的最后一行，通过设置“Disallow: /”禁止百度爬虫访问除了“Allow”规定页面外的其他所有页面。因此当你在百度搜索“淘宝”的时候，搜索结果下方会出现：“由于该网站的robots.txt文件存在限制指令（限制搜索引擎抓取），系统无法提供该页面的内容描述”。百度作为一个搜索引擎，至少在表面上遵守了淘宝网的robots.txt协议，所以用户不能从百度上搜索到淘宝内部的产品信息。</p>
+<h3 id="相关工具介绍">相关工具介绍</h3>
+<h4 id="http协议">HTTP协议</h4>
+<p>在开始讲解爬虫之前，我们稍微对HTTP（超文本传输协议）做一些回顾，因为我们在网页上看到的内容通常是浏览器执行HTML语言得到的结果，而HTTP就是传输HTML数据的协议。HTTP和其他很多应用级协议一样是构建在TCP（传输控制协议）之上的，它利用了TCP提供的可靠的传输服务实现了Web应用中的数据交换。按照维基百科上的介绍，设计HTTP最初的目的是为了提供一种发布和接收<a href="https://zh.wikipedia.org/wiki/HTML" target="_blank" rel="noopener noreffer">HTML</a>页面的方法，也就是说这个协议是浏览器和Web服务器之间传输的数据的载体。关于这个协议的详细信息以及目前的发展状况，大家可以阅读阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2016/08/http.html" target="_blank" rel="noopener noreffer">《HTTP 协议入门》</a>、<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="noopener noreffer">《互联网协议入门》</a>系列以及<a href="http://www.ruanyifeng.com/blog/2014/09/illustration-ssl.html" target="_blank" rel="noopener noreffer">《图解HTTPS协议》</a>进行了解，下图是我在四川省网络通信技术重点实验室工作期间用开源协议分析工具Ethereal（抓包工具WireShark的前身）截取的访问百度首页时的HTTP请求和响应的报文（协议数据），由于Ethereal截取的是经过网络适配器的数据，因此可以清晰的看到从物理链路层到应用层的协议数据。</p>
+<p>HTTP请求（请求行+请求头+空行+[消息体]）：</p>
+<p>HTTP响应（响应行+响应头+空行+消息体）：</p>
+<blockquote>
+<p>说明：但愿这两张如同泛黄照片般的截图帮助你大概的了解到HTTP是一个怎样的协议。</p>
+</blockquote>
+<h4 id="相关工具">相关工具</h4>
+<ol>
+<li>
+<p>Chrome Developer Tools：谷歌浏览器内置的开发者工具。</p>
+</li>
+<li>
+<p>POSTMAN：功能强大的网页调试与RESTful请求工具。</p>
+</li>
+<li>
+<p>HTTPie：命令行HTTP客户端。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Shell" data-lang="Shell">pip3 install httpie
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Shell" data-lang="Shell">http --header http://www.scu.edu.cn
+HTTP/1.1 <span class="m">200</span> OK
+Accept-Ranges: bytes
+Cache-Control: private, max-age<span class="o">=</span><span class="m">600</span>
+Connection: Keep-Alive
+Content-Encoding: gzip
+Content-Language: zh-CN
+Content-Length: <span class="m">14403</span>
+Content-Type: text/html
+Date: Sun, <span class="m">27</span> May <span class="m">2018</span> 15:38:25 GMT
+ETag: <span class="s2">&#34;e6ec-56d3032d70a32-gzip&#34;</span>
+Expires: Sun, <span class="m">27</span> May <span class="m">2018</span> 15:48:25 GMT
+Keep-Alive: <span class="nv">timeout</span><span class="o">=</span>5, <span class="nv">max</span><span class="o">=</span><span class="m">100</span>
+Last-Modified: Sun, <span class="m">27</span> May <span class="m">2018</span> 13:44:22 GMT
+Server: VWebServer
+Vary: User-Agent,Accept-Encoding
+X-Frame-Options: SAMEORIGIN
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>BuiltWith：识别网站所用技术的工具。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Shell" data-lang="Shell">pip3 install builtwith
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">builtwith</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">builtwith</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://www.bootcss.com/&#39;</span><span class="p">)</span>
+<span class="p">{</span><span class="s1">&#39;web-servers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Nginx&#39;</span><span class="p">],</span> <span class="s1">&#39;font-scripts&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Font Awesome&#39;</span><span class="p">],</span> <span class="s1">&#39;javascript-frameworks&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Lo-dash&#39;</span><span class="p">,</span> <span class="s1">&#39;Underscore.js&#39;</span><span class="p">,</span> <span class="s1">&#39;Vue.js&#39;</span><span class="p">,</span> <span class="s1">&#39;Zepto&#39;</span><span class="p">,</span> <span class="s1">&#39;jQuery&#39;</span><span class="p">],</span> <span class="s1">&#39;web-frameworks&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Twitter Bootstrap&#39;</span><span class="p">]}</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">ssl</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_default_https_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">builtwith</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;https://www.jianshu.com/&#39;</span><span class="p">)</span>
+<span class="p">{</span><span class="s1">&#39;web-servers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Tengine&#39;</span><span class="p">],</span> <span class="s1">&#39;web-frameworks&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Twitter Bootstrap&#39;</span><span class="p">,</span> <span class="s1">&#39;Ruby on Rails&#39;</span><span class="p">],</span> <span class="s1">&#39;programming-languages&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Ruby&#39;</span><span class="p">]}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>python-whois：查询网站所有者的工具。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Shell" data-lang="Shell">pip3 install python-whois
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">whois</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">whois</span><span class="o">.</span><span class="n">whois</span><span class="p">(</span><span class="s1">&#39;baidu.com&#39;</span><span class="p">)</span>
+<span class="p">{</span><span class="s1">&#39;domain_name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;BAIDU.COM&#39;</span><span class="p">,</span> <span class="s1">&#39;baidu.com&#39;</span><span class="p">],</span> <span class="s1">&#39;registrar&#39;</span><span class="p">:</span> <span class="s1">&#39;MarkMonitor, Inc.&#39;</span><span class="p">,</span> <span class="s1">&#39;whois_server&#39;</span><span class="p">:</span> <span class="s1">&#39;whois.markmonitor.com&#39;</span><span class="p">,</span> <span class="s1">&#39;referral_url&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s1">&#39;updated_date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">28</span><span class="p">)],</span> <span class="s1">&#39;creation_date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1999</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1999</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">17</span><span class="p">)],</span> <span class="s1">&#39;expiration_date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> <span class="s1">&#39;name_servers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;DNS.BAIDU.COM&#39;</span><span class="p">,</span> <span class="s1">&#39;NS2.BAIDU.COM&#39;</span><span class="p">,</span> <span class="s1">&#39;NS3.BAIDU.COM&#39;</span><span class="p">,</span> <span class="s1">&#39;NS4.BAIDU.COM&#39;</span><span class="p">,</span> <span class="s1">&#39;NS7.BAIDU.COM&#39;</span><span class="p">,</span> <span class="s1">&#39;dns.baidu.com&#39;</span><span class="p">,</span> <span class="s1">&#39;ns4.baidu.com&#39;</span><span class="p">,</span> <span class="s1">&#39;ns3.baidu.com&#39;</span><span class="p">,</span> <span class="s1">&#39;ns7.baidu.com&#39;</span><span class="p">,</span> <span class="s1">&#39;ns2.baidu.com&#39;</span><span class="p">],</span> <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited&#39;</span><span class="p">,</span> <span class="s1">&#39;clientTransferProhibited https://icann.org/epp#clientTransferProhibited&#39;</span><span class="p">,</span> <span class="s1">&#39;clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited&#39;</span><span class="p">,</span> <span class="s1">&#39;serverDeleteProhibited https://icann.org/epp#serverDeleteProhibited&#39;</span><span class="p">,</span> <span class="s1">&#39;serverTransferProhibited https://icann.org/epp#serverTransferProhibited&#39;</span><span class="p">,</span> <span class="s1">&#39;serverUpdateProhibited https://icann.org/epp#serverUpdateProhibited&#39;</span><span class="p">,</span> <span class="s1">&#39;clientUpdateProhibited (https://www.icann.org/epp#clientUpdateProhibited)&#39;</span><span class="p">,</span> <span class="s1">&#39;clientTransferProhibited (https://www.icann.org/epp#clientTransferProhibited)&#39;</span><span class="p">,</span> <span class="s1">&#39;clientDeleteProhibited (https://www.icann.org/epp#clientDeleteProhibited)&#39;</span><span class="p">,</span> <span class="s1">&#39;serverUpdateProhibited (https://www.icann.org/epp#serverUpdateProhibited)&#39;</span><span class="p">,</span> <span class="s1">&#39;serverTransferProhibited (https://www.icann.org/epp#serverTransferProhibited)&#39;</span><span class="p">,</span> <span class="s1">&#39;serverDeleteProhibited (https://www.icann.org/epp#serverDeleteProhibited)&#39;</span><span class="p">],</span> <span class="s1">&#39;emails&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;abusecomplaints@markmonitor.com&#39;</span><span class="p">,</span> <span class="s1">&#39;whoisrelay@markmonitor.com&#39;</span><span class="p">],</span> <span class="s1">&#39;dnssec&#39;</span><span class="p">:</span> <span class="s1">&#39;unsigned&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s1">&#39;org&#39;</span><span class="p">:</span> <span class="s1">&#39;Beijing Baidu Netcom Science Technology Co., Ltd.&#39;</span><span class="p">,</span> <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;Beijing&#39;</span><span class="p">,</span> <span class="s1">&#39;zipcode&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;CN&#39;</span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>robotparser：解析robots.txt的工具。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">robotparser</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">robotparser</span><span class="o">.</span><span class="n">RobotFileParser</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span><span class="o">.</span><span class="n">set_url</span><span class="p">(</span><span class="s1">&#39;https://www.taobao.com/robots.txt&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span><span class="o">.</span><span class="n">can_fetch</span><span class="p">(</span><span class="s1">&#39;Baiduspider&#39;</span><span class="p">,</span> <span class="s1">&#39;http://www.taobao.com/article&#39;</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span><span class="o">.</span><span class="n">can_fetch</span><span class="p">(</span><span class="s1">&#39;Baiduspider&#39;</span><span class="p">,</span> <span class="s1">&#39;http://www.taobao.com/product&#39;</span><span class="p">)</span>
+<span class="bp">False</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h3 id="一个简单的爬虫">一个简单的爬虫</h3>
+<p>一个基本的爬虫通常分为数据采集（网页下载）、数据处理（网页解析）和数据存储（将有用的信息持久化）三个部分的内容，当然更为高级的爬虫在数据采集和处理时会使用并发编程或分布式技术，这就需要有调度器（安排线程或进程执行对应的任务）、后台管理程序（监控爬虫的工作状态以及检查数据抓取的结果）等的参与。</p>
+<p>一般来说，爬虫的工作流程包括以下几个步骤：</p>
+<ol>
+<li>设定抓取目标（种子页面/起始页面）并获取网页。</li>
+<li>当服务器无法访问时，按照指定的重试次数尝试重新下载页面。</li>
+<li>在需要的时候设置用户代理或隐藏真实IP，否则可能无法访问页面。</li>
+<li>对获取的页面进行必要的解码操作然后抓取出需要的信息。</li>
+<li>在获取的页面中通过某种方式（如正则表达式）抽取出页面中的链接信息。</li>
+<li>对链接进行进一步的处理（获取页面并重复上面的动作）。</li>
+<li>将有用的信息进行持久化以备后续的处理。</li>
+</ol>
+<p>下面的例子给出了一个从“搜狐体育”上获取NBA新闻标题和链接的爬虫。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">from</span> <span class="nn">urllib.error</span> <span class="kn">import</span> <span class="n">URLError</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">pymysql</span>
+<span class="kn">import</span> <span class="nn">ssl</span>
+
+<span class="kn">from</span> <span class="nn">pymysql</span> <span class="kn">import</span> <span class="n">Error</span>
+
+
+<span class="k">def</span> <span class="nf">decode_page</span><span class="p">(</span><span class="n">page_bytes</span><span class="p">,</span> <span class="n">charsets</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,)):</span>
+    <span class="s2">&#34;&#34;&#34;通过指定的字符集对页面进行解码(不是每个网站都将字符集设置为utf-8)&#34;&#34;&#34;</span>
+    <span class="n">page_html</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">charset</span> <span class="ow">in</span> <span class="n">charsets</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">page_html</span> <span class="o">=</span> <span class="n">page_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">charset</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+            <span class="c1"># logging.error(&#39;Decode:&#39;, error)</span>
+    <span class="k">return</span> <span class="n">page_html</span>
+
+
+<span class="k">def</span> <span class="nf">get_page_html</span><span class="p">(</span><span class="n">seed_url</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">retry_times</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">charsets</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,)):</span>
+    <span class="s2">&#34;&#34;&#34;获取页面的HTML代码(通过递归实现指定次数的重试操作)&#34;&#34;&#34;</span>
+    <span class="n">page_html</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">page_html</span> <span class="o">=</span> <span class="n">decode_page</span><span class="p">(</span><span class="n">urlopen</span><span class="p">(</span><span class="n">seed_url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">charsets</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">URLError</span><span class="p">:</span>
+        <span class="c1"># logging.error(&#39;URL:&#39;, error)</span>
+        <span class="k">if</span> <span class="n">retry_times</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">get_page_html</span><span class="p">(</span><span class="n">seed_url</span><span class="p">,</span> <span class="n">retry_times</span><span class="o">=</span><span class="n">retry_times</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                                 <span class="n">charsets</span><span class="o">=</span><span class="n">charsets</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">page_html</span>
+
+
+<span class="k">def</span> <span class="nf">get_matched_parts</span><span class="p">(</span><span class="n">page_html</span><span class="p">,</span> <span class="n">pattern_str</span><span class="p">,</span> <span class="n">pattern_ignore_case</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;从页面中提取需要的部分(通常是链接也可以通过正则表达式进行指定)&#34;&#34;&#34;</span>
+    <span class="n">pattern_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">pattern_str</span><span class="p">,</span> <span class="n">pattern_ignore_case</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pattern_regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">page_html</span><span class="p">)</span> <span class="k">if</span> <span class="n">page_html</span> <span class="k">else</span> <span class="p">[]</span>
+
+
+<span class="k">def</span> <span class="nf">start_crawl</span><span class="p">(</span><span class="n">seed_url</span><span class="p">,</span> <span class="n">match_pattern</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;开始执行爬虫程序并对指定的数据进行持久化操作&#34;&#34;&#34;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3306</span><span class="p">,</span>
+                           <span class="n">database</span><span class="o">=</span><span class="s1">&#39;crawler&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="p">,</span>
+                           <span class="n">password</span><span class="o">=</span><span class="s1">&#39;123456&#39;</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">url_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">seed_url</span><span class="p">]</span>
+            <span class="c1"># 通过下面的字典避免重复抓取并控制抓取深度</span>
+            <span class="n">visited_url_list</span> <span class="o">=</span> <span class="p">{</span><span class="n">seed_url</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+            <span class="k">while</span> <span class="n">url_list</span><span class="p">:</span>
+                <span class="n">current_url</span> <span class="o">=</span> <span class="n">url_list</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">depth</span> <span class="o">=</span> <span class="n">visited_url_list</span><span class="p">[</span><span class="n">current_url</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">depth</span> <span class="o">!=</span> <span class="n">max_depth</span><span class="p">:</span>
+                    <span class="c1"># 尝试用utf-8/gbk/gb2312三种字符集进行页面解码</span>
+                    <span class="n">page_html</span> <span class="o">=</span> <span class="n">get_page_html</span><span class="p">(</span><span class="n">current_url</span><span class="p">,</span> <span class="n">charsets</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="s1">&#39;gbk&#39;</span><span class="p">,</span> <span class="s1">&#39;gb2312&#39;</span><span class="p">))</span>
+                    <span class="n">links_list</span> <span class="o">=</span> <span class="n">get_matched_parts</span><span class="p">(</span><span class="n">page_html</span><span class="p">,</span> <span class="n">match_pattern</span><span class="p">)</span>
+                    <span class="n">param_list</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links_list</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">link</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited_url_list</span><span class="p">:</span>
+                            <span class="n">visited_url_list</span><span class="p">[</span><span class="n">link</span><span class="p">]</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span>
+                            <span class="n">page_html</span> <span class="o">=</span> <span class="n">get_page_html</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">charsets</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="s1">&#39;gbk&#39;</span><span class="p">,</span> <span class="s1">&#39;gb2312&#39;</span><span class="p">))</span>
+                            <span class="n">headings</span> <span class="o">=</span> <span class="n">get_matched_parts</span><span class="p">(</span><span class="n">page_html</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;&lt;h1&gt;(.*)&lt;span&#39;</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">headings</span><span class="p">:</span>
+                                <span class="n">param_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">headings</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">link</span><span class="p">))</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="s1">&#39;insert into tb_result values (default, </span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">)&#39;</span><span class="p">,</span>
+                                       <span class="n">param_list</span><span class="p">)</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">Error</span><span class="p">:</span>
+        <span class="k">pass</span>
+        <span class="c1"># logging.error(&#39;SQL:&#39;, error)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="s2">&#34;&#34;&#34;主函数&#34;&#34;&#34;</span>
+    <span class="n">ssl</span><span class="o">.</span><span class="n">_create_default_https_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span>
+    <span class="n">start_crawl</span><span class="p">(</span><span class="s1">&#39;http://sports.sohu.com/nba_a.shtml&#39;</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s1">&#39;&lt;a[^&gt;]+test=a\s[^&gt;]*href=[&#34;</span><span class="se">\&#39;</span><span class="s1">](.*?)[&#34;</span><span class="se">\&#39;</span><span class="s1">]&#39;</span><span class="p">,</span>
+                <span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>由于使用了MySQL实现持久化操作，所以要先启动MySQL服务器并创建名为<code>crawler</code>的数据库和名为<code>tb_result</code>的二维表才能运行该程序。</p>
+<h3 id="爬虫注意事项">爬虫注意事项</h3>
+<p>通过上面的例子，我们对爬虫已经有了一个感性的认识，在编写爬虫时有以下一些注意事项：</p>
+<ol>
+<li>
+<p>处理相对链接。有的时候我们从页面中获取的链接不是一个完整的绝对链接而是一个相对链接，这种情况下需要将其与URL前缀进行拼接（<code>urllib.parse</code>中的<code>urljoin()</code>函数可以完成此项操作）。</p>
+</li>
+<li>
+<p>设置代理服务。有些网站会限制访问的区域（例如美国的Netflix屏蔽了很多国家的访问），有些爬虫需要隐藏自己的身份，在这种情况下可以设置使用代理服务器，代理服务器有免费的服务器和付费的商业服务器，但后者稳定性和可用性都更好，强烈建议在商业项目中使用付费的代理服务器。可以通过修改<code>urllib.request</code>中的<code>ProxyHandler</code>来为请求设置代理服务器。</p>
+</li>
+<li>
+<p>限制下载速度。如果我们的爬虫获取网页的速度过快，可能就会面临被封禁或者产生“损害动产”的风险（这个可能会导致吃官司且败诉），可以在两次下载之间添加延时从而对爬虫进行限速。</p>
+</li>
+<li>
+<p>避免爬虫陷阱。有些网站会动态生成页面内容，这会导致产生无限多的页面（例如在线万年历通常会有无穷无尽的链接）。可以通过记录到达当前页面经过了多少个链接（链接深度）来解决该问题，当达到事先设定的最大深度时爬虫就不再像队列中添加该网页中的链接了。</p>
+</li>
+<li>
+<p>SSL相关问题。在使用<code>urlopen</code>打开一个HTTPS链接时会验证一次SSL证书，如果不做出处理会产生错误提示“SSL: CERTIFICATE_VERIFY_FAILED”，可以通过以下两种方式加以解决：</p>
+<ul>
+<li>
+<p>使用未经验证的上下文</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">import</span> <span class="nn">ssl</span>
+     
+<span class="n">request</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="o">...</span><span class="p">})</span> 
+<span class="n">context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span><span class="p">()</span>
+<span class="n">web_page</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>设置全局性取消证书验证</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">import</span> <span class="nn">ssl</span>
+     
+<span class="n">ssl</span><span class="o">.</span><span class="n">_create_default_https_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2017-06-11</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" data-title="网络爬虫" data-hashtags="技术要点,爬虫"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" data-hashtag="技术要点"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" data-title="网络爬虫"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" data-title="网络爬虫"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" data-title="网络爬虫"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/">技术要点</a>,&nbsp;<a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E7%BD%91%E7%BB%9Capi%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1/" class="prev" rel="prev" title="网络API接口设计"><i class="fas fa-angle-left fa-fw"></i>网络API接口设计</a>
+            <a href="/%E7%8E%A9%E8%BD%ACpycharm/" class="next" rel="next" title="玩转PyCharm">玩转PyCharm<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

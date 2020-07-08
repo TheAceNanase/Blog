@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>前后端 - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/%E5%89%8D%E5%90%8E%E7%AB%AF/</link>
+        <description>前后端 - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 23 Apr 2020 13:24:15 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E5%89%8D%E5%90%8E%E7%AB%AF/" rel="self" type="application/rss+xml" /><item>
+    <title>Websocket</title>
+    <link>http://www.nishinonanase.xyz/websocket/</link>
+    <pubDate>Thu, 23 Apr 2020 13:24:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/websocket/</guid>
+    <description><![CDATA[轮询：在前端通过写js实现。缺点：有延迟、服务器压力大。 1 2 就是客户端通过一定的时间间隔以频繁请求的方式向服务器发送请求，来保持客户端和服务]]></description>
+</item><item>
+    <title>前后端分离开发</title>
+    <link>http://www.nishinonanase.xyz/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BC%80%E5%8F%91/</link>
+    <pubDate>Wed, 15 Mar 2017 13:07:20 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BC%80%E5%8F%91/</guid>
+    <description><![CDATA[前后端分离开发入门 在传统的Web应用开发中，大多数的程序员会将浏览器作为前后端的分界线。将浏览器中为用户进行页面展示的部分称之为前端，而将运]]></description>
+</item></channel>
+</rss>

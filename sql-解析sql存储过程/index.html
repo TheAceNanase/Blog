@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>SQL-解析SQL存储过程 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="SQL-解析SQL存储过程" />
+<meta property="og:description" content="全面解析SQL存储过程 存储过程(Stored Procedure),是一组为了完成特定功能的SQL 语句，类似一门程序设计语言，也包括了数据类型" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2020-01-18T22:08:04+08:00" />
+<meta property="article:modified_time" content="2020-01-18T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="SQL-解析SQL存储过程"/>
+<meta name="twitter:description" content="全面解析SQL存储过程 存储过程(Stored Procedure),是一组为了完成特定功能的SQL 语句，类似一门程序设计语言，也包括了数据类型"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" /><link rel="prev" href="http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" /><link rel="next" href="http://www.nishinonanase.xyz/%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E5%92%8C%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SQL-解析SQL存储过程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B\/"
+        },"genre": "posts","keywords": "数据库, 基础理论, sql语句","wordcount":  4847 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B\/","datePublished": "2020-01-18T22:08:04+08:00","dateModified": "2020-01-18T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">SQL-解析SQL存储过程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-01-18">2020-01-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4847 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;<span id="/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" class="leancloud_visitors" data-flag-title="SQL-解析SQL存储过程">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#全面解析sql存储过程">全面解析SQL存储过程</a></li>
+        <li><a href="#存储过程的优点">存储过程的优点</a></li>
+        <li><a href="#存储过程基本语法">存储过程基本语法</a></li>
+        <li><a href="#创建存储过程的参数">创建存储过程的参数</a></li>
+        <li><a href="#实例操作学习">实例操作学习</a>
+          <ul>
+            <li><a href="#无参数存储过程"><strong>无参数存储过程</strong></a></li>
+            <li><a href="#有参数存储过程"><strong>有参数存储过程</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#更详细的实例操作学习">更详细的实例操作学习</a>
+          <ul>
+            <li><a href="#存储过程的修改"><strong>存储过程的修改</strong></a></li>
+            <li><a href="#参数说明"><strong>参数说明</strong></a></li>
+            <li><a href="#存储过程的删除"><strong>存储过程的删除</strong></a></li>
+            <li><a href="#应用存储过程验证用户登录身份"><strong>应用存储过程验证用户登录身份：</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="全面解析sql存储过程">全面解析SQL存储过程</h2>
+<hr>
+<p>　存储过程(Stored Procedure),是一组为了完成特定功能的SQL 语句，类似一门程序设计语言，也包括了数据类型、流程控制、输入和输出和它自己的函数库。存储过程可以说是一个记录集，它是由一些T-SQL语句组成的代码块，这些T-SQL语句代码像一个方法一样实现一些功能（对单表或多表的增删改查），然后再给这个代码块取一个名字，在用到这个功能的时候调用他就行了。不过SQL存储过程对于一些初学者来说还是比较抽象难理解的，因此本文将由浅至深地剖析SQL存储过程，帮助你学习它。</p>
+<p>​</p>
+<h2 id="存储过程的优点">存储过程的优点</h2>
+<hr>
+<ol>
+<li>存储过程只在创造时进行编译，以后每次执行存储过程都不需再重新编译，而一般SQL语句每执行一次就编译一次,所以使用存储过程可提高数据库执行速度，效率要比T-SQL语句高。</li>
+<li>当对数据库进行复杂操作时，可将此复杂操作用存储过程封装起来与数据库提供的事务处理结合一起使用。</li>
+<li>一个存储过程在程序在网络中交互时可以替代大堆的T-SQL语句，所以也能降低网络的通信量，提高通信速率。</li>
+<li>存储过程可以重复使用,可减少数据库开发人员的工作量。</li>
+<li>安全性高,可设定只有某些用户才具有对指定存储过程的使用权</li>
+</ol>
+<p>​</p>
+<h2 id="存储过程基本语法">存储过程基本语法</h2>
+<hr>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">--------------创建存储过程-----------------
+
+CREATE PROC [ EDURE ] procedure_name [ ; number ]
+    [ { @parameter data_type }
+        [ VARYING ] [ = default ] [ OUTPUT ]
+    ] [ ,...n ]
+
+[ WITH
+    { RECOMPILE | ENCRYPTION | RECOMPILE , ENCRYPTION } ]
+
+[ FOR REPLICATION ]
+
+AS sql_statement [ ...n ]
+
+--------------调用存储过程-----------------
+
+EXECUTE Procedure_name &#39;&#39; --存储过程如果有参数，后面加参数格式为：@参数名=value，也可直接为参数值value
+
+--------------删除存储过程-----------------
+
+drop procedure procedure_name    --在存储过程中能调用另外一个存储过程，而不能删除另外一个存储过程
+</code></pre></td></tr></table>
+</div>
+</div><p>​     <br>
+​</p>
+<h2 id="创建存储过程的参数">创建存储过程的参数</h2>
+<hr>
+<p>​</p>
+<ol>
+<li>
+<p><code>procedure_name </code>：存储过程的名称，在前面加#为局部临时存储过程，加##为全局临时存储过程。</p>
+</li>
+<li>
+<p><code>number</code>：是可选的整数，用来对同名的过程分组，以便用一条 DROP  PROCEDURE 语句即可将同组的过程一起除去。例如，名为 orders 的应用程序使用的过程可以命名为  orderproc;1、orderproc;2 等。DROP PROCEDURE orderproc  语句将除去整个组。如果名称中包含定界标识符，则数字不应包含在标识符中，只应在 procedure_name 前后使用适当的定界符。</p>
+</li>
+<li>
+<p><code>@parameter</code>：存储过程的参数。可以有一个或多个。用户必须在执行过程时提供每个所声明参数的值（除非定义了该参数的默认值）。存储过程最多可以有 2100 个参数。
+使用 @  符号作为第一个字符来指定参数名称。参数名称必须符合标识符的规则。每个过程的参数仅用于该过程本身；相同的参数名称可以用在其它过程中。默认情况下，参数只能代替常量，而不能用于代替表名、列名或其它数据库对象的名称。有关更多信息，请参见 EXECUTE。</p>
+</li>
+<li>
+<p><code>data_type</code>：参数的数据类型。所有数据类型（包括 text、ntext 和  image）均可以用作存储过程的参数。不过，cursor 数据类型只能用于 OUTPUT 参数。如果指定的数据类型为  cursor，也必须同时指定 VARYING 和 OUTPUT 关键字。有关 SQL Server  提供的数据类型及其语法的更多信息，请参见数据类型。
+说明对于可以是 cursor 数据类型的输出参数，没有最大数目的限制。</p>
+</li>
+<li>
+<p><code>VARYING</code>：指定作为输出参数支持的结果集（由存储过程动态构造，内容可以变化）。仅适用于游标参数。</p>
+</li>
+<li>
+<p><code>default</code>： 参数的默认值。如果定义了默认值，不必指定该参数的值即可执行过程。默认值必须是常量或 NULL。如果过程将对该参数使用 LIKE 关键字，那么默认值中可以包含通配符（%、_、[] 和 [^]）。</p>
+</li>
+<li>
+<p><code>OUTPUT</code>：表明参数是返回参数。该选项的值可以返回给 EXEC[UTE]。使用 OUTPUT 参数可将信息返回给调用过程。Text、ntext 和 image 参数可用作 OUTPUT 参数。使用 OUTPUT 关键字的输出参数可以是游标占位符。</p>
+</li>
+<li>
+<p><code>RECOMPILE</code>: 表明 SQL Server 不会缓存该过程的计划，该过程将在运行时重新编译。在使用非典型值或临时值而不希望覆盖缓存在内存中的执行计划时，请使用 RECOMPILE 选项。</p>
+</li>
+<li>
+<p><code>ENCRYPTION</code>: 表示 SQL Server 加密 syscomments  表中包含 CREATE PROCEDURE 语句文本的条目。使用 ENCRYPTION 可防止将过程作为 SQL Server  复制的一部分发布。 说明在升级过程中，SQL Server 利用存储在 syscomments 中的加密注释来重新创建加密过程。</p>
+</li>
+<li>
+<p><code>FOR REPLICATION</code>:指定不能在订阅服务器上执行为复制创建的存储过程。.使用 FOR REPLICATION 选项创建的存储过程可用作存储过程筛选，且只能在复制过程中执行。本选项不能和 WITH RECOMPILE 选项一起使用。</p>
+</li>
+<li>
+<p>AS:指定过程要执行的操作。</p>
+</li>
+<li>
+<p><code>sql_statement</code>:过程中要包含的任意数目和类型的 Transact-SQL 语句。但有一些限制。</p>
+</li>
+</ol>
+<p>​     <br>
+​</p>
+<h2 id="实例操作学习">实例操作学习</h2>
+<hr>
+<p>　下面通过表Student来具体了解一下存储过程，因为是要了解存储过程的简单用法，所以例子很简单。</p>
+<p>​</p>
+<p>​    <img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/image/20161130/1480474212727779.jpg"
+        data-srcset="https://atts.w3cschool.cn/attachments/image/20161130/1480474212727779.jpg, https://atts.w3cschool.cn/attachments/image/20161130/1480474212727779.jpg 1.5x, https://atts.w3cschool.cn/attachments/image/20161130/1480474212727779.jpg 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/image/20161130/1480474212727779.jpg"
+        title="Student" /></p>
+<p>​</p>
+<h3 id="无参数存储过程"><strong>无参数存储过程</strong></h3>
+<p>　选出Student表中的所有信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">create proc StuProc
+as      //此处 as 不可以省略不写
+begin   //begin 和 end 是一对，不可以只写其中一个，但可以都不写
+select S#,Sname,Sage,Ssex from student
+end
+go
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="有参数存储过程"><strong>有参数存储过程</strong></h3>
+<p>　<strong>全局变量</strong></p>
+<p>　全局变量也称为外部变量，是在函数的外部定义的，它的作用域为从变量定义处开始，到本程序文件的末尾。</p>
+<p>　选出指定姓名的学生信息:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">create proc StuProc
+@sname varchar(100)   
+as 
+begin
+select S#,Sname,Sage,Ssex from student where sname=@sname
+end
+go
+
+exec StuProc &#39;赵雷&#39;   //执行语句
+</code></pre></td></tr></table>
+</div>
+</div><p>　上面是在外部给变量赋值，也可以在内部直接给变量设置默认值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">create proc StuProc
+@sname varchar(100)=&#39;赵雷&#39;
+as 
+begin
+select S#,Sname,Sage,Ssex from student where sname=@sname
+end
+go
+
+exec StuProc
+</code></pre></td></tr></table>
+</div>
+</div><p>　也可以把变量的内容输出，使用output</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">create proc StuProc
+@sname varchar(100),
+@IsRight int  output //传出参数
+as 
+if exists (select S#,Sname,Sage,Ssex from student where sname=@sname)
+set @IsRight =1
+else
+set @IsRight=0
+go
+
+declare @IsRight int 
+exec StuProc &#39;赵雷&#39; , @IsRight output
+select @IsRight
+</code></pre></td></tr></table>
+</div>
+</div><p>　以上是全局变量，下面来了解局部变量</p>
+<p>　<strong>局部变量</strong></p>
+<p>　局部变量也称为内部变量。局部变量是在函数内作定义说明的。其作用域仅限于函数内部，离开该函数后再使用这种变量是非法的。</p>
+<p>　<strong>局部变量的定义</strong></p>
+<p>　必须先用Declare命令定以后才可以使用，declare{@变量名 数据类型}</p>
+<p>　<strong>局部变量的赋值方法</strong></p>
+<p>　set{@变量名=表达式}或者select{@变量名=表达式}</p>
+<p>　<strong>局部变量的显示</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">create proc StuProc
+as 
+declare @sname varchar(100)
+set @sname=&#39;赵雷&#39;
+select S#,Sname,Sage,Ssex from student where sname=@sname
+go
+
+exec StuProc
+</code></pre></td></tr></table>
+</div>
+</div><p>　那如果是要把局部变量的数据显示出来怎么办呢？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">create proc StuProc
+as 
+declare @sname varchar(100)
+set @sname=(select Sname from student where S#=01)
+select @sname
+go
+
+exec StuProc
+</code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<h2 id="更详细的实例操作学习">更详细的实例操作学习</h2>
+<hr>
+<p>　比如，在SQL Server查询编辑器窗口中用CREATE PROCEDURE语句创建存储过程PROC_InsertEmployee，用于实现向员工信息表（tb_Employee）中添加信息，同时生成自动编号。其SQL语句如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">IF EXISTS (SELECT name  
+   FROM   sysobjects  
+   WHERE  name = &#39;Proc_InsertEmployee&#39;  
+   AND          type = &#39;P&#39;) 
+DROP PROCEDURE Proc_InsertEmployee 
+GO 
+CREATE PROCEDURE Proc_InsertEmployee 
+@PName nvarchar(50), 
+@PSex nvarchar(4), 
+@PAge int, 
+@PWage money 
+AS 
+begin 
+   declare @PID nvarchar(50) 
+   select @PID=Max(员工编号) from tb_Employee 
+   if(@PID is null) 
+       set @PID=&#39;P1001&#39; 
+   else 
+       set @PID=&#39;P&#39;+cast(cast(substring(@PID,2,4) as int)+1 as nvarchar(50)) 
+   begin 
+       insert into tb_Employee values(@PID,@PName,@PSex,@PAge,@PWage) 
+   end 
+end 
+go 
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="存储过程的修改"><strong>存储过程的修改</strong></h3>
+<p>　创建完存储过程之后，如果需要重新修改存储过程的功能及参数，可以在SQL Server 2005中通过以下两种方法进行修改：一种是用Microsoft SQL Server Mangement修改存储过程；另外一种是用T-SQL语句修改存储过程。</p>
+<p>　<strong>使用Microsoft SQL Server Mangement修改存储过程，步骤如下：</strong></p>
+<p>　（1）在SQL Server Management Studio的“对象资源管理器”中，选择要修改存储过程所在的数据库（如：db_18），然后在该数据库下，选择“可编程性”。</p>
+<p>　（2）打开“存储过程”文件夹，右键单击要修改的存储过程（如：PROC_SEINFO），在弹出的快捷菜单中选择“修改”命令，将会出现查询编辑器窗口。用户可以在此窗口中编辑T-SQL代码，完成编辑后，单击工具栏中的“执行（X）”按钮，执行修改代码。用户可以在查询编辑器下方的Message窗口中看到执行结果信息。</p>
+<p>　<strong>使用Transact-SQL修改存储过程：</strong></p>
+<p>　使用ALTER PROCEDURE语句修改存储过程，它不会影响存储过程的权限设定，也不会更改存储过程的名称。</p>
+<p>　语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ALTER PROC [ EDURE ] procedure_name [ ; number ] 
+    [ { @parameter data_type }  
+         [ VARYING ] [ = default ] [ OUTPUT ] 
+    ] [ ,...n ]  
+[ WITH 
+    { RECOMPILE | ENCRYPTION 
+        | RECOMPILE , ENCRYPTION   }  
+] 
+[ FOR REPLICATION ]  
+AS 
+    sql_statement [ ...n ]
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="参数说明"><strong>参数说明</strong></h3>
+<p>　procedure_name：是要更改的存储过程的名称。</p>
+<p>　交叉链接：关于ALTER PROCEDURE语句的其他参数与CREATE PROCEDURE语句相同，可参见上面的“创建存储过程的参数”。</p>
+<p>　例如，修改存储过程PROC_SEINFO，用于查询年龄大于35的员工信息。SQL语句如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ALTER PROCEDURE [dbo].[PROC_SEINFO] 
+AS 
+BEGIN 
+SELECT * FROM tb_Employee where 员工年龄&gt;35 
+END
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="存储过程的删除"><strong>存储过程的删除</strong></h3>
+<p>　<strong>使用Microsoft SQL Server Mangement删除存储过程，步骤如下：</strong></p>
+<p>　（1）在SQL Server Management Studio的“对象资源管理器”中，选择要删除存储过程所在的数据库（如：db_student），然后在该数据库下选择“可编程性”。</p>
+<p>　（2）打开“存储过程”文件夹，右键单击要删除的存储过程（如：PROC_SEINFO），在弹出的快捷菜单中选择“删除”命令。</p>
+<p>　（3）单击“确定”按钮，即可删除所选定的存储过程。</p>
+<blockquote>
+<p>**注意：**删除数据表后，并不会删除相关联的存储过程，只是其存储过程无法执行。</p>
+</blockquote>
+<p>**
+**</p>
+<p>　<strong>使用T-SQL删除存储过程：</strong></p>
+<p>　DROP PROCEDURE语句用于从当前数据库中删除一个或多个存储过程或过程组。</p>
+<p>　语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">DROP PROCEDURE { procedure } [ ,...n ]
+</code></pre></td></tr></table>
+</div>
+</div><p>　参数说明：</p>
+<p>​</p>
+<ul>
+<li>
+<p>Procedure：是要删除的存储过程或存储过程组的名称。过程名称必须符合标识符规则。可以选择是否指定过程所有者名称，但不能指定服务器名称和数据库名称。</p>
+</li>
+<li>
+<p>n：是表示可以指定多个过程的占位符。</p>
+</li>
+</ul>
+<p>　例如删除PROC_SEINFO存储过程的SQL语句如下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">DROP PROCEDURE PROC_SEINFO
+</code></pre></td></tr></table>
+</div>
+</div><p>　例如，删除多个存储过程proc10、proc20和proc30。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">DROP PROCEDURE proc10, proc20, proc30
+</code></pre></td></tr></table>
+</div>
+</div><p>　 例如，删除存储过程组procs（其中包含存储过程proc1、proc2、proc3）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">DROP PROCEDURE procs
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>**注意：**SQL语句DROP不能删除存储过程组中的单个存储过程。</p>
+</blockquote>
+<h3 id="应用存储过程验证用户登录身份"><strong>应用存储过程验证用户登录身份：</strong></h3>
+<p>　目前，验证用户登录身份的方法有多种，而通过调用存储过程来实现用户身份验证是目前最好的解决方案之一。因为存储过程在创建时即在服务器上进行编译，所以执行起来比单个SQL语句要快得多。</p>
+<p>　本例是通过调用存储过程来验证用户登录的用户名和密码是否正确。运行本实例，在“用户名”和“密码”文本框中输入相应的用户名和密码，单击“登录”按钮即可。</p>
+<p>　程序开发步骤：</p>
+<p>　（1）新建一个网站，将其命名为&quot;index&rdquo;，默认主页名为Default.aspx。</p>
+<p>　（2）Default.aspx页面涉及到的控件如表1所示。</p>
+<p>​</p>
+<p>​    <img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/day_161130/201611301410405530.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/day_161130/201611301410405530.png, https://atts.w3cschool.cn/attachments/day_161130/201611301410405530.png 1.5x, https://atts.w3cschool.cn/attachments/day_161130/201611301410405530.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/day_161130/201611301410405530.png"
+        title="Default.aspx页面涉及到的控件" /></p>
+<p>​</p>
+<p>　（3）主要程序代码如下。 <br>
+　打开SQL Server Management Studio，并连接到SQL Server2005中的数据库。单击工具栏中“ ”按钮，新建查询编辑器。在该查询编辑器中，创建验证登录用户身份的存储过程PROC_EXISTS，具体的SQL语句如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">CREATE PROC PROC_EXISTS 
+( 
+@UserName NVARCHAR(20), 
+@PassWord NVARCHAR(20), 
+@ReturnValue int OUTPUT 
+) 
+AS 
+IF EXISTS(select * from tb_member where userName=@UserName AND passWord=@PassWord) 
+       set @ReturnValue= 100 
+ELSE 
+       set @ReturnValue= -100 
+GO
+</code></pre></td></tr></table>
+</div>
+</div><p>　在&quot;登录&quot;按钮的Click事件下，执行验证登录用户身份的存储过程，如果输入的用户名和密码正确，则弹出对话框提示用户登录成功，代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">protected void btnLogin_Click(object sender, EventArgs e) 
+    { 
+        //连接数据库 
+        myConn = new SqlConnection(ConfigurationManager.AppSettings[&#34;ConnectionString&#34;].ToString()); 
+        myCmd = new SqlCommand(&#34;PROC_EXISTS&#34;, myConn);   //调用存储过程，判断用户是否存在
+        myCmd.CommandType = CommandType.StoredProcedure; 
+        //为存储过程的参数赋值 
+        SqlParameter userName=new SqlParameter(&#34;@UserName&#34;, SqlDbType.NVarChar, 20); 
+        userName.Value=this.txtName.Text.Trim(); 
+        myCmd.Parameters.Add(userName); 
+        SqlParameter passWord=new SqlParameter(&#34;@PassWord&#34;, SqlDbType.NVarChar, 20); 
+        passWord.Value = this.txtPassword.Text.Trim(); 
+        myCmd.Parameters.Add(passWord); 
+        //指出该参数是存储过程的OUTPUT参数 
+        SqlParameter ReturnValue = new SqlParameter(&#34;@ReturnValue&#34;,SqlDbType.Int ,4); 
+        ReturnValue.Direction = ParameterDirection.Output; 
+        myCmd.Parameters.Add(ReturnValue); 
+        try 
+        { 
+            myConn.Open(); 
+            myCmd.ExecuteNonQuery(); 
+            if (int.Parse(ReturnValue.Value.ToString()) == 100) 
+            { 
+                Response.Write(&#34;&lt;script&gt;alert(&#39;您是合法用户，登录成功！&#39;)&lt;/script&gt;&#34;); 
+                return; 
+            } 
+            else 
+            { 
+                Response.Write(&#34;&lt;script&gt;alert(&#39;您输入的用户名和密码不正确，请重新输入！&#39;)&lt;/script&gt;&#34;); 
+                return; 
+            } 
+        } 
+        catch(Exception ex) 
+        { 
+            Response.Write(ex.Message.ToString()); 
+        } 
+        finally 
+        { 
+            myConn.Close(); 
+            myConn.Dispose(); 
+            myCmd.Dispose(); 
+        }}
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-01-18</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" data-title="SQL-解析SQL存储过程" data-hashtags="数据库,基础理论,sql语句"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" data-hashtag="数据库"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" data-title="SQL-解析SQL存储过程"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" data-title="SQL-解析SQL存储过程"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/sql-%E8%A7%A3%E6%9E%90sql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" data-title="SQL-解析SQL存储过程"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>,&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">基础理论</a>,&nbsp;<a href="/tags/sql%E8%AF%AD%E5%8F%A5/">sql语句</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" class="prev" rel="prev" title="电商网站技术要点剖析"><i class="fas fa-angle-left fa-fw"></i>电商网站技术要点剖析</a>
+            <a href="/%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E5%92%8C%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" class="next" rel="next" title="图形用户界面和游戏开发">图形用户界面和游戏开发<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

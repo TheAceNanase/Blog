@@ -1,0 +1,42 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>调试 - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/%E8%B0%83%E8%AF%95/</link>
+        <description>调试 - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 27 Feb 2016 15:46:34 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E8%B0%83%E8%AF%95/" rel="self" type="application/rss+xml" /><item>
+    <title>文档测试</title>
+    <link>http://www.nishinonanase.xyz/%E6%96%87%E6%A1%A3%E6%B5%8B%E8%AF%95/</link>
+    <pubDate>Sat, 27 Feb 2016 15:46:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E6%96%87%E6%A1%A3%E6%B5%8B%E8%AF%95/</guid>
+    <description><![CDATA[如果你经常阅读Python的官方文档，可以看到很多文档都有示例代码。比如re模块就带了很多示例代码： 1 2 3 4 &gt; import re &gt; m = re.search(&#39;(?&lt;=abc)def&#39;, &#39;abcdef&#39;) &gt; m.group(0) &#39;def&#39; 可以把这些]]></description>
+</item><item>
+    <title>单元测试</title>
+    <link>http://www.nishinonanase.xyz/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</link>
+    <pubDate>Sun, 21 Feb 2016 15:46:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</guid>
+    <description><![CDATA[如果你听说过“测试驱动开发”（TDD：Test-Driven Development），单元测试就不陌生。 单元测试是用来对一个模块、一个函数或]]></description>
+</item><item>
+    <title>调试</title>
+    <link>http://www.nishinonanase.xyz/%E8%B0%83%E8%AF%95/</link>
+    <pubDate>Mon, 15 Feb 2016 15:46:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E8%B0%83%E8%AF%95/</guid>
+    <description><![CDATA[第一种方法简单直接粗暴有效，就是用print()把可能有问题的变量打印出来看看： 1 2 3 4 5 6 7 8 9 def foo(s): n = int(s) print(&#39;&gt; n = %d&#39; % n) return 10 / n def main(): foo(&#39;0&#39;) main() 执行]]></description>
+</item><item>
+    <title>错误处理</title>
+    <link>http://www.nishinonanase.xyz/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</link>
+    <pubDate>Wed, 10 Feb 2016 15:46:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</guid>
+    <description><![CDATA[在程序运行的过程中，如果发生了错误，可以事先约定返回一个错误代码，这样，就可以知道是否有错，以及出错的原因。在操作系统提供的调用中，返回错误]]></description>
+</item><item>
+    <title>错误、调试和测试</title>
+    <link>http://www.nishinonanase.xyz/%E9%94%99%E8%AF%AF%E8%B0%83%E8%AF%95%E5%92%8C%E6%B5%8B%E8%AF%95/</link>
+    <pubDate>Thu, 04 Feb 2016 15:46:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E9%94%99%E8%AF%AF%E8%B0%83%E8%AF%95%E5%92%8C%E6%B5%8B%E8%AF%95/</guid>
+    <description><![CDATA[在程序运行过程中，总会遇到各种各样的错误。 有的错误是程序编写有问题造成的，比如本来应该输出整数结果输出了字符串，这种错误我们通常称之为bug]]></description>
+</item></channel>
+</rss>

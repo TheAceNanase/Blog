@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>实用技能 - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/%E5%AE%9E%E7%94%A8%E6%8A%80%E8%83%BD/</link>
+        <description>实用技能 - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 16 Jul 2016 10:36:01 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E5%AE%9E%E7%94%A8%E6%8A%80%E8%83%BD/" rel="self" type="application/rss+xml" /><item>
+    <title>表单的应用</title>
+    <link>http://www.nishinonanase.xyz/%E8%A1%A8%E5%8D%95%E7%9A%84%E5%BA%94%E7%94%A8/</link>
+    <pubDate>Sat, 16 Jul 2016 10:36:01 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E8%A1%A8%E5%8D%95%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
+    <description><![CDATA[表单的应用 实现“用户注册”和“用户登录”的功能，并限制只有登录的用户才能为进行操作。Django框架中提供了对表单的封装，而且提供了多种不同]]></description>
+</item><item>
+    <title>存储数据</title>
+    <link>http://www.nishinonanase.xyz/%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/</link>
+    <pubDate>Tue, 12 Jul 2016 15:24:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/</guid>
+    <description><![CDATA[存储数据 存储海量数据 数据持久化的首选方案应该是关系型数据库，关系型数据库的产品很多，包括：Oracle、MySQL、SQLServer、Po]]></description>
+</item></channel>
+</rss>

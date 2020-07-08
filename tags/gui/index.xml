@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>GUI - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/gui/</link>
+        <description>GUI - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 06 Feb 2020 11:07:34 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/gui/" rel="self" type="application/rss+xml" /><item>
+    <title>图形用户界面和游戏开发</title>
+    <link>http://www.nishinonanase.xyz/%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E5%92%8C%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/</link>
+    <pubDate>Thu, 06 Feb 2020 11:07:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E5%92%8C%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/</guid>
+    <description><![CDATA[图形用户界面和游戏开发 基于tkinter模块的GUI GUI是图形用户界面的缩写，图形化的用户界面对使用过计算机的人来说应该都不陌生，在此也无]]></description>
+</item></channel>
+</rss>

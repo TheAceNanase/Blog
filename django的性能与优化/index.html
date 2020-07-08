@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Django的缓存框架 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="Django的缓存框架" />
+<meta property="og:description" content="通常一个人首先关心的是编写代码的作品，它的逻辑功能根据需要产生预期的输出。但是，有时这还不足以使代码高效地工作。 在这种情况下，需要的是某种东" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2018-04-03T22:08:04+08:00" />
+<meta property="article:modified_time" content="2018-04-03T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Django的缓存框架"/>
+<meta name="twitter:description" content="通常一个人首先关心的是编写代码的作品，它的逻辑功能根据需要产生预期的输出。但是，有时这还不足以使代码高效地工作。 在这种情况下，需要的是某种东"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/" /><link rel="prev" href="http://www.nishinonanase.xyz/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/" /><link rel="next" href="http://www.nishinonanase.xyz/mysql%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Django的缓存框架",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96\/"
+        },"genre": "posts","keywords": "后端框架, Django, Python, 部署, 基础理论","wordcount":  4478 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96\/","datePublished": "2018-04-03T22:08:04+08:00","dateModified": "2018-04-03T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Django的缓存框架</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a>&nbsp;<a href="/categories/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"><i class="far fa-folder fa-fw"></i>心得体会</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2018-04-03">2018-04-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4478 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;<span id="/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/" class="leancloud_visitors" data-flag-title="Django的缓存框架">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一般方法">一般方法</a>
+          <ul>
+            <li><a href="#什么是你最优化的">什么是你最优化的？</a></li>
+            <li><a href="#性能基准测试">性能基准测试</a>
+              <ul>
+                <li><a href="#django工具">Django工具</a></li>
+                <li><a href="#第三方服务">第三方服务</a></li>
+              </ul>
+            </li>
+            <li><a href="#从一开始就做好事">从一开始就做好事</a>
+              <ul>
+                <li><a href="#在适当的级别上工作">在适当的级别上工作</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#缓存">缓存</a>
+          <ul>
+            <li><a href="#该缓存框架">该缓存框架</a></li>
+            <li><a href="#cached_property">cached_property</a></li>
+          </ul>
+        </li>
+        <li><a href="#了解懒惰">了解懒惰</a>
+          <ul>
+            <li><a href="#django中的惰性">Django中的惰性</a></li>
+          </ul>
+        </li>
+        <li><a href="#数据库">数据库</a>
+          <ul>
+            <li><a href="#数据库优化">数据库优化</a></li>
+            <li><a href="#其他与数据库有关的技巧">其他与数据库有关的技巧</a></li>
+          </ul>
+        </li>
+        <li><a href="#http性能">HTTP性能</a>
+          <ul>
+            <li><a href="#中间件">中间件</a>
+              <ul>
+                <li><a href="#conditionalgetmiddleware">ConditionalGetMiddleware</a></li>
+                <li><a href="#gzipmiddleware">GZipMiddleware</a></li>
+              </ul>
+            </li>
+            <li><a href="#会话">会话</a>
+              <ul>
+                <li><a href="#使用缓存的会话">使用缓存的会话</a></li>
+              </ul>
+            </li>
+            <li><a href="#静态文件">静态文件</a>
+              <ul>
+                <li><a href="#manifeststaticfilesstorage">ManifestStaticFilesStorage</a></li>
+                <li><a href="#缩小">“缩小”</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#模板性能">模板性能</a>
+          <ul>
+            <li><a href="#缓存的模板加载器">缓存的模板加载器</a></li>
+          </ul>
+        </li>
+        <li><a href="#使用不同版本的可用软件">使用不同版本的可用软件</a>
+          <ul>
+            <li><a href="#更新通常是-但并非总是-更好">更新通常是-但并非总是-更好</a></li>
+            <li><a href="#django模板语言的替代品">Django模板语言的替代品</a></li>
+            <li><a href="#替代的软件实现">替代的软件实现</a>
+              <ul>
+                <li><a href="#pypy">PyPy</a></li>
+                <li><a href="#python库的c实现">Python库的C实现</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>通常一个人首先关心的是编写代码的作品，它的逻辑功能根据需要产生预期的输出。但是，有时这还不足以使代码高效地工作。</p>
+<p>在这种情况下，需要的是某种东西-实际上，通常是一系列东西-可以提高代码的性能，而又不会，或者仅以最小的方式影响代码的行为。</p>
+<h2 id="一般方法">一般方法</h2>
+<h3 id="什么是你最优化的">什么是你最优化的？</h3>
+<p>清楚了解“性能”的含义很重要。不仅有一个指标。</p>
+<p>提高速度可能是程序最明显的目标，但有时可能会寻求其他性能改进，例如降低内存消耗或减少对数据库或网络的需求。</p>
+<p>一个方面的改进通常会带来另一方面的改进，但并非总是如此；有时一个人甚至可以牺牲另一个人。例如，程序速度的提高可能会导致它使用更多的内存。更糟糕的是，这可能是自欺欺人的-如果速度提升如此之耗内存，以至于系统开始耗尽内存，那么您的弊大于利。</p>
+<p>还有其他需要权衡的方面。您自己的时间是宝贵的资源，比CPU时间更宝贵。有些改进可能太难了，不值得实施，或者可能影响代码的可移植性或可维护性。并非所有的性能改进都值得付出努力。</p>
+<p>因此，您需要知道要实现哪些性能改进，并且还需要知道有充分的理由朝着这个方向瞄准-并且您需要：</p>
+<h3 id="性能基准测试">性能基准测试</h3>
+<p>仅仅猜测或假设效率低下在代码中是没有用的。</p>
+<h4 id="django工具">Django工具</h4>
+<p>django-debug-toolbar是一个非常方便的工具，可以深入了解您的代码在做什么以及花了多少时间。特别是，它可以显示页面生成的所有SQL查询以及每个查询花费了多长时间。</p>
+<p>工具栏也可以使用第三方面板，该面板可以（例如）报告缓存性能和模板渲染时间。</p>
+<h4 id="第三方服务">第三方服务</h4>
+<p>有许多免费服务可以从远程HTTP客户端的角度分析和报告站点页面的性能，实际上是在模拟实际用户的体验。</p>
+<p>这些无法报告您的代码内部，但可以提供有用的洞察力来了解您网站的整体性能，包括无法在Django环境中充分衡量的方面。示例包括：</p>
+<ul>
+<li><a href="http://yslow.org/" target="_blank" rel="noopener noreffer">雅虎的Y</a>s<a href="http://yslow.org/" target="_blank" rel="noopener noreffer">low</a></li>
+<li><a href="https://developers.google.com/speed/pagespeed/" target="_blank" rel="noopener noreffer">Google PageSpeed</a></li>
+</ul>
+<p>还有一些付费服务执行类似的分析，其中包括一些支持Django的服务，这些服务可以与您的代码库集成以更全面地分析其性能。</p>
+<h3 id="从一开始就做好事">从一开始就做好事</h3>
+<p>优化方面的某些工作涉及解决性能缺陷，但是某些工作也可以内置于您要做的事情中，这是您甚至在开始考虑提高性能之前就应该采用的良好实践的一部分。</p>
+<p>在这方面，Python是一种出色的语言，因为外观优美且感觉正确的解决方案通常是性能最好的解决方案。与大多数技能一样，学习“看起来正确”的东西需要练习，但是最有用的准则之一是：</p>
+<h4 id="在适当的级别上工作">在适当的级别上工作</h4>
+<p>Django提供了许多不同的处理方式，但是仅仅因为可以以某种方式做某事并不意味着这是最合适的方式。例如，您可能会发现您可以在QuerySet，Python或模板中计算相同的东西-集合中的项目数，也许 。</p>
+<p>但是，在较低级别而不是较高级别进行此工作几乎总是会更快。在更高的层次上，系统必须通过多层抽象和机器层次来处理对象。</p>
+<p>也就是说，数据库通常可以比Python更快地完成任务，而Python可以比模板语言更快地完成任务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># QuerySet operation on the database
+# fast, because that&#39;s what databases are good at
+my_bicycles.count()
+
+# counting Python objects
+# slower, because it requires a database query anyway, and processing
+# of the Python objects
+len(my_bicycles)
+
+# Django template filter
+# slower still, because it will have to count them in Python anyway,
+# and because of template language overheads
+
+</code></pre></td></tr></table>
+</div>
+</div><p>一般而言，最适合该工作的级别是适合编写代码的最低级别。</p>
+<p>注意</p>
+<p>上面的示例仅是说明性的。</p>
+<p>首先，在现实生活中，您需要考虑计数前后发生的事情，以找出在特定情况下执行此操作的最佳方法。数据库优化文档描述了一种情况，在这种情况下，模板中的计数会更好。</p>
+<p>其次，还有其他选择要考虑：在实际情况下，直接从模板调用方法可能是最合适的选择。</p>
+<h2 id="缓存">缓存</h2>
+<p>通常，计算值很昂贵（即耗费资源且速度很慢），因此将值保存到可快速访问的缓存中以备下次使用时会产生巨大的好处。</p>
+<p>Django具有完善的缓存框架以及其他较小的缓存功能，这是一项足够重要且功能强大的技术。</p>
+<h3 id="该缓存框架">该缓存框架</h3>
+<p>Django的缓存框架通过保存动态内容，因此无需为每个请求进行计算，就为提高性能提供了非常重要的机会。</p>
+<p>为了方便起见，Django提供了不同级别的缓存粒度：您可以缓存特定视图的输出，或者仅缓存难以生成的片段，甚至整个站点。</p>
+<p>实施缓存不应被视为改善性能不佳的代码的替代方法，因为它的编写质量很差。这是生成性能良好的代码的最后步骤之一，而不是捷径。</p>
+<h3 id="cached_property">cached_property</h3>
+<p>通常必须多次调用一个类实例的方法。如果该功能很昂贵，那么这样做会很浪费。</p>
+<p>使用cached_property装饰器可以保存属性返回的值。下次在该实例上调用该函数时，它将返回保存的值，而不是重新计算它。请注意，这仅适用于将self参数作为唯一参数的方法，并将方法更改为属性。</p>
+<p>某些Django组件也具有自己的缓存功能；这些将在下面与那些组件相关的部分中讨论。</p>
+<h2 id="了解懒惰">了解懒惰</h2>
+<p>懒惰是对缓存的一种补充策略。缓存通过保存结果来避免重新计算。懒惰会延迟计算，直到真正需要它为止。</p>
+<p>惰性允许我们在实例化它们之前，甚至在可能实例化它们之前都引用它们。这有许多用途。</p>
+<p>例如，可以在甚至不知道目标语言之前就使用惰性翻译，因为直到真正需要翻译后的字符串（例如在渲染的模板中）时，它才发生。</p>
+<p>懒惰也是一种通过首先避免工作来节省精力的方法。就是说，懒惰的一个方面是什么也要做，直到必须要做，因为毕竟可能没有必要。因此，懒惰可能会影响性能，并且相关工作的成本越高，通过懒惰获得的收益就越大。</p>
+<p>Python提供了许多用于懒惰求值的工具，尤其是通过 生成器和生成器表达式构造。值得阅读Python的惰性，以发现在代码中使用惰性模式的机会。</p>
+<h3 id="django中的惰性">Django中的惰性</h3>
+<p>Django本身很懒。在的评估中可以找到一个很好的例子QuerySets。QuerySet是惰性的。因此，QuerySet可以创建，传递和与其他对象组合使用 QuerySets，而无需实际进行任何数据库访问以获取其描述的项目。传递的是QuerySet对象，而不是数据库最终需要的项目集合。</p>
+<p>另一方面，某些操作将强制评估QuerySet。避免过早评估a QuerySet可以节省对数据库的昂贵而不必要的行程。</p>
+<p>Django还提供了一个keep_lazy()装饰器。这允许使用惰性参数调用的函数本身表现为惰性，仅在需要时才进行评估。因此，在严格要求之前，不会调用惰性参数（可能是昂贵的参数）进行评估。</p>
+<h2 id="数据库">数据库</h2>
+<h3 id="数据库优化">数据库优化</h3>
+<p>Django的数据库层提供了多种方法来帮助开发人员从其数据库中获得最佳性能。该数据库优化文档汇聚链接到相关文件，并增加了各种技巧，大纲的步骤尝试优化数据库使用情况时服用。</p>
+<h3 id="其他与数据库有关的技巧">其他与数据库有关的技巧</h3>
+<p>启用持久连接可以在大部分请求处理时间中加快与数据库帐户的连接。</p>
+<p>例如，这对网络性能有限的虚拟主机有很大帮助。</p>
+<h2 id="http性能">HTTP性能</h2>
+<h3 id="中间件">中间件</h3>
+<p>Django随附了一些有用的中间件 ，可以帮助您优化网站的性能。它们包括：</p>
+<h4 id="conditionalgetmiddleware">ConditionalGetMiddleware</h4>
+<p>添加了对现代浏览器的支持，以基于ETag和Last-Modified标头有条件地获取响应 。如果需要，它还会计算并设置一个ETag。</p>
+<h4 id="gzipmiddleware">GZipMiddleware</h4>
+<p>压缩所有现代浏览器的响应，节省带宽和传输时间。请注意，当前将GZipMiddleware视为安全风险，并且容易受到使TLS / SSL提供的保护无效的攻击的攻击。有关<a href="https://docs.djangoproject.com/en/3.0/ref/middleware/#django.middleware.gzip.GZipMiddleware" target="_blank" rel="noopener noreffer">GZipMiddleware</a>更多信息，请参阅警告。</p>
+<h3 id="会话">会话</h3>
+<h4 id="使用缓存的会话">使用缓存的会话</h4>
+<p>使用缓存的会话可能是一种通过避免从较慢的存储源（如数据库）中加载会话数据，而将频繁使用的会话数据存储在内存中来提高性能的方法。</p>
+<h3 id="静态文件">静态文件</h3>
+<p>静态文件（根据定义不是动态的）是实现优化收益的绝佳目标。</p>
+<h4 id="manifeststaticfilesstorage">ManifestStaticFilesStorage</h4>
+<p>通过利用Web浏览器的缓存功能，您可以在初始下载后完全消除给定文件的网络命中。</p>
+<p>ManifestStaticFilesStorage在静态文件的文件名后附加一个与内容相关的标记，以使浏览器可以安全地长期缓存它们，而不会丢失将来的更改-文件更改时，标记也将更改，因此浏览器将自动重新加载资产。</p>
+<h4 id="缩小">“缩小”</h4>
+<p>几个第三方Django工具和软件包提供了“最小化” HTML，CSS和JavaScript的功能。它们删除了不必要的空格，换行符和注释，并缩短了变量名，从而减小了站点发布的文档的大小。</p>
+<h2 id="模板性能">模板性能</h2>
+<p>注意：</p>
+<ul>
+<li>由许多小块组装而成的严重碎片化的模板会影响性能</li>
+</ul>
+<h3 id="缓存的模板加载器">缓存的模板加载器</h3>
+<p>启用通常可以大大提高性能，因为它避免了每次需要渲染每个模板时就对每个模板进行编译。cached template loader</p>
+<h2 id="使用不同版本的可用软件">使用不同版本的可用软件</h2>
+<p>有时值得检查您所使用软件的不同版本和性能更好的版本。</p>
+<p>这些技术面向希望突破已经充分优化的Django站点的性能极限的更高级的用户。</p>
+<p>但是，它们并不是解决性能问题的灵丹妙药，它们不可能为尚未以正确方式做更多基本工作的网站带来比边缘收益更好的收益。</p>
+<p>注意</p>
+<p>值得重复一遍：寻找已经使用的软件的替代品永远不是解决性能问题的第一个答案。当达到此优化级别时，您需要一个正式的基准测试解决方案。</p>
+<h3 id="更新通常是-但并非总是-更好">更新通常是-但并非总是-更好</h3>
+<p>新发行的维护良好的软件效率较低的情况相当少见，但是维护人员无法预见所有可能的用例-因此，尽管意识到较新版本的性能可能会更好，但不要以为它们总是将。</p>
+<p>Django本身就是这样。后续版本在整个系统上提供了许多改进，但是您仍然应该检查应用程序的实际性能，因为在某些情况下，您可能会发现更改意味着性能较差而不是更好。</p>
+<p>较新版本的Python以及Python包也通常会表现更好-但要衡量而不是假设。</p>
+<p>注意</p>
+<p>除非您在特定版本中遇到不寻常的性能问题，否则通常会在新版本中找到更好的功能，可靠性和安全性，并且这些好处远比您可能会赢得或失去的任何性能都重要。</p>
+<h3 id="django模板语言的替代品">Django模板语言的替代品</h3>
+<p>在几乎所有情况下，Django的内置模板语言都足够了。但是，如果Django项目中的瓶颈似乎在模板系统中，而您又花了其他机会来解决此问题，那么第三方替代方法可能是答案。</p>
+<p>Jinja2可以提高性能，特别是在速度方面。</p>
+<p>替代模板系统在共享Django模板语言的程度上有所不同。</p>
+<p>**注意：**如果您在模板中遇到性能问题，则要做的第一件事就是确切地了解原因。使用备用模板系统可能会证明更快，但是在不造成麻烦的情况下也可以获得相同的收益-例如，可以在视图中更有效地完成模板中的昂贵处理和逻辑。</p>
+<h3 id="替代的软件实现">替代的软件实现</h3>
+<p>可能值得检查您所使用的Python软件是否已以不同的实现提供，该实现可以更快地执行相同的代码。</p>
+<p>但是：在编写良好的Django站点中，大多数性能问题不是在Python执行级别上，而是在效率低下的数据库查询，缓存和模板方面。如果您依赖编写不佳的Python代码，则无法通过更快地执行来解决性能问题。</p>
+<p>使用替代实现可能会引入兼容性，部署，可移植性或维护问题。不用说，在采用非标准实现之前，您应确保它为您的应用程序提供了足够的性能提升，从而胜过了潜在的风险。</p>
+<p>考虑到这些警告，您应该意识到：</p>
+<h4 id="pypy">PyPy</h4>
+<p>PyPy是Python本身的Python实现（“标准” Python实现在C中）。PyPy通常可用于重量级应用程序，因此可显着提高性能。</p>
+<p>PyPy项目的主要目标是与现有的Python API和库兼容。Django是兼容的，但您需要检查您依赖的其他库的兼容性。</p>
+<h4 id="python库的c实现">Python库的C实现</h4>
+<p>一些Python库也用C实现，并且速度可能更快。他们旨在提供相同的API。请注意，兼容性问题和行为差异并不是未知的（并且并不总是立即可见）。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-04-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/" data-title="Django的缓存框架" data-hashtags="后端框架,Django,Python,部署,基础理论"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/" data-hashtag="后端框架"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/" data-title="Django的缓存框架"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/" data-title="Django的缓存框架"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/" data-title="Django的缓存框架"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6/">后端框架</a>,&nbsp;<a href="/tags/django/">Django</a>,&nbsp;<a href="/tags/python/">Python</a>,&nbsp;<a href="/tags/%E9%83%A8%E7%BD%B2/">部署</a>,&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">基础理论</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/" class="prev" rel="prev" title="Django的缓存框架"><i class="fas fa-angle-left fa-fw"></i>Django的缓存框架</a>
+            <a href="/mysql%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="next" rel="next" title="MySQL入门教程">MySQL入门教程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Django错误报告 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="Django错误报告" />
+<meta property="og:description" content="错误报告 在运行公共站点时，应始终关闭该 DEBUG设置。这将使您的服务器运行得更快，并且还可以防止恶意用户查看错误页面可能显示的应用程序详细信" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2018-03-06T22:08:04+08:00" />
+<meta property="article:modified_time" content="2018-03-06T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Django错误报告"/>
+<meta name="twitter:description" content="错误报告 在运行公共站点时，应始终关闭该 DEBUG设置。这将使您的服务器运行得更快，并且还可以防止恶意用户查看错误页面可能显示的应用程序详细信"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A/" /><link rel="prev" href="http://www.nishinonanase.xyz/django%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E6%96%87%E7%AB%A0/" /><link rel="next" href="http://www.nishinonanase.xyz/django%E9%83%A8%E7%BD%B2%E6%B8%85%E5%8D%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Django错误报告",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A\/"
+        },"genre": "posts","keywords": "后端框架, Django, Python, 部署, 基础理论","wordcount":  3715 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A\/","datePublished": "2018-03-06T22:08:04+08:00","dateModified": "2018-03-06T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Django错误报告</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2018-03-06">2018-03-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3715 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A/" class="leancloud_visitors" data-flag-title="Django错误报告">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#电子邮件报告">电子邮件报告</a>
+          <ul>
+            <li><a href="#服务器错误">服务器错误</a></li>
+            <li><a href="#404错误">404错误</a></li>
+          </ul>
+        </li>
+        <li><a href="#过滤错误报告">过滤错误报告</a>
+          <ul>
+            <li><a href="#过滤敏感信息">过滤敏感信息</a></li>
+            <li><a href="#自定义错误报告">自定义错误报告</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>错误报告</p>
+<p>在运行公共站点时，应始终关闭该 DEBUG设置。这将使您的服务器运行得更快，并且还可以防止恶意用户查看错误页面可能显示的应用程序详细信息。</p>
+<p>但是，DEBUG将set 运行为False表示您将永远不会看到站点生成的错误-每个人都将看到您的公共错误页面。您需要跟踪部署站点中发生的错误，因此可以将Django配置为创建包含有关这些错误的详细信息的报告。</p>
+<h2 id="电子邮件报告">电子邮件报告</h2>
+<h3 id="服务器错误">服务器错误</h3>
+<p>当DEBUGis时False，ADMINS只要您的代码引发未处理的异常并导致内部服务器错误（严格来说，对于HTTP状态代码为500或更高的任何响应），Django都会通过电子邮件发送设置中列出的用户 。这会给管理员立即通知任何错误。该ADMINS会得到错误的描述，一个完整的Python追踪，以及有关导致错误的HTTP请求的详细信息。</p>
+<p><strong>注意:</strong> 为了发送电子邮件，Django需要一些设置来告诉它如何连接到您的邮件服务器。至少，您需要指定，EMAIL_HOST并且可能 需要EMAIL_HOST_USER和EMAIL_HOST_PASSWORD，尽管根据您的邮件服务器的配置，可能还需要其他设置。有关与电子邮件相关的设置的完整列表，请参阅Django设置文档。</p>
+<p>默认情况下，Django将通过root @ localhost发送电子邮件。但是，某些邮件提供商拒绝来自该地址的所有电子邮件。要使用其他发件人地址，请修改SERVER_EMAIL设置。</p>
+<p>要激活此行为，请将收件人的电子邮件地址放入 ADMINS设置中。</p>
+<p>也可以看看</p>
+<p>服务器错误电子邮件是使用日志记录框架发送的，因此您可以通过自定义日志记录配置来自定义此行为。</p>
+<h3 id="404错误">404错误</h3>
+<p>Django也可以配置为通过电子邮件发送有关断开链接的错误（404“找不到页面”错误）。Django在以下情况下发送有关404错误的电子邮件：</p>
+<ul>
+<li>DEBUG是False;</li>
+<li>您的MIDDLEWARE设置包括 django.middleware.common.BrokenLinkEmailsMiddleware。</li>
+</ul>
+<p>如果满足这些条件，则MANAGERS只要您的代码引发404并且请求具有引荐来源，Django就会通过电子邮件将设置中列出的用户发送给 您。不用电子邮件发送没有推荐人的404，这些人通常是输入损坏的URL或损坏的Web bot的人。当引用者等于请求的URL时，它也会忽略404，因为此行为也来自损坏的Web机器人。</p>
+<p><strong>注意:</strong> BrokenLinkEmailsMiddleware必须出现在拦截404错误的其他中间件之前，例如 LocaleMiddleware或 FlatpageFallbackMiddleware。将其放在MIDDLEWARE设置的顶部。</p>
+<p>您可以通过调整IGNORABLE_404_URLS设置来告诉Django停止报告特定的404 。它应该是已编译的正则表达式对象的列表。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">import re
+IGNORABLE_404_URLS = [
+    re.compile(r&#39;\.(php|cgi)$&#39;),
+    re.compile(r&#39;^/phpmyadmin/&#39;),
+]
+</code></pre></td></tr></table>
+</div>
+</div><p>在此示例中，任何以.php或结尾的URL的404 .cgi都不会被报告。以开头的网址也不会/phpmyadmin/。</p>
+<p>以下示例显示了如何排除浏览器和搜寻器经常请求的一些常规URL：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">import re
+IGNORABLE_404_URLS = [
+    re.compile(r&#39;^/apple-touch-icon.*\.png$&#39;),
+    re.compile(r&#39;^/favicon\.ico$&#39;),
+    re.compile(r&#39;^/robots\.txt$&#39;),
+]
+</code></pre></td></tr></table>
+</div>
+</div><p>（请注意，这些是正则表达式，因此我们在句点前加了一个反斜杠以将其转义。）</p>
+<p>如果您想django.middleware.common.BrokenLinkEmailsMiddleware进一步自定义行为 （例如忽略来自Web爬网程序的请求），则应将其子类化并覆盖其方法。</p>
+<p>也可以看看</p>
+<p>使用日志记录框架记录404错误。默认情况下，这些日志记录将被忽略，但是您可以通过编写处理程序并适当配置日志记录来将它们用于错误报告。</p>
+<h2 id="过滤错误报告">过滤错误报告</h2>
+<p>**警告：**筛选敏感数据是一个难题，几乎不可能保证敏感数据不会泄漏到错误报告中。因此，错误报告仅应提供给受信任的团队成员，并且您应避免通过Internet（例如通过电子邮件）传输未经加密的错误报告。</p>
+<h3 id="过滤敏感信息">过滤敏感信息</h3>
+<p>错误报告对于调试错误确实很有帮助，因此通常记录尽可能多的有关这些错误的相关信息非常有用。例如，默认情况下，Django会记录引发的异常的完整追溯，每个追溯框架的局部变量以及 HttpRequest的属性。</p>
+<p>但是，有时某些类型的信息可能过于敏感，因此可能不适用于跟踪例如用户的密码或信用卡号。因此，除了按照DEBUG文档中所述过滤掉似乎敏感的设置之外，Django还提供了一组函数装饰器，以帮助您控制应从生产环境中的错误报告中过滤掉哪些信息（即在何处 DEBUG设置为False）：sensitive_variables()和 sensitive_post_parameters()。</p>
+<ul>
+<li>
+<p><code>sensitive_variables</code>（*<em>变量</em>）</p>
+<p>如果代码中的函数（视图或任何常规回调）使用易于包含敏感信息的局部变量，则可以使用<code>sensitive_variables</code>装饰器防止这些变量的值包含在错误报告中：<code>from django.views.decorators.debug import sensitive_variables @sensitive_variables('user', 'pw', 'cc') def process_info(user):    pw = user.pass_word    cc = user.credit_card_number    name = user.name    ... </code>在上述例子中，对于该值<code>user</code>，<code>pw</code>和<code>cc</code> 变量将被隐藏，并用星（替换<code>**********</code>）错误的报告，而值<code>name</code>变量将被公开。要从错误日志中系统地隐藏函数的所有局部变量，请不要向<code>sensitive_variables</code>装饰器提供任何参数：<code>@sensitive_variables() def my_function():    ... </code>使用多个装饰器时如果要隐藏的变量也是函数参数（例如<code>user</code>，在下面的示例中为“ ”），并且如果修饰的函数具有多个修饰符，则请确保将其放置<code>@sensitive_variables</code> 在修饰符链的顶部。这样，当它通过其他装饰器传递时，它还将隐藏函数参数：<code>@sensitive_variables('user', 'pw', 'cc') @some_decorator @another_decorator def process_info(user):    ... </code></p>
+</li>
+<li>
+<p><code>sensitive_post_parameters</code>（** parameters*）</p>
+<p>如果您的一个视图接收到一个易受敏感信息影响的<a href="https://docs.djangoproject.com/en/3.0/ref/request-response/#django.http.HttpRequest" target="_blank" rel="noopener noreffer"><code>HttpRequest</code></a>对象，则可以使用装饰器阻止这些参数的值包含在错误报告中 ：<a href="https://docs.djangoproject.com/en/3.0/ref/request-response/#django.http.HttpRequest.POST" target="_blank" rel="noopener noreffer"><code>POST parameters</code></a><code>sensitive_post_parameters``from django.views.decorators.debug import sensitive_post_parameters @sensitive_post_parameters('pass_word', 'credit_card_number') def record_user_profile(request):    UserProfile.create(        user=request.user,        password=request.POST['pass_word'],        credit_card=request.POST['credit_card_number'],        name=request.POST['name'],    )    ... </code>在上面的示例中，错误报告内的请求表示中，<code>pass_word</code>和 <code>credit_card_number</code>参数的值将被隐藏并用星号（<code>**********</code>）替换，而该<code>name</code>参数的值将被公开。要在错误报告中系统地隐藏请求的所有POST参数，请不要向<code>sensitive_post_parameters</code>装饰器提供任何参数：<code>@sensitive_post_parameters() def my_view(request):    ... </code>所有POST参数被系统过滤的某些错误报告出来<a href="https://docs.djangoproject.com/en/3.0/topics/auth/default/#module-django.contrib.auth.views" target="_blank" rel="noopener noreffer"><code>django.contrib.auth.views</code></a>次（<code>login</code>， <code>password_reset_confirm</code>，<code>password_change</code>，和<code>add_view</code>和 <code>user_change_password</code>在<code>auth</code>管理员），以防止敏感信息泄漏的诸如用户密码。</p>
+</li>
+</ul>
+<h3 id="自定义错误报告">自定义错误报告</h3>
+<p>All sensitive_variables()和sensitive_post_parameters()do分别用敏感变量的名称注释修饰的函数，并HttpRequest用敏感的POST参数的名称注释对象，以便以后在发生错误时可以从报告中过滤掉此敏感信息。实际的过滤是由Django的默认错误报告过滤器完成的 django.views.debug.SafeExceptionReporterFilter。**********生成错误报告时，此过滤器使用修饰符的注释将相应的值替换为star（）。如果您希望为整个网站覆盖或自定义此默认行为，则需要定义自己的过滤器类，并告诉Django通过以下DEFAULT_EXCEPTION_REPORTER_FILTER设置使用它 ：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">DEFAULT_EXCEPTION_REPORTER_FILTER = &#39;path.to.your.CustomExceptionReporterFilter&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>您还可以通过设置HttpRequest的exception_reporter_filter 属性，以更精细的方式控制要在任何给定视图中使用的过滤器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">def my_view(request):
+    if request.user.is_authenticated:
+        request.exception_reporter_filter = CustomExceptionReporterFilter()
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><p>您的自定义过滤器类需要继承 django.views.debug.SafeExceptionReporterFilter并可以覆盖以下方法：</p>
+<ul>
+<li>
+<p><em>类</em><code>SafeExceptionReporterFilter</code></p>
+</li>
+<li>
+<p><code>SafeExceptionReporterFilter.``is_active</code>（<em>请求</em>）</p>
+<p>返回<code>True</code>以激活其他方法中操作的过滤。默认情况下，如果<a href="https://docs.djangoproject.com/en/3.0/ref/settings/#std:setting-DEBUG" target="_blank" rel="noopener noreffer"><code>DEBUG</code></a>为，则过滤器处于活动状态<code>False</code>。</p>
+</li>
+<li>
+<p><code>SafeExceptionReporterFilter.``get_post_parameters</code>（<em>请求</em>）</p>
+<p>返回过滤后的POST参数字典。默认情况下，它将敏感参数的值替换为星号（<code>**********</code>）。</p>
+</li>
+<li>
+<p><code>SafeExceptionReporterFilter.``get_traceback_frame_variables</code>（<em>request</em>，<em>tb_frame</em>）</p>
+<p>返回给定回溯帧的局部变量的过滤字典。默认情况下，它将敏感变量的值替换为star（<code>**********</code>）。</p>
+</li>
+</ul>
+<p>也可以看看</p>
+<p>您还可以通过编写自定义的异常中间件来设置自定义错误报告 。如果您确实编写了自定义错误处理，则最好模拟Django的内置错误处理，如果<a href="https://docs.djangoproject.com/en/3.0/ref/settings/#std:setting-DEBUG" target="_blank" rel="noopener noreffer">DEBUG</a>是，则仅报告/记录错误False。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-03-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A/" data-title="Django错误报告" data-hashtags="后端框架,Django,Python,部署,基础理论"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A/" data-hashtag="后端框架"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A/" data-title="Django错误报告"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A/" data-title="Django错误报告"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A/" data-title="Django错误报告"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6/">后端框架</a>,&nbsp;<a href="/tags/django/">Django</a>,&nbsp;<a href="/tags/python/">Python</a>,&nbsp;<a href="/tags/%E9%83%A8%E7%BD%B2/">部署</a>,&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">基础理论</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/django%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E6%96%87%E7%AB%A0/" class="prev" rel="prev" title="Django部署静态文章"><i class="fas fa-angle-left fa-fw"></i>Django部署静态文章</a>
+            <a href="/django%E9%83%A8%E7%BD%B2%E6%B8%85%E5%8D%95/" class="next" rel="next" title="Django部署清单">Django部署清单<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

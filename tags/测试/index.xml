@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>测试 - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/%E6%B5%8B%E8%AF%95/</link>
+        <description>测试 - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 26 Mar 2017 13:24:15 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E6%B5%8B%E8%AF%95/" rel="self" type="application/rss+xml" /><item>
+    <title>软件测试和自动化测试</title>
+    <link>http://www.nishinonanase.xyz/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/</link>
+    <pubDate>Sun, 26 Mar 2017 13:24:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/</guid>
+    <description><![CDATA[软件测试和自动化测试 软件测试概述 软件测试是一种用来促进鉴定软件的正确性、完整性、安全性和品质的过程，也就是在规定的条件下对程序进行操作以发现]]></description>
+</item></channel>
+</rss>

@@ -3,77 +3,77 @@
         <title>所有文章 - ❤Nanase</title>
         <link>http://www.nishinonanase.xyz/posts/</link>
         <description>所有文章 | ❤Nanase</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 25 Jun 2016 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>WSGI接口</title>
-    <link>http://www.nishinonanase.xyz/wsgi%E6%8E%A5%E5%8F%A3/</link>
-    <pubDate>Sat, 25 Jun 2016 00:00:00 &#43;0000</pubDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 03 Jul 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>redis 穿透、雪崩、击穿</title>
+    <link>http://www.nishinonanase.xyz/redis-%E7%A9%BF%E9%80%8F%E9%9B%AA%E5%B4%A9%E5%87%BB%E7%A9%BF/</link>
+    <pubDate>Fri, 03 Jul 2020 20:37:58 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/wsgi%E6%8E%A5%E5%8F%A3/</guid>
+    <guid>http://www.nishinonanase.xyz/redis-%E7%A9%BF%E9%80%8F%E9%9B%AA%E5%B4%A9%E5%87%BB%E7%A9%BF/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://p3.music.126.net/WZ8Av-iscuwD2qxwib_qrg==/109951165117366911.jpg" referrerpolicy="no-referrer">
-            </div>了解了HTTP协议和HTML文档，我们其实就明白了一个Web应用的本质就是： 浏览器发送一个HTTP请求； 服务器收到请求，生成一个HTML文档]]></description>
+            </div>redis穿透 什么是redis穿透？ 查询一个一定不存在的数据，由于缓存是不命中时被动写的，并且出于容错考虑，如果从存储层查不到数据则不写入缓]]></description>
 </item><item>
-    <title>HTML简介</title>
-    <link>http://www.nishinonanase.xyz/html%E7%AE%80%E4%BB%8B/</link>
-    <pubDate>Sat, 18 Jun 2016 15:46:34 &#43;0800</pubDate>
+    <title>Django&#43;Nginx&#43;uWSGI生产环境部署</title>
+    <link>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</link>
+    <pubDate>Mon, 29 Jun 2020 20:37:58 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/html%E7%AE%80%E4%BB%8B/</guid>
-    <description><![CDATA[什么是HTML HTML 是用来描述网页的一种语言。HTML 是一种在 Web 上使用的通用标记语言。HTML 允许你格式化文本，添加图片，创建链接、输入表单、框]]></description>
+    <guid>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</guid>
+    <description><![CDATA[WSGI是什么？ WSGI是一种规范，它定义了使用python编写的web app(django)与web server（uWSGI）之间接口格式]]></description>
 </item><item>
-    <title>HTTPS协议</title>
-    <link>http://www.nishinonanase.xyz/https%E5%8D%8F%E8%AE%AE/</link>
-    <pubDate>Sat, 11 Jun 2016 15:46:34 &#43;0800</pubDate>
+    <title>项目部署上线指南</title>
+    <link>http://www.nishinonanase.xyz/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E6%8C%87%E5%8D%97/</link>
+    <pubDate>Tue, 23 Jun 2020 13:24:15 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/https%E5%8D%8F%E8%AE%AE/</guid>
-    <description><![CDATA[什么是HTTPS HTTP 协议（HyperText Transfer Protocol，超文本传输协议）是客户端浏览器或其他程序与Web服务器之间的应用层通信协议 。H]]></description>
+    <guid>http://www.nishinonanase.xyz/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E6%8C%87%E5%8D%97/</guid>
+    <description><![CDATA[项目部署上线指南 准备上线 上线前的检查工作。 1 python manage.py check --deploy 将DEBUG设置为False并配置ALLOWED_HOSTS。 1 2 DEBUG = False ALLOWED_HOSTS = [&#39;*&#39;] 安全相关的]]></description>
 </item><item>
-    <title>HTTP协议</title>
-    <link>http://www.nishinonanase.xyz/http%E5%8D%8F%E8%AE%AE/</link>
-    <pubDate>Sat, 04 Jun 2016 15:46:34 &#43;0800</pubDate>
+    <title>小宁的爱吃厨房--南瓜面</title>
+    <link>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E5%8D%97%E7%93%9C%E9%9D%A2/</link>
+    <pubDate>Mon, 22 Jun 2020 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/http%E5%8D%8F%E8%AE%AE/</guid>
-    <description><![CDATA[HTTP协议简介 超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是一种用于分布式、协作式和超媒体信息系统的应用层]]></description>
+    <guid>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E5%8D%97%E7%93%9C%E9%9D%A2/</guid>
+    <description><![CDATA[疫情原因无法出门，也无法返回天津工作。 于是就在家办公，由于没有了外卖。空闲时间便自己开始做饭了。 参加工作以来就很少自己做饭了。 常吃外卖确实也]]></description>
 </item><item>
-    <title>TCP和UDP的区别</title>
-    <link>http://www.nishinonanase.xyz/tcp%E5%92%8Cudp%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
-    <pubDate>Thu, 26 May 2016 15:46:34 &#43;0800</pubDate>
+    <title>小宁的爱吃厨房--烙饼</title>
+    <link>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E7%83%99%E9%A5%BC/</link>
+    <pubDate>Sat, 06 Jun 2020 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/tcp%E5%92%8Cudp%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
-    <description><![CDATA[TCP与UDP基本区别 基于连接与无连接 TCP要求系统资源较多，UDP较少； UDP程序结构较简单 流模式（TCP）与数据报模式(UDP); TCP]]></description>
+    <guid>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E7%83%99%E9%A5%BC/</guid>
+    <description><![CDATA[疫情原因无法出门，也无法返回天津工作。 于是就在家办公，由于没有了外卖。空闲时间便自己开始做饭了。 参加工作以来就很少自己做饭了。 常吃外卖确实也]]></description>
 </item><item>
-    <title>UDP协议</title>
-    <link>http://www.nishinonanase.xyz/udp%E5%8D%8F%E8%AE%AE/</link>
-    <pubDate>Fri, 20 May 2016 15:46:34 &#43;0800</pubDate>
+    <title>Golang之命令行教程</title>
+    <link>http://www.nishinonanase.xyz/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B/</link>
+    <pubDate>Sun, 24 May 2020 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/udp%E5%8D%8F%E8%AE%AE/</guid>
-    <description><![CDATA[UDP协议 UDP（User Datagram Protocol），用户数据报协议，是OSI(Open System Interconnection，开放式系统互联) 参考模型]]></description>
+    <guid>http://www.nishinonanase.xyz/golang-go%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%95%99%E7%A8%8B/</guid>
+    <description><![CDATA[一. 命令行预览 Go命令行使用二级命令，格式go &lt;command&gt; [arguments] 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45]]></description>
 </item><item>
-    <title>TCP-IP简介</title>
-    <link>http://www.nishinonanase.xyz/tcp-ip%E7%AE%80%E4%BB%8B/</link>
-    <pubDate>Mon, 16 May 2016 15:46:34 &#43;0800</pubDate>
+    <title>小宁的爱吃厨房--手擀面</title>
+    <link>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E6%89%8B%E6%93%80%E9%9D%A2/</link>
+    <pubDate>Sat, 16 May 2020 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/tcp-ip%E7%AE%80%E4%BB%8B/</guid>
-    <description><![CDATA[在世界上各地，各种各样的电脑运行着各自不同的操作系统为大家服务，这些电脑在表达同一种信息的时候所使用的方法是千差万别。就好像圣经中上帝打乱了]]></description>
+    <guid>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E6%89%8B%E6%93%80%E9%9D%A2/</guid>
+    <description><![CDATA[疫情原因无法出门，也无法返回天津工作。 于是就在家办公，由于没有了外卖。空闲时间便自己开始做饭了。 参加工作以来就很少自己做饭了。 常吃外卖确实也]]></description>
 </item><item>
-    <title>virtualenv虚拟环境</title>
-    <link>http://www.nishinonanase.xyz/virtualenv%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</link>
-    <pubDate>Tue, 10 May 2016 15:46:34 &#43;0800</pubDate>
+    <title>Docker容器详解</title>
+    <link>http://www.nishinonanase.xyz/docker%E5%AE%B9%E5%99%A8%E8%AF%A6%E8%A7%A3/</link>
+    <pubDate>Sun, 10 May 2020 13:24:15 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/virtualenv%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</guid>
-    <description><![CDATA[在开发Python应用程序的时候，系统安装的Python3只有一个版本：3.4。所有第三方的包都会被pip安装到Python3的site-p]]></description>
+    <guid>http://www.nishinonanase.xyz/docker%E5%AE%B9%E5%99%A8%E8%AF%A6%E8%A7%A3/</guid>
+    <description><![CDATA[Docker容器详解 Docker是基于Go语言开发的开源应用容器引擎，遵从Apache Licence 2.0协议，可以让开发者打包应用以及应用的依赖包到一]]></description>
 </item><item>
-    <title>正则表达式</title>
-    <link>http://www.nishinonanase.xyz/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
-    <pubDate>Wed, 04 May 2016 15:46:34 &#43;0800</pubDate>
+    <title>小宁的爱吃厨房--凉菜</title>
+    <link>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E5%87%89%E8%8F%9C/</link>
+    <pubDate>Sat, 02 May 2020 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
-    <description><![CDATA[字符串是编程时涉及到的最多的一种数据结构，对字符串进行操作的需求几乎无处不在。比如判断一个字符串是否是合法的Email地址，虽然可以编程提取]]></description>
+    <guid>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E5%87%89%E8%8F%9C/</guid>
+    <description><![CDATA[疫情原因无法出门，也无法返回天津工作。 于是就在家办公，由于没有了外卖。空闲时间便自己开始做饭了。 参加工作以来就很少自己做饭了。 常吃外卖确实也]]></description>
 </item><item>
-    <title>分布式进程</title>
-    <link>http://www.nishinonanase.xyz/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/</link>
-    <pubDate>Sat, 30 Apr 2016 15:46:34 &#43;0800</pubDate>
+    <title>小宁的爱吃厨房--西葫芦番茄炒鸡蛋炒面</title>
+    <link>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E8%A5%BF%E8%91%AB%E8%8A%A6%E7%95%AA%E8%8C%84%E7%82%92%E9%B8%A1%E8%9B%8B%E7%82%92%E9%9D%A2/</link>
+    <pubDate>Sun, 26 Apr 2020 22:08:04 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B/</guid>
-    <description><![CDATA[在Thread和Process中，应当优选Process，因为Process更稳定，而且，Process可以分布到多台机器上，而Thread]]></description>
+    <guid>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E8%A5%BF%E8%91%AB%E8%8A%A6%E7%95%AA%E8%8C%84%E7%82%92%E9%B8%A1%E8%9B%8B%E7%82%92%E9%9D%A2/</guid>
+    <description><![CDATA[疫情原因无法出门，也无法返回天津工作。 于是就在家办公，由于没有了外卖。空闲时间便自己开始做饭了。 参加工作以来就很少自己做饭了。 常吃外卖确实也]]></description>
 </item></channel>
 </rss>

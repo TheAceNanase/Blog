@@ -1,0 +1,28 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Git - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/git/</link>
+        <description>Git - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 22 Oct 2017 22:08:04 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/git/" rel="self" type="application/rss+xml" /><item>
+    <title>Git的基本配置和使用(二)</title>
+    <link>http://www.nishinonanase.xyz/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%BA%8C/</link>
+    <pubDate>Sun, 22 Oct 2017 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%BA%8C/</guid>
+    <description><![CDATA[Github Github是全球最大的使用 Git 进行代码管理的开源平台。 因此注册一个 Github 账号来管理我们的代码是很有必要的。 我们本地仓库，又是如何与远程仓库产生]]></description>
+</item><item>
+    <title>Git的基本配置和使用(一)</title>
+    <link>http://www.nishinonanase.xyz/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80/</link>
+    <pubDate>Fri, 13 Oct 2017 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80/</guid>
+    <description><![CDATA[Git 简介与安装 Git 是目前世界上最先进的分布式版本控制系统。 在 git-scm.com 下载适合自己系统的 git-bash软件，照着官方说明安装即可。 Git 的两个核心概念 三个]]></description>
+</item><item>
+    <title>团队项目开发的问题和解决方案</title>
+    <link>http://www.nishinonanase.xyz/%E5%9B%A2%E9%98%9F%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
+    <pubDate>Wed, 26 Jul 2017 13:24:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E5%9B%A2%E9%98%9F%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
+    <description><![CDATA[团队项目开发的问题和解决方案 个人开发和团队开发这两个词相信对大家来说并不陌生。所谓个人开发就是一个人把控产品的所有内容；而团队开发则是由多个]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,77 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>后端框架 - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6/</link>
+        <description>后端框架 - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 03 Apr 2018 22:08:04 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6/" rel="self" type="application/rss+xml" /><item>
+    <title>Django的缓存框架</title>
+    <link>http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/</link>
+    <pubDate>Tue, 03 Apr 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/</guid>
+    <description><![CDATA[通常一个人首先关心的是编写代码的作品，它的逻辑功能根据需要产生预期的输出。但是，有时这还不足以使代码高效地工作。 在这种情况下，需要的是某种东]]></description>
+</item><item>
+    <title>Django的缓存框架</title>
+    <link>http://www.nishinonanase.xyz/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/</link>
+    <pubDate>Mon, 26 Mar 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/</guid>
+    <description><![CDATA[动态网站的基本权衡是动态的。每次用户请求页面时，Web服务器都会进行各种计算-从数据库查询到模板呈现再到业务逻辑-创建站点访问者可以看到的页]]></description>
+</item><item>
+    <title>Django的安全性</title>
+    <link>http://www.nishinonanase.xyz/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/</link>
+    <pubDate>Mon, 19 Mar 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/</guid>
+    <description><![CDATA[跨站点脚本（XSS）保护 XSS攻击使用户可以将客户端脚本注入其他用户的浏览器中。通常，这是通过将恶意脚本存储在数据库中进行检索并将其显示给其]]></description>
+</item><item>
+    <title>Django部署清单</title>
+    <link>http://www.nishinonanase.xyz/django%E9%83%A8%E7%BD%B2%E6%B8%85%E5%8D%95/</link>
+    <pubDate>Mon, 12 Mar 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E9%83%A8%E7%BD%B2%E6%B8%85%E5%8D%95/</guid>
+    <description><![CDATA[部署清单 互联网是一个敌对的环境。在部署Django项目之前，您应该花一些时间在考虑安全性，性能和操作的情况下检查设置。 Django包含许多安]]></description>
+</item><item>
+    <title>Django错误报告</title>
+    <link>http://www.nishinonanase.xyz/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A/</link>
+    <pubDate>Tue, 06 Mar 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A/</guid>
+    <description><![CDATA[错误报告 在运行公共站点时，应始终关闭该 DEBUG设置。这将使您的服务器运行得更快，并且还可以防止恶意用户查看错误页面可能显示的应用程序详细信]]></description>
+</item><item>
+    <title>Django部署静态文章</title>
+    <link>http://www.nishinonanase.xyz/django%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E6%96%87%E7%AB%A0/</link>
+    <pubDate>Thu, 22 Feb 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E6%96%87%E7%AB%A0/</guid>
+    <description><![CDATA[部署静态文件 也可以看看 有关使用的简介django.contrib.staticfiles，请参阅 管理静态文件（例如，图像，JavaScrip]]></description>
+</item><item>
+    <title>Django使用ASGI进行部署</title>
+    <link>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8asgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</link>
+    <pubDate>Thu, 15 Feb 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8asgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</guid>
+    <description><![CDATA[使用ASGI进行部署 除了WSGI，Django还支持在ASGI上进行部署，ASGI是用于异步Web服务器和应用程序的新兴Python标准。 D]]></description>
+</item><item>
+    <title>Django使用WSGI进行部署</title>
+    <link>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</link>
+    <pubDate>Tue, 06 Feb 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</guid>
+    <description><![CDATA[简介 Django的主要部署平台是WSGI，这是Web服务器和应用程序的Python标准。 Django的startproject管理命令为您设]]></description>
+</item><item>
+    <title>Django将mixins与基于类的视图一起使用</title>
+    <link>http://www.nishinonanase.xyz/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/</link>
+    <pubDate>Mon, 22 Jan 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/</guid>
+    <description><![CDATA[在基于类的视图中使用mixins 警告： 这是一个高级主题。在探索这些技术之前，建议您对Django基于类的视图有一定的了解。 Django的内置]]></description>
+</item><item>
+    <title>Django使用基于类的视图进行表单处理</title>
+    <link>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E8%BF%9B%E8%A1%8C%E8%A1%A8%E5%8D%95%E5%A4%84%E7%90%86/</link>
+    <pubDate>Mon, 15 Jan 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E8%BF%9B%E8%A1%8C%E8%A1%A8%E5%8D%95%E5%A4%84%E7%90%86/</guid>
+    <description><![CDATA[形成基于类的意见处理 表单处理通常具有3条路径： 初始GET（空白或预填充形式） POST包含无效数据（通常重新显示带有错误的表单） 使用有效数据进]]></description>
+</item></channel>
+</rss>

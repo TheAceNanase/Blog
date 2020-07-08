@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>数据安全 - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/</link>
+        <description>数据安全 - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 08 Aug 2017 19:15:01 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>数据被删了，怎么办？</title>
+    <link>http://www.nishinonanase.xyz/%E6%95%B0%E6%8D%AE%E8%A2%AB%E5%88%A0%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E/</link>
+    <pubDate>Tue, 08 Aug 2017 19:15:01 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E6%95%B0%E6%8D%AE%E8%A2%AB%E5%88%A0%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E/</guid>
+    <description><![CDATA[什么是with语句 with是一种上下文管理协议，目的在于从流程图中把 try,except 和finally 关键字和资源分配释放相关代码统统去掉，简化try….e]]></description>
+</item></channel>
+</rss>

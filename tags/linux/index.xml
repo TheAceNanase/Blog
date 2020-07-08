@@ -1,0 +1,77 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Linux - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/linux/</link>
+        <description>Linux - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 27 Nov 2018 22:08:04 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>SQL-SELECT语法</title>
+    <link>http://www.nishinonanase.xyz/sql-select-%E8%AF%AD%E6%B3%95/</link>
+    <pubDate>Tue, 27 Nov 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/sql-select-%E8%AF%AD%E6%B3%95/</guid>
+    <description><![CDATA[SQL SELECT 语法 SELECT 语法用于从数据库中选择数据。 返回的数据存储在结果表中，称为结果集。 基本语法：SELECT和FROM 在任何SQL查询语句中都：SEL]]></description>
+</item><item>
+    <title>SQL语法</title>
+    <link>http://www.nishinonanase.xyz/sql%E8%AF%AD%E6%B3%95/</link>
+    <pubDate>Mon, 19 Nov 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/sql%E8%AF%AD%E6%B3%95/</guid>
+    <description><![CDATA[SQL 语法规则 SQL语句总是以关键字开始，如SELECT、INSERT、UPDATE、DELETE、DROP、CREATE。 SQL语句以分号结尾]]></description>
+</item><item>
+    <title>Shell输入-输出重定向</title>
+    <link>http://www.nishinonanase.xyz/shell%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91/</link>
+    <pubDate>Thu, 25 Oct 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/shell%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91/</guid>
+    <description><![CDATA[大多数 UNIX 系统命令从你的终端接受输入并将所产生的输出发送回到您的终端。一个命令通常从一个叫标准输入的地方读取输入，默认情况下，这恰好是你的终端]]></description>
+</item><item>
+    <title>Shell文件包含</title>
+    <link>http://www.nishinonanase.xyz/shell%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</link>
+    <pubDate>Wed, 17 Oct 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/shell%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</guid>
+    <description><![CDATA[和其他语言一样，Shell 也可以包含外部脚本。这样可以很方便的封装一些公用的代码作为一个独立的文件。 Shell 文件包含的语法格式如下： 1 2 3 4 5 . filename]]></description>
+</item><item>
+    <title>Shell函数</title>
+    <link>http://www.nishinonanase.xyz/shell%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Mon, 08 Oct 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/shell%E5%87%BD%E6%95%B0/</guid>
+    <description><![CDATA[linux shell 可以用户定义函数，然后在shell脚本中可以随便调用。 shell中函数的定义格式如下： 1 2 3 4 5 6 7 8 9 [ function ] funname [()] { action; [return int;] } 说明： 1、可]]></description>
+</item><item>
+    <title>Shell流程控制</title>
+    <link>http://www.nishinonanase.xyz/shell%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/</link>
+    <pubDate>Tue, 02 Oct 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/shell%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/</guid>
+    <description><![CDATA[Shell 流程控制 和Java、PHP等语言不一样，sh的流程控制不可为空，如(以下为PHP流程控制写法)： 1 2 3 4 5 6 &lt;?php if (isset($_GET[&#34;q&#34;])) { search(q); } else { // 不做任何事情]]></description>
+</item><item>
+    <title>Shell-printf命令</title>
+    <link>http://www.nishinonanase.xyz/shell-printf%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 26 Sep 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/shell-printf%E5%91%BD%E4%BB%A4/</guid>
+    <description><![CDATA[printf 命令模仿 C 程序库（library）里的 printf() 程序。 标准所定义，因此使用printf的脚本比使用echo移植性好。 printf 使用引用文本或空格分隔的参数]]></description>
+</item><item>
+    <title>Shell-test命令</title>
+    <link>http://www.nishinonanase.xyz/shell-test%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Mon, 17 Sep 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/shell-test%E5%91%BD%E4%BB%A4/</guid>
+    <description><![CDATA[Shell中的 test 命令用于检查某个条件是否成立，它可以进行数值、字符和文件三个方面的测试。 数值测试 参数 说明 -eq 等于则为真 -ne 不等于则为真 -gt 大于则为]]></description>
+</item><item>
+    <title>Shell-echo命令</title>
+    <link>http://www.nishinonanase.xyz/shell-echo%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 12 Sep 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/shell-echo%E5%91%BD%E4%BB%A4/</guid>
+    <description><![CDATA[Shell 的 echo 指令与 PHP 的 echo 指令类似，都是用于字符串的输出。命令格式： 1 echo string 您可以使用echo实现更复杂的输出格式控制。 1.显示普通字符串: 1 echo &#34;It is a]]></description>
+</item><item>
+    <title>Shell运算符</title>
+    <link>http://www.nishinonanase.xyz/shell%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
+    <pubDate>Thu, 06 Sep 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/shell%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
+    <description><![CDATA[Shell 和其他编程语言一样，支持多种运算符，包括： 算数运算符 关系运算符 布尔运算符 字符串运算符 文件测试运算符 expr 是一款表达式计算工具，使用它能完成表达]]></description>
+</item></channel>
+</rss>

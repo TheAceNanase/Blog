@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Django模型 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="Django模型" />
+<meta property="og:description" content="简介 模型是有关数据的唯一确定的信息源。它包含要存储数据的基本字段和行为。通常，每个模型都映射到单个数据库表。 每一个模型是django.db." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/django%E6%A8%A1%E5%9E%8B/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2017-12-02T22:08:04+08:00" />
+<meta property="article:modified_time" content="2017-12-02T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Django模型"/>
+<meta name="twitter:description" content="简介 模型是有关数据的唯一确定的信息源。它包含要存储数据的基本字段和行为。通常，每个模型都映射到单个数据库表。 每一个模型是django.db."/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/django%E6%A8%A1%E5%9E%8B/" /><link rel="prev" href="http://www.nishinonanase.xyz/django%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE/" /><link rel="next" href="http://www.nishinonanase.xyz/django%E5%A4%84%E7%90%86http%E8%AF%B7%E6%B1%82/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Django模型",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/django%E6%A8%A1%E5%9E%8B\/"
+        },"genre": "posts","keywords": "后端框架, Django, Python","wordcount":  3442 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/django%E6%A8%A1%E5%9E%8B\/","datePublished": "2017-12-02T22:08:04+08:00","dateModified": "2017-12-02T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Django模型</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-12-02">2017-12-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3442 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/django%E6%A8%A1%E5%9E%8B/" class="leancloud_visitors" data-flag-title="Django模型">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#快速示例">快速示例</a>
+          <ul>
+            <li>
+              <ul>
+                <li>
+                  <ul>
+                    <li><a href="#first_name并且last_name是场模型每个字段都指定为类属性并且每个属性都映射到数据库列上面的person模型将创建一个数据库表如下所示create-table-myapp_person-----id-serial-not-null-primary-key----first_name-varchar30-not-null----last_name-varchar30-not-null-">first_name并且last_name是场模型。每个字段都指定为类属性，并且每个属性都映射到数据库列。上面的Person模型将创建一个数据库表，如下所示：<code>CREATE TABLE myapp_person (    &quot;id&quot; serial NOT NULL PRIMARY KEY,    &quot;first_name&quot; varchar(30) NOT NULL,    &quot;last_name&quot; varchar(30) NOT NULL );</code></a></li>
+                    <li><a href="#一些技术说明">一些技术说明：</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#定义模型">定义模型</a></li>
+        <li><a href="#模型字段类表">模型字段类表</a></li>
+        <li><a href="#字段选项">字段选项</a></li>
+        <li><a href="#关联关系">关联关系</a>
+          <ul>
+            <li><a href="#多对一-foreignkey">多对一 (ForeignKey)</a></li>
+          </ul>
+        </li>
+        <li><a href="#多对多关系的额外字段throuth"><strong>多对多</strong>关系的额外字段：throuth</a></li>
+        <li><a href="#heading"></a>
+          <ul>
+            <li>
+              <ul>
+                <li>
+                  <ul>
+                    <li><a href="#您需要在设置中间模型的时候显式地为多对多关系中涉及的中间模型指定外键这种显式声明定义了这两个模型之间是如何关联的在中间模型当中有一些限制条件你的模型中间要么有且仅有一个指向源模型我们例子当中的group的外键你要么必须通过manytomanyfieldthrough_fields参数在多个外键当中手动选择一个外键有如果外个多键盘没有用through_fields-参数选择一个的话会出现验证错误对于某个目标模型我们示例当中的person的外键也有同样的限制在一个有用的描述模型当中自己指向自己的多对多关系的中间模型当中可以有两个指向同一个模型的外健但这两个外健分表代表多对多关系不同的两端如果外健的个数超过两个你必须和上面一样的指定through_fields参数要不然会出现验证错误现在你已经通过中间模型完成你的manytomanyfield示例中的membership可以开始创建一些多对多关系了你通过实例化中间模型来创建关系-paul--personobjectscreatenamepaul-mccartney--beatles--groupobjectscreatenamethe-beatles--m1--membershippersonringo-groupbeatles------date_joineddate1962-8-16------invite_reasonneeded-a-new-drummer--m1save--beatlesmembersall-queryset-person-ringo-starr--ringogroup_setall-queryset-group-the-beatles--m2--membershipobjectscreatepersonpaul-groupbeatles------date_joineddate1960-8-1------invite_reasonwanted-to-form-a-band--beatlesmembersall-queryset-person-ringo-starr-person-paul-mccartney">您需要在设置中间模型的时候，显式地为多对多关系中涉及的中间模型指定外键。这种显式声明定义了这两个模型之间是如何关联的。在中间模型当中有一些限制条件：你的模型中间要么有且仅有一个指向源模型（我们例子当中的Group）的外键，你要么必须通过ManyToManyField.through_fields参数在多个外键当中手动选择一个外键，有如果外个多键盘没有用through_fields 参数选择一个的话，会出现验证错误。对于某个目标模型（我们示例当中的Person）的外键也有同样的限制。在一个有用的描述模型当中自己指向自己的多对多关系的中间模型当中，可以有两个指向同一个模型的外健，但这两个外健分表代表多对多关系（不同）的两端。如果外健的个数超过两个，你必须和上面一样的指定through_fields参数，要不然会出现验证错误。现在你已经通过中间模型完成你的ManyToManyField（示例中的Membership），可以开始创建一些多对多关系了。你通过实例化中间模型来创建关系：<code>&gt;&gt;&gt; paul = Person.objects.create(name=&quot;Paul McCartney&quot;) &gt;&gt;&gt; beatles = Group.objects.create(name=&quot;The Beatles&quot;) &gt;&gt;&gt; m1 = Membership(person=ringo, group=beatles, ...     date_joined=date(1962, 8, 16), ...     invite_reason=&quot;Needed a new drummer.&quot;) &gt;&gt;&gt; m1.save() &gt;&gt;&gt; beatles.members.all() &lt;QuerySet [&lt;Person: Ringo Starr&gt;]&gt; &gt;&gt;&gt; ringo.group_set.all() &lt;QuerySet [&lt;Group: The Beatles&gt;]&gt; &gt;&gt;&gt; m2 = Membership.objects.create(person=paul, group=beatles, ...     date_joined=date(1960, 8, 1), ...     invite_reason=&quot;Wanted to form a band.&quot;) &gt;&gt;&gt; beatles.members.all() &lt;QuerySet [&lt;Person: Ringo Starr&gt;, &lt;Person: Paul McCartney&gt;]&gt;</code></a></li>
+                    <li><a href="#你也可以使用addcreate或set创建关系只要你为任何必需的细分指定-through_defaults">你也可以使用<code>add()</code>、、<code>create()</code>或<code>set()</code>创建关系，只要你为任何必需的细分指定 <code>through_defaults</code>：</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#一对一关联">一对一关联</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="简介">简介</h2>
+<p>模型是有关数据的唯一确定的信息源。它包含要存储数据的基本字段和行为。通常，每个模型都映射到单个数据库表。</p>
+<ul>
+<li>每一个模型是django.db.models.Model的子类</li>
+<li>每一个模型属性代表数据表的一个字段。</li>
+<li>Django提供了自动生成的数据库访问API，使用模型操作数据库很方便</li>
+</ul>
+<h2 id="快速示例">快速示例</h2>
+<p>此示例模型定义了一个<code>Person</code>，其中包含<code>first_name</code>和 <code>last_name</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.db import models
+
+class Person(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="first_name并且last_name是场模型每个字段都指定为类属性并且每个属性都映射到数据库列上面的person模型将创建一个数据库表如下所示create-table-myapp_person-----id-serial-not-null-primary-key----first_name-varchar30-not-null----last_name-varchar30-not-null-">first_name并且last_name是场模型。每个字段都指定为类属性，并且每个属性都映射到数据库列。上面的Person模型将创建一个数据库表，如下所示：<code>CREATE TABLE myapp_person (    &quot;id&quot; serial NOT NULL PRIMARY KEY,    &quot;first_name&quot; varchar(30) NOT NULL,    &quot;last_name&quot; varchar(30) NOT NULL );</code></h5>
+<h5 id="一些技术说明">一些技术说明：</h5>
+<ul>
+<li>表的名称myapp_person是自动从某些模型元数据派生而来的，但是可以被覆盖。</li>
+<li>一个id字段被自动添加，但这种行为可以被覆盖。</li>
+<li>在此示例中，SQL是使用PostgreSQL语法格式化的，但是值得注意的是Django使用了针对设置文件中指定的数据库后端定制的SQL 。CREATE TABLE</li>
+</ul>
+<p>详情参考官网： <a href="https://docs.djangoproject.com/en/3.0/topics/db/models/">https://docs.djangoproject.com/en/3.0/topics/db/models/</a></p>
+<h2 id="定义模型">定义模型</h2>
+<p>Django根据属性的类型确定以下信息：</p>
+<ul>
+<li>当前选择的数据库支持字段的类型</li>
+<li>渲染管理表单时使用的默认html控件</li>
+<li>在管理站点最低限度的验证</li>
+</ul>
+<p>django会为表创建自动增长的主键列，每个模型只能有一个主键列，如果使用选项设置某属性为主键列后django不会再创建自动增长的主键列。</p>
+<p>默认创建的主键列属性为id，可以使用pk代替，pk全拼为primary key。</p>
+<p>pk是主键的别名，若主键名为id2，那么pk是id2的别名。</p>
+<p>属性命名限制：</p>
+<ul>
+<li>不能是python的保留关键字。</li>
+<li>不允许使用连续的下划线，这是由django的查询方式决定的，在第4节会详细讲解查询。</li>
+<li>定义属性时需要指定字段类型，通过字段类型的参数指定选项。</li>
+</ul>
+<p>​    具体语法如下：</p>
+<p>​    <strong>属性=models.字段类型(选项)</strong></p>
+<h2 id="模型字段类表">模型字段类表</h2>
+<table>
+<thead>
+<tr>
+<th>字段类</th>
+<th>默认小组件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AutoField</td>
+<td>N/A</td>
+<td>根据 ID 自动递增的 IntegerField</td>
+</tr>
+<tr>
+<td>BigIntegerField</td>
+<td>NumberInput</td>
+<td>64 位整数，与 IntegerField 很像，但取值范围是 -9223372036854775808 到 9223372036854775807 。</td>
+</tr>
+<tr>
+<td>BinaryField</td>
+<td>N/A</td>
+<td>存储原始二进制数据的字段。只支持 bytes 类型。注意，这个字段的功能有限。</td>
+</tr>
+<tr>
+<td>BooleanField</td>
+<td>CheckboxInput</td>
+<td>真假值字段。如果想接受 null 值，使用 NullBooleanField 。</td>
+</tr>
+<tr>
+<td>CharField</td>
+<td>TextInput</td>
+<td>字符串字段，针对长度较小的字符串。大量文本应该使用 TextField 。有个额外的必须参数：max_length ，即字段的最大长度（字符个数）。</td>
+</tr>
+<tr>
+<td>DateField</td>
+<td>DateInput</td>
+<td>日期，在 Python 中使用 datetime.date 实例表示。有两个额外的可选参数： auto_now ，每次保存对象时自动设为当前日期 auto_now_add ，创建对象时自动设为当前日期。</td>
+</tr>
+<tr>
+<td>DateTimeField</td>
+<td>DateTimeInput</td>
+<td>日期和时间，在 Python 中使用 datetime.datetime 实例表示。与 DateField 具有相同的额外参数。</td>
+</tr>
+<tr>
+<td>DecimalField</td>
+<td>TextInput</td>
+<td>固定精度的小数，在 Python 中使用 Decimal 实例表示。有两个必须的参数： max_digits 和 decimal_places 。</td>
+</tr>
+<tr>
+<td>DurationField</td>
+<td>TextInput</td>
+<td>存储时间跨度，在 Python 中使用 timedelta 表示。</td>
+</tr>
+<tr>
+<td>EmailField</td>
+<td>TextInput</td>
+<td>一种 CharField ，使用 EmailValidator 验证输入。max_length 的默认值为 254 。</td>
+</tr>
+<tr>
+<td>FileField</td>
+<td>ClearableFileInput</td>
+<td>文件上传字段。详情见下面。</td>
+</tr>
+<tr>
+<td>FilePathField</td>
+<td>Select</td>
+<td>一种 CharField ，限定只能在文件系统中的特定目录里选择文件。</td>
+</tr>
+<tr>
+<td>FloatField</td>
+<td>NumberInput</td>
+<td>浮点数，在 Python 中使用 float 实例表示。注意， field.localize 的值为 False 时，默认的小组件是 TextInput 。</td>
+</tr>
+<tr>
+<td>ImageField</td>
+<td>ClearableFileInput</td>
+<td>所有属性和方法都继承自 FileField ，此外验证上传的对象是不是有效的图像。增加了 height 和 width 两个属性。需要 Pillow 库支持。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="字段选项">字段选项</h2>
+<ul>
+<li>通过字段选项，可以实现对字段的约束</li>
+<li>在字段对象时通过关键字参数指定</li>
+<li>null：如果为True，Django 将空值以NULL 存储到数据库中，默认值是 False</li>
+<li>blank：如果为True，则该字段允许为空白，默认值是 False</li>
+<li>对比：null是数据库范畴的概念，blank是表单验证证范畴的</li>
+<li>db_column：字段的名称，如果未指定，则使用属性的名称</li>
+<li>db_index：若值为 True, 则在表中会为此字段创建索引</li>
+<li>default：默认值</li>
+<li>primary_key：若为 True, 则该字段会成为模型的主键字段</li>
+<li>unique：如果为 True, 这个字段在表中必须有唯一值</li>
+</ul>
+<h2 id="关联关系">关联关系</h2>
+<h3 id="多对一-foreignkey">多对一 (ForeignKey)</h3>
+<p>Django提供了定义了几种最常见的数据库关联关系的方法：多对一，多对多，一对一。</p>
+<p><strong>多对一</strong>关系，需要两个位置参数，一个是关联的模型，另一个是 <code>on_delete</code> 选项，外键要定义在多的一方，如一个汽车厂生产多种汽车，一辆汽车只有一个生产厂家</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.db import models
+class Manufacturer(models.Model):
+    # ...
+    pass
+class Car(models.Model):
+    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="多对多关系的额外字段throuth"><strong>多对多</strong>关系的额外字段：throuth</h2>
+<p>例如：这样一个应用，它记录音乐家所属的音乐小组。 我们可以用一个ManyToManyField 表示小组和成员之间的多对多关系。 但是，有时你可能想知道更多成员关系的细节，比如成员是何时加入小组的。</p>
+<p>对于这些情况，Django 允许你指定一个中介模型来定义多对多关系。 你可以将其他字段放在中介模型里面。 源模型的ManyToManyField 字段将使用through 参数指向中介模型。 对于上面的音乐小组的例子，代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from django.db import models
+
+class Person(models.Model):
+    name = models.CharField(max_length=128)
+
+    def __str__(self):              # __unicode__ on Python 2
+        return self.name
+
+class Group(models.Model):
+    name = models.CharField(max_length=128)
+    members = models.ManyToManyField(Person, through=&#39;Membership&#39;)
+
+    def __str__(self):              # __unicode__ on Python 2
+        return self.name
+
+class Membership(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    date_joined = models.DateField()
+    invite_reason = models.CharField(max_length=64)
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="heading"></h2>
+<h5 id="您需要在设置中间模型的时候显式地为多对多关系中涉及的中间模型指定外键这种显式声明定义了这两个模型之间是如何关联的在中间模型当中有一些限制条件你的模型中间要么有且仅有一个指向源模型我们例子当中的group的外键你要么必须通过manytomanyfieldthrough_fields参数在多个外键当中手动选择一个外键有如果外个多键盘没有用through_fields-参数选择一个的话会出现验证错误对于某个目标模型我们示例当中的person的外键也有同样的限制在一个有用的描述模型当中自己指向自己的多对多关系的中间模型当中可以有两个指向同一个模型的外健但这两个外健分表代表多对多关系不同的两端如果外健的个数超过两个你必须和上面一样的指定through_fields参数要不然会出现验证错误现在你已经通过中间模型完成你的manytomanyfield示例中的membership可以开始创建一些多对多关系了你通过实例化中间模型来创建关系-paul--personobjectscreatenamepaul-mccartney--beatles--groupobjectscreatenamethe-beatles--m1--membershippersonringo-groupbeatles------date_joineddate1962-8-16------invite_reasonneeded-a-new-drummer--m1save--beatlesmembersall-queryset-person-ringo-starr--ringogroup_setall-queryset-group-the-beatles--m2--membershipobjectscreatepersonpaul-groupbeatles------date_joineddate1960-8-1------invite_reasonwanted-to-form-a-band--beatlesmembersall-queryset-person-ringo-starr-person-paul-mccartney">您需要在设置中间模型的时候，显式地为多对多关系中涉及的中间模型指定外键。这种显式声明定义了这两个模型之间是如何关联的。在中间模型当中有一些限制条件：你的模型中间要么有且仅有一个指向源模型（我们例子当中的Group）的外键，你要么必须通过ManyToManyField.through_fields参数在多个外键当中手动选择一个外键，有如果外个多键盘没有用through_fields 参数选择一个的话，会出现验证错误。对于某个目标模型（我们示例当中的Person）的外键也有同样的限制。在一个有用的描述模型当中自己指向自己的多对多关系的中间模型当中，可以有两个指向同一个模型的外健，但这两个外健分表代表多对多关系（不同）的两端。如果外健的个数超过两个，你必须和上面一样的指定through_fields参数，要不然会出现验证错误。现在你已经通过中间模型完成你的ManyToManyField（示例中的Membership），可以开始创建一些多对多关系了。你通过实例化中间模型来创建关系：<code>&gt;&gt;&gt; paul = Person.objects.create(name=&quot;Paul McCartney&quot;) &gt;&gt;&gt; beatles = Group.objects.create(name=&quot;The Beatles&quot;) &gt;&gt;&gt; m1 = Membership(person=ringo, group=beatles, ...     date_joined=date(1962, 8, 16), ...     invite_reason=&quot;Needed a new drummer.&quot;) &gt;&gt;&gt; m1.save() &gt;&gt;&gt; beatles.members.all() &lt;QuerySet [&lt;Person: Ringo Starr&gt;]&gt; &gt;&gt;&gt; ringo.group_set.all() &lt;QuerySet [&lt;Group: The Beatles&gt;]&gt; &gt;&gt;&gt; m2 = Membership.objects.create(person=paul, group=beatles, ...     date_joined=date(1960, 8, 1), ...     invite_reason=&quot;Wanted to form a band.&quot;) &gt;&gt;&gt; beatles.members.all() &lt;QuerySet [&lt;Person: Ringo Starr&gt;, &lt;Person: Paul McCartney&gt;]&gt;</code></h5>
+<h5 id="你也可以使用addcreate或set创建关系只要你为任何必需的细分指定-through_defaults">你也可以使用<code>add()</code>、、<code>create()</code>或<code>set()</code>创建关系，只要你为任何必需的细分指定 <code>through_defaults</code>：</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; beatles.members.add(john, through_defaults={&#39;date_joined&#39;: date(1960, 8, 1)})
+&gt;&gt;&gt; beatles.members.create(name=&#34;George Harrison&#34;, through_defaults={&#39;date_joined&#39;: date(1960, 8, 1)})
+&gt;&gt;&gt; beatles.members.set([john, paul, ringo, george], through_defaults={&#39;date_joined&#39;: date(1960, 8, 1)})
+</code></pre></td></tr></table>
+</div>
+</div><p>你可能更潜在直接创造中间模型。</p>
+<p>如果自定义中间模型没有强制对的唯一性，调用方法会删除所有中间模型的实例：(model1, model2)remove()</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; Membership.objects.create(person=ringo, group=beatles,
+...     date_joined=date(1968, 9, 4),
+...     invite_reason=&#34;You&#39;ve been gone for a month and we miss you.&#34;)
+&gt;&gt;&gt; beatles.members.all()
+&lt;QuerySet [&lt;Person: Ringo Starr&gt;, &lt;Person: Paul McCartney&gt;, &lt;Person: Ringo Starr&gt;]&gt;
+&gt;&gt;&gt; # This deletes both of the intermediate model instances for Ringo Starr
+&gt;&gt;&gt; beatles.members.remove(ringo)
+&gt;&gt;&gt; beatles.members.all()
+&lt;QuerySet [&lt;Person: Paul McCartney&gt;]&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>方法<a href="https://docs.djangoproject.com/zh-hans/3.0/ref/models/relations/#django.db.models.fields.related.RelatedManager.clear" target="_blank" rel="noopener noreffer"><code>clear()</code></a>用于实例的所有多对多关系：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; # Beatles have broken up
+&gt;&gt;&gt; beatles.members.clear()
+&gt;&gt;&gt; # Note that this deletes the intermediate model instances
+&gt;&gt;&gt; Membership.objects.all()
+&lt;QuerySet []&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>一旦你建立了自定义多对多关联关系，就可以执行查询操作。和一般的多对多关联关系一样，你可以使用多对多关联模型的属性来查询：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Find all the groups with a member whose name starts with &#39;Paul&#39;
+&gt;&gt;&gt; Group.objects.filter(members__name__startswith=&#39;Paul&#39;)
+&lt;QuerySet [&lt;Group: The Beatles&gt;]&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>当你使用中间模型的时候，你也可以查询他的属性：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Find all the members of the Beatles that joined after 1 Jan 1961
+&gt;&gt;&gt; Person.objects.filter(
+...     group__name=&#39;The Beatles&#39;,
+...     membership__date_joined__gt=date(1961,1,1))
+&lt;QuerySet [&lt;Person: Ringo Starr]&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>如果你想访问一个关系的信息时你可以直接查询Membership模型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; ringos_membership = Membership.objects.get(group=beatles, person=ringo)
+&gt;&gt;&gt; ringos_membership.date_joined
+datetime.date(1962, 8, 16)
+&gt;&gt;&gt; ringos_membership.invite_reason
+&#39;Needed a new drummer.&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>另一种访问同样信息的方法是通过Person对象来查询<strong>多对多递归关系</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; ringos_membership = ringo.membership_set.get(group=beatles)
+&gt;&gt;&gt; ringos_membership.date_joined
+datetime.date(1962, 8, 16)
+&gt;&gt;&gt; ringos_membership.invite_reason
+&#39;Needed a new drummer.&#39;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="一对一关联">一对一关联</h3>
+<p>使用OneToOneField来定义一对一关系。就像使用其他类型的Field一样：在模型属性中包含它。</p>
+<p>当一个对象以某种方式“继承”另一个对象时，这那个对象的主键非常有用。</p>
+<p>OneToOneField需要一个位置参数：与模型相关的类。</p>
+<p>例如，当你要建立一个有关“位置”信息的数据库时，你可能会包含通常的地址，电话等分支。然后，如果你想接着建立一个关于关于餐厅的数据库，除了将位置数据库当中的一部分复制到Restaurant模型，你也可以将一个指向Place  OneToOneField放到Restaurant当中（因为餐厅“是一个”地点）；事实上，在处理这样的情况时最好使用模型继承，它隐含的包括了一个一对一关系。</p>
+<p>和 ForeignKey一样，可以创建自关联关系也可以创建与尚未定义的模型的关系。</p>
+<p>OneToOneField初步还接受一个可选的parent_link参数。</p>
+<p>OneToOneField类通常自动的成为模型的主键，这条规则现在不再使用了（而你可以手动指定primary_key参数）。因此，现在可以在其中的模型当中指定多个OneToOneField分段。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2017-12-02</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/django%E6%A8%A1%E5%9E%8B/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/django%E6%A8%A1%E5%9E%8B/" data-title="Django模型" data-hashtags="后端框架,Django,Python"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/django%E6%A8%A1%E5%9E%8B/" data-hashtag="后端框架"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/django%E6%A8%A1%E5%9E%8B/" data-title="Django模型"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/django%E6%A8%A1%E5%9E%8B/" data-title="Django模型"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/django%E6%A8%A1%E5%9E%8B/" data-title="Django模型"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6/">后端框架</a>,&nbsp;<a href="/tags/django/">Django</a>,&nbsp;<a href="/tags/python/">Python</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/django%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE/" class="prev" rel="prev" title="Django创建第一个项目"><i class="fas fa-angle-left fa-fw"></i>Django创建第一个项目</a>
+            <a href="/django%E5%A4%84%E7%90%86http%E8%AF%B7%E6%B1%82/" class="next" rel="next" title="Django处理HTTP请求">Django处理HTTP请求<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

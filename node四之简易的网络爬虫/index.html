@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>node(四)之简易的网络爬虫 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="node(四)之简易的网络爬虫" />
+<meta property="og:description" content="爬虫的思路很简单： 确定要抓取的URL； 对URL进行抓取，获取网页内容； 对内容进行分析并存储； 重复第1步 在这节里做爬虫，我们使用到了两个重要的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2017-09-08T22:08:04+08:00" />
+<meta property="article:modified_time" content="2017-09-08T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="node(四)之简易的网络爬虫"/>
+<meta name="twitter:description" content="爬虫的思路很简单： 确定要抓取的URL； 对URL进行抓取，获取网页内容； 对内容进行分析并存储； 重复第1步 在这节里做爬虫，我们使用到了两个重要的"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" /><link rel="prev" href="http://www.nishinonanase.xyz/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" /><link rel="next" href="http://www.nishinonanase.xyz/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "node(四)之简易的网络爬虫",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB\/"
+        },"genre": "posts","keywords": "node","wordcount":  2840 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB\/","datePublished": "2017-09-08T22:08:04+08:00","dateModified": "2017-09-08T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">node(四)之简易的网络爬虫</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-09-08">2017-09-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2840 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" class="leancloud_visitors" data-flag-title="node(四)之简易的网络爬虫">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1-hello-world">1. hello world</a></li>
+            <li><a href="#2-爬取多个页面">2. 爬取多个页面</a>
+              <ul>
+                <li><a href="#21-同时抓取多个页面">2.1 同时抓取多个页面</a></li>
+                <li><a href="#22-控制同时请求的数量">2.2 控制同时请求的数量</a></li>
+              </ul>
+            </li>
+            <li><a href="#3-抓取需要登录的页面">3. 抓取需要登录的页面</a></li>
+            <li><a href="#4-保存抓取到的图片">4. 保存抓取到的图片</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>爬虫的思路很简单：</p>
+<ol>
+<li>确定要抓取的URL；</li>
+<li>对URL进行抓取，获取网页内容；</li>
+<li>对内容进行分析并存储；</li>
+<li>重复第1步</li>
+</ol>
+<p>在这节里做爬虫，我们使用到了两个重要的模块：</p>
+<ul>
+<li>request : 对http进行封装，提供更多、更方便的接口供我们使用，request进行的是异步请求。更多信息可以去[<a href="https://github.com/request/request" target="_blank" rel="noopener noreffer">request-github</a>]上进行查看</li>
+<li>cheerio : 类似于jQuery，可以使用$(), find(), text(), html()等方法提取页面中的元素和数据，不过若仔细比较起来，cheerio中的方法不如jQuery的多。</li>
+</ul>
+<h3 id="1-hello-world">1. hello world</h3>
+<p>说是hello world，其实首先开始的是最简单的抓取。我们就以cnode网站为例（<a href="https://cnodejs.org/" target="_blank" rel="noopener noreffer">https://cnodejs.org/</a>）,这个网站的特点是：</p>
+<ul>
+<li>不需要登录即可访问首页和其他页面</li>
+<li>页面都是同步渲染的，没有异步请求的问题</li>
+<li>DOM结构清晰</li>
+</ul>
+<p>代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var request = require(&#39;request&#39;),
+    cheerio = require(&#39;cheerio&#39;);
+
+request(&#39;https://cnodejs.org/&#39;, function(err, response, body){
+    if( !err &amp;&amp; response.statusCode == 200 ){
+        // body为源码
+        // 使用 cheerio.load 将字符串转换为 cheerio(jQuery) 对象，
+        // 按照jQuery方式操作即可
+        var $ = cheerio.load(body);
+        
+        // 输出导航的html代码
+        console.log( $(&#39;.nav&#39;).html() );
+    }
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>这样的一段代码就实现了一个简单的网络爬虫，爬取到源码后，再对源码进行拆解分析，比如我们要获取首页中第1页的 问题标题，作者，跳转链接，点击数量，回复数量。通过chrome，我们可以得到这样的结构：</p>
+<p>每个div[.cell]是一个题目完整的单元，在这里面，一个单元暂时称为$item</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+    title : $item.find(&#39;.topic_title&#39;).text(),
+    url : $item.find(&#39;.topic_title&#39;).attr(&#39;href&#39;),
+    author : $item.find(&#39;.user_avatar img&#39;).attr(&#39;title&#39;),
+    reply : $item.find(&#39;.count_of_replies&#39;).text(),
+    visits : $item.find(&#39;.count_of_visits&#39;).text()
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>因此，循环div[.cell]，就可以获取到我们想要的信息了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">request(&#39;https://cnodejs.org/?_t=&#39;+Date.now(), function(err, response, body){
+    if( !err &amp;&amp; response.statusCode == 200 ){
+        var $ = cheerio.load(body);
+
+        var data = [];
+        $(&#39;#topic_list .cell&#39;).each(function(){
+            var $this = $(this);
+            
+            // 使用trim去掉数据两端的空格
+            data.push({
+                title : trim($this.find(&#39;.topic_title&#39;).text()),
+                url : trim($this.find(&#39;.topic_title&#39;).attr(&#39;href&#39;)),
+                author : trim($this.find(&#39;.user_avatar img&#39;).attr(&#39;title&#39;)),
+                reply : trim($this.find(&#39;.count_of_replies&#39;).text()),
+                visits : trim($this.find(&#39;.count_of_visits&#39;).text())
+            })
+        });
+        // console.log( JSON.stringify(data, &#39; &#39;, 4) );
+        console.log(data);
+    }
+});
+
+// 删除字符串左右两端的空格
+function trim(str){ 
+    return str.replace(/(^\s*)|(\s*$)/g, &#34;&#34;);
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-爬取多个页面">2. 爬取多个页面</h3>
+<p>上面我们只爬取了一个页面，怎么在一个程序里爬取多个页面呢？还是以CNode网站为例，刚才只是爬取了第1页的数据，这里我们想请求它前6页的数据（别同时抓太多的页面，会被封IP的）。每个页面的结构是一样的，我们只需要修改url地址即可。</p>
+<h4 id="21-同时抓取多个页面">2.1 同时抓取多个页面</h4>
+<p>首先把request请求封装为一个方法，方便进行调用，若还是使用console.log方法的话，会把6页的数据都输出到控制台，看起来很不方便。这里我们就使用到了上节文件操作内容，引入<code>fs</code>模块，将获取到的内容写入到文件中，然后新建的文件放到file目录下（需手动创建file目录）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 把page作为参数传递进去，然后调用request进行抓取
+function getData(page){
+    var url = &#39;https://cnodejs.org/?tab=all&amp;page=&#39;+page;
+    console.time(url);
+    request(url, function(err, response, body){
+        if( !err &amp;&amp; response.statusCode == 200 ){
+            console.timeEnd(url); // 通过time和timeEnd记录抓取url的时间
+
+            var $ = cheerio.load(body);
+
+            var data = [];
+            $(&#39;#topic_list .cell&#39;).each(function(){
+                var $this = $(this);
+
+                data.push({
+                    title : trim($this.find(&#39;.topic_title&#39;).text()),
+                    url : trim($this.find(&#39;.topic_title&#39;).attr(&#39;href&#39;)),
+                    author : trim($this.find(&#39;.user_avatar img&#39;).attr(&#39;title&#39;)),
+                    reply : trim($this.find(&#39;.count_of_replies&#39;).text()),
+                    visits : trim($this.find(&#39;.count_of_visits&#39;).text())
+                })
+            });
+            // console.log( JSON.stringify(data, &#39; &#39;, 4) );
+            // console.log(data);
+            var filename = &#39;./file/cnode_&#39;+page+&#39;.txt&#39;;
+            fs.writeFile(filename, JSON.stringify(data, &#39; &#39;, 4), function(){
+                console.log( filename + &#39; 写入成功&#39; );
+            })
+        }
+    });
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>CNode分页请求的链接：<a href="https://cnodejs.org/?tab=all&amp;" target="_blank" rel="noopener noreffer">https://cnodejs.org/?tab=all&amp;</a><code>page=2</code>，我们只需要修改page的值即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var max = 6;
+for(var i=1; i&lt;=max; i++){
+
+    getData(i);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>这样就能同时请求前6页的数据了，执行文件后，会输出每个链接抓取成功时消耗的时间，抓取成功后再把相关的信息写入到文件中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ node test.js
+开始请求...
+https://cnodejs.org/?tab=all&amp;page=1: 279ms
+./file/cnode_1.txt 写入成功
+https://cnodejs.org/?tab=all&amp;page=3: 372ms
+./file/cnode_3.txt 写入成功
+https://cnodejs.org/?tab=all&amp;page=2: 489ms
+./file/cnode_2.txt 写入成功
+https://cnodejs.org/?tab=all&amp;page=4: 601ms
+./file/cnode_4.txt 写入成功
+https://cnodejs.org/?tab=all&amp;page=5: 715ms
+./file/cnode_5.txt 写入成功
+https://cnodejs.org/?tab=all&amp;page=6: 819ms
+./file/cnode_6.txt 写入成功
+</code></pre></td></tr></table>
+</div>
+</div><p>我们在file目录下就能看到输出的6个文件了。</p>
+<h4 id="22-控制同时请求的数量">2.2 控制同时请求的数量</h4>
+<p>我们在使用for循环后，会同时发起所有的请求，如果我们同时去请求100、200、500个页面呢，会造成短时间内对服务器发起大量的请求，最后就是被封IP。这里我写了一个调度方法，每次同时最多只能发起5个请求，上一个请求完成后，再从队列中取出一个进行请求。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">/*
+  @param data []  需要请求的链接的集合
+  @param max  num 最多同时请求的数量
+*/
+function Dispatch(data, max){
+    var _max = max || 5, // 最多请求的数量
+        _dataObj = data || [], // 需要请求的url集合
+        _cur = 0, // 当前请求的个数
+        _num = _dataObj.length || 0,
+        _isEnd = false,
+        _callback;
+
+    var ss = function(){
+        var s = _max - _cur;
+        while(s--){
+            if( !_dataObj.length ){
+                _isEnd = true;
+                break;
+            }
+            var surl = _dataObj.shift();
+            _cur++;
+
+            _callback(surl);
+        }
+    }
+
+    this.start = function(callback){
+        _callback = callback;
+
+        ss();
+    },
+
+    this.call = function(){
+        if( !_isEnd ){
+            _cur--;
+            ss();
+        }
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>var dis = new Dispatch(urls, max);
+dis.start(getData);</p>
+<p>然后在 getData 中，写入文件的后面，进行dis的回调调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var filename = &#39;./file/cnode_&#39;+page+&#39;.txt&#39;;
+fs.writeFile(filename, JSON.stringify(data, &#39; &#39;, 4), function(){
+    console.log( filename + &#39; 写入成功&#39; );
+})
+dis.call();
+</code></pre></td></tr></table>
+</div>
+</div><p>这样就实现了异步调用时控制同时请求的数量。不过现在已经有很多类似的框架可以控制并发的数量了，直接使用即可，比如<code>async</code>中的parallelLimit方法也是用来控制并发数量的。</p>
+<h3 id="3-抓取需要登录的页面">3. 抓取需要登录的页面</h3>
+<p>比如我们在抓取CNode，百度贴吧等一些网站，是不需要登录就可以直接抓取的，那么如知乎等网站，必须登录后才能抓取，否则直接跳转到登录页面。这种情况我们该怎么抓取呢？</p>
+<p>使用cookie。 用户登录后，都会在cookie中记录下用户的一些信息，我们在抓取一些页面，带上这些cookie，服务器就会认为我们处于登录状态，程序就能抓取到我们想要的信息。</p>
+<p>先在浏览器上登录我们的帐号，然后在console中使用<code>document.domain</code>获取到所有cookie的字符串，复制到下方程序的cookie处（如果你知道哪些cookie不需要，可以剔除掉）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">request({
+    url:&#39;https://www.zhihu.com/explore&#39;,
+    headers:{
+        // &#34;Referer&#34;:&#34;www.zhihu.com&#34;
+        cookie : xxx
+    }
+}, function(error, response, body){
+    if (!error &amp;&amp; response.statusCode == 200) {
+        // console.log( body );
+        var $ = cheerio.load(body);
+
+        
+    }
+})
+</code></pre></td></tr></table>
+</div>
+</div><p>同时在request中，还可以设定referer，比如有的接口或者其他数据，设定了referer的限制，必须在某个域名下才能访问。那么在request中，就可以设置referer来进行伪造。</p>
+<h3 id="4-保存抓取到的图片">4. 保存抓取到的图片</h3>
+<p>页面中的文本内容可以提炼后保存到文本或者数据库中，那么图片怎么保存到本地呢。</p>
+<p>图片可以使用request中的<code>pipe</code>方法输出到文件流中，然后使用<code>fs.createWriteStream</code>输出为图片。</p>
+<p>这里我们把图片保存到以日期创建的目录中，mkdirp可一次性创建多级目录（./img/2017/01/22）。保存的图片名称，可以使用原名称，也可以根据自己的规则进行命名。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var request = require(&#39;request&#39;),
+    cheerio = require(&#39;cheerio&#39;),
+    fs = require(&#39;fs&#39;),
+    path = require(&#39;path&#39;), // 用于分析图片的名称或者后缀名
+    mkdirp = require(&#39;mkdirp&#39;); // 用于创建多级目录
+
+var date = new Date(),
+    year = date.getFullYear(),
+    month = date.getMonth()+1,
+    month = (&#39;00&#39;+month).slice(-2), // 添加前置0
+    day = date.getDate(),
+    day = (&#39;00&#39;+day).slice(-2), // 添加前置0
+    dir = &#39;./img/&#39;+year+&#39;/&#39;+month+&#39;/&#39;+day+&#39;/&#39;;
+
+// 根据日期创建目录 ./img/2017/01/22/
+var stats = fs.statSync(dir);
+if( stats.isDirectory() ){
+    console.log(dir+&#39; 已存在&#39;);
+}else{
+    console.log(&#39;正在创建目录 &#39;+dir);
+    mkdirp(dir, function(err){
+        if(err) throw err;
+    })
+}
+
+request({
+    url : &#39;http://desk.zol.com.cn/meinv/?_t=&#39;+Date.now()
+}, function(err, response, body){
+    if(err) throw err;
+
+    if( response.statusCode == 200 ){
+        var $ = cheerio.load(body);
+        
+        $(&#39;.photo-list-padding img&#39;).each(function(){
+            var $this = $(this),
+                imgurl = $this.attr(&#39;src&#39;);
+            
+            var ext = path.extname(imgurl); // 获取图片的后缀名，如 .jpg, .png .gif等
+            var filename = Date.now()+&#39;_&#39;+ parseInt(Math.random()*10000)+ext; // 命名方式：毫秒时间戳+随机数+后缀名
+            // var filename = path.basename(imgurl); // 直接获取图片的原名称
+            // console.log(filename);
+            download(imgurl, dir+filename); // 开始下载图片
+        })
+    }
+});
+
+// 保存图片
+var download = function(imgurl, filename){
+    request.head(imgurl, function(err, res, body) {
+        request(imgurl).pipe(fs.createWriteStream(filename));
+        console.log(filename+&#39; success!&#39;);
+    });
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>在对应的日期目录里（如./img/2017/01/22/），就可以看到下载的图片了。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2017-09-08</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" data-title="node(四)之简易的网络爬虫" data-hashtags="node"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" data-hashtag="node"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" data-title="node(四)之简易的网络爬虫"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" data-title="node(四)之简易的网络爬虫"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" data-title="node(四)之简易的网络爬虫"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/node/">node</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" class="prev" rel="prev" title="node(三)之文件操作"><i class="fas fa-angle-left fa-fw"></i>node(三)之文件操作</a>
+            <a href="/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/" class="next" rel="next" title="node(五)之mysql数据库的操作">node(五)之mysql数据库的操作<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

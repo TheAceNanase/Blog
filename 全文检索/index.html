@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>全文检索 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="全文检索" />
+<meta property="og:description" content="Haystack 1.什么是Haystack Haystack是django的开源全文搜索框架(全文检索不同于特定字段的模糊查询，使用全文检索的效率更高 )，该" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2017-03-02T18:33:09+08:00" />
+<meta property="article:modified_time" content="2017-03-02T18:33:09+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="全文检索"/>
+<meta name="twitter:description" content="Haystack 1.什么是Haystack Haystack是django的开源全文搜索框架(全文检索不同于特定字段的模糊查询，使用全文检索的效率更高 )，该"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" /><link rel="prev" href="http://www.nishinonanase.xyz/%E5%B8%B8%E8%A7%81%E5%8F%8D%E7%88%AC%E7%AD%96%E7%95%A5%E5%8F%8A%E5%BA%94%E5%AF%B9%E6%96%B9%E6%A1%88/" /><link rel="next" href="http://www.nishinonanase.xyz/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BC%80%E5%8F%91/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "全文检索",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2\/"
+        },"genre": "posts","keywords": "技术要点, Django","wordcount":  3865 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2\/","datePublished": "2017-03-02T18:33:09+08:00","dateModified": "2017-03-02T18:33:09+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">全文检索</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/"><i class="far fa-folder fa-fw"></i>技术要点</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-03-02">2017-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3865 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" class="leancloud_visitors" data-flag-title="全文检索">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#haystack">Haystack</a>
+      <ul>
+        <li><a href="#1什么是haystack">1.什么是Haystack</a></li>
+        <li><a href="#2安装">2.安装</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#solr示例">Solr示例</a></li>
+                <li><a href="#elasticsearch示例">Elasticsearch示例</a></li>
+                <li><a href="#whoosh示例">Whoosh示例</a></li>
+                <li><a href="#xapian示例">Xapian示例</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#4处理数据">4.处理数据</a>
+          <ul>
+            <li><a href="#创建索引">创建索引</a></li>
+          </ul>
+        </li>
+        <li><a href="#5设置视图">5.设置视图</a>
+          <ul>
+            <li><a href="#添加searchview到你的urlconf">添加<code>SearchView</code>到你的<code>URLconf</code></a></li>
+            <li><a href="#搜索模板">搜索模板</a></li>
+            <li><a href="#重建索引">重建索引</a></li>
+          </ul>
+        </li>
+        <li><a href="#6使用jieba分词">6.使用jieba分词</a></li>
+        <li><a href="#8其它配置">8.其它配置</a>
+          <ul>
+            <li><a href="#增加更多变量">增加更多变量</a></li>
+            <li><a href="#高亮显示">高亮显示</a></li>
+          </ul>
+        </li>
+        <li><a href="#python操作elasticsearch">python操作ElasticSearch</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="haystack">Haystack</h1>
+<h2 id="1什么是haystack">1.什么是Haystack</h2>
+<p>　　Haystack是django的开源全文搜索框架(全文检索不同于特定字段的模糊查询，使用全文检索的效率更高 )，该框架支持<strong>Solr</strong>,<strong>Elasticsearch</strong>,<strong>Whoosh</strong>,**Xapian 搜索引擎它是一个可插拔的后端（很像Django的数据库层），所以几乎你所有写的代码都可以在不同搜索引擎之间便捷切换</p>
+<p>全文检索不同于特定字段的模糊查询，使用全文检索的效率更高，并且能够对于中文进行分词处理</p>
+<ul>
+<li>
+<p>haystack：django的一个包，可以方便地对model里面的内容进行索引、搜索，设计为支持whoosh,solr,Xapian,Elasticsearc四种全文检索引擎后端，属于一种全文检索的框架</p>
+</li>
+<li>
+<p>whoosh：纯Python编写的全文搜索引擎，虽然性能比不上sphinx、xapian、Elasticsearc等，但是无二进制包，程序不会莫名其妙的崩溃，对于小型的站点，whoosh已经足够使用</p>
+</li>
+<li>
+<p>jieba：一款免费的中文分词包，如果觉得不好用可以使用一些收费产品</p>
+</li>
+<li>
+<p>搜索引擎就好比一个数据库，搜索引擎将mgsql中的数据复制一份到搜索引擎。查询的时候直接通过搜索引擎来快速查询数据的结果。</p>
+</li>
+</ul>
+<h2 id="2安装">2.安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## 3.配置
+
+1 添加Haystack到`INSTALLED_APPS`
+
+　　跟大多数Django的应用一样，你应该在你的设置文件(通常是`settings.py`)添加Haystack到`INSTALLED_APPS`. 示例： 
+
+​```python
+
+INSTALLED_APPS = [
+
+    &#39;django.contrib.admin&#39;,
+
+    &#39;django.contrib.auth&#39;,
+
+    &#39;django.contrib.contenttypes&#39;,
+
+    &#39;django.contrib.sessions&#39;,
+
+    &#39;django.contrib.sites&#39;,
+
+​
+
+    # 添加
+
+    &#39;haystack&#39;,
+
+​
+
+    # 你的app
+
+    &#39;blog&#39;,
+
+]
+
+</code></pre></td></tr></table>
+</div>
+</div><p>2 修改<code>settings.py</code></p>
+<p>　　在你的<code>settings.py</code>中，你需要添加一个设置来指示站点配置文件正在使用的后端，以及其它的后端设置。 <code>HAYSTACK&amp;mdash;&amp;mdash;CONNECTIONS</code>是必需的设置，并且应该至少是以下的一种：</p>
+<h4 id="solr示例">Solr示例</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">HAYSTACK_CONNECTIONS</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+
+        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;haystack.backends.solr_backend.SolrEngine&#39;</span><span class="p">,</span>
+
+        <span class="s1">&#39;URL&#39;</span><span class="p">:</span> <span class="s1">&#39;http://127.0.0.1:8983/solr&#39;</span>
+
+        <span class="c1"># ...or for multicore...</span>
+
+        <span class="c1"># &#39;URL&#39;: &#39;http://127.0.0.1:8983/solr/mysite&#39;,</span>
+
+    <span class="p">},</span>
+
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="elasticsearch示例">Elasticsearch示例</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">HAYSTACK_CONNECTIONS</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+
+        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine&#39;</span><span class="p">,</span>
+
+        <span class="s1">&#39;URL&#39;</span><span class="p">:</span> <span class="s1">&#39;http://127.0.0.1:9200/&#39;</span><span class="p">,</span>
+
+        <span class="s1">&#39;INDEX_NAME&#39;</span><span class="p">:</span> <span class="s1">&#39;haystack&#39;</span><span class="p">,</span>
+
+    <span class="p">},</span>
+
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="whoosh示例">Whoosh示例</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">​```python
+
+import os
+
+HAYSTACK_CONNECTIONS = {
+
+    &#39;default&#39;: {
+
+        &#39;ENGINE&#39;: &#39;haystack.backends.whoosh_backend.WhooshEngine&#39;,
+
+        &#39;PATH&#39;: os.path.join(os.path.dirname(__file__), &#39;whoosh_index&#39;),
+
+    },
+
+}
+
+​&lt;br /&gt;
+
+​```md-fences md-end-block ty-contain-cm modeLoaded&#34;&gt;# 自动更新索引&lt;br /&gt;HAYSTACK_SIGNAL_PROCESSOR = &#39;haystack.signals.RealtimeSignalProcessor&#39;
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="xapian示例">Xapian示例</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">​```python
+
+import os
+
+HAYSTACK_CONNECTIONS = {
+
+    &#39;default&#39;: {
+
+        &#39;ENGINE&#39;: &#39;xapian_backend.XapianEngine&#39;,
+
+        &#39;PATH&#39;: os.path.join(os.path.dirname(__file__), &#39;xapian_index&#39;),
+
+    },
+
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="4处理数据">4.处理数据</h2>
+<h3 id="创建索引">创建索引</h3>
+<p>如果你想针对某个app例如blog做全文检索，则必须在blog的目录下面建立<code>search_indexes.py</code>文件，文件名不能修改</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">haystack</span> <span class="kn">import</span> <span class="n">indexes</span>
+
+<span class="kn">from</span> <span class="nn">app01.models</span> <span class="kn">import</span> <span class="n">Article</span>
+
+<span class="err">​</span>
+
+<span class="k">class</span> <span class="nc">ArticleIndex</span><span class="p">(</span><span class="n">indexes</span><span class="o">.</span><span class="n">SearchIndex</span><span class="p">,</span> <span class="n">indexes</span><span class="o">.</span><span class="n">Indexable</span><span class="p">):</span>
+
+    <span class="c1">#类名必须为需要检索的Model_name+Index，这里需要检索Article，所以创建ArticleIndex</span>
+
+    <span class="n">text</span> <span class="o">=</span> <span class="n">indexes</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">document</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">use_template</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="c1">#创建一个text字段 </span>
+
+    <span class="c1">#其它字段</span>
+
+    <span class="n">desc</span> <span class="o">=</span> <span class="n">indexes</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">model_attr</span><span class="o">=</span><span class="s1">&#39;desc&#39;</span><span class="p">)</span>
+
+    <span class="n">content</span> <span class="o">=</span> <span class="n">indexes</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">model_attr</span><span class="o">=</span><span class="s1">&#39;content&#39;</span><span class="p">)</span>
+
+<span class="err">​</span>
+
+    <span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="c1">#重载get_model方法，必须要有！</span>
+
+        <span class="k">return</span> <span class="n">Article</span>
+
+<span class="err">​</span>
+
+    <span class="k">def</span> <span class="nf">index_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_model</span><span class="p">()</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p> </p>
+<p>　　为什么要创建索引？索引就像是一本书的目录，可以为读者提供更快速的导航与查找。在这里也是同样的道理，当数据量非常大的时候，若要从这些数据里找出所有的满足搜索条件的几乎是不太可能的，将会给服务器带来极大的负担。所以我们需要为指定的数据添加一个索引（目录），在这里是为Note创建一个索引，索引的实现细节是我们不需要关心的，至于为它的哪些字段创建索引，怎么指定 ,下面开始讲解每个索引里面必须有且只能有一个字段为 document=True，这代表haystack 和搜索引擎将使用此字段的内容作为索引进行检索(primary field)。其他的字段只是附属的属性，方便调用，并不作为检索数据</p>
+<p>```md-fences md-end-block ty-contain-cm modeLoaded&quot;&gt;注意：如果使用一个字段设置了document=True，则一般约定此字段名为text，这是在ArticleIndex类里面一贯的命名，以防止后台混乱，当然名字你也可以随便改，不过不建议改。另外，我们在<code>text</code>字段上提供了<code>use_template=True</code>。这允许我们使用一个数据模板（而不是容易出错的级联）来构建文档搜索引擎索引。你应该在模板目录下建立新的模板<code>search/indexes/blog/article_text.txt</code>，并将下面内容放在里面。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">​```python
+
+{{ object.title }}
+
+{{ object.desc }}
+
+{{ object.content }}
+
+</code></pre></td></tr></table>
+</div>
+</div><p> </p>
+<p>这个数据模板的作用是对<code>Note.title</code>, <code>Note.user.get_full_name</code>,<code>Note.body</code>这三个字段建立索引，当检索的时候会对这三个字段做全文检索匹配</p>
+<h2 id="5设置视图">5.设置视图</h2>
+<h3 id="添加searchview到你的urlconf">添加<code>SearchView</code>到你的<code>URLconf</code></h3>
+<p>在你的<code>URLconf</code>中添加下面一行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="err">前后端不分离</span><span class="n">url</span><span class="o">&lt;</span><span class="n">br</span> <span class="o">/&gt;</span><span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^search/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;haystack.urls&#39;</span><span class="p">)),</span><span class="o">&lt;</span><span class="n">br</span> <span class="o">/&gt;&lt;</span><span class="n">br</span> <span class="o">/&gt;</span><span class="err">前后端分离</span><span class="n">url</span><span class="o">&lt;</span><span class="n">br</span> <span class="o">/&gt;</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;search/&#39;</span><span class="p">,</span> <span class="n">MySearchView</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;haystack_search&#39;</span><span class="p">),</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这会拉取Haystack的默认URLconf，它由单独指向<code>SearchView</code>实例的URLconf组成。你可以通过传递几个关键参数或者完全重新它来改变这个类的行为。</p>
+<p> </p>
+<p>前后端分离后台重写create_response方法，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">haystack.views</span> <span class="kn">import</span> <span class="n">SearchView</span>
+
+
+
+<span class="k">class</span> <span class="nc">MySearchView</span><span class="p">(</span><span class="n">SearchView</span><span class="p">):</span>
+
+
+
+    <span class="k">def</span> <span class="nf">create_response</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_context</span><span class="p">()</span>
+
+        <span class="n">keyword</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>  <span class="c1"># 关键字为q</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">keyword</span><span class="p">:</span>
+
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;没有相关信息&#39;</span><span class="p">})</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">data_list</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+
+                          <span class="s1">&#39;model_img&#39;</span><span class="p">:</span> <span class="s1">&#39;http://api.modelbox.cn:8000/media/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">model_img</span><span class="p">),</span>
+
+                          <span class="s1">&#39;download_num&#39;</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">download_num</span><span class="p">,</span> <span class="s1">&#39;collect_num&#39;</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">download_num</span><span class="p">}</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span>
+
+                         <span class="n">context</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">object_list</span><span class="p">]</span>
+
+         <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">json_dumps_params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ensure_ascii&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">})</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="搜索模板">搜索模板</h3>
+<p>你的搜索模板(默认在<code>search/search.html</code>)将可能非常简单。下面的足够让你的搜索运行(你的<code>template/block</code>应该会不同)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&lt;</span><span class="err">!</span><span class="n">DOCTYPE</span> <span class="n">html</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">html</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">head</span><span class="o">&gt;</span>
+
+    <span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;&lt;/</span><span class="n">title</span><span class="o">&gt;</span>
+
+    <span class="o">&lt;</span><span class="n">style</span><span class="o">&gt;</span>
+
+        <span class="n">span</span><span class="o">.</span><span class="n">highlighted</span> <span class="p">{</span>
+
+            <span class="n">color</span><span class="p">:</span> <span class="n">red</span><span class="p">;</span>
+
+        <span class="p">}</span>
+
+    <span class="o">&lt;/</span><span class="n">style</span><span class="o">&gt;</span>
+
+<span class="o">&lt;/</span><span class="n">head</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">body</span><span class="o">&gt;</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">highlight</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">query</span> <span class="o">%</span><span class="p">}</span>
+
+    <span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="err">搜索结果如下：</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+
+    <span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">object_list</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">{</span><span class="c1">#        &lt;a href=&#34;/{{ result.object.id }}/&#34;&gt;{{ result.object.title }}&lt;/a&gt;&lt;br/&gt;#}</span>
+
+        <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&#34;/{{ result.object.id }}/&#34;</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span>   <span class="n">highlight</span> <span class="n">result</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">title</span> <span class="k">with</span> <span class="n">query</span> <span class="n">max_length</span> <span class="mi">2</span><span class="o">%</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;</span><span class="n">br</span><span class="o">/&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">result</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">content</span><span class="o">|</span><span class="n">safe</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span> <span class="n">highlight</span> <span class="n">result</span><span class="o">.</span><span class="n">content</span> <span class="k">with</span> <span class="n">query</span> <span class="o">%</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+
+    <span class="p">{</span><span class="o">%</span> <span class="n">empty</span> <span class="o">%</span><span class="p">}</span>
+
+        <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="err">啥也没找到</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+
+    <span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+
+
+
+    <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">has_previous</span> <span class="ow">or</span> <span class="n">page</span><span class="o">.</span><span class="n">has_next</span> <span class="o">%</span><span class="p">}</span>
+
+        <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
+
+            <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">has_previous</span> <span class="o">%</span><span class="p">}</span>
+
+                <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&#34;?q={{ query }}&amp;amp;amp;page={{ page.previous_page_number }}&#34;</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">laquo</span><span class="p">;</span> <span class="err">上一页</span>
+
+            <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">has_previous</span> <span class="o">%</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+
+            <span class="o">|</span>
+
+            <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">has_next</span> <span class="o">%</span><span class="p">}</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&#34;?q={{ query }}&amp;amp;amp;page={{ page.next_page_number }}&#34;</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span><span class="err">下一页</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">raquo</span><span class="p">;</span>
+
+            <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">has_next</span> <span class="o">%</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+
+        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+
+    <span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="o">&lt;/</span><span class="n">body</span><span class="o">&gt;</span>
+
+<span class="o">&lt;/</span><span class="n">html</span><span class="o">&gt;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>需要注意的是<code>page.object_list</code>实际上是<code>SearchResult</code>对象的列表。这些对象返回索引的所有数据。它们可以通过<code>{{result.object}}</code>来访问。所以<code>{{ result.object.title}}</code>实际使用的是数据库中Article对象来访问<code>title</code>字段的。</p>
+<h3 id="重建索引">重建索引</h3>
+<p>现在你已经配置好了所有的事情，是时候把数据库中的数据放入索引了。Haystack附带的一个命令行管理工具使它变得很容易。</p>
+<p>简单的运行python <code>./manage.py rebuild_index</code>。你会得到有多少模型进行了处理并放进索引的统计。</p>
+<h2 id="6使用jieba分词">6.使用jieba分词</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">#保存在haystack的安装文件夹下，路径如&amp;ldquo;D:\python3\Lib\site-packages\haystack\backends&amp;rdquo;
+
+​```python
+
+import jieba
+
+from whoosh.analysis import Tokenizer, Token
+
+
+
+class ChineseTokenizer(Tokenizer):
+
+    def __call__(self, value, positions=False, chars=False,
+
+                 keeporiginal=False, removestops=True,
+
+                 start_pos=0, start_char=0, mode=&#39;&#39;, **kwargs):
+
+        t = Token(positions, chars, removestops=removestops, mode=mode,
+
+                  **kwargs)
+
+        seglist = jieba.cut(value, cut_all=True)
+
+        for w in seglist:
+
+            t.original = t.text = w
+
+            t.boost = 1.0
+
+            if positions:
+
+                t.pos = start_pos + value.find(w)
+
+            if chars:
+
+                t.startchar = start_char + value.find(w)
+
+                t.endchar = start_char + value.find(w) + len(w)
+
+            yield t
+
+
+
+def ChineseAnalyzer():
+
+    return ChineseTokenizer()
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">#注意：复制出来的文件名，末尾会有一个空格，记得要删除这个空格
+
+from .ChineseAnalyzer import ChineseAnalyzer 
+
+查找
+
+analyzer=StemmingAnalyzer()
+
+改为
+
+analyzer=ChineseAnalyzer()
+
+
+
+## 7.在模版中创建搜索栏
+
+​```python
+
+&lt;form method=&#39;get&#39; action=&#34;/search/&#34; target=&#34;_blank&#34;&gt;
+
+    &lt;input type=&#34;text&#34; name=&#34;q&#34;&gt;
+
+    &lt;input type=&#34;submit&#34; value=&#34;查询&#34;&gt;
+
+&lt;/form&gt;
+
+</code></pre></td></tr></table>
+</div>
+</div><p> </p>
+<h2 id="8其它配置">8.其它配置</h2>
+<h3 id="增加更多变量">增加更多变量</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">haystack.views</span> <span class="kn">import</span> <span class="n">SearchView</span>  
+
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="o">*</span>  
+
+      
+
+<span class="k">class</span> <span class="nc">MySeachView</span><span class="p">(</span><span class="n">SearchView</span><span class="p">):</span>  
+
+     <span class="k">def</span> <span class="nf">extra_context</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>       <span class="c1">#重载extra_context来添加额外的context内容  </span>
+
+         <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">MySeachView</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">extra_context</span><span class="p">()</span>  
+
+         <span class="n">side_list</span> <span class="o">=</span> <span class="n">Topic</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;add_date&#39;</span><span class="p">)[:</span><span class="mi">8</span><span class="p">]</span>  
+
+         <span class="n">context</span><span class="p">[</span><span class="s1">&#39;side_list&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">side_list</span>  
+
+         <span class="k">return</span> <span class="n">context</span>  
+
+      
+
+<span class="c1">#路由修改</span>
+
+<span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^search/&#39;</span><span class="p">,</span> <span class="n">search_views</span><span class="o">.</span><span class="n">MySeachView</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;haystack_search&#39;</span><span class="p">),</span>  
+
+</code></pre></td></tr></table>
+</div>
+</div><p> </p>
+<h3 id="高亮显示">高亮显示</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span><span class="o">%</span> <span class="n">highlight</span> <span class="n">result</span><span class="o">.</span><span class="n">summary</span> <span class="k">with</span> <span class="n">query</span> <span class="o">%</span><span class="p">}</span>  
+
+<span class="c1"># 这里可以限制最终{{ result.summary }}被高亮处理后的长度  </span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">highlight</span> <span class="n">result</span><span class="o">.</span><span class="n">summary</span> <span class="k">with</span> <span class="n">query</span> <span class="n">max_length</span> <span class="mi">40</span> <span class="o">%</span><span class="p">}</span>  
+
+
+
+<span class="c1">#html中</span>
+
+    <span class="o">&lt;</span><span class="n">style</span><span class="o">&gt;</span>
+
+        <span class="n">span</span><span class="o">.</span><span class="n">highlighted</span> <span class="p">{</span>
+
+            <span class="n">color</span><span class="p">:</span> <span class="n">red</span><span class="p">;</span>
+
+        <span class="p">}</span>
+
+    <span class="o">&lt;/</span><span class="n">style</span><span class="o">&gt;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p> </p>
+<p> </p>
+<p><strong>Elasticsearch</strong></p>
+<p> </p>
+<p><strong>简介：</strong></p>
+<p>Elasticsearch 是一个分布式可扩展的实时搜索和分析引擎,一个建立在全文搜索引擎 Apache Lucene(TM) 基础上的搜索引擎.当然 Elasticsearch 并不仅仅是 Lucene 那么简单，它不仅包括了全文搜索功能，还可以进行以下工作:</p>
+<ul>
+<li>
+<p>分布式实时文件存储，并将每一个字段都编入索引，使其可以被搜索。</p>
+</li>
+<li>
+<p>可实现亿级数据实时查询</p>
+</li>
+<li>
+<p>实时分析的分布式搜索引擎。</p>
+</li>
+<li>
+<p>可以扩展到上百台服务器，处理PB级别的结构化或非结构化数据。</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>安装：</strong></p>
+<p><a href="https://www.elastic.co/cn/downloads/elasticsearch" target="_blank"> 下载地址</a></p>
+<p>注意：Elasticsearch是用Java开发的，最新版本的Elasticsearch需要安装jdk1.8以上的环境</p>
+<p>安装包下载完，解压，进入到bin目录，启动 elasticsearch.bat 即可</p>
+<p> </p>
+<h2 id="python操作elasticsearch">python操作ElasticSearch</h2>
+<p> </p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="kn">import</span> <span class="n">Elasticsearch</span>
+
+
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">Elasticsearch</span><span class="p">()</span>
+
+<span class="c1"># 创建索引（Index）</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;userid&#34;</span><span class="p">:</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;username&#39;</span><span class="p">:</span><span class="s1">&#39;lqz&#39;</span><span class="p">},</span><span class="n">ignore</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+
+<span class="c1"># print(result)</span>
+
+<span class="c1"># 删除索引</span>
+
+<span class="c1"># result = obj.indices.delete(index=&#39;user&#39;, ignore=[400, 404])</span>
+
+<span class="c1"># 插入数据</span>
+
+<span class="c1"># data = {&#39;userid&#39;: &#39;1&#39;, &#39;username&#39;: &#39;lqz&#39;,&#39;password&#39;:&#39;123&#39;}</span>
+
+<span class="c1"># result = obj.create(index=&#39;news&#39;, doc_type=&#39;politics&#39;, id=1, body=data)</span>
+
+<span class="c1"># print(result)</span>
+
+<span class="c1"># 更新数据</span>
+
+<span class="s1">&#39;&#39;&#39;
+</span><span class="s1">
+</span><span class="s1">不用doc包裹会报错
+</span><span class="s1">
+</span><span class="s1">ActionRequestValidationException[Validation Failed: 1: script or doc is missing
+</span><span class="s1">
+</span><span class="s1">&#39;&#39;&#39;</span>
+
+<span class="c1"># data ={&#39;doc&#39;:{&#39;userid&#39;: &#39;1&#39;, &#39;username&#39;: &#39;lqz&#39;,&#39;password&#39;:&#39;123ee&#39;,&#39;test&#39;:&#39;test&#39;}}</span>
+
+<span class="c1"># result = obj.update(index=&#39;news&#39;, doc_type=&#39;politics&#39;, body=data, id=1)</span>
+
+<span class="c1"># print(result)</span>
+
+
+
+
+
+<span class="c1"># 删除数据</span>
+
+<span class="c1"># result = obj.delete(index=&#39;news&#39;, doc_type=&#39;politics&#39;, id=1)</span>
+
+
+
+<span class="c1"># 查询</span>
+
+<span class="c1"># 查找所有文档</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;query&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;match_all&#39;</span><span class="p">:</span> <span class="p">{}}}</span>
+
+<span class="c1">#  查找名字叫做jack的所有文档</span>
+
+<span class="c1"># query = {&#39;query&#39;: {&#39;term&#39;: {&#39;username&#39;: &#39;lqz&#39;}}}</span>
+
+
+
+<span class="c1"># 查找年龄大于11的所有文档</span>
+
+<span class="c1"># query = {&#39;query&#39;: {&#39;range&#39;: {&#39;age&#39;: {&#39;gt&#39;: 11}}}}</span>
+
+
+
+<span class="n">allDoc</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="n">doc_type</span><span class="o">=</span><span class="s1">&#39;politics&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">allDoc</span><span class="p">[</span><span class="s1">&#39;hits&#39;</span><span class="p">][</span><span class="s1">&#39;hits&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;_source&#39;</span><span class="p">])</span>
+
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2017-03-02</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" data-title="全文检索" data-hashtags="技术要点,Django"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" data-hashtag="技术要点"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" data-title="全文检索"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" data-title="全文检索"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" data-title="全文检索"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/">技术要点</a>,&nbsp;<a href="/tags/django/">Django</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%B8%B8%E8%A7%81%E5%8F%8D%E7%88%AC%E7%AD%96%E7%95%A5%E5%8F%8A%E5%BA%94%E5%AF%B9%E6%96%B9%E6%A1%88/" class="prev" rel="prev" title="常见反爬策略及应对方案"><i class="fas fa-angle-left fa-fw"></i>常见反爬策略及应对方案</a>
+            <a href="/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BC%80%E5%8F%91/" class="next" rel="next" title="前后端分离开发">前后端分离开发<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

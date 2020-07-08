@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Django的安全性 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="Django的安全性" />
+<meta property="og:description" content="跨站点脚本（XSS）保护 XSS攻击使用户可以将客户端脚本注入其他用户的浏览器中。通常，这是通过将恶意脚本存储在数据库中进行检索并将其显示给其" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2018-03-19T22:08:04+08:00" />
+<meta property="article:modified_time" content="2018-03-19T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Django的安全性"/>
+<meta name="twitter:description" content="跨站点脚本（XSS）保护 XSS攻击使用户可以将客户端脚本注入其他用户的浏览器中。通常，这是通过将恶意脚本存储在数据库中进行检索并将其显示给其"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/" /><link rel="prev" href="http://www.nishinonanase.xyz/django%E9%83%A8%E7%BD%B2%E6%B8%85%E5%8D%95/" /><link rel="next" href="http://www.nishinonanase.xyz/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Django的安全性",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7\/"
+        },"genre": "posts","keywords": "后端框架, Django, Python, 部署, 基础理论","wordcount":  4089 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7\/","datePublished": "2018-03-19T22:08:04+08:00","dateModified": "2018-03-19T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Django的安全性</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2018-03-19">2018-03-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4089 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;<span id="/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/" class="leancloud_visitors" data-flag-title="Django的安全性">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#跨站点脚本xss保护">跨站点脚本（XSS）保护</a></li>
+        <li><a href="#跨站点请求伪造csrf保护">跨站点请求伪造（CSRF）保护</a></li>
+        <li><a href="#sql注入防护">SQL注入防护</a></li>
+        <li><a href="#点击劫持保护">点击劫持保护</a></li>
+        <li><a href="#ssl--https">SSL / HTTPS</a></li>
+        <li><a href="#主机头验证">主机头验证</a></li>
+        <li><a href="#推荐人政策">推荐人政策</a></li>
+        <li><a href="#会话安全">会话安全</a></li>
+        <li><a href="#用户上传的内容">用户上传的内容</a></li>
+        <li><a href="#其他安全主题">其他安全主题</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="跨站点脚本xss保护">跨站点脚本（XSS）保护</h2>
+<p>XSS攻击使用户可以将客户端脚本注入其他用户的浏览器中。通常，这是通过将恶意脚本存储在数据库中进行检索并将其显示给其他用户，或者通过使用户单击链接而导致攻击者的JavaScript由用户的浏览器执行来实现的。但是，只要未在包含在页面中之前对数据进行足够的清理，XSS攻击就可能源自任何不受信任的数据源，例如cookie或Web服务。</p>
+<p>使用Django模板可以保护您免受大多数XSS攻击。但是，重要的是要了解其提供的保护及其限制。</p>
+<p>Django模板会转义特定字符 ，这对于HTML来说尤其危险。尽管这可以保护用户免受大多数恶意输入的侵害，但这并不是绝对安全的。例如，它将不会保护以下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;style class={{ var }}&gt;...&lt;/style&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>如果var将设置为，则可能导致未经授权的JavaScript执行，具体取决于浏览器如何呈现不完美的HTML。（引用属性值将解决这种情况。）&lsquo;class1 onmouseover=javascript:func()&rsquo;</p>
+<p>is_safe与自定义模板标签，safe模板标签一起使用mark_safe以及关闭自动转义功能时，请务必特别小心。</p>
+<p>此外，如果您使用模板系统输出HTML以外的内容，则可能会有完全分开的字符和单词需要转义。</p>
+<p>在数据库中存储HTML时，也应特别小心，尤其是在检索和显示HTML时。</p>
+<h2 id="跨站点请求伪造csrf保护">跨站点请求伪造（CSRF）保护</h2>
+<p>CSRF攻击允许恶意用户使用另一用户的凭据执行操作，而无需该用户的知识或同意。</p>
+<p>Django具有针对大多数CSRF攻击的内置保护，只要您在适当的地方启用和使用它即可。但是，与任何缓解技术一样，存在局限性。例如，可以全局禁用或针对特定视图禁用CSRF模块。仅当您知道自己在做什么时，才应该这样做。如果您的站点具有您无法控制的子域，则还有其他限制。</p>
+<p>CSRF保护通过检查每个POST请求中的秘密来起作用。这样可以确保恶意用户无法将表单POST“重播”到您的网站，而让另一个登录用户无意间提交该表单。恶意用户必须知道特定于用户的秘密（使用cookie）。</p>
+<p>与HTTPS一起部署时， CsrfViewMiddleware将检查HTTP引用标头是否设置为同一来源（包括子域和端口）上的URL。因为HTTPS提供了额外的安全性，所以必须通过转发不安全的连接请求并对支持的浏览器使用HSTS来确保连接使用HTTPS可用的连接。</p>
+<p>csrf_exempt除非绝对必要，否则请小心用装饰器标记视图。</p>
+<h2 id="sql注入防护">SQL注入防护</h2>
+<p>SQL注入是一种攻击，恶意用户能够在数据库上执行任意SQL代码。这可能导致记录被删除或数据泄漏。</p>
+<p>由于Django的查询集是使用查询参数化构造的，因此可以防止SQL注入。查询的SQL代码是与查询的参数分开定义的。由于参数可能是用户提供的，因此是不安全的，因此底层数据库驱动程序会对其进行转义。</p>
+<p>Django还使开发人员可以编写原始查询或执行自定义sql。这些功能应谨慎使用，并且您应始终小心谨慎地转义用户可以控制的任何参数。此外，使用extra() 和时应格外小心RawSQL。</p>
+<h2 id="点击劫持保护">点击劫持保护</h2>
+<p>点击劫持是一种攻击，其中恶意站点将另一个站点包装在框架中。这种攻击可能导致毫无戒心的用户被诱骗在目标站点上执行意外的操作。</p>
+<p>Django包含clickjacking保护，其形式为 在支持的浏览器中可以防止网站在框架内呈现。可以基于每个视图禁用保护或配置发送的确切报头值。X-Frame-Options middleware</p>
+<p>强烈建议将中间件用于任何不需要第三方站点将其页面包装在框架中的站点，或者只需要允许站点的一小部分使用该中间件。</p>
+<h2 id="ssl--https">SSL / HTTPS</h2>
+<p>在HTTPS后面部署站点对于安全性而言总是更好的选择。否则，恶意网络用户可能会嗅探身份验证凭据或客户端与服务器之间传输的任何其他信息，并且在某些情况下（活动的网络攻击者）可能会更改沿任一方向发送的数据。</p>
+<p>如果您想要HTTPS提供的保护并已在服务器上启用了该保护，则可能需要执行一些其他步骤：</p>
+<ul>
+<li>如有必要，请设置SECURE_PROXY_SSL_HEADER，以确保您已充分了解其中的警告。否则可能会导致CSRF漏洞，而如果不正确做则也很危险！</li>
+<li>设置SECURE_SSL_REDIRECT为True，以便将通过HTTP的请求重定向到HTTPS。请注意下的警告SECURE_PROXY_SSL_HEADER。对于反向代理，配置主Web服务器以重定向到HTTPS可能更容易或更安全。</li>
+<li>使用“安全”  cookie。如果浏览器最初是通过HTTP连接（这是大多数浏览器的默认设置），则可能会泄漏现有的Cookie。因此，您应将SESSION_COOKIE_SECURE和 CSRF_COOKIE_SECURE设置设置为True。这指示浏览器仅通过HTTPS连接发送这些cookie。请注意，这将意味着会话将无法通过HTTP进行工作，并且CSRF保护将阻止通过HTTP接受任何POST数据（如果您将所有HTTP流量都重定向到HTTPS，这将很好）。</li>
+<li>使用HTTP严格传输安全性（HSTS）HSTS是一个HTTP标头，它通知浏览器将来与特定站点的所有连接都应始终使用HTTPS。结合通过HTTP将请求重定向到HTTPS，这将确保只要发生一次成功的连接，连接就始终可以享受SSL的额外安全性。HSTS既可以与配置SECURE_HSTS_SECONDS， SECURE_HSTS_INCLUDE_SUBDOMAINS以及SECURE_HSTS_PRELOAD，或在Web服务器上。</li>
+</ul>
+<h2 id="主机头验证">主机头验证</h2>
+<p>Host在某些情况下，Django使用客户端提供的标头构造URL。尽管清除了这些值以防止跨站点脚本攻击，但伪造的Host值可用于跨站点请求伪造，缓存中毒攻击和电子邮件中的中毒链接。</p>
+<p>因为即使看似安全的Web服务器配置也容易受到伪造的 Host标头的影响，所以Django会根据方法Host中的ALLOWED_HOSTS设置来 验证标头 django.http.HttpRequest.get_host()。</p>
+<p>此验证仅通过get_host()；如果您的代码Host直接从request.META您访问标头，则会绕过此安全保护。</p>
+<p>有关更多详细信息，请参见完整ALLOWED_HOSTS文档。</p>
+<p>**警告：**本文档的先前版本建议配置Web服务器，以确保它验证传入的HTTP Host标头。尽管仍然建议这样做，但是在许多常见的Web服务器中，似乎可以验证Host标头的配置实际上可能没有这样做。例如，即使将Apache配置为从具有该ServerName设置的非默认虚拟主机为Django站点提供服务，HTTP请求仍然有可能匹配该虚拟主机并提供伪造的Host标头。因此，Django现在要求您进行ALLOWED_HOSTS显式设置，而不是依赖于Web服务器配置。</p>
+<p>此外，如果您的配置需要Django，则Django要求您显式启用对X-Forwarded-Host标头的支持 （通过USE_X_FORWARDED_HOST设置）。</p>
+<h2 id="推荐人政策">推荐人政策</h2>
+<p>浏览器使用Referer标头作为向用户发送有关用户到达那里的信息的方式。通过设置引荐来源网址策略，您可以帮助保护用户的隐私，并限制在哪种情况下设置 Referer标头。有关详细信息，请参见安全中间件参考的引荐来源网址策略部分。</p>
+<h2 id="会话安全">会话安全</h2>
+<p>与CSRF的限制类似，它要求部署网站以使不受信任的用户无法访问任何子域，这 django.contrib.sessions也有限制。有关详细信息，请参见<a href="https://docs.djangoproject.com/en/3.0/topics/http/sessions/#topics-session-security" target="_blank" rel="noopener noreffer">有关安全性的会话主题指南部分</a>。</p>
+<h2 id="用户上传的内容">用户上传的内容</h2>
+<p>**注意：**考虑从云服务或CDN提供静态文件，以避免其中的某些问题。</p>
+<ul>
+<li>如果您的站点接受文件上传，则强烈建议您将Web服务器配置中的这些上传限制为合理的大小，以防止拒绝服务（DOS）攻击。在Apache中，可以使用LimitRequestBody指令轻松设置此值。</li>
+<li>如果您要提供自己的静态文件，请确保mod_php禁用诸如Apache的处理程序，该处理程序 将静态文件作为代码执行。您不希望用户能够通过上载和请求特制文件来执行任意代码。</li>
+<li>当以不遵循安全最佳实践的方式提供媒体时，Django的媒体上传处理会带来一些漏洞。具体来说，如果HTML文件包含有效的PNG标头和恶意HTML，则该HTML文件可以作为图像上传。该文件将通过Django用于ImageField图像处理的库的验证（枕头）。随后将该文件显示给用户时，根据您的Web服务器的类型和配置，它可能会显示为HTML。在框架级别没有可以安全验证所有用户上传文件内容的防弹技术解决方案，但是，您可以采取一些其他步骤来减轻这些攻击：通过始终为来自不同的顶级域或第二级域的用户上传的内容提供服务，可以防止一类攻击。这样可以防止任何由同源策略保护（例如跨站点脚本）阻止的漏洞利用。例如，如果您的网站在上运行example.com，您可能希望通过来提供上载的内容（MEDIA_URL设置）usercontent-example.com。这是不是足以从像一个子域提供内容usercontent.example.com。除此之外，应用程序可能会选择为用户上传的文件定义允许的文件扩展名白名单，并将Web服务器配置为仅提供此类文件。</li>
+</ul>
+<h2 id="其他安全主题">其他安全主题</h2>
+<p>尽管Django提供了开箱即用的良好安全保护，但是正确部署应用程序并利用Web服务器，操作系统和其他组件的安全保护仍然很重要。</p>
+<ul>
+<li>确保您的Python代码在Web服务器根目录之外。这将确保您的Python代码不会意外地用作纯文本（或意外地执行）。</li>
+<li>注意任何用户上传的文件。</li>
+<li>Django不会限制对用户进行身份验证的请求。为了防止对身份验证系统的暴力攻击，您可以考虑部署Django插件或Web服务器模块来限制这些请求。</li>
+<li>保守SECRET_KEY秘密</li>
+<li>最好使用防火墙限制缓存系统和数据库的可访问性。</li>
+<li>查看开放式Web应用程序安全项目（OWASP）的前10个列表，该列表确定了Web应用程序中的一些常见漏洞。尽管Django拥有解决某些问题的工具，但在项目设计中必须考虑其他问题。</li>
+<li>Mozilla讨论了有关Web安全的各种主题。他们的页面还包含适用于任何系统的安全性原则。</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-03-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/" data-title="Django的安全性" data-hashtags="后端框架,Django,Python,部署,基础理论"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/" data-hashtag="后端框架"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/" data-title="Django的安全性"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/" data-title="Django的安全性"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/django%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/" data-title="Django的安全性"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6/">后端框架</a>,&nbsp;<a href="/tags/django/">Django</a>,&nbsp;<a href="/tags/python/">Python</a>,&nbsp;<a href="/tags/%E9%83%A8%E7%BD%B2/">部署</a>,&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">基础理论</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/django%E9%83%A8%E7%BD%B2%E6%B8%85%E5%8D%95/" class="prev" rel="prev" title="Django部署清单"><i class="fas fa-angle-left fa-fw"></i>Django部署清单</a>
+            <a href="/django%E7%9A%84%E7%BC%93%E5%AD%98%E6%A1%86%E6%9E%B6/" class="next" rel="next" title="Django的缓存框架">Django的缓存框架<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

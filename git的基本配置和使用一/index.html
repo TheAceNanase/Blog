@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Git的基本配置和使用(一) - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="Git的基本配置和使用(一)" />
+<meta property="og:description" content="Git 简介与安装 Git 是目前世界上最先进的分布式版本控制系统。 在 git-scm.com 下载适合自己系统的 git-bash软件，照着官方说明安装即可。 Git 的两个核心概念 三个" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2017-10-13T22:08:04+08:00" />
+<meta property="article:modified_time" content="2017-10-13T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Git的基本配置和使用(一)"/>
+<meta name="twitter:description" content="Git 简介与安装 Git 是目前世界上最先进的分布式版本控制系统。 在 git-scm.com 下载适合自己系统的 git-bash软件，照着官方说明安装即可。 Git 的两个核心概念 三个"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80/" /><link rel="prev" href="http://www.nishinonanase.xyz/node%E4%B8%83%E4%B9%8Bexpress%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93%E8%AE%BA%E5%9D%9B/" /><link rel="next" href="http://www.nishinonanase.xyz/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%BA%8C/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Git的基本配置和使用(一)",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80\/"
+        },"genre": "posts","keywords": "Git, 开发工具","wordcount":  1310 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80\/","datePublished": "2017-10-13T22:08:04+08:00","dateModified": "2017-10-13T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Git的基本配置和使用(一)</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-10-13">2017-10-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1310 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80/" class="leancloud_visitors" data-flag-title="Git的基本配置和使用(一)">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#git-简介与安装">Git 简介与安装</a></li>
+        <li><a href="#git-的两个核心概念">Git 的两个核心概念</a></li>
+        <li><a href="#git-配置">Git 配置</a></li>
+        <li><a href="#git-本地仓库使用">Git 本地仓库使用</a>
+          <ul>
+            <li><a href="#初始化">初始化</a></li>
+            <li><a href="#添加到暂存区">添加到暂存区。</a></li>
+            <li><a href="#查询当前状态">查询当前状态。</a></li>
+            <li><a href="#添加到仓库">添加到仓库</a></li>
+            <li><a href="#查看日志">查看日志</a></li>
+            <li><a href="#回到过去回到未来">回到过去/回到未来</a>
+              <ul>
+                <li><a href="#回到过去">回到过去</a></li>
+                <li><a href="#回到未来">回到未来</a></li>
+                <li><a href="#关于-git-log-和-git-reflog-的区别">关于 git log 和 git reflog 的区别</a></li>
+              </ul>
+            </li>
+            <li><a href="#创建分支切换分支合并分支">创建分支、切换分支、合并分支</a>
+              <ul>
+                <li><a href="#创建分支">创建分支</a></li>
+                <li><a href="#切换分支">切换分支</a></li>
+                <li><a href="#合并分支">合并分支</a></li>
+                <li><a href="#分支演示">分支演示：</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="git-简介与安装">Git 简介与安装</h2>
+<p>Git 是目前世界上最先进的分布式版本控制系统。</p>
+<p>在 <a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreffer">git-scm.com</a> 下载适合自己系统的 git-bash软件，照着官方说明安装即可。</p>
+<h2 id="git-的两个核心概念">Git 的两个核心概念</h2>
+<ul>
+<li>三个区域：工作区、暂存区、仓库。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/1.jpg"
+        data-srcset="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/1.jpg, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/1.jpg 1.5x, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/1.jpg 2x"
+        data-sizes="auto"
+        alt="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/1.jpg"
+        title="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/1.jpg" /></li>
+<li>文件的生命周期
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/2.jpg"
+        data-srcset="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/2.jpg, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/2.jpg 1.5x, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/2.jpg 2x"
+        data-sizes="auto"
+        alt="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/2.jpg"
+        title="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/2.jpg" /></li>
+</ul>
+<h2 id="git-配置">Git 配置</h2>
+<p>Git 最主要的配置就是配置一个用户名和一个邮箱，而其他一些配置主要用于辅助配置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git config --global user.name myEnglishNamegit config --global user.email myEmailgit config --global push.default simplegit config --global core.quotepath falsegit config --global core.editor &#34;code --wait&#34;git config --global core.autocrlf input
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/1.png"
+        data-srcset="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/1.png, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/1.png 1.5x, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/1.png 2x"
+        data-sizes="auto"
+        alt="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/1.png"
+        title="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/1.png" /></p>
+<p>注意：</p>
+<ul>
+<li>用户名和邮箱最好不要输入中文，最好不要存在空格。</li>
+<li>第三行配置，跟 push 操作相关。</li>
+<li>第四到第六行配置，跟代码编辑器相关， code 表示的意思是 vscode 编辑器， 需要安装 vscode 并配置 PATH（Windows环境）。git-bash软件默认自带的编辑器叫做 vim(比较难学)。</li>
+</ul>
+<h2 id="git-本地仓库使用">Git 本地仓库使用</h2>
+<p>Git 既然是一个分布式版本控制系统，那么肯定有本地仓库和远程仓库，他们之间存在某些联系。</p>
+<p>这里先记录 Git 的本地仓库的基本使用指令。</p>
+<h3 id="初始化">初始化</h3>
+<p>在一个文件夹内，初始化本地仓库。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git init
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="添加到暂存区">添加到暂存区。</h3>
+<p>将某个发生变化的文件添加到暂存区、将某些发生变化的文件提交到暂存区、将所有发生变化的文件提交到暂存区。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git add a.txt git add b.txt c.txt git add .
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查询当前状态">查询当前状态。</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git status
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="添加到仓库">添加到仓库</h3>
+<p>将暂存区的文件，添加到本地仓库，并说明。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git commit -m &#39;第一次提交 a b c d e 文件&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/2.png"
+        data-srcset="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/2.png, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/2.png 1.5x, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/2.png 2x"
+        data-sizes="auto"
+        alt="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/2.png"
+        title="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/2.png" /></p>
+<p>上面的指令执行的是一种简写的提交说明，说明文件需要用 单（或双）引号包裹起来。如果需要更详细的的说明，可以直接使用 <code>git commit</code> 或者 <code>git commit -v</code>。
+git-bash 软件默认的是 vim 编辑器，但由于上面进行来配置，所以在执行 <code>git commit</code> 时，将会自动打开 vscode 编辑器。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/3.gif"
+        data-srcset="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/3.gif, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/3.gif 1.5x, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/3.gif 2x"
+        data-sizes="auto"
+        alt="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/3.gif"
+        title="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/3.gif" /></p>
+<h3 id="查看日志">查看日志</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git log
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/4.png"
+        data-srcset="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/4.png, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/4.png 1.5x, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/4.png 2x"
+        data-sizes="auto"
+        alt="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/4.png"
+        title="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/4.png" /></p>
+<h3 id="回到过去回到未来">回到过去/回到未来</h3>
+<h4 id="回到过去">回到过去</h4>
+<p>既然是版本控制系统，那自然可以返回某一个之前的版本啦。需要先使用 <code>git log</code> 查看提交日志， 再使用 <code>git reset --hard</code> 返回某个版本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git reset --hard 23b18d1
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/5.gif"
+        data-srcset="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/5.gif, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/5.gif 1.5x, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/5.gif 2x"
+        data-sizes="auto"
+        alt="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/5.gif"
+        title="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/5.gif" />
+注意：</p>
+<ol>
+<li>那八位数字是从提交日志上面的获取。</li>
+<li>当前工作区的所有文件一定要先<code>commit</code>，因为这个操作会使没有<code>commit</code> 过的变动消失。</li>
+</ol>
+<h4 id="回到未来">回到未来</h4>
+<p>回到过去之后，又想回到未来该怎么办呢？ 还是使用 <code>git reset --hard</code> 指令，但是发现，使用 <code>git log</code> 指令，却不能查看未来的提交日志，所以得使用 <code>git reflog</code> 指令查看 所有的 提交日志。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/6.gif"
+        data-srcset="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/6.gif, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/6.gif 1.5x, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/6.gif 2x"
+        data-sizes="auto"
+        alt="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/6.gif"
+        title="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/6.gif" /></p>
+<h4 id="关于-git-log-和-git-reflog-的区别">关于 git log 和 git reflog 的区别</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/7.png"
+        data-srcset="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/7.png, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/7.png 1.5x, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/7.png 2x"
+        data-sizes="auto"
+        alt="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/7.png"
+        title="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/7.png" /></p>
+<h3 id="创建分支切换分支合并分支">创建分支、切换分支、合并分支</h3>
+<p>git本地仓库默认有一条主分支叫做 <code>master</code>，分支是基于当前的分支创建的。 新的分支里面的最新更改不会影响其他分支的内容，不过当分钟进行合并时，可能会产生冲突，这个时候就需要解决冲突，再次提交。
+注意： 执行分支操作时， 应该把工作区里面的内容全部提交，否则会产生一些问题的。</p>
+<h4 id="创建分支">创建分支</h4>
+<p>如果只运行 <code>git branch</code> 则查看当前所在分支，如果后面有名字，则创建一个分支。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git branch branchName
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="切换分支">切换分支</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git checkout branchName
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="合并分支">合并分支</h4>
+<p>合并分支一共需要三步：切换分支、执行合并、解决冲突。其中切换分支的意思是，如果存在 x 和 y 两个分支，要将 y 的内容 合并到 x 里面，那么就先要切换到 x 分支。</p>
+<h4 id="分支演示">分支演示：</h4>
+<p>test 分支是基于 当前（默认是 master）分支生成的，你会发现新的分支内容和刚刚的分支内容一样。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/8.gif"
+        data-srcset="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/8.gif, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/8.gif 1.5x, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/8.gif 2x"
+        data-sizes="auto"
+        alt="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/8.gif"
+        title="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/8.gif" /></p>
+<p>在 test 分支上做一下修改，并且将修改 提交到 test 分支</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/9.gif"
+        data-srcset="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/9.gif, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/9.gif 1.5x, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/9.gif 2x"
+        data-sizes="auto"
+        alt="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/9.gif"
+        title="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/9.gif" /></p>
+<p>切换到 master 分支， 可以发现修改提交的内容消失了。然后在主分支上面修改一些东西，等会合并的适合好冲突一下（故意的）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/10.gif"
+        data-srcset="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/10.gif, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/10.gif 1.5x, https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/10.gif 2x"
+        data-sizes="auto"
+        alt="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/10.gif"
+        title="https://sanshiliuxiao.gitee.io/notebook/Git/20190831-git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/10.gif" /></p>
+<p>将 test 分支的内容 合并到 master 分支， 因为都修改了第二行，所以产生冲突，解决冲突之后，再提交一次即可，这次会自动填充提交说明，保存关闭即可。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2017-10-13</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80/" data-title="Git的基本配置和使用(一)" data-hashtags="Git,开发工具"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80/" data-hashtag="Git"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80/" data-title="Git的基本配置和使用(一)"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80/" data-title="Git的基本配置和使用(一)"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%B8%80/" data-title="Git的基本配置和使用(一)"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/git/">Git</a>,&nbsp;<a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/node%E4%B8%83%E4%B9%8Bexpress%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93%E8%AE%BA%E5%9D%9B/" class="prev" rel="prev" title="node(七)之express搭建简易论坛"><i class="fas fa-angle-left fa-fw"></i>node(七)之express搭建简易论坛</a>
+            <a href="/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E4%BA%8C/" class="next" rel="next" title="Git的基本配置和使用(二)">Git的基本配置和使用(二)<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

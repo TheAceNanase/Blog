@@ -1,0 +1,63 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>node - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/node/</link>
+        <description>node - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 03 Oct 2017 22:08:04 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/node/" rel="self" type="application/rss+xml" /><item>
+    <title>node(七)之express搭建简易论坛</title>
+    <link>http://www.nishinonanase.xyz/node%E4%B8%83%E4%B9%8Bexpress%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93%E8%AE%BA%E5%9D%9B/</link>
+    <pubDate>Tue, 03 Oct 2017 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/node%E4%B8%83%E4%B9%8Bexpress%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93%E8%AE%BA%E5%9D%9B/</guid>
+    <description><![CDATA[1. 应用生成器 我们可以从0开始，一步步把系统搭建起来。不过express中还有一个应用生成器，使用这个应用生成器可以快速的创建一个应用的框架，]]></description>
+</item><item>
+    <title>node(八)之异步控制工具async</title>
+    <link>http://www.nishinonanase.xyz/node%E5%85%AB%E4%B9%8B%E5%BC%82%E6%AD%A5%E6%8E%A7%E5%88%B6%E5%B7%A5%E5%85%B7async/</link>
+    <pubDate>Tue, 03 Oct 2017 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/node%E5%85%AB%E4%B9%8B%E5%BC%82%E6%AD%A5%E6%8E%A7%E5%88%B6%E5%B7%A5%E5%85%B7async/</guid>
+    <description><![CDATA[我们在编写异步程序时，最头痛的就是不知道结果什么时候返回给我们，然后执行后面的操作，很多时候只能把后面的操作放到返回成功的函数里，或者使用计]]></description>
+</item><item>
+    <title>node(六)之express初识</title>
+    <link>http://www.nishinonanase.xyz/node%E5%85%AD%E4%B9%8Bexpress%E5%88%9D%E8%AF%86/</link>
+    <pubDate>Sat, 23 Sep 2017 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/node%E5%85%AD%E4%B9%8Bexpress%E5%88%9D%E8%AF%86/</guid>
+    <description><![CDATA[1. 介绍 什么是express，为什么要使用express？根据官方网站的说法，express是一个基于 Node.js 平台的极简、灵活的web应用开发框架，]]></description>
+</item><item>
+    <title>node(五)之mysql数据库的操作</title>
+    <link>http://www.nishinonanase.xyz/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/</link>
+    <pubDate>Mon, 18 Sep 2017 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/node%E4%BA%94%E4%B9%8Bmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C/</guid>
+    <description><![CDATA[使用node操作mysql数据库时，需要先下载mysql模块： 1 npm install mysql --save-dev 在引入mysql模块后，就可以进行数据库的连接和其他的操作了。 1 2 //]]></description>
+</item><item>
+    <title>node(四)之简易的网络爬虫</title>
+    <link>http://www.nishinonanase.xyz/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/</link>
+    <pubDate>Fri, 08 Sep 2017 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/</guid>
+    <description><![CDATA[爬虫的思路很简单： 确定要抓取的URL； 对URL进行抓取，获取网页内容； 对内容进行分析并存储； 重复第1步 在这节里做爬虫，我们使用到了两个重要的]]></description>
+</item><item>
+    <title>node(三)之文件操作</title>
+    <link>http://www.nishinonanase.xyz/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</link>
+    <pubDate>Sun, 03 Sep 2017 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</guid>
+    <description><![CDATA[对于文件和文件夹的操作，文件系统提供了不少的api接口，这里我们从几个样例稍微讲解下文件接口的使用 node中对文件和目录的操作，我们不一个个]]></description>
+</item><item>
+    <title>node(二)之搭建http服务器</title>
+    <link>http://www.nishinonanase.xyz/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+    <pubDate>Fri, 18 Aug 2017 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+    <description><![CDATA[首先我们从搭建一个http服务器，能运行简单的程序开始说起。 1. hello world 最经典的hello world。首先我们创建一个server.js来保存我们]]></description>
+</item><item>
+    <title>node(一)之模块规范</title>
+    <link>http://www.nishinonanase.xyz/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/</link>
+    <pubDate>Sun, 13 Aug 2017 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/</guid>
+    <description><![CDATA[相信你也听说过CommonJS, AMD, CMD等概念，但是他们之间又有什么联系和区别呢，本文简要的介绍下这三者，为后面的node学习进行铺垫 在讲解]]></description>
+</item></channel>
+</rss>

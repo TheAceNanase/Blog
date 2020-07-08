@@ -1,0 +1,56 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>心得体会 - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/</link>
+        <description>心得体会 - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 29 Jun 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/" rel="self" type="application/rss+xml" /><item>
+    <title>Django&#43;Nginx&#43;uWSGI生产环境部署</title>
+    <link>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</link>
+    <pubDate>Mon, 29 Jun 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</guid>
+    <description><![CDATA[WSGI是什么？ WSGI是一种规范，它定义了使用python编写的web app(django)与web server（uWSGI）之间接口格式]]></description>
+</item><item>
+    <title>项目部署上线指南</title>
+    <link>http://www.nishinonanase.xyz/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E6%8C%87%E5%8D%97/</link>
+    <pubDate>Tue, 23 Jun 2020 13:24:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E6%8C%87%E5%8D%97/</guid>
+    <description><![CDATA[项目部署上线指南 准备上线 上线前的检查工作。 1 python manage.py check --deploy 将DEBUG设置为False并配置ALLOWED_HOSTS。 1 2 DEBUG = False ALLOWED_HOSTS = [&#39;*&#39;] 安全相关的]]></description>
+</item><item>
+    <title>电商网站技术要点剖析</title>
+    <link>http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/</link>
+    <pubDate>Sat, 11 Jan 2020 13:24:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/</guid>
+    <description><![CDATA[电商网站技术要点剖析 商业模式 B2B - 商家对商家，交易双方都是企业（商家），最典型的案例就是阿里巴巴。 C2C - 个人对个人，例如：淘宝、人人车。 B2C - 商家]]></description>
+</item><item>
+    <title>数据被删了，怎么办？</title>
+    <link>http://www.nishinonanase.xyz/%E6%95%B0%E6%8D%AE%E8%A2%AB%E5%88%A0%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E/</link>
+    <pubDate>Tue, 08 Aug 2017 19:15:01 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E6%95%B0%E6%8D%AE%E8%A2%AB%E5%88%A0%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E/</guid>
+    <description><![CDATA[什么是with语句 with是一种上下文管理协议，目的在于从流程图中把 try,except 和finally 关键字和资源分配释放相关代码统统去掉，简化try….e]]></description>
+</item><item>
+    <title>代码管理</title>
+    <link>http://www.nishinonanase.xyz/%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/</link>
+    <pubDate>Thu, 03 Aug 2017 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/</guid>
+    <description><![CDATA[你现在用不到的代码，以后也用不到了 我们在项目长期的维护过程中，经常会遇到一些目前暂时用不到的代码，然后我们习惯会注释掉这些代码，或者干脆另起]]></description>
+</item><item>
+    <title>团队项目开发的问题和解决方案</title>
+    <link>http://www.nishinonanase.xyz/%E5%9B%A2%E9%98%9F%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
+    <pubDate>Wed, 26 Jul 2017 13:24:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E5%9B%A2%E9%98%9F%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
+    <description><![CDATA[团队项目开发的问题和解决方案 个人开发和团队开发这两个词相信对大家来说并不陌生。所谓个人开发就是一个人把控产品的所有内容；而团队开发则是由多个]]></description>
+</item><item>
+    <title>前后端分离开发</title>
+    <link>http://www.nishinonanase.xyz/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BC%80%E5%8F%91/</link>
+    <pubDate>Wed, 15 Mar 2017 13:07:20 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BC%80%E5%8F%91/</guid>
+    <description><![CDATA[前后端分离开发入门 在传统的Web应用开发中，大多数的程序员会将浏览器作为前后端的分界线。将浏览器中为用户进行页面展示的部分称之为前端，而将运]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>node(一)之模块规范 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="node(一)之模块规范" />
+<meta property="og:description" content="相信你也听说过CommonJS, AMD, CMD等概念，但是他们之间又有什么联系和区别呢，本文简要的介绍下这三者，为后面的node学习进行铺垫 在讲解" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2017-08-13T22:08:04+08:00" />
+<meta property="article:modified_time" content="2017-08-13T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="node(一)之模块规范"/>
+<meta name="twitter:description" content="相信你也听说过CommonJS, AMD, CMD等概念，但是他们之间又有什么联系和区别呢，本文简要的介绍下这三者，为后面的node学习进行铺垫 在讲解"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" /><link rel="prev" href="http://www.nishinonanase.xyz/%E6%95%B0%E6%8D%AE%E8%A2%AB%E5%88%A0%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E/" /><link rel="next" href="http://www.nishinonanase.xyz/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "node(一)之模块规范",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83\/"
+        },"genre": "posts","keywords": "node","wordcount":  1739 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83\/","datePublished": "2017-08-13T22:08:04+08:00","dateModified": "2017-08-13T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">node(一)之模块规范</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-08-13">2017-08-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1739 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" class="leancloud_visitors" data-flag-title="node(一)之模块规范">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1-commonjs">1. CommonJS</a>
+              <ul>
+                <li><a href="#exports与moduleexports的区别">exports与module.exports的区别</a></li>
+              </ul>
+            </li>
+            <li><a href="#2-amd与requirejs">2. AMD与RequireJS</a></li>
+            <li><a href="#3-cmd与seajs">3. CMD与seajs</a></li>
+            <li><a href="#4-总结">4. 总结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>相信你也听说过CommonJS, AMD, CMD等概念，但是他们之间又有什么联系和区别呢，本文简要的介绍下这三者，为后面的node学习进行铺垫</p>
+<p>在讲解CommonJS,
+AMD,
+CMD这些概念之前，我们首先俩了解下js的模块化。模块化，顾名思义，就是将项目按照功能或者其他逻辑进行分解处理，每个部分只处理一个功能，进行功能的解耦处理，方便以后的开发和维护。那么模块化必须具有以下的能力，才能进行模块的拆分和组装：</p>
+<ol>
+<li>定义封装的模块；</li>
+<li>定义新模块对其他模块的依赖；</li>
+<li>可对其他模块的引入支持；</li>
+</ol>
+<p>那么就需要一套规范准则来定义这些能力，于是就出现了CommonJS, AMD, CMD等。</p>
+<h3 id="1-commonjs">1. CommonJS</h3>
+<p>CommonJS原先叫做<code>ServerJS</code>，是js在服务端的规范，node使用的就是这种规范。根据CommonJS规范，一个单独的文件就是一个模块，<code>require</code>用来加载一个模块，<code>exports</code>用来向外部暴露该模块里的方法或属性。</p>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// hello.js
+function say(username){
+    console.log( &#39;hello, &#39;+username );
+}
+
+exports.say = say;  
+</code></pre></td></tr></table>
+</div>
+</div><p>=============</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// main.js
+var person = require(&#39;./hello&#39;);
+
+person.say(&#39;wenzi&#39;); // hello, wenzi
+person.say(&#39;师少兵&#39;); // hello, 师少兵
+person.say(&#39;NUC&#39;); // hello, NUC  
+</code></pre></td></tr></table>
+</div>
+</div><p>同时，<code>require</code>语句可以写在文件中的任何位置，只要使用之前引用之前即可，不一定要写在文件的最前面。不过，为了代码更易阅读，能直观地看到当前引用了哪些模块，最好是放在文件的最前面。</p>
+<h4 id="exports与moduleexports的区别">exports与module.exports的区别</h4>
+<p>可能有人见过直接使用exports的，有的是使用module.exports的，这里稍微的讲解下这两者的区别。</p>
+<p>先举个简单的例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var a = {name:&#39;wenzi&#39;};
+var b = a;
+
+console.log(a); // {name: &#34;wenzi&#34;}
+console.log(b); // {name: &#34;wenzi&#34;}  
+</code></pre></td></tr></table>
+</div>
+</div><p>a和b输出的结果是一样的。现在我改变下b中name的值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">b.name = &#39;shaobing&#39;;
+
+console.log(a); // {name: &#34;shaobing&#34;}
+console.log(b); // {name: &#34;shaobing&#34;}  
+</code></pre></td></tr></table>
+</div>
+</div><p>a和b的输出结果都发生了改变。我再对b进行重新声明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var b = {name:&#39;师少兵&#39;};
+
+console.log(a); // {name: &#34;shaobing&#34;}
+console.log(b); // {name: &#34;师少兵&#34;}  
+</code></pre></td></tr></table>
+</div>
+</div><p>这三个例子输出了三种结果：</p>
+<ol>
+<li>声明a对象，并把a赋值给b，然后a和b输出了相同的结果；</li>
+<li>改变了b中的name，那么a中的name也跟着改变；</li>
+<li>重新声明了b对象，那么a中的name则没有跟着b一起改变</li>
+</ol>
+<p><strong>解释</strong>：a
+是一个对象，b 是对 a 的引用，即 a 和 b 指向同一块内存，所以1中的输出是一样的。当对 b 作修改时，即 a 和 b
+指向同一块内存地址的内容发生了改变，a 也会体现出来，所以第2个例子输出也一样。当 b 被覆盖时，b 指向了一块新的内存，a
+还是指向原来的内存，所以最后输出会不一样。</p>
+<p>那么此时就可以引出<code>exports</code>和<code>module.exports</code>了：</p>
+<ol>
+<li>module.exports 初始值为一个空对象 {}</li>
+<li>exports 是指向的 module.exports 的引用</li>
+<li>require() 返回的是 module.exports 而不是 exports</li>
+</ol>
+<p>如果module.exports发生了新指向，则exports无效；若module.exports没有发生变化，则直接exports即可。</p>
+<h3 id="2-amd与requirejs">2. AMD与RequireJS</h3>
+<p>说到AMD，不得不说到<code>RequireJS</code>，AMD从CommonJS社区独立出来，单独成为了AMD社区，AMD的流行，很大程度上也是依托了RequireJS作者的推广。</p>
+<p>AMD规范中，默认推荐的模块格式是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// hello.js
+// 将需要引入的模块全部写入到数组中，然后传递参数进行调用
+define([&#39;a&#39;, &#39;b&#39;], function(a, ,b){
+    // do something
+
+    return{
+        hello : function(username){
+            console.log( &#39;hello, &#39;+username );
+        }
+    }
+})
+</code></pre></td></tr></table>
+</div>
+</div><p>==========</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// main.js
+define([&#39;./hello&#39;], function(h){
+    h.hello(&#39;wenzi&#39;);
+})
+</code></pre></td></tr></table>
+</div>
+</div><p>也就是说，在AMD中，模块必须使用<code>define</code>定义，依赖通过函数参数传进来，这样的一个好处就是所有的依赖都能一目了然。</p>
+<h3 id="3-cmd与seajs">3. CMD与seajs</h3>
+<p>CMD规范是国内著名的玉伯大神提出来的，将就的就是<code>就近依赖</code>，什么时候用到，就在那个地方进行<code>require</code>。SeaJS就是使用的CMD规范：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// hello.js
+define(function(require, exports, module){
+    var a = require(&#39;a&#39;);
+    // do a
+
+    var b = require( &#39;b&#39; );
+    // do b
+
+    module.exports.hello = hello; // 对外输出hello
+})
+</code></pre></td></tr></table>
+</div>
+</div><p>从这里也能看到AMD和CMD的区别：</p>
+<blockquote>
+<p>AMD通常需要一次性引入全部的依赖，然后通过参数传递；而CMD则需要时才引入</p>
+</blockquote>
+<p>不过，AMD也支持CMD这样的引入格式，但内部还是按照AMD的逻辑进行执行。</p>
+<h3 id="4-总结">4. 总结</h3>
+<p>这篇文章里介绍了下CommonJS, AMD, CMD规范的相关区别与联系，这里再简要的总结下：</p>
+<ol>
+<li>CommonJS： 每个文件就是一个模块，不用define进行定义，node使用此规范；</li>
+<li>AMD： 使用define定义一个模块，讲究<strong>提前依赖</strong>；</li>
+<li>CMD： 使用define定义模块，将就<strong>就近依赖</strong></li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2017-08-13</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" data-title="node(一)之模块规范" data-hashtags="node"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" data-hashtag="node"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" data-title="node(一)之模块规范"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" data-title="node(一)之模块规范"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" data-title="node(一)之模块规范"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/node/">node</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E6%95%B0%E6%8D%AE%E8%A2%AB%E5%88%A0%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E/" class="prev" rel="prev" title="数据被删了，怎么办？"><i class="fas fa-angle-left fa-fw"></i>数据被删了，怎么办？</a>
+            <a href="/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="next" rel="next" title="node(二)之搭建http服务器">node(二)之搭建http服务器<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

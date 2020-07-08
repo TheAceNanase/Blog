@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>node(二)之搭建http服务器 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="node(二)之搭建http服务器" />
+<meta property="og:description" content="首先我们从搭建一个http服务器，能运行简单的程序开始说起。 1. hello world 最经典的hello world。首先我们创建一个server.js来保存我们" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2017-08-18T22:08:04+08:00" />
+<meta property="article:modified_time" content="2017-08-18T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="node(二)之搭建http服务器"/>
+<meta name="twitter:description" content="首先我们从搭建一个http服务器，能运行简单的程序开始说起。 1. hello world 最经典的hello world。首先我们创建一个server.js来保存我们"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/" /><link rel="prev" href="http://www.nishinonanase.xyz/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" /><link rel="next" href="http://www.nishinonanase.xyz/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "node(二)之搭建http服务器",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8\/"
+        },"genre": "posts","keywords": "node","wordcount":  3476 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8\/","datePublished": "2017-08-18T22:08:04+08:00","dateModified": "2017-08-18T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">node(二)之搭建http服务器</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-08-18">2017-08-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3476 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="leancloud_visitors" data-flag-title="node(二)之搭建http服务器">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1-hello-world">1. hello world</a></li>
+            <li><a href="#2-form表单">2. form表单</a>
+              <ul>
+                <li><a href="#21-获取表单get方式提交的数据">2.1 获取表单GET方式提交的数据</a></li>
+                <li><a href="#22-获取表单post方式提交的数据">2.2 获取表单POST方式提交的数据</a></li>
+              </ul>
+            </li>
+            <li><a href="#3-路由">3. 路由</a></li>
+            <li><a href="#4-图片上传并显示">4. 图片上传并显示</a>
+              <ul>
+                <li><a href="#41-图片上传">4.1 图片上传</a></li>
+                <li><a href="#42-图片显示">4.2 图片显示</a></li>
+              </ul>
+            </li>
+            <li><a href="#5-综合">5. 综合</a></li>
+            <li><a href="#6-接口的实现">6. 接口的实现</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>首先我们从搭建一个http服务器，能运行简单的程序开始说起。</p>
+<h3 id="1-hello-world">1. hello world</h3>
+<p>最经典的<code>hello world</code>。首先我们创建一个<code>server.js</code>来保存我们的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">console.log( &#39;hello world&#39; );
+</code></pre></td></tr></table>
+</div>
+</div><p>在终端输入<code>node server.js</code>运行:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">node server.js
+</code></pre></td></tr></table>
+</div>
+</div><p>终端就会输出 <strong>hello world</strong> 的字样。可是我们一个node服务器程序，总是要在浏览器上访问的呀，这里就要用到node里自带的<code>http</code>模块了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var http = require(&#39;http&#39;); // 引入http模块
+
+// 创建http服务器
+// request : 从浏览器带来的请求信息
+// response : 从服务器返回给浏览器的信息
+http.createServer(function(request, response){
+    response.writeHead(200, {&#39;content-type&#39;: &#39;text/plain&#39;}); // 设置头部信息，输出text文本
+    response.write(&#39;hello world&#39;); // 输出到页面中的信息
+    response.end(); // 返回结束
+}).listen(3000);
+console.log(&#39;server has started...&#39;);
+</code></pre></td></tr></table>
+</div>
+</div><p>我们再次在终端输入<code>node server.js</code>运行，终端里会有输出 <strong>server has started&hellip;</strong> 的字样，表示服务器已创建并正在运行，然后我们在浏览器上访问<code>127.0.0.1:3000</code>，就可以看到页面中输出了<code>hello world</code>。</p>
+<h3 id="2-form表单">2. form表单</h3>
+<p>刚才我们只是在页面中输出了一段简单的文本，现在我们要在页面中呈现一个表单，可以让用户输入信息并进行提交：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// server.js
+var http = require(&#39;http&#39;);
+
+http.createServer(function(request, response){
+var html = &#39;&lt;html&gt;\
+    &lt;head&gt;\
+    &lt;meta charset=UTF-8&#34; /&gt;\
+    &lt;/head&gt;\
+    &lt;body&gt;\
+    &lt;form action=&#34;/&#34; method=&#34;post&#34;&gt;\
+    &lt;p&gt;username : &lt;input type=&#34;text&#34; name=&#34;username&#34; /&gt;&lt;/p&gt;\
+    &lt;p&gt;password : &lt;input type=&#34;password&#34; name=&#34;password&#34; /&gt;&lt;/p&gt;\
+    &lt;p&gt;age : &lt;input type=&#34;text&#34; name=&#34;age&#34; /&gt;&lt;/p&gt;\
+    &lt;p&gt;&lt;input type=&#34;submit&#34; value=&#34;submit&#34; name=&#34;submit&#34; /&gt;&lt;/p&gt;\
+    &lt;/form&gt;\
+    &lt;/body&gt;\
+    &lt;/html&gt;&#39;;
+
+    response.writeHead(200, {&#39;content-type&#39;: &#39;text/html&#39;}); // 输出html头信息
+    response.write(html); // 将拼接的html字符串输出到页面中
+    response.end(); // 结束
+}).listen(3000);
+console.log(&#39;server has started...&#39;);
+</code></pre></td></tr></table>
+</div>
+</div><p>修改server.js中的内容，重新运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">node server.js
+</code></pre></td></tr></table>
+</div>
+</div><p>刷新页面后，我们发现页面中输出了3个文本框和1个提交按钮。因为我们的程序只是呈现页面，并没有做任何其他的处理，因此在页面中提交数据只是刷新当前页面。</p>
+<p><strong>注意：</strong> 我们每次修改node中的任何代码后，都要重新进行启动。</p>
+<h4 id="21-获取表单get方式提交的数据">2.1 获取表单GET方式提交的数据</h4>
+<p>我们上面的代码中使用的是POST方式，不过这里要先讨论使用<code>GET</code>方式提交过来的数据，我们先不考虑数据的安全性，只是学习如何获取使用get方式提交过来的form表单数据，将post改为get，重新运行。</p>
+<p>我们知道，使用get方式提交数据，会将数据作为URL参数传递过来，因此我们通过解析URL中的参数获取到数据，这里就用到了<code>url</code>模块中的方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// server.js
+var http = require(&#39;http&#39;),
+url = require(&#39;url&#39;);
+
+http.createServer(function(request, response){
+    var html = &#39;&lt;html&gt;\
+        &lt;head&gt;\
+        &lt;meta charset=UTF-8&#34; /&gt;\
+        &lt;/head&gt;\
+        &lt;body&gt;\
+        &lt;form action=&#34;/&#34; method=&#34;get&#34;&gt;\
+        &lt;p&gt;username : &lt;input type=&#34;text&#34; name=&#34;username&#34; /&gt;&lt;/p&gt;\
+        &lt;p&gt;password : &lt;input type=&#34;password&#34; name=&#34;password&#34; /&gt;&lt;/p&gt;\
+        &lt;p&gt;age : &lt;input type=&#34;text&#34; name=&#34;age&#34; /&gt;&lt;/p&gt;\
+        &lt;p&gt;&lt;input type=&#34;submit&#34; value=&#34;submit&#34; name=&#34;submit&#34; /&gt;&lt;/p&gt;\
+        &lt;/form&gt;\
+        &lt;/body&gt;\
+        &lt;/html&gt;&#39;;
+    
+    var query = url.parse( request.url, true ).query;
+    if( query.submit ){
+        var data = &#39;&lt;p&gt;&lt;a href=&#34;/&#34;&gt;back&lt;/a&gt;&lt;/p&gt;&#39;+
+            &#39;&lt;p&gt;username:&#39;+query.username+&#39;&lt;/p&gt;&#39;+
+            &#39;&lt;p&gt;password:&#39;+query.password+&#39;&lt;/p&gt;&#39;+
+            &#39;&lt;p&gt;age:&#39;+query.age+&#39;&lt;/p&gt;&#39;;
+         
+        response.writeHead(200, {&#39;content-type&#39;: &#39;text/html&#39;});
+        response.write(data);
+    }else{
+        response.writeHead(200, {&#39;content-type&#39;: &#39;text/html&#39;});
+        response.write(html);
+    }
+    response.end(); // 结束
+}).listen(3000);
+console.log(&#39;server has started...&#39;);
+</code></pre></td></tr></table>
+</div>
+</div><p>我们再次运行提交后就能在页面中显示出数据了。</p>
+<p>url.parse是用来解析URL字符串的，并返回解析后的URL对象。若我们只输出一下 url.parse(request.url) ：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">url.parse(request.url);
+</code></pre></td></tr></table>
+</div>
+</div><p>result:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+    protocol: null,
+    slashes: null,
+    auth: null,
+    host: null,
+    port: null,
+    hostname: null,
+    hash: null,
+    search: &#39;?username=111113&amp;password=123&amp;age=122&amp;submit=submit&#39;,
+    query: &#39;username=111113&amp;password=123&amp;age=122&amp;submit=submit&#39;,
+    pathname: &#39;/&#39;,
+    path: &#39;/?username=111113&amp;password=123&amp;age=122&amp;submit=submit&#39;,
+    href: &#39;/?username=111113&amp;password=123&amp;age=122&amp;submit=submit&#39;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>如果将第2个参数设置为true，则会将返回结果中的query属性解析为一个对象，其他属性不变；默认值为false，即query属性是一个字符串：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">url.parse(request.url, true);
+</code></pre></td></tr></table>
+</div>
+</div><p>result:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+    ...
+    query: {
+        username: &#39;111113&#39;,
+        password: &#39;123&#39;,
+        age: &#39;122&#39;,
+        submit: &#39;submit&#39; },
+    ...
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>因此我们可以通过如下语句判断是否有提交数据并获取提交数据，然后再输出到中即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var query = url.parse( request.url, true ).query;
+/*
+{
+    username: &#39;111113&#39;,
+    password: &#39;123&#39;,
+    age: &#39;122&#39;,
+    submit: &#39;submit&#39;
+}
+*/
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="22-获取表单post方式提交的数据">2.2 获取表单POST方式提交的数据</h4>
+<p>现在我们使用post方式来提交数据。因为POST请求一般都比较“重”</p>
+<p>（用户可能会输入大量的内容），如果用阻塞的方式来处理处理，必然会导致用户操作的阻塞。因此node将post数据拆分为很多小的数据块，然后通过data事件（表示新的小数据块到达了）和end事件传递这些小数据块（表示所有的数据都已经接收完毕）。
+所以，我们的思路应该是：在data事件中获取数据块，在end事件中操作数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// server.js
+var http = require(&#39;http&#39;),
+querystring = require(&#39;querystring&#39;);
+
+http.createServer(function(request, response){
+    var html = &#39;&lt;html&gt;\
+        &lt;head&gt;\
+        &lt;meta charset=UTF-8&#34; /&gt;\
+        &lt;/head&gt;\
+        &lt;body&gt;\
+        &lt;form action=&#34;/&#34; method=&#34;post&#34;&gt;\
+        &lt;p&gt;username : &lt;input type=&#34;text&#34; name=&#34;username&#34; /&gt;&lt;/p&gt;\
+        &lt;p&gt;password : &lt;input type=&#34;password&#34; name=&#34;password&#34; /&gt;&lt;/p&gt;\
+        &lt;p&gt;age : &lt;input type=&#34;text&#34; name=&#34;age&#34; /&gt;&lt;/p&gt;\
+        &lt;p&gt;&lt;input type=&#34;submit&#34; value=&#34;submit&#34; name=&#34;submit&#34; /&gt;&lt;/p&gt;\
+        &lt;/form&gt;\
+        &lt;/body&gt;\
+        &lt;/html&gt;&#39;;
+    
+    if( request.method.toLowerCase()==&#39;post&#39; ){
+        var postData = &#39;&#39;;
+
+        request.addListener(&#39;data&#39;, function(chunk){
+            postData += chunk;
+        });
+
+        request.addListener(&#39;end&#39;, function(){
+            var data = querystring.parse(postData);
+            console.log( &#39;postData: &#39;+postData );
+            console.log(data);
+    
+            var s = &#39;&lt;p&gt;&lt;a href=&#34;/&#34;&gt;back&lt;/a&gt;&lt;/p&gt;&#39;+
+                &#39;&lt;p&gt;username:&#39;+data.username+&#39;&lt;/p&gt;&#39;+
+                &#39;&lt;p&gt;password:&#39;+data.password+&#39;&lt;/p&gt;&#39;+
+                &#39;&lt;p&gt;age:&#39;+data.age+&#39;&lt;/p&gt;&#39;;
+
+            response.writeHead(200, {&#39;content-type&#39;: &#39;text/html&#39;});
+            response.write(s);
+            response.end();
+        })
+    }else{
+        response.writeHead(200, {&#39;content-type&#39;: &#39;text/html&#39;});
+        response.write(html);
+        response.end();
+    }
+}).listen(3000);
+console.log(&#39;server has started...&#39;);
+</code></pre></td></tr></table>
+</div>
+</div><p>这段代码与上段代码项目，主要有的几个变化是：</p>
+<ol>
+<li>不再引入url模块， 改用引入querystring模块。因为我们不再对URL进行操作了，也没必要引入了；</li>
+<li>使用<code>request.method.toLowerCase()=='post'</code>判断当前是否有数据提交；</li>
+<li>在data事件进行数据的拼接，在end事件中进行的处理；</li>
+<li><code>response.end()</code>写在了<code>end</code>事件内部，因为end事件是异步操作，因此必须得数据输出完成之后才能执行<code>response.end()</code></li>
+</ol>
+<p>我们在控制台中可以看出，postData是这样的一个字符串：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#39;username=123&amp;password=123&amp;age=23&amp;submit=submit&#39;;
+</code></pre></td></tr></table>
+</div>
+</div><p>因此我们使用<code>query.parse</code>将postData解析为对象类型，以便获取提交过来的数据。</p>
+<h3 id="3-路由">3. 路由</h3>
+<p>现在我们所有的逻辑都是在根目录下进行的，没有按照url区分，这里我们按照功能进行路由拆分。以上面的post请求为例，我们可以拆分为：页面初始化和form提交后的处理。</p>
+<p>页面初始化：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// starter.js  页面初始化
+
+function start(request, response){
+    var html = &#39;&lt;html&gt;\
+        &lt;head&gt;\
+        &lt;meta charset=UTF-8&#34; /&gt;\
+        &lt;/head&gt;\
+        &lt;body&gt;\
+        &lt;form action=&#34;/show&#34; method=&#34;post&#34;&gt;\
+        &lt;p&gt;username : &lt;input type=&#34;text&#34; name=&#34;username&#34; /&gt;&lt;/p&gt;\
+        &lt;p&gt;password : &lt;input type=&#34;password&#34; name=&#34;password&#34; /&gt;&lt;/p&gt;\
+        &lt;p&gt;age : &lt;input type=&#34;text&#34; name=&#34;age&#34; /&gt;&lt;/p&gt;\
+        &lt;p&gt;&lt;input type=&#34;submit&#34; value=&#34;submit&#34; name=&#34;submit&#34; /&gt;&lt;/p&gt;\
+        &lt;/form&gt;\
+        &lt;/body&gt;\
+        &lt;/html&gt;&#39;;
+    
+    response.writeHead(200, {&#34;Content-Type&#34;:&#34;text/html&#34;});
+    response.write( html );
+    response.end();
+}
+exports.start = start;
+</code></pre></td></tr></table>
+</div>
+</div><p>展示获取的数据：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// uploader.js 展示获取的数据
+var querystring = require(&#39;querystring&#39;);
+
+function upload(request, response){
+    var postData = &#39;&#39;;
+
+    request.addListener(&#39;data&#39;, function(chunk){
+      postData += chunk;
+    });
+    
+    request.addListener(&#39;end&#39;, function(){
+        var data = querystring.parse(postData);
+        console.log( &#39;postData: &#39;+postData );
+        console.log(data);
+
+        var s = &#39;&lt;p&gt;&lt;a href=&#34;/&#34;&gt;back&lt;/a&gt;&lt;/p&gt;&#39;+
+            &#39;&lt;p&gt;username:&#39;+data.username+&#39;&lt;/p&gt;&#39;+
+            &#39;&lt;p&gt;password:&#39;+data.password+&#39;&lt;/p&gt;&#39;+
+            &#39;&lt;p&gt;age:&#39;+data.age+&#39;&lt;/p&gt;&#39;;
+
+        response.writeHead(200, {&#39;content-type&#39;: &#39;text/html&#39;});
+        response.write(s);
+        response.end();
+    })
+}
+exports.upload = upload;
+</code></pre></td></tr></table>
+</div>
+</div><p>然后在server.js中进行路由选择</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// server.js
+var http = require(&#39;http&#39;),
+url = require(&#39;url&#39;);
+
+http.createServer(function(request, response){
+    var pathname = url.parse(request.url).pathname;
+    console.log(pathname);
+    response.end();
+}).listen(3000);
+console.log(&#39;server has started...&#39;);
+</code></pre></td></tr></table>
+</div>
+</div><p>我们任意改变URL地址，会看到输出的每个地址的pathname（忽略/favicon.ico）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http://127.0.0.1:3000/ // 输出： /
+http://127.0.0.1:3000/show/ // 输出： /show/
+http://127.0.0.1:3000/show/img/ // 输出： /show/img/
+http://127.0.0.1:3000/show/?username=wenzi // 输出： /show/
+</code></pre></td></tr></table>
+</div>
+</div><p>因此我们就根据pathname进行路由，对路由进行方法映射：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// server.js
+var http = require(&#39;http&#39;),
+url = require(&#39;url&#39;),
+starter = require(&#39;./starter&#39;),
+uploader = require(&#39;./uploader&#39;);
+
+http.createServer(function(request, response){
+    var pathname = url.parse(request.url).pathname;
+    var routeurl = {
+        &#39;/&#39; : starter.start,
+        &#39;/show&#39; : uploader.upload
+    }
+
+    if( typeof routeurl[pathname]=== &#39;function&#39; ){
+        routeurl[pathname](request, response);
+    }else{
+        console.log(&#39;404 not found!&#39;);
+        response.end();
+    }
+}).listen(3000);
+console.log(&#39;server has started...&#39;);
+</code></pre></td></tr></table>
+</div>
+</div><p>如果匹配到路由 <code>/</code> ，则执行 starter.start(request, response) ；如果匹配到路由 <code>/show</code> ，则执行 uploader.upload(request, response) 。如果都没匹配到，则显示404。</p>
+<h3 id="4-图片上传并显示">4. 图片上传并显示</h3>
+<p>在上面我们已经能成功提交数据了，这里来讲解如何进行图片上传并显示。使用node自带的模块处理起来非常的麻烦，这里我们使用别人已经开发好的<code>formidable</code>模块进行编写，它对解析上传的文件数据做了很好的抽象。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">npm install formidable --save-dev
+</code></pre></td></tr></table>
+</div>
+</div><p>在starter.js中，我们添加上file控件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// starter.js
+function start(request, response){
+    var html = &#39;&lt;html&gt;\
+        &lt;head&gt;\
+        &lt;meta charset=UTF-8&#34; /&gt;\
+        &lt;/head&gt;\
+        &lt;body&gt;\
+        &lt;form action=&#34;/upload&#34; method=&#34;post&#34; enctype=&#34;multipart/form-data&#34;&gt;\
+        &lt;p&gt;file : &lt;input type=&#34;file&#34; name=&#34;upload&#34; multiple=&#34;multiple&#34; /&gt;&lt;/p&gt;\
+        &lt;p&gt;&lt;input type=&#34;submit&#34; value=&#34;submit&#34; name=&#34;submit&#34; /&gt;&lt;/p&gt;\
+        &lt;/form&gt;\
+        &lt;/body&gt;\
+        &lt;/html&gt;&#39;;
+
+    response.writeHead(200, {&#34;Content-Type&#34;:&#34;text/html&#34;});
+    response.write( html );
+    response.end();
+}
+exports.start = start;
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="41-图片上传">4.1 图片上传</h4>
+<p>首先我们进行的是图片上传操作，首先我们要确保当前目录中存在tmp和img目录。在 uploader.js 中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// uploader.js
+var formidable = require(&#39;formidable&#39;),
+util = require(&#39;util&#39;),
+fs = require(&#39;fs&#39;);
+
+function upload(request, response){
+    if( request.method.toLowerCase()==&#39;post&#39; ){
+        var form = new formidable.IncomingForm();
+
+        form.uploadDir = &#39;./tmp/&#39;;
+        form.parse(request, function(err, fields, files) {
+            var oldname = files.upload.name,
+                newname = Date.now() + oldname.substr(oldname.lastIndexOf(&#39;.&#39;));
+            fs.renameSync(files.upload.path, &#34;./img/&#34;+newname ); // 上传到 img 目录
+
+            response.writeHead(200, {&#39;content-type&#39;: &#39;text/plain&#39;});
+            response.write(&#39;received upload:\n\n&#39;);
+            response.end(util.inspect({fields: fields, files: files}));
+        });
+        return;
+    }
+}
+exports.upload = upload;
+</code></pre></td></tr></table>
+</div>
+</div><p>我们上传图片后跳转到upload路径，然后显示出相应的信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">received upload:
+
+{
+    fields: { // 其他控件，如input, textarea等
+    submit: &#39;submit&#39;
+},
+files:{ // file控件
+    upload:{
+            domain: null,
+            _events: {},
+            _maxListeners: undefined,
+            size: 5097,
+            path: &#39;tmp\\upload_b1f7c3e83af224e9f3a020958cde5dcd&#39;,
+            name: &#39;chrome.png&#39;,
+            type: &#39;image/png&#39;,
+            hash: null,
+            lastModifiedDate: Thu Jan 12 2017 23:09:50 GMT+0800 (中国标准时间),
+            _writeStream: [Object]
+        }
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>我们再查看img目录时，就会发现我们刚才上传的照片了。</p>
+<h4 id="42-图片显示">4.2 图片显示</h4>
+<p>将图片上传到服务器后，怎样才能把图片显示在浏览器上呢。这里我们就使用到了<code>fs</code>模块来读取文件，创建一个<code>shower.js</code>来专门展示图片：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// shower.js
+var fs = require(&#39;fs&#39;),
+url = require(&#39;url&#39;);
+
+function show(request, response){
+    var query = url.parse(request.url, true).query,
+        imgurl = query.src;
+
+    // 读取图片并进行输出
+    // 这里读取链接中的src参数，指定读取哪张图片  /show?src=1484234660592.png
+    fs.readFile(&#39;./img/&#39;+imgurl, &#34;binary&#34;, function(err, file){
+         if(err) throw err;
+        response.writeHead(200, {&#34;Content-Type&#34;: &#34;image/png&#34;});
+        response.write(file, &#34;binary&#34;);
+        response.end();
+    })
+}
+exports.show = show;
+</code></pre></td></tr></table>
+</div>
+</div><p>然后在 server.js 中添加上 show 的路由映射：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var routeurl = {
+    &#39;/&#39; : starter.start,
+    &#39;/upload&#39; : uploader.upload,
+    &#39;/show&#39; : shower.show // 添加
+};
+</code></pre></td></tr></table>
+</div>
+</div><p>最后在 upload.js 中进行图片的引用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">form.parse(request, function(err, fields, files) {
+    var oldname = files.upload.name,
+        newname = Date.now() + oldname.substr(oldname.lastIndexOf(&#39;.&#39;));
+    fs.renameSync(files.upload.path, &#34;./img/&#34;+newname ); // 同步上传图片
+
+    response.writeHead(200, {&#39;content-type&#39;: &#39;text/html&#39;});
+    var s = &#39;&lt;p&gt;&lt;a href=&#34;/&#34;&gt;back&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&#34;/show?src=&#39;+newname+&#39;&#34; /&gt;&lt;/p&gt;&#39;; // 显示刚才的图片
+    response.write(s);
+    response.end();
+});
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="5-综合">5. 综合</h3>
+<p>刚才学习了上传数据和上传图片，这里我们将其综合一下，拟定一个题目：“设定用户名密码，并上传头像”。希望可以自己实现一下。</p>
+<h3 id="6-接口的实现">6. 接口的实现</h3>
+<p>在第2部分学习了GET和POST请求，那么在这里写一个简单json或jsonp接口应该不是什么难事儿了吧。</p>
+<p>创建一个 inter.js ：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// inter.js
+var url = require(&#39;url&#39;);
+
+function init(request, response){
+    if( request.method.toLowerCase()==&#39;get&#39; ){
+        var query = url.parse(request.url, true).query;
+
+        var data = {&#34;code&#34;:0, &#34;msg&#34;:&#34;success&#34;, &#34;data&#34;:[{&#34;username&#34;:&#34;wenzi&#34;, &#34;age&#34;:26}, {&#34;username&#34;:&#34;bing&#34;, &#34;age&#34;:25}]};
+        if( query &amp;&amp; query.callback ){
+            // jsonp
+            response.end( query.callback + &#39;(&#39; + JSON.stringify(data) + &#39;)&#39; );
+         }else{
+            // json
+            response.end( JSON.stringify(data) );
+        }
+    }
+}
+exports.init = init;
+</code></pre></td></tr></table>
+</div>
+</div><p>在server中添加inter的引用和路由映射：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var routeurl = {
+    &#39;/&#39; : starter.start,
+    &#39;/upload&#39; : uploader.upload,
+    &#39;/show&#39; : shower.show,
+    &#39;/inter&#39; : inter.init // 添加
+};
+</code></pre></td></tr></table>
+</div>
+</div><p>然后对 <code>http://127.0.0.1:3000/inter</code> 进行json请求或jsonp请求即可。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2017-08-18</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-title="node(二)之搭建http服务器" data-hashtags="node"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-hashtag="node"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-title="node(二)之搭建http服务器"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-title="node(二)之搭建http服务器"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-title="node(二)之搭建http服务器"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/node/">node</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/node%E4%B8%80%E4%B9%8B%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" class="prev" rel="prev" title="node(一)之模块规范"><i class="fas fa-angle-left fa-fw"></i>node(一)之模块规范</a>
+            <a href="/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" class="next" rel="next" title="node(三)之文件操作">node(三)之文件操作<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

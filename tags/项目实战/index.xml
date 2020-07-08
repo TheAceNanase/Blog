@@ -1,0 +1,42 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>项目实战 - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/</link>
+        <description>项目实战 - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 29 Jun 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" rel="self" type="application/rss+xml" /><item>
+    <title>Django&#43;Nginx&#43;uWSGI生产环境部署</title>
+    <link>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</link>
+    <pubDate>Mon, 29 Jun 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</guid>
+    <description><![CDATA[WSGI是什么？ WSGI是一种规范，它定义了使用python编写的web app(django)与web server（uWSGI）之间接口格式]]></description>
+</item><item>
+    <title>项目部署上线指南</title>
+    <link>http://www.nishinonanase.xyz/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E6%8C%87%E5%8D%97/</link>
+    <pubDate>Tue, 23 Jun 2020 13:24:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E6%8C%87%E5%8D%97/</guid>
+    <description><![CDATA[项目部署上线指南 准备上线 上线前的检查工作。 1 python manage.py check --deploy 将DEBUG设置为False并配置ALLOWED_HOSTS。 1 2 DEBUG = False ALLOWED_HOSTS = [&#39;*&#39;] 安全相关的]]></description>
+</item><item>
+    <title>租房网项目接口文档</title>
+    <link>http://www.nishinonanase.xyz/%E7%A7%9F%E6%88%BF%E7%BD%91%E9%A1%B9%E7%9B%AE%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/</link>
+    <pubDate>Fri, 14 Feb 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E7%A7%9F%E6%88%BF%E7%BD%91%E9%A1%B9%E7%9B%AE%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/</guid>
+    <description><![CDATA[租房网项目接口文档 用户登录 - POST /api/login/ 开发者：骆昊 版本号：v1 最后修改时间： 接口说明：登录成功后，会生成或更新用户令牌（token）。 使用帮助：测]]></description>
+</item><item>
+    <title>电商网站技术要点剖析</title>
+    <link>http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/</link>
+    <pubDate>Sat, 11 Jan 2020 13:24:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/</guid>
+    <description><![CDATA[电商网站技术要点剖析 商业模式 B2B - 商家对商家，交易双方都是企业（商家），最典型的案例就是阿里巴巴。 C2C - 个人对个人，例如：淘宝、人人车。 B2C - 商家]]></description>
+</item><item>
+    <title>团队项目开发的问题和解决方案</title>
+    <link>http://www.nishinonanase.xyz/%E5%9B%A2%E9%98%9F%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
+    <pubDate>Wed, 26 Jul 2017 13:24:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E5%9B%A2%E9%98%9F%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
+    <description><![CDATA[团队项目开发的问题和解决方案 个人开发和团队开发这两个词相信对大家来说并不陌生。所谓个人开发就是一个人把控产品的所有内容；而团队开发则是由多个]]></description>
+</item></channel>
+</rss>

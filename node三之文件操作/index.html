@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>node(三)之文件操作 - ❤Nanase</title><meta name="Description" content=""><meta property="og:title" content="node(三)之文件操作" />
+<meta property="og:description" content="对于文件和文件夹的操作，文件系统提供了不少的api接口，这里我们从几个样例稍微讲解下文件接口的使用 node中对文件和目录的操作，我们不一个个" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2017-09-03T22:08:04+08:00" />
+<meta property="article:modified_time" content="2017-09-03T22:08:04+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="node(三)之文件操作"/>
+<meta name="twitter:description" content="对于文件和文件夹的操作，文件系统提供了不少的api接口，这里我们从几个样例稍微讲解下文件接口的使用 node中对文件和目录的操作，我们不一个个"/>
+<meta name="application-name" content="❤Nanase">
+<meta name="apple-mobile-web-app-title" content="❤Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" /><link rel="prev" href="http://www.nishinonanase.xyz/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/" /><link rel="next" href="http://www.nishinonanase.xyz/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "node(三)之文件操作",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C\/"
+        },"genre": "posts","keywords": "node","wordcount":  3216 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C\/","datePublished": "2017-09-03T22:08:04+08:00","dateModified": "2017-09-03T22:08:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="❤Nanase">❤Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 全部文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="❤Nanase">❤Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">全部文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">node(三)之文件操作</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-09-03">2017-09-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3216 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" class="leancloud_visitors" data-flag-title="node(三)之文件操作">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1-文件操作">1. 文件操作</a>
+              <ul>
+                <li><a href="#11-读取文件">1.1 读取文件</a></li>
+                <li><a href="#12-写入文件">1.2 写入文件</a></li>
+                <li><a href="#13-创建或文件重命名">1.3 创建或文件重命名</a></li>
+              </ul>
+            </li>
+            <li><a href="#2-文件夹操作">2. 文件夹操作</a>
+              <ul>
+                <li><a href="#21-读取文件夹中的文件和文件夹列表">2.1 读取文件夹中的文件和文件夹列表</a></li>
+                <li><a href="#22-删除文件夹">2.2 删除文件夹</a></li>
+                <li><a href="#23-获取文件或文件夹的信息">2.3 获取文件或文件夹的信息</a></li>
+              </ul>
+            </li>
+            <li><a href="#3-综合运用">3. 综合运用</a>
+              <ul>
+                <li><a href="#31-遍历目录中所有的文件">3.1 遍历目录中所有的文件</a></li>
+                <li><a href="#32-删除目录">3.2 删除目录</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>对于文件和文件夹的操作，文件系统提供了不少的api接口，这里我们从几个样例稍微讲解下文件接口的使用</p>
+<p>node中对文件和目录的操作，我们不一个个讲每个api的使用，只是从几个例子来了解下下文件系统。</p>
+<h3 id="1-文件操作">1. 文件操作</h3>
+<p>在文件操作里，主要是有文件读写，创建、移动文件等。</p>
+<h4 id="11-读取文件">1.1 读取文件</h4>
+<p>读取文本文件时，如.txt, .js, .json等文件，直接使用<code>readFile</code>就可以获取文件的内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// server.js
+var fs = require(&#39;fs&#39;);
+
+fs.readFile(&#39;./data.txt&#39;, &#39;utf-8&#39;, function(err, data){
+    if(err) throw err;
+    console.log(data);
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>读取图片时，我们是不能直接输出到控制台中的，是需要创建一个服务器，然后在浏览器上进行查看。其实在上节中，我们已经了解过显示图片的过程了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// server.js
+var http = require(&#39;http&#39;),
+    fs = require(&#39;fs&#39;);
+
+http.createServer(function(request, response){
+    // 使用二进制方式读取图片
+      fs.readFile(&#39;./img/test.png&#39;, &#39;binary&#39;, function(err, file){
+        if( err ) throw err;
+        // 当前数据以image/png方式进行输出
+        response.writeHead(200, {&#34;Content-Type&#34;: &#34;image/png&#34;});
+        response.write(file, &#39;binary&#39;);
+        response.end();
+      });
+}).listen(3000);
+console.log(&#39;server has started...&#39;);
+</code></pre></td></tr></table>
+</div>
+</div><p>打开浏览器：<code>127.0.0.1:3000</code>，就能看到图片了。</p>
+<h4 id="12-写入文件">1.2 写入文件</h4>
+<p>将字符串写入到文件文件中，是非常简单的操作，使用<code>writeFile</code>即可搞定：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">var fs = require(&#39;fs&#39;);
+
+var data = &#39;从一开始，就选择了做前端开发，因为觉得前端开发更贴近用户，能够倾听用户的声音，更好玩，更有意思，美的更直观。我们总是在尝试最新的技术，尝试更炫的效果，希望更能优化用户的体验效果！&#39;;
+
+fs.writeFile(&#39;./test.txt&#39;, data, function(err){
+      if(err) throw err;
+      console.log(&#39;写入数据成功...&#39;);
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>writeFile方法，在没有文件时会创建文件并写入；若文件存在则内容被覆盖。</p>
+<h4 id="13-创建或文件重命名">1.3 创建或文件重命名</h4>
+<p>根据writeFile的特性，可以使用<code>writeFile</code>写入空字符串的方式创建文件。</p>
+<p>同时，<code>fs.open</code>也可以创建文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 打开模式可以使用 w | w+ | a | a+
+// 这些模式在打开不存在的文件时，会创建文件
+// fd为一个整数，表示打开文件返回的文件描述符，window中又称文件句柄
+fs.open(Date.now()+&#39;.txt&#39;, &#39;a+&#39;, function(err, fd){
+      if(err) throw err;
+      console.log(fd);
+})
+</code></pre></td></tr></table>
+</div>
+</div><p>在文件系统中，有一个<code>fs.rename</code>的方法，顾名思义，对文件（文件夹）进行重命名。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">fs.rename(oldname, newname, callback(err));
+</code></pre></td></tr></table>
+</div>
+</div><p>特性：</p>
+<p>将oldname文件（目录）<strong>移动</strong>至newname的路径下，并重新命名；如果oldname和newname是同一个路径，则直接进行重命名。</p>
+<h3 id="2-文件夹操作">2. 文件夹操作</h3>
+<p>通常对目录的操作比较简单一些。</p>
+<h4 id="21-读取文件夹中的文件和文件夹列表">2.1 读取文件夹中的文件和文件夹列表</h4>
+<p>使用<code>fs.readdir(path, callback)</code>可以获取path路径下的文件和目录列表，而且只能读取直接目录下的文件和文件夹，子目录里的是获取不到的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">fs.readdir(&#39;./&#39;, function(err, files){
+      if(err) throw err;
+      console.log( files );
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>输出结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[
+      &#39;img&#39;,
+      &#39;msg.txt&#39;,
+      &#39;node_modules&#39;,
+      &#39;package.json&#39;,
+     &#39;server.js&#39;,
+      &#39;test.js&#39;,
+      &#39;tmp&#39;
+]
+</code></pre></td></tr></table>
+</div>
+</div><p>node_modules和tmp是文件夹，剩下的是文件，而且是获取不到node_modules和tmp里面的数据。获取一个目录下所有的文件，后面会讲解，稍等。</p>
+<h4 id="22-删除文件夹">2.2 删除文件夹</h4>
+<p>使用<code>fs.rmdir(path, callback)</code>可以删除文件夹，<strong>但只能删除空文件夹</strong>，如果当前路径不是文件夹或当前文件夹不为空，则删除失败；删除的为空文件夹时，可以删除成功。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">fs.rmdir(&#39;./tmp&#39;, function(err){
+      if(err){
+        console.log(&#39;删除文件夹失败&#39;);
+        throw err;
+      }else{
+        console.log(&#39;删除成功&#39;);
+      }
+})
+</code></pre></td></tr></table>
+</div>
+</div><p>如何删除不为空的目录，后面会讲解，稍等。</p>
+<h4 id="23-获取文件或文件夹的信息">2.3 获取文件或文件夹的信息</h4>
+<p><code>fs.stat(path, callback)</code>能够获取path路径的信息，比如创建时间，修改时间，文件大小，当前是否为文件，当前是否为文件夹等信息；如果path路径不存在，则抛出异常。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">fs.stat(&#39;./test.js&#39;, function(err, stats){
+    if( err ){
+        console.log( &#39;路径错误&#39; );
+        throw err;
+    }
+    console.log(stats);
+    console.log( &#39;isfile: &#39;+stats.isFile() ); // 是否为文件
+    console.log( &#39;isdir: &#39;+stats.isDirectory() ); // 是否为文件夹
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+    dev: -29606086,
+      mode: 33206,
+      nlink: 1,
+      uid: 0,
+      gid: 0,
+      rdev: 0,
+      blksize: undefined,
+      ino: 2251799813687343,
+      size: 2063,  // path路径为文件夹时，size为0
+      blocks: undefined,
+      atime: Thu Jan 12 2017 21:12:36 GMT+0800 (中国标准时间),
+      mtime: Sat Jan 14 2017 21:57:26 GMT+0800 (中国标准时间),
+      ctime: Sat Jan 14 2017 21:57:26 GMT+0800 (中国标准时间),
+      birthtime: Thu Jan 12 2017 21:12:36 GMT+0800 (中国标准时间)
+}
+isfile: true // 是否为文件
+isdir: false // 是否为文件夹
+</code></pre></td></tr></table>
+</div>
+</div><p>关于这几个时间属性的理解，可以参考我之前写的博文：【<a href="https://www.xiabingbao.com/gulp/2016/01/20/gulp-changed-ponder.html#mtime-atime-ctime" target="_blank" rel="noopener noreffer">对gulp-changed插件的一点思考</a>】</p>
+<p>stats中的size属性就是当前文件的大小（单位：字节，除以1024即为kb），stats还有下面方法可供使用：</p>
+<ul>
+<li>stats.isFile()</li>
+<li>stats.isDirectory()</li>
+<li>stats.isBlockDevice()</li>
+<li>stats.isCharacterDevice()</li>
+<li>stats.isSymbolicLink() (only valid with fs.lstat())</li>
+<li>stats.isFIFO()</li>
+<li>stats.isSocket()</li>
+</ul>
+<p>fs.stat(path, callback)是异步执行的，对应的还有同步执行版本：<code>fs.statSync(path)</code>，这个方法返回的就是<code>fs.stats</code>实例。</p>
+<h3 id="3-综合运用">3. 综合运用</h3>
+<p>我们在上面的讲解中，还留着两个功能没实现，这里实现一下它的过程。</p>
+<h4 id="31-遍历目录中所有的文件">3.1 遍历目录中所有的文件</h4>
+<p>我们已经知道使用<code>readdir</code>只能获取当前目录里的文件和文件夹名称，为了获取这个目录里所有的文件名称，只能是读取当前目录里所有的文件夹里的文件。这里我们使用递归的方法，如果当前资源是文件，则进行存储，是文件夹则进行递归进一步检索，直到把所有的文件夹遍历完毕。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 获取文件夹中所有的文件
+function readDirAll(path){
+    // 获取字符串的最后一个字符
+    var getLastCode = function(str){
+        return str.substr(str.length-1, 1);
+    }
+
+    var result = []; // 存储获取到的文件
+    var stats = fs.statSync(path); // 获取当前文件的状态
+    if( stats.isFile() ){
+        result.push(path);
+    }else if( stats.isDirectory() ){
+        // 若当前路径是文件夹，则获取路径下所有的信息，并循环
+        var files = fs.readdirSync(path);
+
+        for(var i=0, len=files.length; i&lt;len; i++){
+            var item = files[i],
+                itempath = getLastCode(path)==&#39;/&#39;  ? path+item : path+&#39;/&#39;+item; // 拼接路径
+            var st = fs.statSync(itempath);
+            if( st.isFile() ){
+                result.push(itempath);
+            }else if( st.isDirectory() ){
+                // 当前是文件夹，则递归检索，将递归获取到的文件列表与当前result进行拼接
+                var s = readDirAll( itempath );
+                result = result.concat( s );
+            }
+        }
+    }
+    return result;
+}
+console.log( readDirAll(&#39;./&#39;) );
+</code></pre></td></tr></table>
+</div>
+</div><p>使用此程序获取当前目录中所有的文件（展示的为部分文件）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[ 
+    &#39;./bing.doc&#39;,
+      &#39;./img/1484234634801.png&#39;,
+      &#39;./img/1484234660592.png&#39;,
+      &#39;./img/test.png&#39;,
+      &#39;./inter.js&#39;,
+      &#39;./msg.txt&#39;,
+      &#39;./node_modules/formidable/.npmignore&#39;,
+      &#39;./node_modules/formidable/.travis.yml&#39;,
+      &#39;./node_modules/formidable/index.js&#39;,
+      &#39;./node_modules/formidable/lib/file.js&#39;,
+      &#39;./node_modules/formidable/lib/incoming_form.js&#39;,
+      &#39;./node_modules/formidable/lib/index.js&#39;,
+      ...
+]
+</code></pre></td></tr></table>
+</div>
+</div><p>如果想要输出一种树形的结构，就可以对当前的递归程序进行改造，比如我想要输出如下的这种结果，那么，就要分析这种结构的特点：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bing.doc                                    
+img                                         
+    |---1484234634801.png                   
+    |---1484234660592.png                   
+    |---test.png                            
+inter.js                                    
+msg.txt                                     
+node_modules                                
+    |---formidable                          
+        |---.npmignore                      
+        |---.travis.yml                     
+        |---index.js                        
+        |---lib                             
+            |---file.js 
+            |---incoming_form.js 
+            |---index.js
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看出的规律：</p>
+<ol>
+<li>第一层级的文件和文件夹前面是没有空格和字符的；</li>
+<li>第一级子目录中的文件或文件夹前面是1组空格和1个字符；</li>
+<li>第二级子目录中的文件或文件夹前面是2组空格和1个字符；</li>
+<li>依次类推&hellip;</li>
+</ol>
+<p>我们可以再传递一个depth来表示当前目录的层级，然后计算出前面空格的数量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// depth为递归的深度，可根据递归的深度输出文件名称前面的格式
+function readDirAll(path, depth){
+    // 获取字符串
+    var getLastCode = function(str){
+        return str.substr(str.length-1, 1);
+    }
+
+    depth = depth || 0; // 默认为0
+    var fir_code = &#39;&#39;;
+
+    // 计算文件名称前面的字符，4个空格为1组
+    for(var j=0; j&lt;depth; j++){
+        fir_code += &#39;    &#39;;
+    }
+    depth &amp;&amp; (fir_code += &#39;|---&#39;);
+
+    var stats = fs.statSync(path);
+    if( stats.isFile() ){
+        console.log( fir_code+path );
+    }else if( stats.isDirectory() ){
+        var files = fs.readdirSync(path);
+        for(var i=0, len=files.length; i&lt;len; i++){
+            var item = files[i],
+                itempath = getLastCode(path)==&#39;/&#39;  ? path+item : path+&#39;/&#39;+item,
+                st = fs.statSync(itempath);
+
+          console.log( fir_code+item );
+          if( st.isDirectory() ){
+              var s = readDirAll( itempath, depth+1 );
+          }
+      }
+  }
+}
+console.log( readDirAll(&#39;./&#39;) ); 
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="32-删除目录">3.2 删除目录</h4>
+<p>使用<code>fs.rmdir(path)</code>是有局限性的，只能删除空目录，如果是个非空目录，我们可以根据上面的思路，写出一个能删除当前目录下所有的文件。<code>递归</code>，只要找到里面的文件夹就递归寻找，直到找到最底层，把最底层的文件删除，然后再逐级向上删除文件夹，直到删除到当前目录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 删除path下所有的文件和文件夹，包括path自己
+function rmDirAll(path){
+    // 获取字符串
+    var getLastCode = function(str){
+        return str.substr(str.length-1, 1);
+    }
+
+    var stats = fs.statSync(path); // 获取当前文件的状态
+    if( stats.isFile() ){
+        fs.unlinkSync(path);
+        console.log( &#39;删除成功： &#39;+path );
+    }else if( stats.isDirectory() ){
+        // 若当前路径是文件夹，则获取路径下所有的信息，并循环
+        var files = fs.readdirSync(path);
+
+        for(var i=0, len=files.length; i&lt;len; i++){
+            var item = files[i],
+                itempath = getLastCode(path)==&#39;/&#39;  ? path+item : path+&#39;/&#39;+item; // 拼接路径
+            var st = fs.statSync(itempath);
+            if( st.isFile() ){
+                fs.unlinkSync(itempath);
+                console.log( &#39;删除成功： &#39;+itempath );
+            }else if( st.isDirectory() ){
+                // 当前是文件夹，则递归检索
+                rmDirAll( itempath );
+            }
+        }
+        // 现在可以删除文件夹
+        fs.rmdir(path);
+        console.log( &#39;删除成功： &#39;+path );
+    }
+}
+rmDirAll(&#39;./img&#39;); 
+</code></pre></td></tr></table>
+</div>
+</div><p>则删除时输出的信息如下，先把内部的文件和文件夹删除干净，最后删除 &lsquo;./img&rsquo;：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">删除成功： ./img/1484234634801.png
+删除成功： ./img/1484234660592.png
+删除成功： ./img/gggg/est.txt
+删除成功： ./img/gggg
+删除成功： ./img/test.png
+删除成功： ./img
+</code></pre></td></tr></table>
+</div>
+</div><p>当然，你也可以试着实现这样的程序：</p>
+<ol>
+<li>删除path内部所有的内容，同时能保留下path目录</li>
+<li>只删除文件，将所有的空文件夹保留下来</li>
+<li>将内部所有的文件都移动到path的根目录下，并删除空文件夹</li>
+</ol>
+<p>等等，都可以试着实现一下。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2017-09-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" data-title="node(三)之文件操作" data-hashtags="node"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" data-hashtag="node"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" data-title="node(三)之文件操作"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" data-title="node(三)之文件操作"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/node%E4%B8%89%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" data-title="node(三)之文件操作"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/node/">node</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/node%E4%BA%8C%E4%B9%8B%E6%90%AD%E5%BB%BAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="prev" rel="prev" title="node(二)之搭建http服务器"><i class="fas fa-angle-left fa-fw"></i>node(二)之搭建http服务器</a>
+            <a href="/node%E5%9B%9B%E4%B9%8B%E7%AE%80%E6%98%93%E7%9A%84%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/" class="next" rel="next" title="node(四)之简易的网络爬虫">node(四)之简易的网络爬虫<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">zhaoqiang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">西野七瀬天下第一</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

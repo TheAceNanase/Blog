@@ -1,0 +1,77 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>函数式编程 - 标签 - ❤Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</link>
+        <description>函数式编程 - 标签 - ❤Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 01 Sep 2015 15:46:34 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+    <title>偏函数</title>
+    <link>http://www.nishinonanase.xyz/%E5%81%8F%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Tue, 01 Sep 2015 15:46:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E5%81%8F%E5%87%BD%E6%95%B0/</guid>
+    <description><![CDATA[Python的functools模块提供了很多有用的功能，其中一个就是偏函数（Partial function）。要注意，这里的偏函数和数学意]]></description>
+</item><item>
+    <title>sorted函数</title>
+    <link>http://www.nishinonanase.xyz/sorted%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Fri, 28 Aug 2015 17:54:39 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/sorted%E5%87%BD%E6%95%B0/</guid>
+    <description><![CDATA[排序算法 排序也是在程序中经常用到的算法。无论使用冒泡排序还是快速排序，排序的核心是比较两个元素的大小。如果是数字，我们可以直接比较，但如果是]]></description>
+</item><item>
+    <title>map/reduce函数</title>
+    <link>http://www.nishinonanase.xyz/mapreduce%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Wed, 26 Aug 2015 15:46:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/mapreduce%E5%87%BD%E6%95%B0/</guid>
+    <description><![CDATA[我们先看map。map()函数接收两个参数，一个是函数，一个是Iterabl，map将传入的函数依次作用到序列的每个元素，并把结果作为新的I]]></description>
+</item><item>
+    <title>lambda匿名函数</title>
+    <link>http://www.nishinonanase.xyz/lambda%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Sun, 23 Aug 2015 14:50:28 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/lambda%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0/</guid>
+    <description><![CDATA[当我们在传入函数时，有些时候，不需要显式地定义函数，直接传入匿名函数更方便。 在Python中，对匿名函数提供了有限支持。还是以map()函数]]></description>
+</item><item>
+    <title>filter函数</title>
+    <link>http://www.nishinonanase.xyz/filter%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Fri, 21 Aug 2015 08:11:42 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/filter%E5%87%BD%E6%95%B0/</guid>
+    <description><![CDATA[和map()类似，filter()也接收一个函数和一个序列。和map()不同的是，filter()把传入的函数依次作用于每个元素，然后根据返]]></description>
+</item><item>
+    <title>装饰器</title>
+    <link>http://www.nishinonanase.xyz/%E8%A3%85%E9%A5%B0%E5%99%A8/</link>
+    <pubDate>Tue, 18 Aug 2015 22:10:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E8%A3%85%E9%A5%B0%E5%99%A8/</guid>
+    <description><![CDATA[01. 装饰器语法糖 如果你接触 Python 有一段时间了的话，想必你对 @ 符号一定不陌生了，没错 @ 符号就是装饰器的语法糖。 它放在一个函数开始定义的地方，它就像一]]></description>
+</item><item>
+    <title>返回函数</title>
+    <link>http://www.nishinonanase.xyz/%E8%BF%94%E5%9B%9E%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Tue, 18 Aug 2015 19:33:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E8%BF%94%E5%9B%9E%E5%87%BD%E6%95%B0/</guid>
+    <description><![CDATA[函数作为返回值 高阶函数除了可以接受函数作为参数外，还可以把函数作为结果值返回。 我们来实现一个可变参数的求和。通常情况下，求和的函数是这样定义]]></description>
+</item><item>
+    <title>列表生成式</title>
+    <link>http://www.nishinonanase.xyz/%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E5%BC%8F/</link>
+    <pubDate>Tue, 11 Aug 2015 08:26:42 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E5%BC%8F/</guid>
+    <description><![CDATA[列表生成式即List Comprehensions，是Python内置的非常简单却强大的可以用来创建list的生成式。 举个例子，要生成list]]></description>
+</item><item>
+    <title>迭代器</title>
+    <link>http://www.nishinonanase.xyz/%E8%BF%AD%E4%BB%A3%E5%99%A8/</link>
+    <pubDate>Tue, 04 Aug 2015 18:01:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E8%BF%AD%E4%BB%A3%E5%99%A8/</guid>
+    <description><![CDATA[我们已经知道，可以直接作用于for循环的数据类型有以下几种： 一类是集合数据类型，如list、tupl、dict、set、str等； 一类是ge]]></description>
+</item><item>
+    <title>生成器</title>
+    <link>http://www.nishinonanase.xyz/%E7%94%9F%E6%88%90%E5%99%A8/</link>
+    <pubDate>Mon, 03 Aug 2015 09:30:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E7%94%9F%E6%88%90%E5%99%A8/</guid>
+    <description><![CDATA[通过列表生成式，我们可以直接创建一个列表。但是，受到内存限制，列表容量肯定是有限的。而且，创建一个包含100万个元素的列表，不仅占用很大的存]]></description>
+</item></channel>
+</rss>
