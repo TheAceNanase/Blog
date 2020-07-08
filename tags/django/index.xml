@@ -11,13 +11,6 @@
     <guid>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</guid>
     <description><![CDATA[WSGI是什么？ WSGI是一种规范，它定义了使用python编写的web app(django)与web server（uWSGI）之间接口格式]]></description>
 </item><item>
-    <title>Docker容器详解</title>
-    <link>http://www.nishinonanase.xyz/docker%E5%AE%B9%E5%99%A8%E8%AF%A6%E8%A7%A3/</link>
-    <pubDate>Sun, 10 May 2020 13:24:15 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/docker%E5%AE%B9%E5%99%A8%E8%AF%A6%E8%A7%A3/</guid>
-    <description><![CDATA[Docker容器详解 Docker是基于Go语言开发的开源应用容器引擎，遵从Apache Licence 2.0协议，可以让开发者打包应用以及应用的依赖包到一]]></description>
-</item><item>
     <title>Webshell</title>
     <link>http://www.nishinonanase.xyz/webshell/</link>
     <pubDate>Wed, 15 Apr 2020 13:24:15 &#43;0800</pubDate>
@@ -73,5 +66,12 @@
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/django%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E6%96%87%E7%AB%A0/</guid>
     <description><![CDATA[部署静态文件 也可以看看 有关使用的简介django.contrib.staticfiles，请参阅 管理静态文件（例如，图像，JavaScrip]]></description>
+</item><item>
+    <title>Django使用ASGI进行部署</title>
+    <link>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8asgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</link>
+    <pubDate>Thu, 15 Feb 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8asgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</guid>
+    <description><![CDATA[使用ASGI进行部署 除了WSGI，Django还支持在ASGI上进行部署，ASGI是用于异步Web服务器和应用程序的新兴Python标准。 D]]></description>
 </item></channel>
 </rss>

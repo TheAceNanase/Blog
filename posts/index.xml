@@ -55,13 +55,6 @@
     <guid>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E6%89%8B%E6%93%80%E9%9D%A2/</guid>
     <description><![CDATA[疫情原因无法出门，也无法返回天津工作。 于是就在家办公，由于没有了外卖。空闲时间便自己开始做饭了。 参加工作以来就很少自己做饭了。 常吃外卖确实也]]></description>
 </item><item>
-    <title>Docker容器详解</title>
-    <link>http://www.nishinonanase.xyz/docker%E5%AE%B9%E5%99%A8%E8%AF%A6%E8%A7%A3/</link>
-    <pubDate>Sun, 10 May 2020 13:24:15 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/docker%E5%AE%B9%E5%99%A8%E8%AF%A6%E8%A7%A3/</guid>
-    <description><![CDATA[Docker容器详解 Docker是基于Go语言开发的开源应用容器引擎，遵从Apache Licence 2.0协议，可以让开发者打包应用以及应用的依赖包到一]]></description>
-</item><item>
     <title>小宁的爱吃厨房--凉菜</title>
     <link>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E5%87%89%E8%8F%9C/</link>
     <pubDate>Sat, 02 May 2020 22:08:04 &#43;0800</pubDate>
@@ -75,5 +68,12 @@
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E8%A5%BF%E8%91%AB%E8%8A%A6%E7%95%AA%E8%8C%84%E7%82%92%E9%B8%A1%E8%9B%8B%E7%82%92%E9%9D%A2/</guid>
     <description><![CDATA[疫情原因无法出门，也无法返回天津工作。 于是就在家办公，由于没有了外卖。空闲时间便自己开始做饭了。 参加工作以来就很少自己做饭了。 常吃外卖确实也]]></description>
+</item><item>
+    <title>Websocket</title>
+    <link>http://www.nishinonanase.xyz/websocket/</link>
+    <pubDate>Thu, 23 Apr 2020 13:24:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/websocket/</guid>
+    <description><![CDATA[轮询：在前端通过写js实现。缺点：有延迟、服务器压力大。 1 2 就是客户端通过一定的时间间隔以频繁请求的方式向服务器发送请求，来保持客户端和服务]]></description>
 </item></channel>
 </rss>

@@ -18,13 +18,6 @@
     <guid>http://www.nishinonanase.xyz/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E6%8C%87%E5%8D%97/</guid>
     <description><![CDATA[项目部署上线指南 准备上线 上线前的检查工作。 1 python manage.py check --deploy 将DEBUG设置为False并配置ALLOWED_HOSTS。 1 2 DEBUG = False ALLOWED_HOSTS = [&#39;*&#39;] 安全相关的]]></description>
 </item><item>
-    <title>Docker容器详解</title>
-    <link>http://www.nishinonanase.xyz/docker%E5%AE%B9%E5%99%A8%E8%AF%A6%E8%A7%A3/</link>
-    <pubDate>Sun, 10 May 2020 13:24:15 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/docker%E5%AE%B9%E5%99%A8%E8%AF%A6%E8%A7%A3/</guid>
-    <description><![CDATA[Docker容器详解 Docker是基于Go语言开发的开源应用容器引擎，遵从Apache Licence 2.0协议，可以让开发者打包应用以及应用的依赖包到一]]></description>
-</item><item>
     <title>Django的缓存框架</title>
     <link>http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/</link>
     <pubDate>Tue, 03 Apr 2018 22:08:04 &#43;0800</pubDate>
@@ -73,5 +66,12 @@
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8asgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</guid>
     <description><![CDATA[使用ASGI进行部署 除了WSGI，Django还支持在ASGI上进行部署，ASGI是用于异步Web服务器和应用程序的新兴Python标准。 D]]></description>
+</item><item>
+    <title>Django使用WSGI进行部署</title>
+    <link>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</link>
+    <pubDate>Tue, 06 Feb 2018 22:08:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</guid>
+    <description><![CDATA[简介 Django的主要部署平台是WSGI，这是Web服务器和应用程序的Python标准。 Django的startproject管理命令为您设]]></description>
 </item></channel>
 </rss>
