@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>技术要点 - 标签 - ❤Nanase</title>
+        <title>技术要点 - 标签 - 💗Nanase</title>
         <link>http://www.nishinonanase.xyz/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/</link>
-        <description>技术要点 - 标签 - ❤Nanase</description>
+        <description>技术要点 - 标签 - 💗Nanase</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 03 Jul 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/" rel="self" type="application/rss+xml" /><item>
     <title>redis 穿透、雪崩、击穿</title>
     <link>http://www.nishinonanase.xyz/redis-%E7%A9%BF%E9%80%8F%E9%9B%AA%E5%B4%A9%E5%87%BB%E7%A9%BF/</link>

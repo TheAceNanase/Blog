@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Python - 标签 - ❤Nanase</title>
+        <title>Python - 标签 - 💗Nanase</title>
         <link>http://www.nishinonanase.xyz/tags/python/</link>
-        <description>Python - 标签 - ❤Nanase</description>
+        <description>Python - 标签 - 💗Nanase</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 03 Apr 2018 22:08:04 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/python/" rel="self" type="application/rss+xml" /><item>
     <title>Django的缓存框架</title>
     <link>http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/</link>

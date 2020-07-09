@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Django - 标签 - ❤Nanase</title>
+        <title>Django - 标签 - 💗Nanase</title>
         <link>http://www.nishinonanase.xyz/tags/django/</link>
-        <description>Django - 标签 - ❤Nanase</description>
+        <description>Django - 标签 - 💗Nanase</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 29 Jun 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/django/" rel="self" type="application/rss+xml" /><item>
     <title>Django&#43;Nginx&#43;uWSGI生产环境部署</title>
     <link>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</link>
