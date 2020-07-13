@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Elasticsearch - 标签 - 💗Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/elasticsearch/</link>
+        <description>Elasticsearch - 标签 - 💗Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 03 Apr 2018 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/elasticsearch/" rel="self" type="application/rss+xml" /><item>
+    <title>Elasticsearch</title>
+    <link>http://www.nishinonanase.xyz/elasticsearch/</link>
+    <pubDate>Tue, 03 Apr 2018 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/elasticsearch/</guid>
+    <description><![CDATA[Elasticsearch 是什么？ Elasticsearch 是一个分布式的、开源的搜索分析引擎，支持各种数据类型，包括文本、数字、地理、结构化、非结构化。 Elasticsearch 是基于 Apache Lucene 的。 Elasticsearch 因其简单的 REST AP]]></description>
+</item></channel>
+</rss>

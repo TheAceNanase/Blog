@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Oauth2.0四种授权模式 - 💗Nanase</title><meta name="Description" content=""><meta property="og:title" content="Oauth2.0四种授权模式" />
+<meta property="og:description" content="Oauth2 四种模式 Oauth2.0是一种授权协议，当然也归属为安全协议的范畴，在实际执行的时候就是保护互联网中不断增长的大量WEB API的安全访问。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2020-05-16T20:37:58+08:00" />
+<meta property="article:modified_time" content="2020-05-16T20:37:58+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Oauth2.0四种授权模式"/>
+<meta name="twitter:description" content="Oauth2 四种模式 Oauth2.0是一种授权协议，当然也归属为安全协议的范畴，在实际执行的时候就是保护互联网中不断增长的大量WEB API的安全访问。"/>
+<meta name="application-name" content="💗Nanase">
+<meta name="apple-mobile-web-app-title" content="💗Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F/" /><link rel="prev" href="http://www.nishinonanase.xyz/rabbitmq/" /><link rel="next" href="http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E6%89%8B%E6%93%80%E9%9D%A2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Oauth2.0四种授权模式",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F\/"
+        },"genre": "posts","keywords": "技术要点","wordcount":  1073 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F\/","datePublished": "2020-05-16T20:37:58+08:00","dateModified": "2020-05-16T20:37:58+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="💗Nanase">💗Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 🍑全部文章 </a><a class="menu-item" href="/tags/"> 🍊标签 </a><a class="menu-item" href="/categories/"> 🍓分类 </a><a class="menu-item" href="/about/"> 🥝关于 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"> 🍋GitHub </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="💗Nanase">💗Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">🍑全部文章</a><a class="menu-item" href="/tags/" title="">🍊标签</a><a class="menu-item" href="/categories/" title="">🍓分类</a><a class="menu-item" href="/about/" title="">🥝关于</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank">🍋GitHub</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Oauth2.0四种授权模式</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/"><i class="far fa-folder fa-fw"></i>技术要点</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-16">2020-05-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1073 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F/" class="leancloud_visitors" data-flag-title="Oauth2.0四种授权模式">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#oauth2-四种模式">Oauth2 四种模式</a>
+          <ul>
+            <li><a href="#隐式授权模式implicit-grant">隐式授权模式（Implicit Grant）</a></li>
+            <li><a href="#授权码授权模式authorization-code-grant">授权码授权模式（Authorization code Grant）</a></li>
+            <li><a href="#密码模式resource-owner-password-credentials-grant">密码模式（Resource Owner Password Credentials Grant）</a></li>
+            <li><a href="#客户端凭证模式client-credentials-grant">客户端凭证模式（Client Credentials Grant）</a></li>
+          </ul>
+        </li>
+        <li><a href="#四种模式的应用场景">四种模式的应用场景：</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="oauth2-四种模式">Oauth2 四种模式</h2>
+<p>Oauth2.0是一种授权协议，当然也归属为安全协议的范畴，在实际执行的时候就是保护互联网中不断增长的大量WEB API的安全访问。OAuth2.0共包含四种角色，分别是资源所有者、第三方应用（也称为客户端client）、授权服务器和资源服务器。</p>
+<h3 id="隐式授权模式implicit-grant">隐式授权模式（Implicit Grant）</h3>
+<p>第一步：用户访问页面时，重定向到认证服务器。</p>
+<p>第二步：认证服务器给用户一个认证页面，等待用户授权。</p>
+<p>第三步：用户授权，认证服务器想应用页面返回Token</p>
+<p>第四步：验证Token，访问真正的资源页面</p>
+<h3 id="授权码授权模式authorization-code-grant">授权码授权模式（Authorization code Grant）</h3>
+<p>第一步：用户访问页面</p>
+<p>第二步：访问的页面将请求重定向到认证服务器</p>
+<p>第三步：认证服务器向用户展示授权页面，等待用户授权</p>
+<p>第四步：用户授权，认证服务器生成一个code和带上client_id发送给应用服务器</p>
+<p>然后，应用服务器拿到code，并用client_id去后台查询对应的client_secret</p>
+<p>第五步：将code、client_id、client_secret传给认证服务器换取access_token和</p>
+<p>refresh_token</p>
+<p>第六步：将access_token和refresh_token传给应用服务器</p>
+<p>第七步：验证token，访问真正的资源页面</p>
+<h3 id="密码模式resource-owner-password-credentials-grant">密码模式（Resource Owner Password Credentials Grant）</h3>
+<p>第一步：用户访问页面时，输入第三方认证所需要的信息(QQ/微信账号密码)</p>
+<p>第二步：应用页面那种这个信息去认证服务器授权</p>
+<p>第三步：认证服务器授权通过，拿到token，访问真正的资源页面</p>
+<p>优点：不需要多次请求转发，额外开销，同时可以获取更多的用户信息。(都拿到账号密码了)</p>
+<p>缺点：局限性，认证服务器和应用方必须有超高的信赖。(比如亲兄弟？)</p>
+<p>应用场景：自家公司搭建的认证服务器</p>
+<h3 id="客户端凭证模式client-credentials-grant">客户端凭证模式（Client Credentials Grant）</h3>
+<p>第一步：用户访问应用客户端</p>
+<p>第二步：通过客户端定义的验证方法，拿到token，无需授权</p>
+<p>第三步：访问资源服务器A</p>
+<p>第四步：拿到一次token就可以畅通无阻的访问其他的资源页面。</p>
+<p>这是一种最简单的模式，只要client请求，我们就将AccessToken发送给它。这种模式是最方便但最不安全的模式。因此这就要求我们对client完全的信任，而client本身也是安全的。</p>
+<p>因此这种模式一般用来提供给我们完全信任的服务器端服务。在这个过程中不需要用户的参与。</p>
+<h2 id="四种模式的应用场景">四种模式的应用场景：</h2>
+<ol>
+<li>
+<p>授权码模式：第三方Web服务器端应用与第三方原生App</p>
+</li>
+<li>
+<p>简化模式：第三方单页面应用</p>
+</li>
+<li>
+<p>密码模式：第一方单页应用与第一方原生App</p>
+</li>
+<li>
+<p>客户端模式：没有用户参与的，完全信任的服务器端服务</p>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-05-16</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F/" data-title="Oauth2.0四种授权模式" data-hashtags="技术要点"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F/" data-hashtag="技术要点"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F/" data-title="Oauth2.0四种授权模式"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F/" data-title="Oauth2.0四种授权模式"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F/" data-title="Oauth2.0四种授权模式" data-ralateuid="5146819796"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/">技术要点</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/rabbitmq/" class="prev" rel="prev" title="RabbitMQ"><i class="fas fa-angle-left fa-fw"></i>RabbitMQ</a>
+            <a href="/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E6%89%8B%E6%93%80%E9%9D%A2/" class="next" rel="next" title="小宁的爱吃厨房--手擀面">小宁的爱吃厨房--手擀面<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由<a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 驱动 | 主题-<a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a> | 乃木坂46
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">书兰</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">欢迎微博关注@西野七瀬</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

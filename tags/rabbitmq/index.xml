@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>RabbitMQ - 标签 - 💗Nanase</title>
+        <link>http://www.nishinonanase.xyz/tags/rabbitmq/</link>
+        <description>RabbitMQ - 标签 - 💗Nanase</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 13 May 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/rabbitmq/" rel="self" type="application/rss+xml" /><item>
+    <title>RabbitMQ</title>
+    <link>http://www.nishinonanase.xyz/rabbitmq/</link>
+    <pubDate>Wed, 13 May 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/rabbitmq/</guid>
+    <description><![CDATA[RabbitMQ简介 以熟悉的电商场景为例，如果商品服务和订单服务是两个不同的微服务，在下单的过程中订单服务需要调用商品服务进行扣库存操作。按]]></description>
+</item></channel>
+</rss>

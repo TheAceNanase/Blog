@@ -3,13 +3,15 @@
         <title>部署 - 标签 - 💗Nanase</title>
         <link>http://www.nishinonanase.xyz/tags/%E9%83%A8%E7%BD%B2/</link>
         <description>部署 - 标签 - 💗Nanase</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 29 Jun 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E9%83%A8%E7%BD%B2/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 09 Jul 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E9%83%A8%E7%BD%B2/" rel="self" type="application/rss+xml" /><item>
     <title>Django&#43;Nginx&#43;uWSGI生产环境部署</title>
     <link>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</link>
-    <pubDate>Mon, 29 Jun 2020 20:37:58 &#43;0800</pubDate>
+    <pubDate>Thu, 09 Jul 2020 20:37:58 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</guid>
-    <description><![CDATA[WSGI是什么？ WSGI是一种规范，它定义了使用python编写的web app(django)与web server（uWSGI）之间接口格式]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://p3.music.126.net/WZ8Av-iscuwD2qxwib_qrg==/109951165117366911.jpg" referrerpolicy="no-referrer">
+            </div>WSGI是什么？ WSGI是一种规范，它定义了使用python编写的web app(django)与web server（uWSGI）之间接口格式]]></description>
 </item><item>
     <title>项目部署上线指南</title>
     <link>http://www.nishinonanase.xyz/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E6%8C%87%E5%8D%97/</link>
@@ -17,6 +19,13 @@
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E6%8C%87%E5%8D%97/</guid>
     <description><![CDATA[项目部署上线指南 准备上线 上线前的检查工作。 1 python manage.py check --deploy 将DEBUG设置为False并配置ALLOWED_HOSTS。 1 2 DEBUG = False ALLOWED_HOSTS = [&#39;*&#39;] 安全相关的]]></description>
+</item><item>
+    <title>Docker入门</title>
+    <link>http://www.nishinonanase.xyz/docker%E5%85%A5%E9%97%A8/</link>
+    <pubDate>Sat, 13 Apr 2019 08:11:42 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/docker%E5%85%A5%E9%97%A8/</guid>
+    <description><![CDATA[什么是Docker Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，它是基于 dotCloud 公司多年云服务技术的一次革新，并于 2013 年 3 月以 Apache 2.0 授权协]]></description>
 </item><item>
     <title>Django的缓存框架</title>
     <link>http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/</link>
@@ -66,12 +75,5 @@
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8asgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</guid>
     <description><![CDATA[使用ASGI进行部署 除了WSGI，Django还支持在ASGI上进行部署，ASGI是用于异步Web服务器和应用程序的新兴Python标准。 D]]></description>
-</item><item>
-    <title>Django使用WSGI进行部署</title>
-    <link>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</link>
-    <pubDate>Tue, 06 Feb 2018 22:08:04 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8wsgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</guid>
-    <description><![CDATA[简介 Django的主要部署平台是WSGI，这是Web服务器和应用程序的Python标准。 Django的startproject管理命令为您设]]></description>
 </item></channel>
 </rss>

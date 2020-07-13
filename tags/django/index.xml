@@ -3,13 +3,22 @@
         <title>Django - 标签 - 💗Nanase</title>
         <link>http://www.nishinonanase.xyz/tags/django/</link>
         <description>Django - 标签 - 💗Nanase</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 29 Jun 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/django/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 09 Jul 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/django/" rel="self" type="application/rss+xml" /><item>
     <title>Django&#43;Nginx&#43;uWSGI生产环境部署</title>
     <link>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</link>
-    <pubDate>Mon, 29 Jun 2020 20:37:58 &#43;0800</pubDate>
+    <pubDate>Thu, 09 Jul 2020 20:37:58 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</guid>
-    <description><![CDATA[WSGI是什么？ WSGI是一种规范，它定义了使用python编写的web app(django)与web server（uWSGI）之间接口格式]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://p3.music.126.net/WZ8Av-iscuwD2qxwib_qrg==/109951165117366911.jpg" referrerpolicy="no-referrer">
+            </div>WSGI是什么？ WSGI是一种规范，它定义了使用python编写的web app(django)与web server（uWSGI）之间接口格式]]></description>
+</item><item>
+    <title>Django信号调度</title>
+    <link>http://www.nishinonanase.xyz/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/</link>
+    <pubDate>Fri, 03 Jul 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/</guid>
+    <description><![CDATA[Django信号调度 Django中提供了&quot;信号调度&rdquo;,用于在框架执行操作时解耦. 一些动作发生的时候,系统会根据信号定义]]></description>
 </item><item>
     <title>Webshell</title>
     <link>http://www.nishinonanase.xyz/webshell/</link>
@@ -24,6 +33,13 @@
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E5%92%8C%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/</guid>
     <description><![CDATA[图形用户界面和游戏开发 基于tkinter模块的GUI GUI是图形用户界面的缩写，图形化的用户界面对使用过计算机的人来说应该都不陌生，在此也无]]></description>
+</item><item>
+    <title>查询集 QuerySet</title>
+    <link>http://www.nishinonanase.xyz/%E6%9F%A5%E8%AF%A2%E9%9B%86-queryset/</link>
+    <pubDate>Fri, 03 Jan 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E6%9F%A5%E8%AF%A2%E9%9B%86-queryset/</guid>
+    <description><![CDATA[概念 Django的ORM中存在查询集的概念。 查询集，也称查询结果集、QuerySet，表示从数据库中获取的对象集合。 当调用如下过滤器方法时，]]></description>
 </item><item>
     <title>Django的缓存框架</title>
     <link>http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/</link>
@@ -59,19 +75,5 @@
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/django%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A/</guid>
     <description><![CDATA[错误报告 在运行公共站点时，应始终关闭该 DEBUG设置。这将使您的服务器运行得更快，并且还可以防止恶意用户查看错误页面可能显示的应用程序详细信]]></description>
-</item><item>
-    <title>Django部署静态文章</title>
-    <link>http://www.nishinonanase.xyz/django%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E6%96%87%E7%AB%A0/</link>
-    <pubDate>Thu, 22 Feb 2018 22:08:04 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/django%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E6%96%87%E7%AB%A0/</guid>
-    <description><![CDATA[部署静态文件 也可以看看 有关使用的简介django.contrib.staticfiles，请参阅 管理静态文件（例如，图像，JavaScrip]]></description>
-</item><item>
-    <title>Django使用ASGI进行部署</title>
-    <link>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8asgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</link>
-    <pubDate>Thu, 15 Feb 2018 22:08:04 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8asgi%E8%BF%9B%E8%A1%8C%E9%83%A8%E7%BD%B2/</guid>
-    <description><![CDATA[使用ASGI进行部署 除了WSGI，Django还支持在ASGI上进行部署，ASGI是用于异步Web服务器和应用程序的新兴Python标准。 D]]></description>
 </item></channel>
 </rss>

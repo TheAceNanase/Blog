@@ -3,7 +3,14 @@
         <title>Python - 标签 - 💗Nanase</title>
         <link>http://www.nishinonanase.xyz/tags/python/</link>
         <description>Python - 标签 - 💗Nanase</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 03 Apr 2018 22:08:04 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/python/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 03 Jul 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/python/" rel="self" type="application/rss+xml" /><item>
+    <title>Django信号调度</title>
+    <link>http://www.nishinonanase.xyz/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/</link>
+    <pubDate>Fri, 03 Jul 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/</guid>
+    <description><![CDATA[Django信号调度 Django中提供了&quot;信号调度&rdquo;,用于在框架执行操作时解耦. 一些动作发生的时候,系统会根据信号定义]]></description>
+</item><item>
     <title>Django的缓存框架</title>
     <link>http://www.nishinonanase.xyz/django%E7%9A%84%E6%80%A7%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8C%96/</link>
     <pubDate>Tue, 03 Apr 2018 22:08:04 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/django%E5%B0%86mixins%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[在基于类的视图中使用mixins 警告： 这是一个高级主题。在探索这些技术之前，建议您对Django基于类的视图有一定的了解。 Django的内置]]></description>
-</item><item>
-    <title>Django使用基于类的视图进行表单处理</title>
-    <link>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E8%BF%9B%E8%A1%8C%E8%A1%A8%E5%8D%95%E5%A4%84%E7%90%86/</link>
-    <pubDate>Mon, 15 Jan 2018 22:08:04 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/django%E4%BD%BF%E7%94%A8%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E8%A7%86%E5%9B%BE%E8%BF%9B%E8%A1%8C%E8%A1%A8%E5%8D%95%E5%A4%84%E7%90%86/</guid>
-    <description><![CDATA[形成基于类的意见处理 表单处理通常具有3条路径： 初始GET（空白或预填充形式） POST包含无效数据（通常重新显示带有错误的表单） 使用有效数据进]]></description>
 </item></channel>
 </rss>

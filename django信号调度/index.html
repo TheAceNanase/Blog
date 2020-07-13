@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Django信号调度 - 💗Nanase</title><meta name="Description" content=""><meta property="og:title" content="Django信号调度" />
+<meta property="og:description" content="Django信号调度 Django中提供了&quot;信号调度&rdquo;,用于在框架执行操作时解耦. 一些动作发生的时候,系统会根据信号定义" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2020-07-03T20:37:58+08:00" />
+<meta property="article:modified_time" content="2020-07-03T20:37:58+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="Django信号调度"/>
+<meta name="twitter:description" content="Django信号调度 Django中提供了&quot;信号调度&rdquo;,用于在框架执行操作时解耦. 一些动作发生的时候,系统会根据信号定义"/>
+<meta name="application-name" content="💗Nanase">
+<meta name="apple-mobile-web-app-title" content="💗Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/" /><link rel="prev" href="http://www.nishinonanase.xyz/linux-supervisor/" /><link rel="next" href="http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Django信号调度",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6\/"
+        },"genre": "posts","keywords": "后端框架, Django, Python","wordcount":  1480 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6\/","datePublished": "2020-07-03T20:37:58+08:00","dateModified": "2020-07-03T20:37:58+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="💗Nanase">💗Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 🍑全部文章 </a><a class="menu-item" href="/tags/"> 🍊标签 </a><a class="menu-item" href="/categories/"> 🍓分类 </a><a class="menu-item" href="/about/"> 🥝关于 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"> 🍋GitHub </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="💗Nanase">💗Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">🍑全部文章</a><a class="menu-item" href="/tags/" title="">🍊标签</a><a class="menu-item" href="/categories/" title="">🍓分类</a><a class="menu-item" href="/about/" title="">🥝关于</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank">🍋GitHub</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Django信号调度</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/"><i class="far fa-folder fa-fw"></i>基础理论</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-07-03">2020-07-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1480 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/" class="leancloud_visitors" data-flag-title="Django信号调度">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#django信号调度">Django信号调度</a>
+          <ul>
+            <li><a href="#信号系统包含以下三要素">信号系统包含以下三要素：</a></li>
+            <li><a href="#django内置了一整套信号下面是一些比较常用的">Django内置了一整套信号，下面是一些比较常用的：</a></li>
+            <li><a href="#监听信号">监听信号</a></li>
+            <li><a href="#自定义信号">自定义信号</a></li>
+            <li><a href="#发送信号">发送信号</a></li>
+            <li><a href="#断开信号">断开信号</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="django信号调度">Django信号调度</h2>
+<p>Django中提供了&quot;信号调度&rdquo;,用于在框架执行操作时解耦.</p>
+<p>一些动作发生的时候,系统会根据信号定义的函数执行相应的操作</p>
+<p>django自带一套信号机制来帮助我们在框架的不同位置之间传递信息。也就是说，当某一事件发生时，信号系统可以允许一个或多个发送者（senders）将通知或信号（signals）发送给一组接受者（receivers）。</p>
+<h3 id="信号系统包含以下三要素">信号系统包含以下三要素：</h3>
+<ul>
+<li>发送者－信号的发出方</li>
+<li>信号－信号本身</li>
+<li>接收者－信号的接受者</li>
+</ul>
+<h3 id="django内置了一整套信号下面是一些比较常用的">Django内置了一整套信号，下面是一些比较常用的：</h3>
+<ul>
+<li>django.db.models.signals.pre_save &amp; django.db.models.signals.post_save</li>
+</ul>
+<p>在ORM模型的save()方法调用之前或之后发送信号</p>
+<ul>
+<li>django.db.models.signals.pre_delete &amp; django.db.models.signals.post_delete</li>
+</ul>
+<p>在ORM模型或查询集的delete()方法调用之前或之后发送信号。</p>
+<ul>
+<li>django.db.models.signals.m2m_changed</li>
+</ul>
+<p>当多对多字段被修改时发送信号。</p>
+<ul>
+<li>django.core.signals.request_started &amp; django.core.signals.request_finished</li>
+</ul>
+<p>当接收和关闭HTTP请求时发送信号。</p>
+<h3 id="监听信号">监听信号</h3>
+<p>要接收信号，请使用Signal.connect()方法注册一个接收器。当信号发送后，会调用这个接收器。</p>
+<p>方法原型：</p>
+<p>Signal.connect(receiver, sender=None, weak=True, dispatch_uid=None)[source]</p>
+<p>参数：</p>
+<p>receiver ：当前信号连接的回调函数，也就是处理信号的函数。  sender ：指定从哪个发送方接收信号。  weak ： 是否弱引用 dispatch_uid ：信号接收器的唯一标识符，以防信号多次发送。</p>
+<p>下面以如何接收每次HTTP请求结束后发送的信号为例，连接到Django内置的现成的request_finished信号。</p>
+<ol>
+<li>编写接收器</li>
+</ol>
+<p>接收器其实就是一个Python函数或者方法：</p>
+<p>def my_callback(sender, **kwargs):    print(&ldquo;Request finished!&quot;)</p>
+<p>请注意，所有的接收器都必须接收一个sender参数和一个**kwargs通配符参数。</p>
+<ol start="2">
+<li>连接接收器</li>
+</ol>
+<p>有两种方法可以连接接收器，一种是下面的手动方式：</p>
+<p>from django.core.signals import request_finished request_finished.connect(my_callback)</p>
+<p>另一种是使用receiver()装饰器：</p>
+<p>from django.core.signals import request_finished from django.dispatch import receiver @receiver(request_finished) def my_callback(sender, **kwargs):    print(&ldquo;Request finished!&quot;)</p>
+<ol start="3">
+<li>接收特定发送者的信号</li>
+</ol>
+<p>一个信号接收器，通常不需要接收所有的信号，只需要接收特定发送者发来的信号，所以需要在sender参数中，指定发送方。下面的例子，只接收MyModel模型的实例保存前的信号。</p>
+<p>from django.db.models.signals import pre_save from django.dispatch import receiver from myapp.models import MyModel @receiver(pre_save, sender=MyModel) def my_handler(sender, **kwargs):    &hellip;</p>
+<p>my_handler函数只在MyModel实例保存时被调用。</p>
+<ol start="4">
+<li>防止重复信号</li>
+</ol>
+<p>为了防止重复信号，可以设置dispatch_uid参数来标识你的接收器，标识符通常是一个字符串，如下所示：</p>
+<p>from django.core.signals import request_finished request_finished.connect(my_callback, dispatch_uid=&quot;my_unique_identifier&rdquo;)</p>
+<p>最后的结果是，对于每个唯一的dispatch_uid值，你的接收器都只绑定到信号一次。</p>
+<h3 id="自定义信号">自定义信号</h3>
+<p>除了Django为我们提供的内置信号（比如前面列举的那些），很多时候，我们需要自己定义信号。</p>
+<p>类原型：class Signal(providing_args=list)[source]</p>
+<p>所有的信号都是django.dispatch.Signal的实例。providing_args参数是一个列表，由信号将提供给监听者的参数的名称组成。可以在任何时候修改providing_args参数列表。</p>
+<p>下面定义了一个新信号：</p>
+<p>import django.dispatch pizza_done = django.dispatch.Signal(providing_args=[&ldquo;toppings&rdquo;, &ldquo;size&rdquo;])</p>
+<p>上面的例子定义了pizza_done信号，它向接受者提供size和toppings 参数。</p>
+<h3 id="发送信号">发送信号</h3>
+<p>Django中有两种方法用于发送信号。</p>
+<p>Signal.send(sender, **kwargs)[source]  Signal.send_robust（sender， **kwargs）[source]</p>
+<p>必须提供sender参数（大部分情况下是一个类名），并且可以提供任意数量的其他关键字参数。</p>
+<p>例如，这样来发送前面的pizza_done信号：</p>
+<p>class PizzaStore(object):    &hellip;     def send_pizza(self, toppings, size):        pizza_done.send(sender=self.<strong>class</strong>, toppings=toppings, size=size)        &hellip;</p>
+<p>send()和send_robust()返回一个元组对的列表[（receiver, response）， &hellip; ]，表示接收器和响应值二元元组的列表。</p>
+<h3 id="断开信号">断开信号</h3>
+<p>方法：</p>
+<p>Signal.disconnect(receiver=None, sender=None, dispatch_uid=None)[source]</p>
+<p>Signal.disconnect()用来断开信号的接收器。和Signal.connect()中的参数相同。如果接收器成功断开，返回True，否则返回False。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-07-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/" data-title="Django信号调度" data-hashtags="后端框架,Django,Python"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/" data-hashtag="后端框架"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/" data-title="Django信号调度"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/" data-title="Django信号调度"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/" data-title="Django信号调度" data-ralateuid="5146819796"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6/">后端框架</a>,&nbsp;<a href="/tags/django/">Django</a>,&nbsp;<a href="/tags/python/">Python</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux-supervisor/" class="prev" rel="prev" title="Linux-supervisor"><i class="fas fa-angle-left fa-fw"></i>Linux-supervisor</a>
+            <a href="/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" class="next" rel="next" title="Django&#43;Nginx&#43;uWSGI生产环境部署">Django&#43;Nginx&#43;uWSGI生产环境部署<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由<a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 驱动 | 主题-<a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a> | 乃木坂46
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">书兰</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">欢迎微博关注@西野七瀬</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

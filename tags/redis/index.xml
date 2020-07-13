@@ -3,15 +3,55 @@
         <title>Redis - 标签 - 💗Nanase</title>
         <link>http://www.nishinonanase.xyz/tags/redis/</link>
         <description>Redis - 标签 - 💗Nanase</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 03 Jul 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/redis/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 11 Apr 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/redis/" rel="self" type="application/rss+xml" /><item>
+    <title>redis布隆过滤器</title>
+    <link>http://www.nishinonanase.xyz/redis%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/</link>
+    <pubDate>Sat, 11 Apr 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/redis%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/</guid>
+    <description><![CDATA[布隆过滤器是什么？判断某个key一定不存在 本质上布隆过滤器是一种数据结构，比较巧妙的概率型数据结构 特点是高效地插入和查询，可以用来告诉你 “某]]></description>
+</item><item>
     <title>redis 穿透、雪崩、击穿</title>
     <link>http://www.nishinonanase.xyz/redis-%E7%A9%BF%E9%80%8F%E9%9B%AA%E5%B4%A9%E5%87%BB%E7%A9%BF/</link>
-    <pubDate>Fri, 03 Jul 2020 20:37:58 &#43;0800</pubDate>
+    <pubDate>Fri, 03 Apr 2020 20:37:58 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/redis-%E7%A9%BF%E9%80%8F%E9%9B%AA%E5%B4%A9%E5%87%BB%E7%A9%BF/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://p3.music.126.net/WZ8Av-iscuwD2qxwib_qrg==/109951165117366911.jpg" referrerpolicy="no-referrer">
-            </div>redis穿透 什么是redis穿透？ 查询一个一定不存在的数据，由于缓存是不命中时被动写的，并且出于容错考虑，如果从存储层查不到数据则不写入缓]]></description>
+    <description><![CDATA[redis穿透 什么是redis穿透？ 查询一个一定不存在的数据，由于缓存是不命中时被动写的，并且出于容错考虑，如果从存储层查不到数据则不写入缓]]></description>
+</item><item>
+    <title>redis慢查询日志</title>
+    <link>http://www.nishinonanase.xyz/redis%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97/</link>
+    <pubDate>Mon, 16 Mar 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/redis%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97/</guid>
+    <description><![CDATA[Redis慢查询日志记录 慢查询日志帮助开发和运维人员定位系统存在的慢操作。慢查询日志就是系统在命令执行前后计算每条命令的执行时间，当超过预设]]></description>
+</item><item>
+    <title>redis的codis集群</title>
+    <link>http://www.nishinonanase.xyz/redis%E7%9A%84codis%E9%9B%86%E7%BE%A4/</link>
+    <pubDate>Wed, 11 Mar 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/redis%E7%9A%84codis%E9%9B%86%E7%BE%A4/</guid>
+    <description><![CDATA[Codis 是一个分布式 Redis 解决方案, 对于上层的应用来说, 连接到 Codis Proxy 和连接原生的 Redis Server 没有明显的区别 (不支持的命令列表), 上层应用可以像使用单机的 Redis 一样使]]></description>
+</item><item>
+    <title>redis内存淘汰策略</title>
+    <link>http://www.nishinonanase.xyz/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/</link>
+    <pubDate>Mon, 09 Mar 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/</guid>
+    <description><![CDATA[为什么需要redis内存淘汰策略 Redis作为当前最常用的开源内存数据库，性能十分高，据官方数据表示Redis读的速度是110000次/s,]]></description>
+</item><item>
+    <title>redis哨兵</title>
+    <link>http://www.nishinonanase.xyz/redis%E5%93%A8%E5%85%B5/</link>
+    <pubDate>Sun, 16 Feb 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/redis%E5%93%A8%E5%85%B5/</guid>
+    <description><![CDATA[为什么需要哨兵 Redis的主从复制下，一旦主节点由于故障不能提供服务，需要人工将从节点晋升为主节点，同时还要通知应用方更新主节点地址，对于很]]></description>
+</item><item>
+    <title>redis主从同步</title>
+    <link>http://www.nishinonanase.xyz/redis%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5/</link>
+    <pubDate>Mon, 20 Jan 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/redis%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5/</guid>
+    <description><![CDATA[Redis 主从同步 Redis主从同步。数据可以从主服务器向任意数量的从服务器上同步，从服务器可以是关联其他从服务器的主服务器。这使得Redis可执行]]></description>
 </item><item>
     <title>Redis持久化</title>
     <link>http://www.nishinonanase.xyz/redis%E6%8C%81%E4%B9%85%E5%8C%96/</link>

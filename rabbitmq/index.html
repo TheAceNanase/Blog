@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>RabbitMQ - 💗Nanase</title><meta name="Description" content=""><meta property="og:title" content="RabbitMQ" />
+<meta property="og:description" content="RabbitMQ简介 以熟悉的电商场景为例，如果商品服务和订单服务是两个不同的微服务，在下单的过程中订单服务需要调用商品服务进行扣库存操作。按" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/rabbitmq/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2020-05-13T20:37:58+08:00" />
+<meta property="article:modified_time" content="2020-05-13T20:37:58+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="RabbitMQ"/>
+<meta name="twitter:description" content="RabbitMQ简介 以熟悉的电商场景为例，如果商品服务和订单服务是两个不同的微服务，在下单的过程中订单服务需要调用商品服务进行扣库存操作。按"/>
+<meta name="application-name" content="💗Nanase">
+<meta name="apple-mobile-web-app-title" content="💗Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/rabbitmq/" /><link rel="prev" href="http://www.nishinonanase.xyz/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E5%87%89%E8%8F%9C/" /><link rel="next" href="http://www.nishinonanase.xyz/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "RabbitMQ",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/rabbitmq\/"
+        },"genre": "posts","keywords": "RabbitMQ, 技术要点","wordcount":  2771 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/rabbitmq\/","datePublished": "2020-05-13T20:37:58+08:00","dateModified": "2020-05-13T20:37:58+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="💗Nanase">💗Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 🍑全部文章 </a><a class="menu-item" href="/tags/"> 🍊标签 </a><a class="menu-item" href="/categories/"> 🍓分类 </a><a class="menu-item" href="/about/"> 🥝关于 </a><a class="menu-item" href="https://github.com/TheAceNanase" rel="noopener noreffer" target="_blank"> 🍋GitHub </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="💗Nanase">💗Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">🍑全部文章</a><a class="menu-item" href="/tags/" title="">🍊标签</a><a class="menu-item" href="/categories/" title="">🍓分类</a><a class="menu-item" href="/about/" title="">🥝关于</a><a class="menu-item" href="https://github.com/TheAceNanase" title="" rel="noopener noreffer" target="_blank">🍋GitHub</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">RabbitMQ</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/"><i class="far fa-folder fa-fw"></i>技术要点</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-13">2020-05-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2771 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/rabbitmq/" class="leancloud_visitors" data-flag-title="RabbitMQ">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#rabbitmq简介">RabbitMQ简介</a></li>
+        <li><a href="#rabbitmq-的使用场景有哪些">rabbitmq 的使用场景有哪些？</a></li>
+        <li><a href="#rabbitmq-有哪些重要的角色">rabbitmq 有哪些重要的角色？</a></li>
+        <li><a href="#rabbitmq-有哪些重要的组件">rabbitmq 有哪些重要的组件？</a></li>
+        <li><a href="#rabbitmq-中-vhost-的作用是什么">rabbitmq 中 vhost 的作用是什么？</a></li>
+        <li><a href="#rabbitmq-的消息是怎么发送的">rabbitmq 的消息是怎么发送的？</a></li>
+        <li><a href="#rabbitmq-怎么保证消息的稳定性">rabbitmq 怎么保证消息的稳定性？</a></li>
+        <li><a href="#rabbitmq-怎么避免消息丢失">rabbitmq 怎么避免消息丢失？</a></li>
+        <li><a href="#要保证消息持久化成功的条件有哪些">要保证消息持久化成功的条件有哪些？</a></li>
+        <li><a href="#rabbitmq-持久化有什么缺点">rabbitmq 持久化有什么缺点？</a></li>
+        <li><a href="#rabbitmq-有几种广播类型">rabbitmq 有几种广播类型？</a>
+          <ul>
+            <li><a href="#三种广播模式">三种广播模式：</a></li>
+          </ul>
+        </li>
+        <li><a href="#rabbitmq-怎么实现延迟消息队列">rabbitmq 怎么实现延迟消息队列？</a></li>
+        <li><a href="#rabbitmq-集群有什么用">rabbitmq 集群有什么用？</a></li>
+        <li><a href="#rabbitmq-节点的类型有哪些">rabbitmq 节点的类型有哪些？</a></li>
+        <li><a href="#rabbitmq-集群搭建需要注意哪些问题">rabbitmq 集群搭建需要注意哪些问题？</a></li>
+        <li><a href="#rabbitmq-每个节点是其他节点的完整拷贝吗为什么">rabbitmq 每个节点是其他节点的完整拷贝吗？为什么？</a></li>
+        <li><a href="#rabbitmq-集群中唯一一个磁盘节点崩溃了会发生什么情况">rabbitmq 集群中唯一一个磁盘节点崩溃了会发生什么情况？</a></li>
+        <li><a href="#rabbitmq-对集群节点停止顺序有要求吗">rabbitmq 对集群节点停止顺序有要求吗？</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="rabbitmq简介">RabbitMQ简介</h2>
+<p>以熟悉的电商场景为例，如果商品服务和订单服务是两个不同的微服务，在下单的过程中订单服务需要调用商品服务进行扣库存操作。按照传统的方式，下单过程要等到调用完毕之后才能返回下单成功，如果网络产生波动等原因使得商品服务扣库存延迟或者失败，会带来较差的用户体验，如果在高并发的场景下，这样的处理显然是不合适的，那怎么进行优化呢？这就需要消息队列登场了。
+消息队列提供一个异步通信机制，消息的发送者不必一直等待到消息被成功处理才返回，而是立即返回。消息中间件负责处理网络通信，如果网络连接不可用，消息被暂存于队列当中，当网络畅通的时候在将消息转发给相应的应用程序或者服务，当然前提是这些服务订阅了该队列。如果在商品服务和订单服务之间使用消息中间件，既可以提高并发量，又降低服务之间的耦合度。
+RabbitMQ就是这样一款我们苦苦追寻的消息队列。RabbitMQ是一个开源的消息代理的队列服务器，用来通过普通协议在完全不同的应用之间共享数据。
+RabbitMQ是使用Erlang语言来编写的，并且RabbitMQ是基于AMQP协议的。Erlang语言在数据交互方面性能优秀，有着和原生Socket一样的延迟，这也是RabbitMQ高性能的原因所在。可谓“人如其名”，RabbitMQ像兔子一样迅速。</p>
+<h2 id="rabbitmq-的使用场景有哪些">rabbitmq 的使用场景有哪些？</h2>
+<p>①. 跨系统的异步通信，所有需要异步交互的地方都可以使用消息队列。就像我们除了打电话（同步）以外，还需要发短信，发电子邮件（异步）的通讯方式。</p>
+<p>②. 多个应用之间的耦合，由于消息是平台无关和语言无关的，而且语义上也不再是函数调用，因此更适合作为多个应用之间的松耦合的接口。基于消息队列的耦合，不需要发送方和接收方同时在线。在企业应用集成（EAI）中，文件传输，共享数据库，消息队列，远程过程调用都可以作为集成的方法。</p>
+<p>③. 应用内的同步变异步，比如订单处理，就可以由前端应用将订单信息放到队列，后端应用从队列里依次获得消息处理，高峰时的大量订单可以积压在队列里慢慢处理掉。由于同步通常意味着阻塞，而大量线程的阻塞会降低计算机的性能。</p>
+<p>④. 消息驱动的架构（EDA），系统分解为消息队列，和消息制造者和消息消费者，一个处理流程可以根据需要拆成多个阶段（Stage），阶段之间用队列连接起来，前一个阶段处理的结果放入队列，后一个阶段从队列中获取消息继续处理。</p>
+<p>⑤. 应用需要更灵活的耦合方式，如发布订阅，比如可以指定路由规则。</p>
+<p>⑥. 跨局域网，甚至跨城市的通讯（CDN行业），比如北京机房与广州机房的应用程序的通信。</p>
+<h2 id="rabbitmq-有哪些重要的角色">rabbitmq 有哪些重要的角色？</h2>
+<p>RabbitMQ 中重要的角色有：生产者、消费者和代理：</p>
+<ul>
+<li>生产者：消息的创建者，负责创建和推送数据到消息服务器；</li>
+<li>消费者：消息的接收方，用于处理数据和确认消息；</li>
+<li>代理：就是 RabbitMQ 本身，用于扮演“快递”的角色，本身不生产消息，只是扮演“快递”的角色。</li>
+</ul>
+<h2 id="rabbitmq-有哪些重要的组件">rabbitmq 有哪些重要的组件？</h2>
+<ul>
+<li>ConnectionFactory（连接管理器）：应用程序与Rabbit之间建立连接的管理器，程序代码中使用。</li>
+<li>Channel（信道）：消息推送使用的通道。</li>
+<li>Exchange（交换器）：用于接受、分配消息。</li>
+<li>Queue（队列）：用于存储生产者的消息。</li>
+<li>RoutingKey（路由键）：用于把生成者的数据分配到交换器上。</li>
+<li>BindingKey（绑定键）：用于把交换器的消息绑定到队列上。</li>
+</ul>
+<h2 id="rabbitmq-中-vhost-的作用是什么">rabbitmq 中 vhost 的作用是什么？</h2>
+<p>vhost 可以理解为虚拟 broker ，即 mini-RabbitMQ  server。其内部均含有独立的 queue、exchange 和 binding 等，但最最重要的是，其拥有独立的权限系统，可以做到 vhost 范围的用户控制。当然，从 RabbitMQ 的全局角度，vhost 可以作为不同权限隔离的手段（一个典型的例子就是不同的应用可以跑在不同的 vhost 中）。</p>
+<h2 id="rabbitmq-的消息是怎么发送的">rabbitmq 的消息是怎么发送的？</h2>
+<p>首先客户端必须连接到 RabbitMQ 服务器才能发布和消费消息，客户端和 rabbit server 之间会创建一个 tcp 连接，一旦 tcp 打开并通过了认证（认证就是你发送给 rabbit 服务器的用户名和密码），你的客户端和 RabbitMQ 就创建了一条 amqp 信道（channel），信道是创建在“真实” tcp 上的虚拟连接，amqp 命令都是通过信道发送出去的，每个信道都会有一个唯一的 id，不论是发布消息，订阅队列都是通过这个信道完成的。</p>
+<h2 id="rabbitmq-怎么保证消息的稳定性">rabbitmq 怎么保证消息的稳定性？</h2>
+<p>提供了事务的功能。</p>
+<p>通过将 channel 设置为 confirm（确认）模式。</p>
+<h2 id="rabbitmq-怎么避免消息丢失">rabbitmq 怎么避免消息丢失？</h2>
+<ol>
+<li>消息持久化</li>
+<li>ACK确认机制</li>
+<li>设置集群镜像模式</li>
+<li>消息补偿机制</li>
+</ol>
+<h2 id="要保证消息持久化成功的条件有哪些">要保证消息持久化成功的条件有哪些？</h2>
+<ol>
+<li>声明队列必须设置持久化 durable 设置为 true.</li>
+<li>消息推送投递模式必须设置持久化，deliveryMode 设置为 2（持久）。</li>
+<li>消息已经到达持久化交换器。</li>
+<li>消息已经到达持久化队列。</li>
+</ol>
+<p>以上四个条件都满足才能保证消息持久化成功。</p>
+<h2 id="rabbitmq-持久化有什么缺点">rabbitmq 持久化有什么缺点？</h2>
+<p>持久化的缺地就是降低了服务器的吞吐量，因为使用的是磁盘而非内存存储，从而降低了吞吐量。可尽量使用 ssd 硬盘来缓解吞吐量的问题。</p>
+<h2 id="rabbitmq-有几种广播类型">rabbitmq 有几种广播类型？</h2>
+<h3 id="三种广播模式">三种广播模式：</h3>
+<ol>
+<li>fanout: 所有bind到此exchange的queue都可以接收消息（纯广播，绑定到RabbitMQ的接受者都能收到消息）；</li>
+<li>direct: 通过routingKey和exchange决定的那个唯一的queue可以接收消息；</li>
+<li>topic:所有符合routingKey(此时可以是一个表达式)的routingKey所bind的queue可以接收消息；</li>
+</ol>
+<h2 id="rabbitmq-怎么实现延迟消息队列">rabbitmq 怎么实现延迟消息队列？</h2>
+<ol>
+<li>通过消息过期后进入死信交换器，再由交换器转发到延迟消费队列，实现延迟功能；</li>
+<li>使用 RabbitMQ-delayed-message-exchange 插件实现延迟功能。</li>
+</ol>
+<h2 id="rabbitmq-集群有什么用">rabbitmq 集群有什么用？</h2>
+<p>集群主要有以下两个用途：</p>
+<blockquote>
+<p>高可用：某个服务器出现问题，整个 RabbitMQ 还可以继续使用；
+高容量：集群可以承载更多的消息量。</p>
+</blockquote>
+<h2 id="rabbitmq-节点的类型有哪些">rabbitmq 节点的类型有哪些？</h2>
+<p>磁盘节点：消息会存储到磁盘。</p>
+<p>内存节点：消息都存储在内存中，重启服务器消息丢失，性能高于磁盘类型。</p>
+<h2 id="rabbitmq-集群搭建需要注意哪些问题">rabbitmq 集群搭建需要注意哪些问题？</h2>
+<p>各节点之间使用“&ndash;link”连接，此属性不能忽略。</p>
+<p>各节点使用的 erlang cookie 值必须相同，此值相当于“秘钥”的功能，用于各节点的认证。</p>
+<p>整个集群中必须包含一个磁盘节点。</p>
+<h2 id="rabbitmq-每个节点是其他节点的完整拷贝吗为什么">rabbitmq 每个节点是其他节点的完整拷贝吗？为什么？</h2>
+<p>不是，原因有以下两个：</p>
+<ol>
+<li>存储空间的考虑：如果每个节点都拥有所有队列的完全拷贝，这样新增节点不但没有新增存储空间，反而增加了更多的冗余数据；</li>
+<li>性能的考虑：如果每条消息都需要完整拷贝到每一个集群节点，那新增节点并没有提升处理消息的能力，最多是保持和单节点相同的性能甚至是更糟。</li>
+</ol>
+<h2 id="rabbitmq-集群中唯一一个磁盘节点崩溃了会发生什么情况">rabbitmq 集群中唯一一个磁盘节点崩溃了会发生什么情况？</h2>
+<p>如果唯一磁盘的磁盘节点崩溃了，不能进行以下操作：</p>
+<ul>
+<li>不能创建队列</li>
+<li>不能创建交换器</li>
+<li>不能创建绑定</li>
+<li>不能添加用户</li>
+<li>不能更改权限</li>
+<li>不能添加和删除集群节点</li>
+</ul>
+<p>唯一磁盘节点崩溃了，集群是可以保持运行的，但你不能更改任何东西。</p>
+<h2 id="rabbitmq-对集群节点停止顺序有要求吗">rabbitmq 对集群节点停止顺序有要求吗？</h2>
+<p>RabbitMQ 对集群的停止的顺序是有要求的，应该先关闭内存节点，最后再关闭磁盘节点。如果顺序恰好相反的话，可能会造成消息的丢失。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-05-13</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/rabbitmq/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://www.nishinonanase.xyz/rabbitmq/" data-title="RabbitMQ" data-hashtags="RabbitMQ,技术要点"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://www.nishinonanase.xyz/rabbitmq/" data-hashtag="RabbitMQ"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://www.nishinonanase.xyz/rabbitmq/" data-title="RabbitMQ"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://www.nishinonanase.xyz/rabbitmq/" data-title="RabbitMQ"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://www.nishinonanase.xyz/rabbitmq/" data-title="RabbitMQ" data-ralateuid="5146819796"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/rabbitmq/">RabbitMQ</a>,&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/">技术要点</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%B0%8F%E5%AE%81%E7%9A%84%E7%88%B1%E5%90%83%E5%8E%A8%E6%88%BF-%E5%87%89%E8%8F%9C/" class="prev" rel="prev" title="小宁的爱吃厨房--凉菜"><i class="fas fa-angle-left fa-fw"></i>小宁的爱吃厨房--凉菜</a>
+            <a href="/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F/" class="next" rel="next" title="Oauth2.0四种授权模式">Oauth2.0四种授权模式<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由<a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 驱动 | 主题-<a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a> | 乃木坂46
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">书兰</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">欢迎微博关注@西野七瀬</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"pYP10MBmXAHPlpAH6etQREAF-gzGzoHsz","appKey":"U85Rh0XAdTAh3amYgmCcv8no","avatar":"mm","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
