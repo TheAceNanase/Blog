@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>tornado请求与响应 - 💗Nanase</title><meta name="Description" content=""><meta property="og:title" content="tornado请求与响应" />
+<meta property="og:description" content="tornado请求与响应 1. 传递请求参数 在Web应用开发中最为重要的是请求与响应，如何获取请求URL中传递的参数，以及如何响应都是十分重要的。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/tornado%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2020-09-06T20:37:58+08:00" />
+<meta property="article:modified_time" content="2020-09-06T20:37:58+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="tornado请求与响应"/>
+<meta name="twitter:description" content="tornado请求与响应 1. 传递请求参数 在Web应用开发中最为重要的是请求与响应，如何获取请求URL中传递的参数，以及如何响应都是十分重要的。"/>
+<meta name="application-name" content="💗Nanase">
+<meta name="apple-mobile-web-app-title" content="💗Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/tornado%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/" /><link rel="prev" href="http://www.nishinonanase.xyz/tornado%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99%E4%B8%8E%E8%A1%8C%E4%B8%BA%E6%96%B9%E6%B3%95%E4%B8%8E%E5%88%87%E5%85%A5%E7%82%B9%E5%87%BD%E6%95%B0/" /><link rel="next" href="http://www.nishinonanase.xyz/tornado%E8%B7%AF%E7%94%B1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "tornado请求与响应",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/tornado%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94\/"
+        },"genre": "posts","keywords": "Tornado, 技术要点","wordcount":  2473 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/tornado%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94\/","datePublished": "2020-09-06T20:37:58+08:00","dateModified": "2020-09-06T20:37:58+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="💗Nanase">💗Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 🍑全部文章 </a><a class="menu-item" href="/tags/"> 🍊标签 </a><a class="menu-item" href="/categories/"> 🍓分类 </a><a class="menu-item" href="/about/"> 🥝关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="💗Nanase">💗Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">🍑全部文章</a><a class="menu-item" href="/tags/" title="">🍊标签</a><a class="menu-item" href="/categories/" title="">🍓分类</a><a class="menu-item" href="/about/" title="">🥝关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">tornado请求与响应</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/"><i class="far fa-folder fa-fw"></i>技术要点</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-09-06">2020-09-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2473 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#tornado请求与响应">tornado请求与响应</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1-传递请求参数">1. 传递请求参数</a></li>
+            <li><a href="#2-请求获取参数案例">2. 请求获取参数案例</a></li>
+            <li><a href="#3-其他请求获取参数方法">3. 其他请求获取参数方法</a></li>
+            <li><a href="#4-输出">4. 输出</a></li>
+            <li><a href="#5-跳转案例">5. 跳转案例</a></li>
+            <li><a href="#6-回调add_callback">6. 回调add_callback</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="tornado请求与响应">tornado请求与响应</h1>
+<h3 id="1-传递请求参数">1. 传递请求参数</h3>
+<p>在Web应用开发中最为重要的是请求与响应，如何获取请求URL中传递的参数，以及如何响应都是十分重要的。</p>
+<p>参数的传递，可以在动态路由的配置时，通过定义带参URL形式传递参数。除此之外，如果不在URL配置时传递参数，还可以通过<b style="color:red;">get_argument()</b>方法获取参数值。</p>
+<p>请求URL地址为: http://location:8888/hello?name=xiaoming&amp;age=18，则获取请求中的参数，采用以下语法格式:</p>
+<p><b> 1）get_argument(name, default, strip=True) </b></p>
+<p>返回具有给定名称name的参数的值。参数说明: 如果参数name出现在URL中，则获取最后一个name参数对应的值。如果在URL中没有定义参数name，则返回default值。strip参数表示删除字符串两边的空格。</p>
+<p><b> 2）get_arguments(names, strip=True) </b></p>
+<p>返回具有给定名称name的参数列表。strip参数表示删除字符串两边的空格。</p>
+<h3 id="2-请求获取参数案例">2. 请求获取参数案例</h3>
+<p>获取GET请求传递的参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">import tornado.ioloop
+import tornado.web
+from tornado.options import define, options, parse_command_line
+
+# 定义默认的端口
+define(&#39;port&#39;, default=8000, type=int)
+
+class MainHandler(tornado.web.RequestHandler):
+	def get(self, *args, **kwargs):
+		# 获取请求URL中传递的name参数
+		name = self.get_argument(&#39;name&#39;, &#39;小明&#39;)
+		self.write(&#34;Hello, %s&#34; % name)
+
+def make_app():
+	return tornado.web.Application(handlers=[
+		(r&#34;/hello&#34;, MainHandler),
+	])
+
+if __name__ == &#34;__main__&#34;:
+	parse_command_line()
+	app = make_app()
+	app.listen(options.port)
+	tornado.ioloop.IOLoop.current().start()
+</code></pre></td></tr></table>
+</div>
+</div><p>定义get_argument()方法用以捕获请求URL中传递的参数，<b>分析如下</b>:</p>
+<ol>
+<li>
+<p>self.get_argument(‘name’, default)方法用于获取请求URL中传递的参数，如果获取不到URL中传递的name参数，则返回默认值。</p>
+</li>
+<li>
+<p>如果访问地址为http://127.0.0.1:8000/hello，使用self.get_argument(‘name’, default)方法获取不到请求URL中的name参数，则返回default默认值。</p>
+</li>
+<li>
+<p>如果访问地址为http://127.0.0.1:8000/hello?name=小王，则使用self.get_argument(‘name’, default)方法获取请求URL中的name参数，则返回值为‘小王’</p>
+</li>
+</ol>
+<p><b style="color:red;">注意: </b>使用get_argument()和get_arguments()方法获取的是提交GET请求时URL中传递的参数和POST请求提交参数的集合。</p>
+<h3 id="3-其他请求获取参数方法">3. 其他请求获取参数方法</h3>
+<p>获取请求URL中传递的参数还有以下的语法:</p>
+<ol>
+<li>
+<p>get_query_argument(name): 和get_argument语法相似，但该方法仅只能从URL中获取传递的参数值。</p>
+</li>
+<li>
+<p>get_query_arguments(name): 和get_arguments语法相似，也是只能仅从URL中获取传递的参数，返回的结果是列表。</p>
+</li>
+<li>
+<p>get_body_argument(name): 和get_argument语法相似，但仅只能从POST请求中获取提交的参数。</p>
+</li>
+<li>
+<p>get_body_arguments(name): 和get_arguments语法相似，也是只能从POST请求中获取提交的参数，返回的结果是列表。</p>
+</li>
+</ol>
+<p><b style="color:red;">总结:</b> 开发中常用get_argument和get_arguments方法，因为它们是get_query_argument、get_query_arguments和get_body_argument、get_body_arguments的合集。</p>
+<h3 id="4-输出">4. 输出</h3>
+<p>在Web开发中如何正确的响应输出给浏览器中。常用的响应输出的语法如下。</p>
+<p>语法格式:</p>
+<p><b> 1) set_status(status_code，reason=None) </b></p>
+<pre><code>设置响应的状态码，如果有描述信息，则赋值给reason参数。
+</code></pre>
+<p><b> 2) set_header(name, value) </b></p>
+<pre><code>设置给定的HTTP响应中Header名称和值，如果Header中已存在设置的名称，则覆盖Hearder的值。
+</code></pre>
+<p><b> 3) write() </b></p>
+<pre><code>将给定的块写入到输出缓冲区中，并发送给客户端（浏览器）。如果写入的内容为字典，则数据将以JSON的格式发送给客户端，并同时将响应的Content-Type设置为application/json。
+</code></pre>
+<p><b> 4) render(template_name, **kwargs) </b></p>
+<pre><code>用于渲染模板，template_name参数表示需要渲染的模板文件的名称。
+</code></pre>
+<p><b> 5) redirect(url，permanent=False，status=None) </b></p>
+<pre><code>用于重定向，url参数表示重定向的URL地址。
+</code></pre>
+<p><b> 6) add_header(name,value) </b></p>
+<pre><code>添加HTTP响应中的Header头参数
+</code></pre>
+<p><b> 7) clear_header(name) </b></p>
+<pre><code>清空HTTP响应中Header中所有的信息
+</code></pre>
+<p><b> 8) finish(chunk=None) </b></p>
+<pre><code>告知Tornado，Response响应已经完成，chunk参数表示传递给客户端的HTTP body。finish()方法适用于异步请求处理。
+</code></pre>
+<p><b> 9) send_error(status_code=500) </b></p>
+<pre><code>将给定的HTTP错误代码发送给浏览器
+</code></pre>
+<p><b> 10) wirte_error() </b></p>
+<pre><code>自定义错误页面
+</code></pre>
+<p><b> 11）clear() </b></p>
+<pre><code>清楚写入Header和body的内容
+</code></pre>
+<p><b> 12）flush() </b></p>
+<pre><code>将当前缓冲区数据刷新到网络
+</code></pre>
+<p><b> 13）set_cookie(name，value) </b></p>
+<pre><code>以键值对的形式设置cookie值
+</code></pre>
+<p><b> 14）clear_all_cookies(path=”/”，domain=None) </b></p>
+<pre><code>清空本次请求中所有cookie
+</code></pre>
+<p><b> 15）cookies </b></p>
+<pre><code>获取所有的cookie内容
+</code></pre>
+<p><b> 16）get_cookie(name，default) </b></p>
+<pre><code>返回具有给定名称的请求cookie的值，如果获取不到，则返回default参数
+</code></pre>
+<h3 id="5-跳转案例">5. 跳转案例</h3>
+<p>实现跳转。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">import tornado.ioloop
+import tornado.web
+from tornado.options import define, options, parse_command_line
+
+# 定义默认的端口
+define(&#39;port&#39;, default=8000, type=int)
+
+class HelloHandler(tornado.web.RequestHandler):
+	def get(self, *args, **kwargs):
+		self.write(&#34;hello tornado&#34;)
+		self.write(&#39;&lt;br/&gt;&#39;)
+		self.write(&#34;实现从路由&#39;/redirect/&#39;跳转到本方法中&#34;)
+
+class RedirectHandler(tornado.web.RequestHandler):
+	def get(self, *args, **kwargs):
+		# 使用redirect方法，跳转到根路径&#34;/&#34;地址
+		self.redirect(&#39;/&#39;)
+
+def make_app():
+	return tornado.web.Application(handlers=[
+		(r&#34;/redirect/&#34;, RedirectHandler),
+		(r&#34;/&#34;, HelloHandler),
+	])
+
+if __name__ == &#34;__main__&#34;:
+	parse_command_line()
+	app = make_app()
+	app.listen(options.port)
+	tornado.ioloop.IOLoop.current().start()
+</code></pre></td></tr></table>
+</div>
+</div><p>当在浏览器中访问http://127.0.0.1:8000/redirect/地址时，实现分析如下:</p>
+<p>路由匹配规则会自动匹配URL路由表，并调用处理器RedirectHandler中的HTTP行为方法get()，在该方法中进行跳转处理，使用redirect(url)方法进行跳转到url地址。在HelloHandler的get()方法中使用self.write()向缓存中写入数据，当函数结束后才将缓存中的数据渲染到页面中。</p>
+<h3 id="6-回调add_callback">6. 回调add_callback</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">IOLoop.current().add_callback(回调任务)
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-09-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/tornado%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/tornado/">Tornado</a>,&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/">技术要点</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/tornado%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99%E4%B8%8E%E8%A1%8C%E4%B8%BA%E6%96%B9%E6%B3%95%E4%B8%8E%E5%88%87%E5%85%A5%E7%82%B9%E5%87%BD%E6%95%B0/" class="prev" rel="prev" title="tornado路由规则与行为方法与切入点函数"><i class="fas fa-angle-left fa-fw"></i>tornado路由规则与行为方法与切入点函数</a>
+            <a href="/tornado%E8%B7%AF%E7%94%B1/" class="next" rel="next" title="tornado路由">tornado路由<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由<a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 驱动 | 主题-<a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a> | 乃木坂46
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">书兰</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">欢迎微博关注@西野七瀬</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

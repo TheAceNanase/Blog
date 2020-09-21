@@ -3,15 +3,57 @@
         <title>技术要点 - 标签 - 💗Nanase</title>
         <link>http://www.nishinonanase.xyz/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/</link>
         <description>技术要点 - 标签 - 💗Nanase</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 09 Jul 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 20 Sep 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/" rel="self" type="application/rss+xml" /><item>
+    <title>tornado数据库</title>
+    <link>http://www.nishinonanase.xyz/tornado%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <pubDate>Sun, 20 Sep 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/tornado%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://p3.music.126.net/WZ8Av-iscuwD2qxwib_qrg==/109951165117366911.jpg" referrerpolicy="no-referrer">
+            </div>前言 在Web开发中，数据的存储与读取都离不开数据库的支持，本章中将使用MySQL作为数据库，并使用pymysql驱动来连接Mysql。当然还]]></description>
+</item><item>
+    <title>tornado路由</title>
+    <link>http://www.nishinonanase.xyz/tornado%E8%B7%AF%E7%94%B1/</link>
+    <pubDate>Thu, 10 Sep 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/tornado%E8%B7%AF%E7%94%B1/</guid>
+    <description><![CDATA[tornado路由 前言 在Web开发中，路由的配置定义可以类似Django中urls.py文件这样定义，也可以类似Flask中通过装饰器的形式]]></description>
+</item><item>
+    <title>tornado请求与响应</title>
+    <link>http://www.nishinonanase.xyz/tornado%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/</link>
+    <pubDate>Sun, 06 Sep 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/tornado%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/</guid>
+    <description><![CDATA[tornado请求与响应 1. 传递请求参数 在Web应用开发中最为重要的是请求与响应，如何获取请求URL中传递的参数，以及如何响应都是十分重要的。]]></description>
+</item><item>
+    <title>tornado路由规则与行为方法与切入点函数</title>
+    <link>http://www.nishinonanase.xyz/tornado%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99%E4%B8%8E%E8%A1%8C%E4%B8%BA%E6%96%B9%E6%B3%95%E4%B8%8E%E5%88%87%E5%85%A5%E7%82%B9%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Sat, 22 Aug 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/tornado%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99%E4%B8%8E%E8%A1%8C%E4%B8%BA%E6%96%B9%E6%B3%95%E4%B8%8E%E5%88%87%E5%85%A5%E7%82%B9%E5%87%BD%E6%95%B0/</guid>
+    <description><![CDATA[tornado路由规则与行为方法与切入点函数 1. tornado路由规则定义 Tornado的官网中对路由的定义有一句描述: “A collection of request handlers that make up a web]]></description>
+</item><item>
+    <title>tornado使用操作指南--入门</title>
+    <link>http://www.nishinonanase.xyz/tornado%E4%BD%BF%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97-%E5%85%A5%E9%97%A8/</link>
+    <pubDate>Wed, 19 Aug 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/tornado%E4%BD%BF%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97-%E5%85%A5%E9%97%A8/</guid>
+    <description><![CDATA[新公司使用tornado框架较多，先自己了解一下相关知识。 1. tornado介绍 在Python的众多优秀的Web框架中，Tornado框架主要]]></description>
+</item><item>
+    <title>使用centos部署flask项目</title>
+    <link>http://www.nishinonanase.xyz/%E4%BD%BF%E7%94%A8centos%E9%83%A8%E7%BD%B2flask%E9%A1%B9%E7%9B%AE/</link>
+    <pubDate>Tue, 04 Aug 2020 20:37:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://www.nishinonanase.xyz/%E4%BD%BF%E7%94%A8centos%E9%83%A8%E7%BD%B2flask%E9%A1%B9%E7%9B%AE/</guid>
+    <description><![CDATA[在CentOS中Flask的项目部署和Django项目部署有异曲同工之效, 包括数据库的配置，远程设置访问,python3的安装都是相同的。在]]></description>
+</item><item>
     <title>Django&#43;Nginx&#43;uWSGI生产环境部署</title>
     <link>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</link>
     <pubDate>Thu, 09 Jul 2020 20:37:58 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://p3.music.126.net/WZ8Av-iscuwD2qxwib_qrg==/109951165117366911.jpg" referrerpolicy="no-referrer">
-            </div>WSGI是什么？ WSGI是一种规范，它定义了使用python编写的web app(django)与web server（uWSGI）之间接口格式]]></description>
+    <description><![CDATA[WSGI是什么？ WSGI是一种规范，它定义了使用python编写的web app(django)与web server（uWSGI）之间接口格式]]></description>
 </item><item>
     <title>项目部署上线指南</title>
     <link>http://www.nishinonanase.xyz/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E6%8C%87%E5%8D%97/</link>
@@ -33,47 +75,5 @@
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/oauth2.0%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F/</guid>
     <description><![CDATA[Oauth2 四种模式 Oauth2.0是一种授权协议，当然也归属为安全协议的范畴，在实际执行的时候就是保护互联网中不断增长的大量WEB API的安全访问。]]></description>
-</item><item>
-    <title>RabbitMQ</title>
-    <link>http://www.nishinonanase.xyz/rabbitmq/</link>
-    <pubDate>Wed, 13 May 2020 20:37:58 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/rabbitmq/</guid>
-    <description><![CDATA[RabbitMQ简介 以熟悉的电商场景为例，如果商品服务和订单服务是两个不同的微服务，在下单的过程中订单服务需要调用商品服务进行扣库存操作。按]]></description>
-</item><item>
-    <title>Websocket</title>
-    <link>http://www.nishinonanase.xyz/websocket/</link>
-    <pubDate>Thu, 23 Apr 2020 13:24:15 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/websocket/</guid>
-    <description><![CDATA[轮询：在前端通过写js实现。缺点：有延迟、服务器压力大。 1 2 就是客户端通过一定的时间间隔以频繁请求的方式向服务器发送请求，来保持客户端和服务]]></description>
-</item><item>
-    <title>Webshell</title>
-    <link>http://www.nishinonanase.xyz/webshell/</link>
-    <pubDate>Wed, 15 Apr 2020 13:24:15 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/webshell/</guid>
-    <description><![CDATA[Webshell “web”的含义是显然需要服务器开放web服务，“shell”的含义是取得对服务器某种程度上操作权限。webshell常常被称为通过网站端]]></description>
-</item><item>
-    <title>redis布隆过滤器</title>
-    <link>http://www.nishinonanase.xyz/redis%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/</link>
-    <pubDate>Sat, 11 Apr 2020 20:37:58 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/redis%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/</guid>
-    <description><![CDATA[布隆过滤器是什么？判断某个key一定不存在 本质上布隆过滤器是一种数据结构，比较巧妙的概率型数据结构 特点是高效地插入和查询，可以用来告诉你 “某]]></description>
-</item><item>
-    <title>redis 穿透、雪崩、击穿</title>
-    <link>http://www.nishinonanase.xyz/redis-%E7%A9%BF%E9%80%8F%E9%9B%AA%E5%B4%A9%E5%87%BB%E7%A9%BF/</link>
-    <pubDate>Fri, 03 Apr 2020 20:37:58 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/redis-%E7%A9%BF%E9%80%8F%E9%9B%AA%E5%B4%A9%E5%87%BB%E7%A9%BF/</guid>
-    <description><![CDATA[redis穿透 什么是redis穿透？ 查询一个一定不存在的数据，由于缓存是不命中时被动写的，并且出于容错考虑，如果从存储层查不到数据则不写入缓]]></description>
-</item><item>
-    <title>Vue组件中高德地图展示</title>
-    <link>http://www.nishinonanase.xyz/vue%E7%BB%84%E4%BB%B6%E4%B8%AD%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE%E5%B1%95%E7%A4%BA/</link>
-    <pubDate>Sat, 21 Mar 2020 19:29:51 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://www.nishinonanase.xyz/vue%E7%BB%84%E4%BB%B6%E4%B8%AD%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE%E5%B1%95%E7%A4%BA/</guid>
-    <description><![CDATA[vue-amap是一套基于Vue 2.0和高德地图的地图组件。 安装 1 2 npm install -S vue-amap 在main.js中引入 1 2 3 4 5 6 7 8 9 //引入 vue-amap import VueAMap from &#39;vue-amap&#39;; Vue.use(VueAMap); VueAMap.initAMapApiLoader({ key:]]></description>
 </item></channel>
 </rss>

@@ -146,13 +146,11 @@
 <p><em>注：本文以centos7为例。</em></p>
 <h2 id="二supervisor安装">二、supervisor安装</h2>
 <ol>
-<li>
-<p>配置好yum源后，可以直接安装</p>
+<li>配置好yum源后，可以直接安装</li>
+</ol>
 <p><code>yum ``install</code> <code>supervisor</code></p>
-</li>
-<li>
-<p>Debian/Ubuntu可通过apt安装</p>
-</li>
+<ol start="2">
+<li>Debian/Ubuntu可通过apt安装</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -173,18 +171,17 @@
 </div>
 </div><p>easy_install安装</p>
 <ol>
-<li>
+<li></li>
+</ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"> easy_install supervisor
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">easy_install supervisor
 </code></pre></td></tr></table>
 </div>
-</div></li>
-</ol>
-<h2 id="三supervisor使用">三、supervisor使用</h2>
+</div><h2 id="三supervisor使用">三、supervisor使用</h2>
 <h5 id="supervisor配置文件etcsupervisorsupervisordconf">supervisor配置文件：<code>/etc/supervisor/supervisord.conf</code></h5>
 <p><em>注：supervisor的配置文件默认是不全的，不过在大部分默认的情况下，上面说的基本功能已经满足。</em></p>
 <h5 id="子进程配置文件路径etcsupervisordd">子进程配置文件路径：<code>/etc/supervisord.d/</code></h5>
@@ -407,15 +404,21 @@
 </div>
 </div><h5 id="常见问题">常见问题</h5>
 <ol>
-<li>unix:///var/run/supervisor.sock no such file
-问题描述：安装好supervisor没有开启服务直接使用supervisorctl报的错
-解决办法：<code>supervisord -c /etc/supervisor/supervisord.conf</code></li>
-<li>command中指定的进程已经起来，但supervisor还不断重启
-问题描述：command中启动方式为后台启动，导致识别不到pid，然后不断重启，这里使用的是elasticsearch，command指定的是<code>$path/bin/elasticsearch -d</code>                 <br>
-解决办法：supervisor无法检测后台启动进程的pid，而supervisor本身就是后台启动守护进程，因此不用担心这个</li>
-<li>启动了多个supervisord服务，导致无法正常关闭服务
-问题描述：在运行<code>supervisord -c /etc/supervisor/supervisord.conf</code>之前，直接运行过<code>supervisord -c /etc/supervisord.d/xx.conf</code>导致有些进程被多个superviord管理，无法正常关闭进程。
-解决办法：使用<code>ps -fe | grep supervisord</code>查看所有启动过的supervisord服务，kill相关的进程。</li>
+<li>
+<p>unix:///var/run/supervisor.sock no such file</p>
+<p>问题描述：安装好supervisor没有开启服务直接使用supervisorctl报的错</p>
+<p>解决办法：<code>supervisord -c /etc/supervisor/supervisord.conf</code></p>
+</li>
+<li>
+<p>command中指定的进程已经起来，但supervisor还不断重启</p>
+<p>问题描述：command中启动方式为后台启动，导致识别不到pid，然后不断重启，这里使用的是elasticsearch，command指定的是<code>$path/bin/elasticsearch -d</code></p>
+<p>解决办法：supervisor无法检测后台启动进程的pid，而supervisor本身就是后台启动守护进程，因此不用担心这个</p>
+</li>
+<li>
+<p>启动了多个supervisord服务，导致无法正常关闭服务</p>
+<p>问题描述：在运行<code>supervisord -c /etc/supervisor/supervisord.conf</code>之前，直接运行过<code>supervisord -c /etc/supervisord.d/xx.conf</code>导致有些进程被多个superviord管理，无法正常关闭进程。</p>
+<p>解决办法：使用<code>ps -fe | grep supervisord</code>查看所有启动过的supervisord服务，kill相关的进程。</p>
+</li>
 </ol>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">

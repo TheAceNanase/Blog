@@ -11,11 +11,9 @@ Supervisor是用Python开发的一套通用的进程管理程序，能将一个�
 
 1. 配置好yum源后，可以直接安装
 
-    `yum ``install` `supervisor`
+`yum ``install` `supervisor`
 
 2. Debian/Ubuntu可通过apt安装
-
-    
 
 ```csharp
 apt-get install supervisor
@@ -29,9 +27,10 @@ pip install supervisor
 
 easy_install安装
 
-1. ```undefined
-    easy_install supervisor
-    ```
+1. 
+```undefined
+easy_install supervisor
+```
 
 ## 三、supervisor使用
 
@@ -170,11 +169,17 @@ systemctl enable supervisord.service    //将supervisor加入开机启动项
 ##### 常见问题
 
 1. unix:///var/run/supervisor.sock no such file
-     问题描述：安装好supervisor没有开启服务直接使用supervisorctl报的错
-     解决办法：`supervisord -c /etc/supervisor/supervisord.conf`
+
+    问题描述：安装好supervisor没有开启服务直接使用supervisorctl报的错
+    
+    解决办法：`supervisord -c /etc/supervisor/supervisord.conf`
 2. command中指定的进程已经起来，但supervisor还不断重启
-     问题描述：command中启动方式为后台启动，导致识别不到pid，然后不断重启，这里使用的是elasticsearch，command指定的是`$path/bin/elasticsearch -d`                    
-     解决办法：supervisor无法检测后台启动进程的pid，而supervisor本身就是后台启动守护进程，因此不用担心这个
+
+    问题描述：command中启动方式为后台启动，导致识别不到pid，然后不断重启，这里使用的是elasticsearch，command指定的是`$path/bin/elasticsearch -d`                    
+
+    解决办法：supervisor无法检测后台启动进程的pid，而supervisor本身就是后台启动守护进程，因此不用担心这个
 3. 启动了多个supervisord服务，导致无法正常关闭服务
-     问题描述：在运行`supervisord -c /etc/supervisor/supervisord.conf`之前，直接运行过`supervisord -c /etc/supervisord.d/xx.conf`导致有些进程被多个superviord管理，无法正常关闭进程。
-     解决办法：使用`ps -fe | grep supervisord`查看所有启动过的supervisord服务，kill相关的进程。
+    
+    问题描述：在运行`supervisord -c /etc/supervisor/supervisord.conf`之前，直接运行过`supervisord -c /etc/supervisord.d/xx.conf`导致有些进程被多个superviord管理，无法正常关闭进程。
+
+    解决办法：使用`ps -fe | grep supervisord`查看所有启动过的supervisord服务，kill相关的进程。

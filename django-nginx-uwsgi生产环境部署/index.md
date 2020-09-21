@@ -1,6 +1,5 @@
 # Django+Nginx+uWSGI生产环境部署
 
-![img](https://img2020.cnblogs.com/blog/1394324/202005/1394324-20200519152007439-2012338036.png)
 
  
 

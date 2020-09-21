@@ -9,9 +9,7 @@
     <pubDate>Thu, 09 Jul 2020 20:37:58 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/django-nginx-uwsgi%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://p3.music.126.net/WZ8Av-iscuwD2qxwib_qrg==/109951165117366911.jpg" referrerpolicy="no-referrer">
-            </div>WSGI是什么？ WSGI是一种规范，它定义了使用python编写的web app(django)与web server（uWSGI）之间接口格式]]></description>
+    <description><![CDATA[WSGI是什么？ WSGI是一种规范，它定义了使用python编写的web app(django)与web server（uWSGI）之间接口格式]]></description>
 </item><item>
     <title>项目部署上线指南</title>
     <link>http://www.nishinonanase.xyz/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E6%8C%87%E5%8D%97/</link>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>tornado使用操作指南--入门 - 💗Nanase</title><meta name="Description" content=""><meta property="og:title" content="tornado使用操作指南--入门" />
+<meta property="og:description" content="新公司使用tornado框架较多，先自己了解一下相关知识。 1. tornado介绍 在Python的众多优秀的Web框架中，Tornado框架主要" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.nishinonanase.xyz/tornado%E4%BD%BF%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97-%E5%85%A5%E9%97%A8/" />
+<meta property="og:image" content="http://www.nishinonanase.xyz/logo.png"/>
+<meta property="article:published_time" content="2020-08-19T20:37:58+08:00" />
+<meta property="article:modified_time" content="2020-08-19T20:37:58+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://www.nishinonanase.xyz/logo.png"/>
+
+<meta name="twitter:title" content="tornado使用操作指南--入门"/>
+<meta name="twitter:description" content="新公司使用tornado框架较多，先自己了解一下相关知识。 1. tornado介绍 在Python的众多优秀的Web框架中，Tornado框架主要"/>
+<meta name="application-name" content="💗Nanase">
+<meta name="apple-mobile-web-app-title" content="💗Nanase"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://www.nishinonanase.xyz/tornado%E4%BD%BF%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97-%E5%85%A5%E9%97%A8/" /><link rel="prev" href="http://www.nishinonanase.xyz/%E5%9C%A8%E4%B8%8A%E6%B5%B7%E6%89%BE%E5%88%B0%E6%96%B0%E5%B7%A5%E4%BD%9C%E5%95%A6%E5%BC%80%E5%BF%83/" /><link rel="next" href="http://www.nishinonanase.xyz/tornado%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99%E4%B8%8E%E8%A1%8C%E4%B8%BA%E6%96%B9%E6%B3%95%E4%B8%8E%E5%88%87%E5%85%A5%E7%82%B9%E5%87%BD%E6%95%B0/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "tornado使用操作指南--入门",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/www.nishinonanase.xyz\/tornado%E4%BD%BF%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97-%E5%85%A5%E9%97%A8\/"
+        },"genre": "posts","keywords": "Tornado, 技术要点","wordcount":  2755 ,
+        "url": "http:\/\/www.nishinonanase.xyz\/tornado%E4%BD%BF%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97-%E5%85%A5%E9%97%A8\/","datePublished": "2020-08-19T20:37:58+08:00","dateModified": "2020-08-19T20:37:58+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Nanase","logo": "http:\/\/www.nishinonanase.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Nanase"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="💗Nanase">💗Nanase</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 🍑全部文章 </a><a class="menu-item" href="/tags/"> 🍊标签 </a><a class="menu-item" href="/categories/"> 🍓分类 </a><a class="menu-item" href="/about/"> 🥝关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="💗Nanase">💗Nanase</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">🍑全部文章</a><a class="menu-item" href="/tags/" title="">🍊标签</a><a class="menu-item" href="/categories/" title="">🍓分类</a><a class="menu-item" href="/about/" title="">🥝关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">tornado使用操作指南--入门</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Nanase</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/"><i class="far fa-folder fa-fw"></i>技术要点</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-08-19">2020-08-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2755 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-tornado介绍">1. tornado介绍</a></li>
+        <li><a href="#2-安装tornado">2. 安装tornado</a>
+          <ul>
+            <li><a href="#21虚拟环境搭建">2.1虚拟环境搭建</a></li>
+            <li><a href="#22-安装">2.2 安装</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-基于tornado的最简单应用单进程">3. 基于tornado的最简单应用（单进程）</a>
+          <ul>
+            <li><a href="#31-代码分析">3.1 代码分析</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-修改启动方式使用命令行参数启动服务">4. 修改启动方式，使用命令行参数启动服务</a></li>
+        <li><a href="#5-基于tornado的最简单应用多进程">5. 基于tornado的最简单应用（多进程）</a></li>
+        <li><a href="#6-取消日志打印">6. 取消日志打印</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>新公司使用tornado框架较多，先自己了解一下相关知识。</p>
+<h2 id="1-tornado介绍">1. tornado介绍</h2>
+<p>在Python的众多优秀的Web框架中，Tornado框架主要用于处理日趋严峻的高并发问题，其在创建、扩展以及部署中都有非常优秀的体现。正是因为Tornado框架在设计之初就考虑到性能问题，旨在解决C1OK问题，这才将Tornado设计成为一个拥有非常高性能的框架。</p>
+<p>Tornado是基于Bret Taylor和其他人员为FriendFeed所开发的网络服务框架，得利于其非阻塞的方式和对epoll的运用，Tornado可以处理数以千计的连接，是理想的实时通信Web框架。因此如果需要编写一个可扩展性的应用、RESTful API或异步，那么Tornado框架是首选的选择。</p>
+<p><a href="http://www.tornadoweb.org/en/stable/" target="_blank" rel="noopener noreffer">官方文档地址</a></p>
+<p><a href="http://shouce.jb51.net/tornado/ch1.html#ch1-1-1" target="_blank" rel="noopener noreffer">资料文档地址</a></p>
+<h2 id="2-安装tornado">2. 安装tornado</h2>
+<h3 id="21虚拟环境搭建">2.1虚拟环境搭建</h3>
+<p>创建tornadoenv虚拟环境:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">virtualenv --no-site-packages -p D:\python3\python.exe tornadoenv
+</code></pre></td></tr></table>
+</div>
+</div><p>激活windows下虚拟环境:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd Scripts
+
+activate
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="22-安装">2.2 安装</h3>
+<p>在激活的虚拟环境tornadoenv中安装:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pip install tornado
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3-基于tornado的最简单应用单进程">3. 基于tornado的最简单应用（单进程）</h2>
+<p>创建FirstTornado.py文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+import tornado.ioloop
+import tornado.web
+class MainHandler(tornado.web.RequestHandler):
+
+​    def get(self):
+
+​      self.write(&#34;Hello, world&#34;)
+
+def make_app():
+
+​    return tornado.web.Application(handlers=[
+
+​      (r&#34;/hello&#34;, MainHandler),
+
+​    ])
+
+if __name__ == &#34;__main__&#34;:
+​    app = make_app()
+​    app.listen(8888)
+​    tornado.ioloop.IOLoop.current().start()
+</code></pre></td></tr></table>
+</div>
+</div><p>运行：python FirstTornado.py</p>
+<p>如下进行详细讲解每一行代码的含义，如下:</p>
+<p><b>编写一个Tornado应用中最多的工作是定义类继承Tornado的RequestHandler类。在这个例子中，我们创建了一个简单的应用，在给定的端口监听请求，并在路由（&quot;/hello&rdquo;）响应请求。</b></p>
+<p>你可以在命令行里尝试运行这个程序以测试输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">python hello.py
+</code></pre></td></tr></table>
+</div>
+</div><p>现在可以在浏览器中打开http://localhost:8888/hello，</p>
+<h3 id="31-代码分析">3.1 代码分析</h3>
+<p>示例中编写的Tornado应用没有使用任何Tornado的异步功能，只是定义了一个MainHandler类，并继承了Tornado的RequestHandler类。</p>
+<p>示例代码分析如下:</p>
+<p><b> 1) MainHandler类:</b></p>
+<p>MainHandler类是Tornado的请求处理函数类，当处理一个请求时，Tornado会实例化这个类，并调用与HTTP请求方法所对应的方法。在示例中的MainHandler类中定义了get方法，也就是说当HTTP请求方式为GET时，MainHandler中的get方法将会被调用并作出响应。</p>
+<p><b> 2）self.write()方法</b></p>
+<p>以一个字符串作为函数的参数，将字符串写入到HTTP响应中。</p>
+<p><b> 3）make_app()方法</b></p>
+<p>返回一个Tornado的Application类的实例，传递给Application类的__init__方法中的最重要的参数就是handlers，该参数表示告知Tornado应用应该调用那个类来处理响应。比如本例子中想调用MainHandler中的get方法，则应该访问http://127.0.0.1:8888/hello地址。</p>
+<p><b> 4) app.listen(8888)</b></p>
+<p>Application对象被创建后，可以调用listen()方法来监听端口和IP地址。如本例子中监听的端口为8888，由于IP地址没有定义，因此可直接访问127.0.0.1或者公网IP地址。</p>
+<p>如果app.listen(port=8888，address=‘localhost’)则表示只能通过本地127.0.0.1:8888访问。</p>
+<p>如果app.listen(port=8888, address='0.0.0.0&rsquo;)则表示可以通过127.0.0.1:8888或公网IP地址:8888访问。其效果和app.listen(8888)是一样的，address参数默认可不写。</p>
+<p>重点: app.listen()调用的代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from tornado.httpserver import HTTPServer
+server = HTTPServer(self, **kwargs)
+server.listen(port, address)
+return server
+
+</code></pre></td></tr></table>
+</div>
+</div><p><b> 5）tornado.ioloop.IOLoop.current().start()</b></p>
+<p>用于创建一个Tornado的IOLoop的实例，并一直运行Tornado项目，用于接收处理客户端的访问请求。</p>
+<p>在虚拟环境tornadoenv中运行FirstTornado.py文件，然后在浏览器中访问http://127.0.0.1:8888/hello地址或者http://公网ip地址:8888/hello地址</p>
+<h2 id="4-修改启动方式使用命令行参数启动服务">4. 修改启动方式，使用命令行参数启动服务</h2>
+<p>修改最简单的tornado程序,命名为helloTornado2.py。 如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">import tornado.ioloop
+import tornado.web
+from tornado.options import define, options, parse_command_line
+
+定义默认的端口
+define(&#39;port&#39;, default=8000, type=int)
+
+class MainHandler(tornado.web.RequestHandler):
+def get(self):
+​    self.write(&#34;Hello, world&#34;)
+
+def make_app():
+    return tornado.web.Application(handlers=[
+    ​    (r&#34;/hello&#34;, MainHandler),
+    ])
+
+if __name__ == &#34;__main__&#34;:
+
+    #解析命令行
+    parse_command_line()
+    #获取Application对象
+    app = make_app()
+    #监听端口
+    app.listen(options.port)
+    #启动IOLoop实例
+    tornado.ioloop.IOLoop.current().start()
+
+</code></pre></td></tr></table>
+</div>
+</div><p><b>Tornado中包含了一个有用的读取命令行的模块（tornado.options），可以使用tornado.options模块来指定应用监听HTTP请求的端口。</b></p>
+<p>读取命令行中的配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from tornado.options import define, options, parse_command_line
+</code></pre></td></tr></table>
+</div>
+</div><p>定义默认的端口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">define(&#39;port&#39;, default=8000, type=int)
+</code></pre></td></tr></table>
+</div>
+</div><p>导入tornado.options的define函数，define函数中接收了<b>三个参数</b>，分析如下:</p>
+<p><b> 1）第一个参数‘port’ </b></p>
+<p>表示定义的port参数将成为全局options的一个属性。</p>
+<p><b> 2）第二个参数default </b></p>
+<p>表示port属性的默认值，默认值为8000。如果在启动命令行中没有指定port参数，则项目启动的端口默认为8000。如果在启动命令行中指定了port参数，则使用命令行中的参数作为项目启动的端口。</p>
+<p><b> 3）第三个参数type </b></p>
+<p>用于做参数类型的校验，当不适合的参数类型被给予时会抛出异常。示例中指定type为int类型，则表示命令行中的指定的port参数必须为整型。</p>
+<p><b style="color:red;"> 启动并运行helloTornado2.py </b></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">python helloTornado2.py --port=8888
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="5-基于tornado的最简单应用多进程">5. 基于tornado的最简单应用（多进程）</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">import tornado.ioloop
+import tornado.web
+import tornado.httpserver
+from tornado.options import define, options, parse_command_line
+define(&#39;port&#39;, default=8000, type=int)
+
+class MainHandler(tornado.web.RequestHandler):
+
+def get(self):
+​    self.write(&#34;Hello, world&#34;)
+
+if __name__ == &#34;__main__&#34;:
+
+    #解析命令行
+    parse_command_line()
+    #获取Application对象
+    app = make_app()
+    #获取httpserver对象
+    server = tornado.httpserver.HTTPServer(app)
+    #监听端口
+    server.bind(options.port)
+    server.start(0)
+    #启动IOLoop实例
+    tornado.ioloop.IOLoop.current().start()
+</code></pre></td></tr></table>
+</div>
+</div><p>注意: 指定多进程的方式只能在linux下才可行，在windows下会报错。实例中代码server.start(num_processes)方法用于指定开启几个进程。</p>
+<ul>
+<li>
+<p>如果num_processes默认为1，表示开启一个进程。</p>
+</li>
+<li>
+<p>如果num_processes参数为None或者&lt;=0,则表示自动根据机器硬件的cpu核数创建同等数目的子进程。</p>
+</li>
+<li>
+<p>如果num_processes参数&gt;0，则创建num_processes个子进程。</p>
+</li>
+</ul>
+<p>因此在windows中num_processes一般不写或者写1。ss</p>
+<h2 id="6-取消日志打印">6. 取消日志打印</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+from tornado.options import options，parse_command_line
+取消日志打印
+options.logging=None
+解析命令行
+parse_command_line()
+
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-08-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/tornado%E4%BD%BF%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97-%E5%85%A5%E9%97%A8/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/tornado/">Tornado</a>,&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/">技术要点</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%9C%A8%E4%B8%8A%E6%B5%B7%E6%89%BE%E5%88%B0%E6%96%B0%E5%B7%A5%E4%BD%9C%E5%95%A6%E5%BC%80%E5%BF%83/" class="prev" rel="prev" title="💗在上海找到新工作啦，开心！"><i class="fas fa-angle-left fa-fw"></i>💗在上海找到新工作啦，开心！</a>
+            <a href="/tornado%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99%E4%B8%8E%E8%A1%8C%E4%B8%BA%E6%96%B9%E6%B3%95%E4%B8%8E%E5%88%87%E5%85%A5%E7%82%B9%E5%87%BD%E6%95%B0/" class="next" rel="next" title="tornado路由规则与行为方法与切入点函数">tornado路由规则与行为方法与切入点函数<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由<a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.68.3">Hugo</a> 驱动 | 主题-<a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a> | 乃木坂46
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2016 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">书兰</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a target="_blank" href="https://weibo.com/u/7266809683">欢迎微博关注@西野七瀬</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
