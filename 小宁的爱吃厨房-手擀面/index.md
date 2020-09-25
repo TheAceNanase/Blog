@@ -16,4 +16,4 @@
 
 做了一顿手擀面，味道很不错。手擀面就是要又大又圆，薄厚均匀哈哈。
 
-![img](https://wx3.sinaimg.cn/large/007Wn86Mly1gchpyxzshmj31w02iohdt.jpg)
+![img](https://s1.ax1x.com/2020/09/25/09tfKI.md.jpg)

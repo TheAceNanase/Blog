@@ -3,7 +3,8 @@
         <title>基础理论 - 分类 - 💗Nanase</title>
         <link>http://www.nishinonanase.xyz/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/</link>
         <description>基础理论 - 分类 - 💗Nanase</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 03 Jul 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1048792008@qq.com (书兰)</managingEditor>
+            <webMaster>1048792008@qq.com (书兰)</webMaster><lastBuildDate>Fri, 03 Jul 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/categories/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" rel="self" type="application/rss+xml" /><item>
     <title>Django信号调度</title>
     <link>http://www.nishinonanase.xyz/django%E4%BF%A1%E5%8F%B7%E8%B0%83%E5%BA%A6/</link>
     <pubDate>Fri, 03 Jul 2020 20:37:58 &#43;0800</pubDate>
@@ -16,7 +17,9 @@
     <pubDate>Wed, 01 Jul 2020 20:37:58 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://www.nishinonanase.xyz/linux-supervisor/</guid>
-    <description><![CDATA[一、supervisor简介 Supervisor是用Python开发的一套通用的进程管理程序，能将一个普通的命令行进程变为后台daemon，]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://p3.music.126.net/WZ8Av-iscuwD2qxwib_qrg==/109951165117366911.jpg" referrerpolicy="no-referrer">
+            </div>一、supervisor简介 Supervisor是用Python开发的一套通用的进程管理程序，能将一个普通的命令行进程变为后台daemon，]]></description>
 </item><item>
     <title>IO模型</title>
     <link>http://www.nishinonanase.xyz/io%E6%A8%A1%E5%9E%8B/</link>

@@ -28,4 +28,4 @@
 
 >❤️想要加银耳一定要事先煮得软糯，然后再放入醪糟和汤圆中煮开。
 
-![旱火锅](https://wx1.sinaimg.cn/mw1024/007Wn86Mly1gc0f22n5fxj31w02iokjm.jpg)
+![醪糟汤圆](https://s1.ax1x.com/2020/09/25/09tavR.md.jpg)

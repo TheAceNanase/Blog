@@ -12,5 +12,5 @@
 
 我家的秘籍是加上一点切开后的杏仁翻炒一会，味道特别妙。
 
-![img](https://wx4.sinaimg.cn/mw1024/005CjwWwly1gg7uxv0cwrj33402c0b2a.jpg)
+![img](https://s1.ax1x.com/2020/09/25/09a9gJ.md.jpg)
 

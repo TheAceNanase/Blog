@@ -16,4 +16,4 @@
 
 我常备的食材有：白菜、金针菇、杏鲍菇、萝卜、烧肉、豆腐、粉条、丸子、牛羊肉片等。
 
-![旱火锅](https://wx1.sinaimg.cn/mw1024/007Wn86Mly1gc0f22n5fxj31w02iokjm.jpg)
+![旱火锅](https://s1.ax1x.com/2020/09/25/09twK1.md.jpg)

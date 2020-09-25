@@ -3,7 +3,8 @@
         <title>Redis - 标签 - 💗Nanase</title>
         <link>http://www.nishinonanase.xyz/tags/redis/</link>
         <description>Redis - 标签 - 💗Nanase</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 11 Apr 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/redis/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1048792008@qq.com (书兰)</managingEditor>
+            <webMaster>1048792008@qq.com (书兰)</webMaster><lastBuildDate>Sat, 11 Apr 2020 20:37:58 &#43;0800</lastBuildDate><atom:link href="http://www.nishinonanase.xyz/tags/redis/" rel="self" type="application/rss+xml" /><item>
     <title>redis布隆过滤器</title>
     <link>http://www.nishinonanase.xyz/redis%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/</link>
     <pubDate>Sat, 11 Apr 2020 20:37:58 &#43;0800</pubDate>
